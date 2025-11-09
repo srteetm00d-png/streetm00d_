@@ -351,7 +351,8 @@ if (typeof products === 'undefined') {
         {id: 347, name: "Air Jordan 1 Low 'Starfish' 553558-800", size: "36-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
         {id: 348, name: "Air Jordan 1 Low 'Gym Red' 553558-600", size: "36-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
         {id: 349, name: "Air Jordan 1 Low 'Wolf Grey' 553558-003", size: "36-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
-        {id: 350, name: "Air Jordan 1 Low 'Varsity Red' 553558-600", size: "36-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."}
+        {id: 350, name: "Air Jordan 1 Low 'Varsity Red' 553558-600", size: "36-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 351, name: "Nocta Hot Step", size: "36-45", tipo: "stock", price_eur: 51, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."}
     ];
 }
 

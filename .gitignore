@@ -17,6 +17,7 @@ venv/
 *.log
 temp_products.txt
 products_raw.txt
+*.zip
 
 # IDE
 .vscode/

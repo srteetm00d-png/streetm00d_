@@ -352,73 +352,253 @@
             once: true
         });
 
-        // Available images from imagens_produtos folder
+        // Available images from imagens_produtos folder (including subfolders and multiple images per product)
+        // This array includes all images: _1.jpg, _2.jpg, _3.jpg, etc., and images from subfolders
         const availableImages = [
+            // Main folder images
             "Air Jordan 312_1.jpg",
             "Air Jordan 4 Retro_1.jpg",
+            "Air Jordan 4 Retro_2.jpg",
             "Air Jordans 1 CD4487-100_1.jpg",
+            "Air Jordans 1 CD4487-100_2.jpg",
             "Air Jordans 1 High University Blue 555088-134_1.jpg",
+            "Air Jordans 1 High University Blue 555088-134_2.jpg",
             "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_1.jpg",
+            "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_2.jpg",
             "AIR JORDANS 1 LOW \"Mystic Green\"553558-113_1.jpg",
+            "AIR JORDANS 1 LOW \"Mystic Green\"553558-113_2.jpg",
             "Air Jordans 1 Mid (GS)555112-500_1.jpg",
+            "Air Jordans 1 Mid (GS)555112-500_2.jpg",
             "Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092_1.jpg",
+            "Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092_2.jpg",
             "Air Jordans 1 Mid SE 852542-400_1.jpg",
+            "Air Jordans 1 Mid SE 852542-400_2.jpg",
             "Air Jordans 1 MID SE \"South Beach\"852542-306_1.jpg",
+            "Air Jordans 1 MID SE \"South Beach\"852542-306_2.jpg",
             "Air Jordans 1 Mid 'Candy' 554725-083_1.jpg",
+            "Air Jordans 1 Mid 'Candy' 554725-083_2.jpg",
             "Air Jordans 1 Mid \"Black Cone\" 554724-062_1.jpg",
+            "Air Jordans 1 Mid \"Black Cone\" 554724-062_2.jpg",
             "Air Jordans 1 Mid \"Chicago Black Toe\" 554724-069_1.jpg",
+            "Air Jordans 1 Mid \"Chicago Black Toe\" 554724-069_2.jpg",
             "Air Jordans 1 Mid \"Lakers Top 3\"852542-005_1.jpg",
+            "Air Jordans 1 Mid \"Lakers Top 3\"852542-005_2.jpg",
             "Air Jordans 1 Mid \"Multicolor\" 554724-125_1.jpg",
+            "Air Jordans 1 Mid \"Multicolor\" 554724-125_2.jpg",
             "Air Jordans 1 MID \"Top 3\" 554724-124_1.jpg",
+            "Air Jordans 1 MID \"Top 3\" 554724-124_2.jpg",
             "Air Jordans 1 Retro High CN8607-002_1.jpg",
+            "Air Jordans 1 Retro High CN8607-002_2.jpg",
             "Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_1.jpg",
+            "Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_2.jpg",
             "Air Jordans 1 Retro High OG GS \"Crimson Tint\" 555088-081_1.jpg",
+            "Air Jordans 1 Retro High OG GS \"Crimson Tint\" 555088-081_2.jpg",
             "Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg",
+            "Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg",
             "Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg",
+            "Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg",
             "Air Jordans 3 'Lazer Orange' CK9246-108_1.jpg",
+            "Air Jordans 3 'Lazer Orange' CK9246-108_2.jpg",
             "Air Jordans 4 Bred 408452-060_1.jpg",
+            "Air Jordans 4 Bred 408452-060_2.jpg",
             "Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_1.jpg",
+            "Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_2.jpg",
             "Air Jordans 4 Retro 'University Blue' CT8527-400_1.jpg",
+            "Air Jordans 4 Retro 'University Blue' CT8527-400_2.jpg",
             "Air Jordans 4 Retro \"White Oreo\" CT8527-100_1.jpg",
+            "Air Jordans 4 Retro \"White Oreo\" CT8527-100_2.jpg",
             "Air Jordans 4 Retro_1.jpg",
+            "Air Jordans 4 Retro_2.jpg",
             "Air Jordans 4 'Black Cat' CU1110-010_1.jpg",
+            "Air Jordans 4 'Black Cat' CU1110-010_2.jpg",
             "Air Jordans 4 'Fire Red' DC7770-160_1.jpg",
+            "Air Jordans 4 'Fire Red' DC7770-160_2.jpg",
             "Air Jordans 4 'Off Noir' DC9533-001_1.jpg",
+            "Air Jordans 4 'Off Noir' DC9533-001_2.jpg",
             "Air Jordans 4 'PSG' CZ6509-100_1.jpg",
+            "Air Jordans 4 'PSG' CZ6509-100_2.jpg",
             "Air Jordans 4 'Pure Money' 308497-100_1.jpg",
+            "Air Jordans 4 'Pure Money' 308497-100_2.jpg",
             "Jordan 13 Retro Black White Gum_1.jpg",
+            "Jordan 13 Retro Black White Gum_2.jpg",
             "Jordan 13 Retro Brave Blue_1.jpg",
+            "Jordan 13 Retro Brave Blue_2.jpg",
             "Jordan 13 Retro French Blue_1.jpg",
+            "Jordan 13 Retro French Blue_2.jpg",
             "Jordan 4 Retro Cool Grey (2019)_1.jpg",
+            "Jordan 4 Retro Cool Grey (2019)_2.jpg",
             "Jordan 4 Retro Flight Nostalgia_1.jpg",
+            "Jordan 4 Retro Flight Nostalgia_2.jpg",
             "Jordan 4 Retro Lightning (2021)_1.jpg",
+            "Jordan 4 Retro Lightning (2021)_2.jpg",
             "Jordan 4 Retro Metallic Green_1.jpg",
+            "Jordan 4 Retro Metallic Green_2.jpg",
             "Jordan 4 Retro Metallic Red_1.jpg",
+            "Jordan 4 Retro Metallic Red_2.jpg",
             "Jordan 4 Retro Motorsports (2017)_1.jpg",
+            "Jordan 4 Retro Motorsports (2017)_2.jpg",
             "Jordan 4 Retro SE 95 Neon_1.jpg",
+            "Jordan 4 Retro SE 95 Neon_2.jpg",
             "Jordan 4 Retro Thunder (2012)_1.jpg",
+            "Jordan 4 Retro Thunder (2012)_2.jpg",
             "Jordan Air Jordan 3 Barely Grape Pink Purple_1.jpg",
+            "Jordan Air Jordan 3 Barely Grape Pink Purple_2.jpg",
             "Jordan Air Jordan 3 Retro Black Gold Black gold_1.jpg",
+            "Jordan Air Jordan 3 Retro Black Gold Black gold_2.jpg",
             "Jordan Air Jordan 3 retro true blue White Blue_1.jpg",
+            "Jordan Air Jordan 3 retro true blue White Blue_2.jpg",
             "Jordan Air Jordan 3 tinker black and white_1.jpg",
+            "Jordan Air Jordan 3 tinker black and white_2.jpg",
             "Jordans 1 Mid White Black Light Arctic Pink 555112-103_1.jpg",
+            "Jordans 1 Mid White Black Light Arctic Pink 555112-103_2.jpg",
             "Jordans 1 Retro High \"Homage To Home\" 555088-001_1.jpg",
+            "Jordans 1 Retro High \"Homage To Home\" 555088-001_2.jpg",
             "Nike ACG Mountain Fly 2 Black_1.jpg",
             "Nike ACG Mountain Fly 2 Gerry_1.jpg",
+            "Nike ACG Mountain Fly 2 Gerry_2.jpg",
             "Nike ACG Mountain Fly 2_1.jpg",
+            "Nike ACG Mountain Fly 2_2.jpg",
             "Nike Air Jordan 5_1.jpg",
+            "Nike Air Jordan 5_2.jpg",
             "Nike Air Jordan 6 Retro Black Infrared_1.jpg",
+            "Nike Air Jordan 6 Retro Black Infrared_2.jpg",
             "Nike Air Jordan 6 Retro Carmine (2014)_1.jpg",
+            "Nike Air Jordan 6 Retro Carmine (2014)_2.jpg",
             "Nike Air Jordan 6 Retro Chrome Metallic Silver_1.jpg",
+            "Nike Air Jordan 6 Retro Chrome Metallic Silver_2.jpg",
             "Nike Air Jordan 6 Retro DMP 2020 (GS)_1.jpg",
+            "Nike Air Jordan 6 Retro DMP 2020 (GS)_2.jpg",
             "Nike Air Jordan 6 Retro Midnight Navy (2000)_1.jpg",
+            "Nike Air Jordan 6 Retro Midnight Navy (2000)_2.jpg",
             "Nike Air Jordan 6 Retro UNC_1.jpg",
+            "Nike Air Jordan 6 Retro UNC_2.jpg",
             "Nike Jordan Stadium 90 Gris_1.jpg",
+            "Nike Jordan Stadium 90 Gris_2.jpg",
             "Nike Jordan Stadium 90 White Amarillo de hoja caduca_1.jpg",
+            "Nike Jordan Stadium 90 White Amarillo de hoja caduca_2.jpg",
             "Nike Jordan Stadium 90 White black_1.jpg",
+            "Nike Jordan Stadium 90 White black_2.jpg",
             "Nike Jordan Stadium 90 White Morado_1.jpg",
+            "Nike Jordan Stadium 90 White Morado_2.jpg",
             "Nike Jordan Stadium 90 White pink_1.jpg",
-            "Nike Jordan Stadium 90 White red_1.jpg"
+            "Nike Jordan Stadium 90 White pink_2.jpg",
+            "Nike Jordan Stadium 90 White red_1.jpg",
+            "Nike Jordan Stadium 90 White red_2.jpg",
+            // Images from subfolders (with full path)
+            "Air Jordan 10 - mandarin duck40-47/Air Jordan 10 - mandarin duck40-47_1.jpg",
+            "Air Jordan 10 - mandarin duck40-47/Air Jordan 10 - mandarin duck40-47_3.jpg",
+            "Air Jordan 10 - mandarin duck40-47/Air Jordan 10 - mandarin duck40-47_4.jpg",
+            "Air Jordan 10 - mandarin duck40-47/Air Jordan 10 - mandarin duck40-47_6.jpg",
+            "Air Jordan 10 - Miami Super Bowl40-47/Air Jordan 10 - Miami Super Bowl40-47_1.jpg",
+            "Air Jordan 10 - Miami Super Bowl40-47/Air Jordan 10 - Miami Super Bowl40-47_4.jpg",
+            "Air Jordan 10 - Miami Super Bowl40-47/Air Jordan 10 - Miami Super Bowl40-47_6.jpg",
+            "Air Jordan 10 - New white black40-47/Air Jordan 10 - New white black40-47_3.jpg",
+            "Air Jordan 10 - New white black40-47/Air Jordan 10 - New white black40-47_4.jpg",
+            "Air Jordan 10 - New white black40-47/Air Jordan 10 - New white black40-47_5.jpg",
+            "Air Jordan 10 - owl40-47/Air Jordan 10 - owl40-47_1.jpg",
+            "Air Jordan 10 - shadow40-47/Air Jordan 10 - shadow40-47_1.jpg",
+            "Air Jordan 10 - White black grass green40-47/Air Jordan 10 - White black grass green40-47_4.jpg",
+            "Air Jordan 10 - White black grass green40-47/Air Jordan 10 - White black grass green40-47_5.jpg",
+            "Air Jordan 10 - White black grass green40-47/Air Jordan 10 - White black grass green40-47_6.jpg",
+            "Air Jordan 10 - White black red40-47/Air Jordan 10 - White black red40-47_3.jpg",
+            "Air Jordan 10 - White black red40-47/Air Jordan 10 - White black red40-47_5.jpg",
+            "Air Jordan 10 - White black40-47/Air Jordan 10 - White black40-47_1.jpg",
+            "Air Jordan 10 - White brown40-47/Air Jordan 10 - White brown40-47_3.jpg",
+            "Air Jordan 10 - White brown40-47/Air Jordan 10 - White brown40-47_5.jpg",
+            "Air Jordan 10 - White brown40-47/Air Jordan 10 - White brown40-47_6.jpg",
+            "Air Jordan 4 Retro black particle40-46/Air Jordan 4 Retro black particle40-46_1.jpg",
+            "Air Jordan 4 Retro black particle40-46/Air Jordan 4 Retro black particle40-46_4.jpg",
+            "Air Jordan 4 Retro black particle40-46/Air Jordan 4 Retro black particle40-46_6.jpg",
+            "Air Jordan 4 Retro black particle40-46_1.jpg",
+            "Air Jordan 4 Retro black particle40-46_4.jpg",
+            "Air Jordan 4 Retro black particle40-46_6.jpg",
+            "Air Jordan 4 Retro black-white36-46/Air Jordan 4 Retro black-white36-46_1.jpg",
+            "Air Jordan 4 Retro black-white36-46/Air Jordan 4 Retro black-white36-46_5.jpg",
+            "Air Jordan 4 Retro black-white36-46/Air Jordan 4 Retro black-white36-46_6.jpg",
+            "Air Jordan 4 Retro black-white36-46_1.jpg",
+            "Air Jordan 4 Retro black-white36-46_5.jpg",
+            "Air Jordan 4 Retro black-white36-46_6.jpg",
+            "Air Jordan 4 Retro denim40-46/Air Jordan 4 Retro denim40-46_1.jpg",
+            "Air Jordan 4 Retro denim40-46/Air Jordan 4 Retro denim40-46_4.jpg",
+            "Air Jordan 4 Retro denim40-46/Air Jordan 4 Retro denim40-46_6.jpg",
+            "Air Jordan 4 Retro denim40-46_1.jpg",
+            "Air Jordan 4 Retro denim40-46_4.jpg",
+            "Air Jordan 4 Retro denim40-46_6.jpg",
+            "Air Jordan 4 Retro granular moonlight40-46/Air Jordan 4 Retro granular moonlight40-46_1.jpg",
+            "Air Jordan 4 Retro granular moonlight40-46/Air Jordan 4 Retro granular moonlight40-46_4.jpg",
+            "Air Jordan 4 Retro granular moonlight40-46/Air Jordan 4 Retro granular moonlight40-46_6.jpg",
+            "Air Jordan 4 Retro granular moonlight40-46_1.jpg",
+            "Air Jordan 4 Retro granular moonlight40-46_4.jpg",
+            "Air Jordan 4 Retro granular moonlight40-46_6.jpg",
+            "Air Jordan 4 Retro particle beige40-46/Air Jordan 4 Retro particle beige40-46_1.jpg",
+            "Air Jordan 4 Retro particle beige40-46/Air Jordan 4 Retro particle beige40-46_4.jpg",
+            "Air Jordan 4 Retro particle beige40-46/Air Jordan 4 Retro particle beige40-46_6.jpg",
+            "Air Jordan 4 Retro particle dark blue40-46/Air Jordan 4 Retro particle dark blue40-46_1.jpg",
+            "Air Jordan 4 Retro particle dark blue40-46/Air Jordan 4 Retro particle dark blue40-46_2.jpg",
+            "Air Jordan 4 Retro particle dark blue40-46/Air Jordan 4 Retro particle dark blue40-46_5.jpg",
+            "Air Jordan 4 Retro particle dark blue40-46_1.jpg",
+            "Air Jordan 4 Retro particle dark blue40-46_2.jpg",
+            "Air Jordan 4 Retro particle dark blue40-46_5.jpg",
+            "Air Jordan 4 Retro white orchid36-40/Air Jordan 4 Retro white orchid36-40_1.jpg",
+            // Morant images
+            "Morant 1st generation DR8785 800(36-46)/Morant 1st generation DR8785 800(36-46)_2.jpg",
+            "Morant 1st generation DR8785 800(36-46)/Morant 1st generation DR8785 800(36-46)_5.jpg",
+            "Morant 1st generation DR8785-001(36-46)/Morant 1st generation DR8785-001(36-46)_2.jpg",
+            "Morant 1st generation DR8785-001(36-46)/Morant 1st generation DR8785-001(36-46)_5.jpg",
+            "Morant 1st generation DR8786 102(36-46)/Morant 1st generation DR8786 102(36-46)_2.jpg",
+            "Morant 1st generation DR8786 102(36-46)/Morant 1st generation DR8786 102(36-46)_5.jpg",
+            "Morant 1st generation DR8786 102(36-46)/Morant 1st generation DR8786 102(36-46)_6.jpg",
+            "Morant 1st generation DR8786 402(36-46)/Morant 1st generation DR8786 402(36-46)_2.jpg",
+            "Morant 1st generation DR8786 402(36-46)/Morant 1st generation DR8786 402(36-46)_4.jpg",
+            "Morant 1st generation DR8786 802(36-46)/Morant 1st generation DR8786 802(36-46)_1.jpg",
+            "Morant 1st generation DR8786 802(36-46)/Morant 1st generation DR8786 802(36-46)_3.jpg",
+            "Morant 1st generation DR8786-100(36-46)/Morant 1st generation DR8786-100(36-46)_5.jpg",
+            "Morant 1st generation DR8786-400(36-46)/Morant 1st generation DR8786-400(36-46)_1.jpg",
+            "Morant 1st generation FN6614 900(36-46)/Morant 1st generation FN6614 900(36-46)_3.jpg",
+            "Morant 1st generation FN6614 900(36-46)/Morant 1st generation FN6614 900(36-46)_4.jpg",
+            "Morant 1st generation FN6614 900(36-46)/Morant 1st generation FN6614 900(36-46)_6.jpg",
+            "Morant 1st generation FQ4796-800(36-46)/Morant 1st generation FQ4796-800(36-46)_3.jpg",
+            "Morant 1st generation FQ4796-800(36-46)/Morant 1st generation FQ4796-800(36-46)_5.jpg",
+            "Morant 1st generation FQ4796-800(36-46)/Morant 1st generation FQ4796-800(36-46)_6.jpg",
+            "Morant 1st generation FV1281-600(36-46)/Morant 1st generation FV1281-600(36-46)_2.jpg",
+            "Morant 1st generation FV1281-600(36-46)/Morant 1st generation FV1281-600(36-46)_4.jpg",
+            "Morant 1st generation FV1288 600(36-46)/Morant 1st generation FV1288 600(36-46)_2.jpg",
+            "Morant 1st generation FV1288 600(36-46)/Morant 1st generation FV1288 600(36-46)_5.jpg",
+            "Morant 1st generation FV1291-100(36-46)/Morant 1st generation FV1291-100(36-46)_4.jpg",
+            "Morant 1st generation FV1291-100(36-46)/Morant 1st generation FV1291-100(36-46)_5.jpg",
+            "Morant 1st generation FV6097 300(36-46)/Morant 1st generation FV6097 300(36-46)_1.jpg",
+            "Morant 2nd generation FD7327 001(36-46)/Morant 2nd generation FD7327 001(36-46)_1.jpg",
+            "Morant 2nd generation FD7327 101(36-46)/Morant 2nd generation FD7327 101(36-46)_1.jpg",
+            "Morant 2nd generation FD7327-100(36-46)/Morant 2nd generation FD7327-100(36-46)_1.jpg",
+            "Morant 2nd generation FD7327-500(36-46)/Morant 2nd generation FD7327-500(36-46)_1.jpg",
+            "Morant 2nd generation FD7328 002(36-46)/Morant 2nd generation FD7328 002(36-46)_1.jpg",
+            "Morant 2nd generation FD7328 006(36-46)/Morant 2nd generation FD7328 006(36-46)_1.jpg",
+            "Morant 2nd generation FFD7328-701(36-46)/Morant 2nd generation FFD7328-701(36-46)_1.jpg",
+            "Morant 2nd generation FV5633-405(36-46)/Morant 2nd generation FV5633-405(36-46)_1.jpg",
+            "Morant 2nd generation FZ1516-001(36-46)/Morant 2nd generation FZ1516-001(36-46)_1.jpg",
+            "Morant 2nd generation HQ2637 600(36-46)/Morant 2nd generation HQ2637 600(36-46)_1.jpg",
+            "Morant 2nd generation HQ2637 601(36-46)/Morant 2nd generation HQ2637 601(36-46)_1.jpg",
+            "Morant 2nd generation HQ2637 602(36-46)/Morant 2nd generation HQ2637 602(36-46)_1.jpg",
+            "Morant 2nd generation HQ2637-603(36-46)/Morant 2nd generation HQ2637-603(36-46)_1.jpg",
+            "Morant 2nd generation IB4007-900(36-46)/Morant 2nd generation IB4007-900(36-46)_1.jpg",
+            "Morant 2nd generation IB5842 800(36-46)/Morant 2nd generation IB5842 800(36-46)_1.jpg",
+            "Morant 2nd generation IF0302-601(36-46)/Morant 2nd generation IF0302-601(36-46)_1.jpg",
+            "Morant 3rd generation HF2793-600/Morant 3rd generation HF2793-600_1.jpg",
+            "Morant 3rd generation HF2793-601/Morant 3rd generation HF2793-601_1.jpg",
+            "Morant 3rd generation HF2793-602/Morant 3rd generation HF2793-602_1.jpg",
+            "Morant 3rd generation HF2793-603/Morant 3rd generation HF2793-603_1.jpg",
+            "Morant 3rd generation HF2793-604/Morant 3rd generation HF2793-604_1.jpg",
+            "Morant 3rd generation HF2793-605/Morant 3rd generation HF2793-605_1.jpg",
+            "Morant 3rd generation HF2793-606/Morant 3rd generation HF2793-606_1.jpg",
+            "Morant 3rd generation HF2793-607/Morant 3rd generation HF2793-607_1.jpg",
+            "Morant 3rd generation HF2793-608/Morant 3rd generation HF2793-608_1.jpg",
+            "Morant 3rd generation HF2793-609(36-46)/Morant 3rd generation HF2793-609(36-46)_1.jpg",
+            "Morant 3rd generation HF2793-610/Morant 3rd generation HF2793-610_1.jpg",
+            "Morant 3rd generation HF2794-100/Morant 3rd generation HF2794-100_1.jpg",
+            "Morant 3rd generation IM0464-001/Morant 3rd generation IM0464-001_2.jpg",
+            "Morant 3rd generation IM0464-001/Morant 3rd generation IM0464-001_3.jpg",
+            "Morant 3rd generation IM0464-001_2.jpg",
+            "Morant 3rd generation IM0464-001_3.jpg"
         ];
 
         // Image mapping system
@@ -438,15 +618,54 @@
             // Build mapping from available images
             mapping: {},
             
-            // Initialize mapping
+            // Initialize mapping - supports multiple images per product (up to 3)
             init: function() {
-                availableImages.forEach(imgName => {
-                    // Remove _1.jpg or _2.jpg to get base name
-                    const baseName = imgName.replace(/_\d\.jpg$/, '');
-                    // Store with _1.jpg (prefer first image)
-                    this.mapping[baseName] = `imagens_produtos/${imgName}`;
+                // Group images by base name (without _1.jpg, _2.jpg, etc.)
+                const imageGroups = {};
+                
+                availableImages.forEach(imgPath => {
+                    // Normalize path separators
+                    let normalizedPath = imgPath.replace(/[\/\\]/g, '/');
+                    
+                    // Extract base name (remove _1.jpg, _2.jpg, _3.jpg, etc. and folder structure)
+                    // For subfolders: "Air Jordan 10 - mandarin duck40-47/Air Jordan 10 - mandarin duck40-47_1.jpg"
+                    // Extract: "Air Jordan 10 - mandarin duck40-47" (folder name) or base name
+                    let baseName = normalizedPath;
+                    
+                    // If path contains folder (has /), use folder name as base name
+                    if (normalizedPath.includes('/')) {
+                        const parts = normalizedPath.split('/');
+                        // Use folder name as base name (remove size ranges and codes)
+                        const folderName = parts[parts.length - 2];
+                        baseName = folderName.replace(/_\d+\.jpg$/, '').replace(/\.jpg$/, '');
+                    } else {
+                        // Remove _1.jpg, _2.jpg, etc.
+                        baseName = normalizedPath.replace(/_\d+\.jpg$/, '').replace(/\.jpg$/, '');
+                    }
+                    
+                    if (!imageGroups[baseName]) {
+                        imageGroups[baseName] = [];
+                    }
+                    // Store full path (ensure imagens_produtos/ prefix)
+                    const fullPath = normalizedPath.startsWith('imagens_produtos/') ? normalizedPath : `imagens_produtos/${normalizedPath}`;
+                    imageGroups[baseName].push(fullPath);
                 });
-                console.log('✅ Mapeamento de imagens inicializado:', Object.keys(this.mapping).length, 'imagens');
+                
+                // Store up to 3 images per product base name
+                for (const [baseName, images] of Object.entries(imageGroups)) {
+                    // Sort images to prefer _1.jpg, then _2.jpg, then _3.jpg, etc.
+                    images.sort((a, b) => {
+                        const aMatch = a.match(/_(\d+)\.jpg$/);
+                        const bMatch = b.match(/_(\d+)\.jpg$/);
+                        const aNum = aMatch ? parseInt(aMatch[1]) : 0;
+                        const bNum = bMatch ? parseInt(bMatch[1]) : 0;
+                        return aNum - bNum;
+                    });
+                    // Store up to 3 images
+                    this.mapping[baseName] = images.slice(0, 3);
+                }
+                
+                console.log('✅ Mapeamento de imagens inicializado:', Object.keys(this.mapping).length, 'produtos base');
             },
             
             // Try to find image by product name (for new images added to folder)
@@ -473,16 +692,16 @@
                 return null;
             },
             
-            // Get image path for a product - STRICT MATCHING (only best match)
-            getImage: function(productName) {
+            // Get images for a product - returns array of up to 3 images
+            getImages: function(productName) {
                 // Normalize product name
                 const normalizedProduct = this.normalize(productName);
                 
                 let bestMatch = null;
                 let bestScore = 0;
                 
-                // Try to find the best matching image
-                for (const [imgName, path] of Object.entries(this.mapping)) {
+                // Try to find the best matching image group
+                for (const [imgName, images] of Object.entries(this.mapping)) {
                     const normalizedImg = this.normalize(imgName);
                     let score = 0;
                     
@@ -523,12 +742,18 @@
                     
                     if (score > bestScore) {
                         bestScore = score;
-                        bestMatch = path;
+                        bestMatch = images; // Array of images
                     }
                 }
                 
                 // Only return if score is high enough (strict matching)
                 return bestScore >= 70 ? bestMatch : null;
+            },
+            
+            // Get single image (for backward compatibility)
+            getImage: function(productName) {
+                const images = this.getImages(productName);
+                return images && images.length > 0 ? images[0] : null;
             },
             
             // Track which images are already assigned
@@ -548,12 +773,25 @@
         // Initialize image mapping
         imageMap.init();
 
-        // Get product image - products already have image assigned in assignImagesToProducts
+        // Get product images - products can have up to 3 images
         // Images are matched by name from imagens_produtos folder
         // Each image is associated with only one product (best match)
+        function getProductImages(product) {
+            // Product already has images property assigned if it has a match
+            if (product.images && Array.isArray(product.images)) {
+                return product.images;
+            }
+            // Fallback to single image for backward compatibility
+            if (product.image) {
+                return [product.image];
+            }
+            return [];
+        }
+        
+        // Get first product image (for backward compatibility)
         function getProductImage(product) {
-            // Product already has image property assigned if it has a match
-            return product.image || null;
+            const images = getProductImages(product);
+            return images.length > 0 ? images[0] : null;
         }
 
         // Create placeholder HTML
@@ -593,7 +831,8 @@
         
         // Render product card
         function renderProductCard(product) {
-            const image = getProductImage(product);
+            const images = getProductImages(product);
+            const image = images.length > 0 ? images[0] : null;
             // Todos os produtos estão disponíveis no STREETMOOD - sem badges de tipo
             const badge = '';
             
@@ -603,14 +842,31 @@
             
             let imageHTML = '';
             if (hasImage) {
-                imageHTML = `<img src="${image}" 
-                                  alt="${formattedName}" 
-                                  class="product-image w-full h-full object-contain"
-                                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                           <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                               <div class="text-5xl mb-2 animate-pulse">👟</div>
-                               <div class="text-xs text-gray-400">Imagem em atualização</div>
-                           </div>`;
+                // If multiple images, show first image with indicator
+                if (images.length > 1) {
+                    imageHTML = `<div class="relative w-full h-full">
+                                    <img src="${image}" 
+                                         alt="${formattedName}" 
+                                         class="product-image w-full h-full object-contain"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-semibold">
+                                        ${images.length} fotos
+                                    </div>
+                                    <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <div class="text-5xl mb-2 animate-pulse">👟</div>
+                                        <div class="text-xs text-gray-400">Imagem em atualização</div>
+                                    </div>
+                                </div>`;
+                } else {
+                    imageHTML = `<img src="${image}" 
+                                      alt="${formattedName}" 
+                                      class="product-image w-full h-full object-contain"
+                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                               <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                   <div class="text-5xl mb-2 animate-pulse">👟</div>
+                                   <div class="text-xs text-gray-400">Imagem em atualização</div>
+                               </div>`;
+                }
             } else {
                 imageHTML = `<div class="flex flex-col items-center justify-center p-4 text-center h-full">
                                 <div class="text-5xl mb-2 animate-pulse">👟</div>
@@ -818,7 +1074,7 @@
             
             currentProduct = product;
             const modal = document.getElementById('productModal');
-            const image = getProductImage(product);
+            const images = getProductImages(product);
             
             // Format product name and size for modal
             const formattedName = formatProductName(product);
@@ -839,20 +1095,60 @@
             const viewer = document.getElementById('modalViewer');
             viewer.innerHTML = '';
             
-            // Check if image exists or use placeholder
-            if (image) {
-                const img = new Image();
-                img.onload = function() {
-                    viewer.innerHTML = `
-                        <img src="${image}" 
-                             alt="${formattedName}" 
-                             class="max-w-full max-h-full object-contain rounded-xl">
+            // Check if images exist or use placeholder
+            if (images.length > 0) {
+                if (images.length === 1) {
+                    // Single image
+                    const img = new Image();
+                    img.onload = function() {
+                        viewer.innerHTML = `
+                            <img src="${images[0]}" 
+                                 alt="${formattedName}" 
+                                 class="max-w-full max-h-full object-contain rounded-xl">
+                        `;
+                    };
+                    img.onerror = function() {
+                        viewer.innerHTML = createPlaceholderHTML();
+                    };
+                    img.src = images[0];
+                } else {
+                    // Multiple images - create carousel
+                    let carouselHTML = `
+                        <div class="relative w-full h-full">
+                            <div id="imageCarousel" class="relative w-full h-full overflow-hidden rounded-xl">
+                                ${images.map((img, index) => `
+                                    <div class="carousel-slide ${index === 0 ? 'active' : 'hidden'} absolute inset-0 flex items-center justify-center">
+                                        <img src="${img}" 
+                                             alt="${formattedName} - Foto ${index + 1}" 
+                                             class="max-w-full max-h-full object-contain rounded-xl"
+                                             onerror="this.parentElement.style.display='none'">
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ${images.length > 1 ? `
+                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                    ${images.map((_, index) => `
+                                        <button onclick="showCarouselImage(${index})" 
+                                                class="carousel-dot ${index === 0 ? 'active' : ''} w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-colors"></button>
+                                    `).join('')}
+                                </div>
+                                ${images.length > 1 ? `
+                                    <button onclick="previousCarouselImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
+                                        ←
+                                    </button>
+                                    <button onclick="nextCarouselImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
+                                        →
+                                    </button>
+                                ` : ''}
+                            ` : ''}
+                        </div>
                     `;
-                };
-                img.onerror = function() {
-                    viewer.innerHTML = createPlaceholderHTML();
-                };
-                img.src = image;
+                    viewer.innerHTML = carouselHTML;
+                    
+                    // Store current image index
+                    window.currentCarouselIndex = 0;
+                    window.currentCarouselImages = images;
+                }
             } else {
                 viewer.innerHTML = createPlaceholderHTML();
             }
@@ -860,6 +1156,48 @@
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
+        }
+        
+        // Carousel functions
+        function showCarouselImage(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.add('hidden');
+                    slide.classList.remove('active');
+                }
+            });
+            
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                    dot.classList.remove('bg-white/60');
+                    dot.classList.add('bg-white');
+                } else {
+                    dot.classList.remove('active');
+                    dot.classList.add('bg-white/60');
+                    dot.classList.remove('bg-white');
+                }
+            });
+            
+            window.currentCarouselIndex = index;
+        }
+        
+        function nextCarouselImage() {
+            if (!window.currentCarouselImages || window.currentCarouselImages.length === 0) return;
+            const nextIndex = (window.currentCarouselIndex + 1) % window.currentCarouselImages.length;
+            showCarouselImage(nextIndex);
+        }
+        
+        function previousCarouselImage() {
+            if (!window.currentCarouselImages || window.currentCarouselImages.length === 0) return;
+            const prevIndex = (window.currentCarouselIndex - 1 + window.currentCarouselImages.length) % window.currentCarouselImages.length;
+            showCarouselImage(prevIndex);
         }
 
         // Close modal
@@ -900,7 +1238,7 @@
             if (e.key === 'Escape') closeModal();
         });
 
-        // Assign images to products (one image per product, best match only)
+        // Assign images to products (up to 3 images per product, best match only)
         function assignImagesToProducts() {
             if (!window.products || window.products.length === 0) {
                 return;
@@ -911,78 +1249,92 @@
             
             // Create array to store products with their match scores
             const productsWithScores = window.products.map(product => {
-                // Try to find matching image
+                // Try to find matching images (up to 3)
+                const images = imageMap.getImages(product.name);
                 const normalizedProduct = imageMap.normalize(product.name);
-                let bestImage = null;
                 let bestScore = 0;
                 
-                // Check all available images
-                for (const [imgName, path] of Object.entries(imageMap.mapping)) {
-                    const normalizedImg = imageMap.normalize(imgName);
-                    let score = 0;
-                    
-                    // Exact match = highest score
-                    if (normalizedImg === normalizedProduct) {
-                        score = 100;
-                    }
-                    // Very close match (one contains the other and they're similar length)
-                    else if ((normalizedProduct.includes(normalizedImg) || normalizedImg.includes(normalizedProduct)) && 
-                             Math.abs(normalizedProduct.length - normalizedImg.length) < 10) {
-                        const productWords = normalizedProduct.split(/\s+/).filter(w => w.length > 2);
-                        const imgWords = normalizedImg.split(/\s+/).filter(w => w.length > 2);
-                        const commonWords = productWords.filter(w => imgWords.includes(w));
-                        score = (commonWords.length / Math.max(productWords.length, imgWords.length)) * 80;
-                    }
-                    // Partial match with key words
-                    else {
-                        const productWords = normalizedProduct.split(/\s+/).filter(p => 
-                            p.length > 3 && 
-                            !['retro', 'air', 'jordan', 'jordans', 'nike', 'high', 'mid', 'low', 'og', 'gs', 'white', 'black', 'blue', 'red'].includes(p.toLowerCase())
-                        );
-                        const imgWords = normalizedImg.split(/\s+/).filter(p => 
-                            p.length > 3 && 
-                            !['retro', 'air', 'jordan', 'jordans', 'nike', 'high', 'mid', 'low', 'og', 'gs', 'white', 'black', 'blue', 'red'].includes(p.toLowerCase())
-                        );
+                if (images && images.length > 0) {
+                    // Calculate score for the image group
+                    // Find the base name that matches
+                    for (const [imgName, imgGroup] of Object.entries(imageMap.mapping)) {
+                        const normalizedImg = imageMap.normalize(imgName);
+                        let score = 0;
                         
-                        if (productWords.length > 0 && imgWords.length > 0) {
-                            const matches = productWords.filter(p => 
-                                imgWords.some(ip => ip === p || (ip.includes(p) && p.length > 4) || (p.includes(ip) && ip.length > 4))
+                        // Exact match = highest score
+                        if (normalizedImg === normalizedProduct) {
+                            score = 100;
+                        }
+                        // Very close match
+                        else if ((normalizedProduct.includes(normalizedImg) || normalizedImg.includes(normalizedProduct)) && 
+                                 Math.abs(normalizedProduct.length - normalizedImg.length) < 10) {
+                            const productWords = normalizedProduct.split(/\s+/).filter(w => w.length > 2);
+                            const imgWords = normalizedImg.split(/\s+/).filter(w => w.length > 2);
+                            const commonWords = productWords.filter(w => imgWords.includes(w));
+                            score = (commonWords.length / Math.max(productWords.length, imgWords.length)) * 80;
+                        }
+                        // Partial match
+                        else {
+                            const productWords = normalizedProduct.split(/\s+/).filter(p => 
+                                p.length > 3 && 
+                                !['retro', 'air', 'jordan', 'jordans', 'nike', 'high', 'mid', 'low', 'og', 'gs', 'white', 'black', 'blue', 'red'].includes(p.toLowerCase())
                             );
-                            // Need at least 70% of key words to match
-                            if (matches.length / productWords.length >= 0.7 && matches.length >= 2) {
-                                score = (matches.length / Math.max(productWords.length, imgWords.length)) * 60;
+                            const imgWords = normalizedImg.split(/\s+/).filter(p => 
+                                p.length > 3 && 
+                                !['retro', 'air', 'jordan', 'jordans', 'nike', 'high', 'mid', 'low', 'og', 'gs', 'white', 'black', 'blue', 'red'].includes(p.toLowerCase())
+                            );
+                            
+                            if (productWords.length > 0 && imgWords.length > 0) {
+                                const matches = productWords.filter(p => 
+                                    imgWords.some(ip => ip === p || (ip.includes(p) && p.length > 4) || (p.includes(ip) && ip.length > 4))
+                                );
+                                if (matches.length / productWords.length >= 0.7 && matches.length >= 2) {
+                                    score = (matches.length / Math.max(productWords.length, imgWords.length)) * 60;
+                                }
                             }
                         }
-                    }
-                    
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestImage = path;
+                        
+                        if (score > bestScore && JSON.stringify(imgGroup) === JSON.stringify(images)) {
+                            bestScore = score;
+                        }
                     }
                 }
                 
-                return { product, image: bestImage, score: bestScore };
+                return { product, images: images || [], score: bestScore };
             });
             
             // Sort by score (highest first) - best matches get images first
             productsWithScores.sort((a, b) => b.score - a.score);
             
-            // Assign images to products (one image per product, best match first)
+            // Assign images to products (up to 3 images per product, no duplicates)
             const usedImages = new Set();
             
-            for (const { product, image, score } of productsWithScores) {
-                if (image && score >= 70 && !usedImages.has(image)) {
-                    usedImages.add(image);
-                    // Add image property to product
-                    product.image = image;
+            for (const { product, images, score } of productsWithScores) {
+                if (images.length > 0 && score >= 70) {
+                    // Filter out already used images
+                    const availableImages = images.filter(img => !usedImages.has(img));
+                    
+                    if (availableImages.length > 0) {
+                        // Mark images as used
+                        availableImages.forEach(img => usedImages.add(img));
+                        
+                        // Assign up to 3 images to product
+                        product.images = availableImages.slice(0, 3);
+                        // Also set first image for backward compatibility
+                        product.image = availableImages[0];
+                    } else {
+                        product.images = [];
+                        product.image = null;
+                    }
                 } else {
-                    // Product without image match
+                    product.images = [];
                     product.image = null;
                 }
             }
             
-            const productsWithImages = window.products.filter(p => p.image !== null).length;
-            console.log(`✅ ${productsWithImages} produtos com imagens correspondentes de ${window.products.length} totais`);
+            const productsWithImages = window.products.filter(p => p.images && p.images.length > 0).length;
+            const totalImages = window.products.reduce((sum, p) => sum + (p.images ? p.images.length : 0), 0);
+            console.log(`✅ ${productsWithImages} produtos com imagens (${totalImages} imagens totais) de ${window.products.length} produtos`);
         }
 
         // Initialize

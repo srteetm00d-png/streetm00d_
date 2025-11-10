@@ -188,7 +188,7 @@
             <!-- Page Title Section -->
         <div class="mb-8 text-center">
             <h2 class="text-xl md:text-2xl font-black mb-4 text-white leading-relaxed">
-                📦 Esta é a página onde encontras todos os sneakers disponíveis na <span class="text-red-500">STREETMOOD</span>.
+                📦 Esta é a página onde encontras todos os sneakers e fatos de treino disponíveis na <span class="text-red-500">STREETMOOD</span>.
             </h2>
         </div>
 
@@ -200,16 +200,21 @@
             </div>
 
         <!-- Filters -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div class="relative">
-                    <input 
-                        type="text" 
+                <input 
+                    type="text" 
                     id="searchInput" 
                     placeholder="Pesquisar modelo..." 
                     class="search-input w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none"
                     oninput="filterProducts()"
-                    >
-                </div>
+                >
+            </div>
+            <select id="categorySelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
+                <option value="all">Todas as categorias</option>
+                <option value="sneakers">👟 Sneakers</option>
+                <option value="training">🏋️ Fatos de Treino</option>
+            </select>
             <select id="sortSelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
                 <option value="all">Todos (com imagem primeiro)</option>
                 <option value="new">Mais recentes</option>
@@ -217,7 +222,7 @@
                 <option value="price-asc">Preço: menor → maior</option>
                 <option value="price-desc">Preço: maior → menor</option>
             </select>
-            </div>
+        </div>
 
             <!-- Products Grid -->
         <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
@@ -795,10 +800,11 @@
         }
 
         // Create placeholder HTML
-        function createPlaceholderHTML() {
+        function createPlaceholderHTML(productType = 'sneaker') {
+            const icon = productType === 'training' ? '🏋️' : '👟';
             return `
                 <div class="flex flex-col items-center justify-center p-6 text-center h-full">
-                    <div class="text-7xl mb-4 animate-pulse">👟</div>
+                    <div class="text-7xl mb-4 animate-pulse">${icon}</div>
                     <div class="text-2xl mb-2 font-black text-red-500 uppercase">STREETMOOD</div>
                     <div class="text-gray-400 text-sm mb-2">Imagem em atualização</div>
                     <div class="text-gray-500 text-xs max-w-xs">Em breve terás acesso<br>à visualização completa deste modelo</div>
@@ -853,7 +859,7 @@
                                         ${images.length} fotos
                                     </div>
                                     <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                                        <div class="text-5xl mb-2 animate-pulse">👟</div>
+                                        <div class="text-5xl mb-2 animate-pulse">${product.tipo === 'training' ? '🏋️' : '👟'}</div>
                                         <div class="text-xs text-gray-400">Imagem em atualização</div>
                                     </div>
                                 </div>`;
@@ -863,13 +869,14 @@
                                       class="product-image w-full h-full object-contain"
                                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                                   <div class="text-5xl mb-2 animate-pulse">👟</div>
+                                   <div class="text-5xl mb-2 animate-pulse">${product.tipo === 'training' ? '🏋️' : '👟'}</div>
                                    <div class="text-xs text-gray-400">Imagem em atualização</div>
                                </div>`;
                 }
             } else {
+                const icon = product.tipo === 'training' ? '🏋️' : '👟';
                 imageHTML = `<div class="flex flex-col items-center justify-center p-4 text-center h-full">
-                                <div class="text-5xl mb-2 animate-pulse">👟</div>
+                                <div class="text-5xl mb-2 animate-pulse">${icon}</div>
                                 <div class="text-xs text-gray-400">Imagem em atualização</div>
                             </div>`;
             }
@@ -1002,8 +1009,19 @@
         function filterProducts() {
             const search = document.getElementById('searchInput').value.toLowerCase();
             const sort = document.getElementById('sortSelect').value;
+            const category = document.getElementById('categorySelect').value;
             
             let filtered = window.products || [];
+            
+            // Category filter
+            if (category === 'sneakers') {
+                // Show only sneakers (tipo: "stock" or not "training")
+                filtered = filtered.filter(p => p.tipo !== 'training');
+            } else if (category === 'training') {
+                // Show only training gear (tipo: "training")
+                filtered = filtered.filter(p => p.tipo === 'training');
+            }
+            // If category === 'all', show all products
             
             // Search filter
             if (search) {
@@ -1108,7 +1126,7 @@
                         `;
                     };
                     img.onerror = function() {
-                        viewer.innerHTML = createPlaceholderHTML();
+                        viewer.innerHTML = createPlaceholderHTML(product.tipo);
                     };
                     img.src = images[0];
                 } else {
@@ -1150,7 +1168,7 @@
                     window.currentCarouselImages = images;
                 }
             } else {
-                viewer.innerHTML = createPlaceholderHTML();
+                viewer.innerHTML = createPlaceholderHTML(product.tipo);
             }
             
             modal.classList.remove('hidden');

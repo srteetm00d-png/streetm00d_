@@ -572,7 +572,37 @@ if (typeof products === 'undefined') {
         {id: 557, name: "Puma Sportswear Joggers", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 56, desc: "Calças Puma Sportswear — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
         {id: 558, name: "Nike Tech Fleece Shorts", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 52, desc: "Shorts Nike Tech Fleece — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
         {id: 559, name: "Adidas Tiro Shorts", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 48, desc: "Shorts Adidas Tiro — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
-        {id: 560, name: "Nike Sportswear Shorts", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 46, desc: "Shorts Nike Sportswear — confortável, estiloso e autêntico. Envio grátis 🇵🇹."}
+        {id: 560, name: "Nike Sportswear Shorts", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 46, desc: "Shorts Nike Sportswear — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        // Nike Air Max Plus e variações
+        {id: 561, name: "Nike Air Max Plus Tn Black+White9900 23", size: "40-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 562, name: "Nike Air Max Plus Tn", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 563, name: "Nike Air Max Plus Drift", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Vomero
+        {id: 564, name: "Nike Vomero 11", size: "38-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Force 1
+        {id: 565, name: "Nike Air Force 1 Low Amarelo e Preto", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max 1
+        {id: 566, name: "Nike Air Max 1 96 OG Big bubble Sport Vermelho", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 567, name: "Nike Air Max 1", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max 2021
+        {id: 568, name: "Nike Air Max 2021 Preto Cinza Fumaça", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 569, name: "Nike Air Max 2021", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max 270
+        {id: 570, name: "Nike Air Max 270 V2", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 571, name: "Nike Air Max 270", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max 720
+        {id: 572, name: "Nike Air Max 720 Branco rosa azul", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 573, name: "Nike Air Max 720", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max 95
+        {id: 574, name: "Nike Air Max 95 Light blue and dark blue", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 575, name: "Nike Air Max 95", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max 96
+        {id: 576, name: "Nike Air Max 96", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max Plus 3
+        {id: 577, name: "Nike Air Max Plus 3", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Nike Air Max Tn3
+        {id: 578, name: "Nike Air Max Tn3 couro G9", size: "39-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        {id: 579, name: "Nike Air Max Tn3", size: "39-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."}
     ];
 }
 

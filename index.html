@@ -900,7 +900,7 @@
                         <h3 class="font-bold text-sm uppercase leading-tight line-clamp-2">${formattedName}</h3>
                         ${formattedSize ? `<p class="text-gray-400 text-xs">${formattedSize}</p>` : ''}
                         <div class="flex justify-between items-center">
-                            <p class="text-red-500 font-black text-lg">${product.price_eur}€</p>
+                            <p class="text-red-500 font-black text-lg">${product.price_eur !== null && product.price_eur !== undefined ? product.price_eur + '€' : (product.price || '—')}</p>
                         </div>
                         <button class="w-full mt-2 py-2 glass-effect rounded-lg text-sm font-semibold hover:bg-white/10 transition-colors">
                             Ver mais
@@ -1040,7 +1040,8 @@
                 filtered = filtered.filter(p => 
                     p.name.toLowerCase().includes(search) ||
                     (p.size && p.size.toLowerCase().includes(search)) ||
-                    (p.tipo && p.tipo.toLowerCase().includes(search))
+                    (p.tipo && p.tipo.toLowerCase().includes(search)) ||
+                    (p.isUnidentified && 'não identificado'.includes(search))
                 );
             }
             
@@ -1066,8 +1067,14 @@
                 
                 // Depois: aplicar ordenação selecionada
                 if (sort === 'price-asc') {
+                    // Products without price go to end
+                    if (a.price_eur === null || a.price_eur === undefined) return 1;
+                    if (b.price_eur === null || b.price_eur === undefined) return -1;
                     return (a.price_eur || 0) - (b.price_eur || 0);
                 } else if (sort === 'price-desc') {
+                    // Products without price go to end
+                    if (a.price_eur === null || a.price_eur === undefined) return 1;
+                    if (b.price_eur === null || b.price_eur === undefined) return -1;
                     return (b.price_eur || 0) - (a.price_eur || 0);
                 } else if (sort === 'name') {
                     return (a.name || '').localeCompare(b.name || '');
@@ -1116,8 +1123,11 @@
             
             // Set modal content
             document.getElementById('modalTitle').textContent = modalTitle;
-            document.getElementById('modalPrice').textContent = `${product.price_eur}€`;
-            document.getElementById('modalTag').textContent = 'Disponível no STREETMOOD';
+            const priceDisplay = product.price_eur !== null && product.price_eur !== undefined 
+                ? `${product.price_eur}€` 
+                : (product.price || '—');
+            document.getElementById('modalPrice').textContent = priceDisplay;
+            document.getElementById('modalTag').textContent = product.isUnidentified ? 'Produto não identificado' : 'Disponível no STREETMOOD';
             document.getElementById('modalDescription').textContent = product.desc || 
                 `Produto premium importado. Envio grátis. Caixa STREETMOOD incluída. Caixa original disponível (+5€).`;
             
@@ -1247,6 +1257,7 @@
             
             const name = currentProduct.name;
             const size = currentProduct.size || '';
+            const productType = currentProduct.isUnidentified ? 'produto não identificado' : 'produto';
             const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name}${size ? ' (T:' + size + ')' : ''} ainda está disponível?`);
             window.open(`https://wa.me/351929461628?text=${msg}`, '_blank');
         }
@@ -1368,6 +1379,112 @@
             const productsWithImages = window.products.filter(p => p.images && p.images.length > 0).length;
             const totalImages = window.products.reduce((sum, p) => sum + (p.images ? p.images.length : 0), 0);
             console.log(`✅ ${productsWithImages} produtos com imagens (${totalImages} imagens totais) de ${window.products.length} produtos`);
+            
+            // Return used images set for unidentified products creation
+            return usedImages;
+        }
+
+        // Create unidentified products from unused images
+        function createUnidentifiedProducts(usedImages) {
+            if (!imageMap || !imageMap.mapping) {
+                return [];
+            }
+            
+            const unidentifiedProducts = [];
+            let unidentifiedCounter = 1;
+            
+            // Get all images from mapping
+            const allImages = new Set();
+            for (const [imgName, images] of Object.entries(imageMap.mapping)) {
+                images.forEach(img => allImages.add(img));
+            }
+            
+            // Find unused images
+            const unusedImages = Array.from(allImages).filter(img => !usedImages.has(img));
+            
+            // Group unused images by base name (same product, different angles)
+            const unusedImageGroups = {};
+            for (const imgPath of unusedImages) {
+                // Extract base name from path
+                let baseName = imgPath;
+                // Remove imagens_produtos/ prefix if present
+                if (baseName.startsWith('imagens_produtos/')) {
+                    baseName = baseName.substring('imagens_produtos/'.length);
+                }
+                
+                // Handle folder structure: if path contains /, use folder name as base
+                if (baseName.includes('/')) {
+                    const parts = baseName.split('/');
+                    // Use folder name (second to last part) as base name
+                    baseName = parts[parts.length - 2] || parts[parts.length - 1];
+                } else {
+                    // Remove _1.jpg, _2.jpg, etc. from filename
+                    baseName = baseName.replace(/_\d+\.(jpg|jpeg|png)$/i, '');
+                }
+                
+                // Remove extension
+                baseName = baseName.replace(/\.(jpg|jpeg|png)$/i, '');
+                
+                // Normalize for grouping (lowercase, trim)
+                const normalizedBaseName = baseName.toLowerCase().trim();
+                
+                if (!unusedImageGroups[normalizedBaseName]) {
+                    unusedImageGroups[normalizedBaseName] = [];
+                }
+                unusedImageGroups[normalizedBaseName].push(imgPath);
+            }
+            
+            // Create placeholder products for unused images
+            for (const [normalizedBaseName, images] of Object.entries(unusedImageGroups)) {
+                // Determine if it's clothing or sneakers based on image name
+                const normalizedName = normalizedBaseName;
+                const isClothing = normalizedName.includes('hoodie') || 
+                                 normalizedName.includes('tshirt') || 
+                                 normalizedName.includes('t-shirt') ||
+                                 normalizedName.includes('jogger') ||
+                                 normalizedName.includes('short') ||
+                                 normalizedName.includes('windbreaker') ||
+                                 normalizedName.includes('fato') ||
+                                 normalizedName.includes('treino') ||
+                                 normalizedName.includes('set');
+                
+                // Get original base name from first image path for reference
+                let originalBaseName = images[0] || '';
+                if (originalBaseName.startsWith('imagens_produtos/')) {
+                    originalBaseName = originalBaseName.substring('imagens_produtos/'.length);
+                }
+                if (originalBaseName.includes('/')) {
+                    const parts = originalBaseName.split('/');
+                    originalBaseName = parts[parts.length - 2] || parts[parts.length - 1];
+                }
+                originalBaseName = originalBaseName.replace(/_\d+\.(jpg|jpeg|png)$/i, '').replace(/\.(jpg|jpeg|png)$/i, '');
+                
+                // Get highest ID from existing products
+                const maxId = window.products.length > 0 
+                    ? Math.max(...window.products.map(p => p.id || 0))
+                    : 0;
+                
+                const placeholderProduct = {
+                    id: maxId + unidentifiedCounter,
+                    name: isClothing ? `Roupa não identificada #${unidentifiedCounter}` : `Produto não identificado #${unidentifiedCounter}`,
+                    size: isClothing ? "S–XL" : "36-45",
+                    tipo: "stock",
+                    category: isClothing ? "roupas" : undefined,
+                    price_eur: null, // Will display as "—"
+                    price: "—",
+                    desc: "Dados ainda não disponíveis — atualização em breve.",
+                    images: images.slice(0, 3), // Up to 3 images
+                    image: images[0] || null,
+                    isUnidentified: true,
+                    originalImageName: originalBaseName
+                };
+                
+                unidentifiedProducts.push(placeholderProduct);
+                unidentifiedCounter++;
+            }
+            
+            console.log(`✅ ${unidentifiedProducts.length} produtos não identificados criados a partir de imagens`);
+            return unidentifiedProducts;
         }
 
         // Initialize
@@ -1413,7 +1530,17 @@
                 console.log(`✅ ${window.products.length} produtos únicos (${selectedSneakers.length} sneakers, ${selectedRoupas.length} roupas)`);
                 
                 // Assign images to products (one image per product, best match only)
-                assignImagesToProducts();
+                const usedImages = assignImagesToProducts();
+                
+                // Create unidentified products from unused images
+                const unidentifiedProducts = createUnidentifiedProducts(usedImages);
+                
+                // Add unidentified products to the list (limit to keep total under reasonable number)
+                const maxUnidentified = Math.max(0, 200 - window.products.length);
+                if (unidentifiedProducts.length > 0 && maxUnidentified > 0) {
+                    window.products = [...window.products, ...unidentifiedProducts.slice(0, maxUnidentified)];
+                    console.log(`✅ Adicionados ${Math.min(unidentifiedProducts.length, maxUnidentified)} produtos não identificados`);
+                }
                 // Sort products: with images first, then by ID (most recent first)
                 window.products.sort((a, b) => {
                     // Primeiro: produtos com imagem aparecem antes dos sem imagem

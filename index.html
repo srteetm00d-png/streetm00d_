@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STREETMOOD — Catálogo Premium</title>
+    <link rel="icon" type="image/jpeg" href="streetm00d_.jpeg">
     
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -169,7 +170,7 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 bg-gradient-to-br from-red-600 to-red-500 rounded-xl flex items-center justify-center overflow-hidden shadow-lg">
-                        <img src="assets/images/logo.png" alt="STREETMOOD Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-black text-xl text-black\'>SM</span>';">
+                        <img src="streetm00d_.jpeg" alt="STREETMOOD Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-black text-xl text-black\'>SM</span>';">
                     </div>
                     <div>
                         <h1 class="text-2xl font-black tracking-tight uppercase">STREETMOOD</h1>
@@ -188,14 +189,17 @@
             <!-- Page Title Section -->
         <div class="mb-8 text-center">
             <h2 class="text-xl md:text-2xl font-black mb-4 text-white leading-relaxed">
-                📦 Esta é a página onde encontras todos os sneakers e fatos de treino disponíveis na <span class="text-red-500">STREETMOOD</span>.
+                Todos os produtos STREETMOOD — Sneakers e roupas exclusivas que combinam com o teu estilo.
             </h2>
         </div>
 
         <!-- Tabs -->
         <div class="flex gap-4 mb-8 border-b border-white/10">
-            <button onclick="switchTab('all')" class="tab-button active px-6 py-3 font-bold text-sm uppercase tracking-wide text-white" data-tab="all">
-                Catálogo Completo
+            <button onclick="switchTab('sneakers')" class="tab-button active px-6 py-3 font-bold text-sm uppercase tracking-wide text-white" data-tab="sneakers">
+                👟 Sneakers
+            </button>
+            <button onclick="switchTab('roupas')" class="tab-button px-6 py-3 font-bold text-sm uppercase tracking-wide text-gray-400" data-tab="roupas">
+                👕 Roupas
             </button>
             </div>
 
@@ -212,8 +216,8 @@
             </div>
             <select id="categorySelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
                 <option value="all">Todas as categorias</option>
-                <option value="sneakers">👟 Sneakers</option>
-                <option value="training">🏋️ Fatos de Treino</option>
+                <option value="stock">Em stock</option>
+                <option value="drop">Fresh Drop</option>
             </select>
             <select id="sortSelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
                 <option value="all">Todos (com imagem primeiro)</option>
@@ -254,11 +258,12 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="text-center md:text-left">
                     <p class="font-bold text-lg mb-2">STREETMOOD</p>
-                    <p class="text-gray-400 text-sm">Vibes, drops e amor ao estilo.</p>
+                    <p class="text-gray-400 text-sm">Fresh drops, encomendas e exclusividades.</p>
+                    <p class="text-gray-500 text-xs mt-1">Envio grátis 🇵🇹 • Caixa STREETMOOD incluída (+5€ se quiser a original)</p>
                 </div>
                 <div class="flex gap-6 items-center">
-                    <a href="https://instagram.com/streetm00d_" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
-                        @streetm00d_
+                    <a href="https://instagram.com/streetm00d" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
+                        Instagram
                     </a>
                     <span class="text-gray-500">•</span>
                     <a href="https://wa.me/351929461628" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
@@ -342,10 +347,10 @@
 
         // WhatsApp number oficial STREETMOOD
         const WHATSAPP_NUMBER = '351929461628';
-        const INSTAGRAM_URL = 'https://instagram.com/streetm00d_';
+        const INSTAGRAM_URL = 'https://instagram.com/streetm00d';
 
         let currentProducts = window.products || [];
-        let activeTab = 'all';
+        let activeTab = 'sneakers';
         let currentProduct = null;
         let currentPage = 1;
         const productsPerPage = 20;
@@ -800,13 +805,13 @@
         }
 
         // Create placeholder HTML
-        function createPlaceholderHTML(productType = 'sneaker') {
-            const icon = productType === 'training' ? '🏋️' : '👟';
+        function createPlaceholderHTML(product) {
+            const icon = (product && product.category === 'roupas') ? '👕' : '👟';
             return `
                 <div class="flex flex-col items-center justify-center p-6 text-center h-full">
                     <div class="text-7xl mb-4 animate-pulse">${icon}</div>
                     <div class="text-2xl mb-2 font-black text-red-500 uppercase">STREETMOOD</div>
-                    <div class="text-gray-400 text-sm mb-2">Imagem em atualização</div>
+                    <div class="text-gray-400 text-sm mb-2">Sem foto disponível — em breve.</div>
                     <div class="text-gray-500 text-xs max-w-xs">Em breve terás acesso<br>à visualização completa deste modelo</div>
                 </div>
             `;
@@ -859,8 +864,8 @@
                                         ${images.length} fotos
                                     </div>
                                     <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                                        <div class="text-5xl mb-2 animate-pulse">${product.tipo === 'training' ? '🏋️' : '👟'}</div>
-                                        <div class="text-xs text-gray-400">Imagem em atualização</div>
+                                        <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
+                                        <div class="text-xs text-gray-400">Sem foto disponível — em breve.</div>
                                     </div>
                                 </div>`;
                 } else {
@@ -869,15 +874,15 @@
                                       class="product-image w-full h-full object-contain"
                                       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                                   <div class="text-5xl mb-2 animate-pulse">${product.tipo === 'training' ? '🏋️' : '👟'}</div>
-                                   <div class="text-xs text-gray-400">Imagem em atualização</div>
+                                   <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
+                                   <div class="text-xs text-gray-400">Sem foto disponível — em breve.</div>
                                </div>`;
                 }
             } else {
-                const icon = product.tipo === 'training' ? '🏋️' : '👟';
+                const icon = product.category === 'roupas' ? '👕' : '👟';
                 imageHTML = `<div class="flex flex-col items-center justify-center p-4 text-center h-full">
                                 <div class="text-5xl mb-2 animate-pulse">${icon}</div>
-                                <div class="text-xs text-gray-400">Imagem em atualização</div>
+                                <div class="text-xs text-gray-400">Sem foto disponível — em breve.</div>
                             </div>`;
             }
             
@@ -1013,21 +1018,29 @@
             
             let filtered = window.products || [];
             
-            // Category filter
-            if (category === 'sneakers') {
-                // Show only sneakers (tipo: "stock" or not "training")
-                filtered = filtered.filter(p => p.tipo !== 'training');
-            } else if (category === 'training') {
-                // Show only training gear (tipo: "training")
-                filtered = filtered.filter(p => p.tipo === 'training');
+            // Tab filter - filter by sneakers or roupas
+            if (activeTab === 'sneakers') {
+                // Show only sneakers (category !== "roupas" or no category field)
+                filtered = filtered.filter(p => !p.category || p.category !== 'roupas');
+            } else if (activeTab === 'roupas') {
+                // Show only clothing (category === "roupas")
+                filtered = filtered.filter(p => p.category === 'roupas');
             }
-            // If category === 'all', show all products
+            
+            // Category filter (stock/drop) - applies within the current tab
+            if (category === 'stock') {
+                filtered = filtered.filter(p => p.tipo === 'stock');
+            } else if (category === 'drop') {
+                filtered = filtered.filter(p => p.tipo === 'drop');
+            }
+            // If category === 'all', show all products in current tab
             
             // Search filter
             if (search) {
                 filtered = filtered.filter(p => 
                     p.name.toLowerCase().includes(search) ||
-                    (p.size && p.size.toLowerCase().includes(search))
+                    (p.size && p.size.toLowerCase().includes(search)) ||
+                    (p.tipo && p.tipo.toLowerCase().includes(search))
                 );
             }
             
@@ -1081,6 +1094,8 @@
                 activeBtn.classList.add('active', 'text-white');
                 activeBtn.classList.remove('text-gray-400');
             }
+            // Reset to first page when switching tabs
+            currentPage = 1;
             filterProducts();
         }
 
@@ -1126,7 +1141,7 @@
                         `;
                     };
                     img.onerror = function() {
-                        viewer.innerHTML = createPlaceholderHTML(product.tipo);
+                        viewer.innerHTML = createPlaceholderHTML(product);
                     };
                     img.src = images[0];
                 } else {
@@ -1168,7 +1183,7 @@
                     window.currentCarouselImages = images;
                 }
             } else {
-                viewer.innerHTML = createPlaceholderHTML(product.tipo);
+                viewer.innerHTML = createPlaceholderHTML(product);
             }
             
             modal.classList.remove('hidden');
@@ -1369,6 +1384,34 @@
             
             if (window.products && window.products.length > 0) {
                 console.log('✅ Produtos carregados:', window.products.length);
+                
+                // Remove duplicates - keep only first occurrence of each product name
+                const seenNames = new Set();
+                const uniqueProducts = [];
+                for (const product of window.products) {
+                    const normalizedName = product.name.toLowerCase().trim();
+                    if (!seenNames.has(normalizedName)) {
+                        seenNames.add(normalizedName);
+                        uniqueProducts.push(product);
+                    }
+                }
+                
+                // Limit to 200 products (mix of sneakers and roupas)
+                // Prioritize products with images, then balance sneakers and roupas
+                const sneakers = uniqueProducts.filter(p => !p.category || p.category !== 'roupas');
+                const roupas = uniqueProducts.filter(p => p.category === 'roupas');
+                
+                // Take up to 150 sneakers and 50 roupas (or adjust based on availability)
+                const maxSneakers = Math.min(150, sneakers.length);
+                const maxRoupas = Math.min(50, roupas.length);
+                const selectedSneakers = sneakers.slice(0, maxSneakers);
+                const selectedRoupas = roupas.slice(0, maxRoupas);
+                
+                // Combine and limit to 200 total
+                window.products = [...selectedSneakers, ...selectedRoupas].slice(0, 200);
+                
+                console.log(`✅ ${window.products.length} produtos únicos (${selectedSneakers.length} sneakers, ${selectedRoupas.length} roupas)`);
+                
                 // Assign images to products (one image per product, best match only)
                 assignImagesToProducts();
                 // Sort products: with images first, then by ID (most recent first)

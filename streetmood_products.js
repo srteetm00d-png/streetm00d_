@@ -602,7 +602,16 @@ if (typeof products === 'undefined') {
         {id: 577, name: "Nike Air Max Plus 3", size: "36-45", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
         // Nike Air Max Tn3
         {id: 578, name: "Nike Air Max Tn3 couro G9", size: "39-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
-        {id: 579, name: "Nike Air Max Tn3", size: "39-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."}
+        {id: 579, name: "Nike Air Max Tn3", size: "39-46", tipo: "stock", price_eur: 70, desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída."},
+        // Novos produtos de roupas
+        {id: 580, name: "SynaWord", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 60, desc: "Roupa premium SynaWord — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 581, name: "Nike NSW Tech Fleece Sports jacket", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 50, desc: "Casaco Nike NSW Tech Fleece Sports — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 582, name: "Nike NSW Tech Fleece Sportswear set", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 80, desc: "Fato Nike NSW Tech Fleece Sportswear — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 583, name: "Nike NSW Tech Fleece Sportswear set (M-2XL)", size: "M-2XL", tipo: "stock", category: "roupas", price_eur: 85, desc: "Fato Nike NSW Tech Fleece Sportswear — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 584, name: "Casacos The North Face _1996(XS-2XL)", size: "XS-2XL", tipo: "stock", category: "roupas", price_eur: 90, desc: "Casaco The North Face _1996 — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 585, name: "The North Face (XS-2XL)", size: "XS-2XL", tipo: "stock", category: "roupas", price_eur: 120, desc: "Casaco The North Face — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 586, name: "TRAPSTAR", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 50, desc: "Roupa premium TRAPSTAR — confortável, estiloso e autêntico. Envio grátis 🇵🇹."},
+        {id: 587, name: "NOCTA x Nike NSW Tech Fleece Sportswear set", size: "S-XL", tipo: "stock", category: "roupas", price_eur: 90, desc: "Fato NOCTA x Nike NSW Tech Fleece Sportswear — confortável, estiloso e autêntico. Envio grátis 🇵🇹."}
     ];
 }
 

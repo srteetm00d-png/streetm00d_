@@ -20,8 +20,8 @@
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #121212;
-            --accent-red: #e50914;
-            --accent-red-hover: #ff1e1e;
+            --accent-red: #ff2a2a;
+            --accent-red-hover: #ff4040;
             --text-primary: #ffffff;
             --text-secondary: #9ca3af;
             --glass: rgba(255, 255, 255, 0.04);
@@ -59,7 +59,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(229, 9, 20, 0.1) 0%, rgba(255, 30, 30, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(255, 42, 42, 0.1) 0%, rgba(255, 64, 64, 0.05) 100%);
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: 0;
@@ -71,7 +71,7 @@
         
         .product-card:hover {
             transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(229, 9, 20, 0.2), 0 0 30px rgba(229, 9, 20, 0.1);
+            box-shadow: 0 20px 40px rgba(255, 42, 42, 0.2), 0 0 30px rgba(255, 42, 42, 0.1);
         }
         
         .product-image {
@@ -83,13 +83,13 @@
         }
         
         .drop-badge {
-            background: linear-gradient(135deg, #e50914 0%, #ff1e1e 100%);
+            background: linear-gradient(135deg, #ff2a2a 0%, #ff4040 100%);
             animation: pulse-glow 2s infinite;
         }
         
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px rgba(229, 9, 20, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(229, 9, 20, 0.8); }
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 42, 42, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 42, 42, 0.8); }
         }
         
         .modal-overlay {
@@ -143,7 +143,7 @@
         .search-input:focus {
             background: rgba(255, 255, 255, 0.08);
             border-color: var(--accent-red);
-            box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.1);
+            box-shadow: 0 0 0 3px rgba(255, 42, 42, 0.1);
         }
         
         .tab-button {
@@ -169,7 +169,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-gradient-to-br from-red-600 to-red-500 rounded-xl flex items-center justify-center overflow-hidden shadow-lg">
+                    <div class="w-[52px] h-[52px] rounded-[12px] flex items-center justify-center overflow-hidden" style="box-shadow: 0 0 12px rgba(255,42,42,0.3); margin: 10px 0 10px 10px;">
                         <img src="streetm00d_.jpeg" alt="STREETMOOD Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-black text-xl text-black\'>SM</span>';">
                     </div>
                     <div>
@@ -220,7 +220,7 @@
                 <option value="drop">Fresh Drop</option>
             </select>
             <select id="sortSelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
-                <option value="all">Todos (com imagem primeiro)</option>
+                <option value="all">Todos</option>
                 <option value="new">Mais recentes</option>
                 <option value="name">Ordenar por nome</option>
                 <option value="price-asc">Preço: menor → maior</option>
@@ -262,7 +262,7 @@
                     <p class="text-gray-500 text-xs mt-1">Envio grátis 🇵🇹 • Caixa STREETMOOD incluída (+5€ se quiser a original)</p>
                 </div>
                 <div class="flex gap-6 items-center">
-                    <a href="https://instagram.com/streetm00d" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
+                    <a href="https://instagram.com/streetm00d_" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
                         Instagram
                     </a>
                     <span class="text-gray-500">•</span>
@@ -308,7 +308,7 @@
                             onclick="contactSeller()" 
                             class="btn-primary w-full py-4 rounded-xl font-bold text-lg uppercase tracking-wide mb-4"
                         >
-                            💬 Comprar via WhatsApp
+                            💬 Comprar / DM
                         </button>
                         
                         <button 
@@ -347,7 +347,7 @@
 
         // WhatsApp number oficial STREETMOOD
         const WHATSAPP_NUMBER = '351929461628';
-        const INSTAGRAM_URL = 'https://instagram.com/streetm00d';
+        const INSTAGRAM_URL = 'https://instagram.com/streetm00d_';
 
         let currentProducts = window.products || [];
         let activeTab = 'sneakers';
@@ -1045,27 +1045,9 @@
                 );
             }
             
-            // Sort - produtos com imagens primeiro
+            // Sort products
             filtered.sort((a, b) => {
-                // Se for "todos", produtos com imagem primeiro, depois aplicar ordenação
-                if (sort === 'all') {
-                    const aHasImage = a.image ? 1 : 0;
-                    const bHasImage = b.image ? 1 : 0;
-                    if (aHasImage !== bHasImage) {
-                        return bHasImage - aHasImage; // Com imagem primeiro
-                    }
-                    // Depois ordenar por ID (mais recente primeiro)
-                    return (b.id || 0) - (a.id || 0);
-                }
-                
-                // Primeiro: produtos com imagem aparecem antes dos sem imagem (exceto para "todos")
-                const aHasImage = a.image ? 1 : 0;
-                const bHasImage = b.image ? 1 : 0;
-                if (aHasImage !== bHasImage) {
-                    return bHasImage - aHasImage; // Com imagem primeiro
-                }
-                
-                // Depois: aplicar ordenação selecionada
+                // Apply selected sorting
                 if (sort === 'price-asc') {
                     // Products without price go to end
                     if (a.price_eur === null || a.price_eur === undefined) return 1;
@@ -1079,7 +1061,7 @@
                 } else if (sort === 'name') {
                     return (a.name || '').localeCompare(b.name || '');
                 } else {
-                    // Mais recentes (por ID, maior ID = mais recente)
+                    // Mais recentes (por ID, maior ID = mais recente) - default for "all" and "new"
                     return (b.id || 0) - (a.id || 0);
                 }
             });
@@ -1541,15 +1523,8 @@
                     window.products = [...window.products, ...unidentifiedProducts.slice(0, maxUnidentified)];
                     console.log(`✅ Adicionados ${Math.min(unidentifiedProducts.length, maxUnidentified)} produtos não identificados`);
                 }
-                // Sort products: with images first, then by ID (most recent first)
+                // Sort products: by ID (most recent first)
                 window.products.sort((a, b) => {
-                    // Primeiro: produtos com imagem aparecem antes dos sem imagem
-                    const aHasImage = a.image ? 1 : 0;
-                    const bHasImage = b.image ? 1 : 0;
-                    if (aHasImage !== bHasImage) {
-                        return bHasImage - aHasImage; // Com imagem primeiro
-                    }
-                    // Depois: ordenar por ID (mais recente primeiro)
                     return (b.id || 0) - (a.id || 0);
                 });
                 // Show all products (with or without images)

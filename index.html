@@ -608,7 +608,68 @@
             "Morant 3rd generation IM0464-001/Morant 3rd generation IM0464-001_2.jpg",
             "Morant 3rd generation IM0464-001/Morant 3rd generation IM0464-001_3.jpg",
             "Morant 3rd generation IM0464-001_2.jpg",
-            "Morant 3rd generation IM0464-001_3.jpg"
+            "Morant 3rd generation IM0464-001_3.jpg",
+            // Novas roupas - SynaWord
+            "SynaWord/SynaWord_1.jpg",
+            "SynaWord/SynaWord_3.jpg",
+            "SynaWord/SynaWord_5.jpg",
+            "SynaWord/SynaWord_6.jpg",
+            "SynaWord/SynaWord_7.jpg",
+            "SynaWord/SynaWord_10.jpg",
+            // Novas roupas - Nike NSW Tech Fleece Sports jacket
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_1.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_2.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_3.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_4.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_5.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_6.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_7.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_8.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_9.jpg",
+            "Nike NSW Tech Fleece Sports jacket/Nike NSW Tech Fleece Sports jacket_10.jpg",
+            // Novas roupas - Nike NSW Tech Fleece Sportswear set
+            "Nike NSW Tech Fleece Sportswear set/Nike NSW Tech Fleece Sportswear set_2.jpg",
+            "Nike NSW Tech Fleece Sportswear set/Nike NSW Tech Fleece Sportswear set_4.jpg",
+            "Nike NSW Tech Fleece Sportswear set/Nike NSW Tech Fleece Sportswear set_5.jpg",
+            "Nike NSW Tech Fleece Sportswear set/Nike NSW Tech Fleece Sportswear set_7.jpg",
+            // Novas roupas - Nike NSW Tech Fleece Sportswear set (M-2XL)
+            "Nike NSW Tech Fleece Sportswear set (M-2XL)/Nike NSW Tech Fleece Sportswear set (M-2XL)_1.jpg",
+            "Nike NSW Tech Fleece Sportswear set (M-2XL)/Nike NSW Tech Fleece Sportswear set (M-2XL)_2.jpg",
+            "Nike NSW Tech Fleece Sportswear set (M-2XL)/Nike NSW Tech Fleece Sportswear set (M-2XL)_3.jpg",
+            "Nike NSW Tech Fleece Sportswear set (M-2XL)/Nike NSW Tech Fleece Sportswear set (M-2XL)_4.jpg",
+            "Nike NSW Tech Fleece Sportswear set (M-2XL)/Nike NSW Tech Fleece Sportswear set (M-2XL)_5.jpg",
+            "Nike NSW Tech Fleece Sportswear set (M-2XL)/Nike NSW Tech Fleece Sportswear set (M-2XL)_7.jpg",
+            // Novas roupas - Casacos The North Face _1996(XS-2XL)
+            "Casacos The North Face _1996(XS-2XL)/The North Face _1996(XS-2XL)_1.jpg",
+            "Casacos The North Face _1996(XS-2XL)/The North Face _1996(XS-2XL)_2.jpg",
+            "Casacos The North Face _1996(XS-2XL)/The North Face _1996(XS-2XL)_3.jpg",
+            "Casacos The North Face _1996(XS-2XL)/The North Face _1996(XS-2XL)_4.jpg",
+            "Casacos The North Face _1996(XS-2XL)/The North Face _1996(XS-2XL)_5.jpg",
+            // Novas roupas - The North Face (XS-2XL)
+            "The North Face (XS-2XL)/The North Face (XS-2XL)_2.jpg",
+            "The North Face (XS-2XL)/The North Face (XS-2XL)_3.jpg",
+            // Novas roupas - TRAPSTAR
+            "TRAPSTAR/TRAPSTAR_1.jpg",
+            "TRAPSTAR/TRAPSTAR_2.jpg",
+            "TRAPSTAR/TRAPSTAR_3.jpg",
+            "TRAPSTAR/TRAPSTAR_4.jpg",
+            "TRAPSTAR/TRAPSTAR_5.jpg",
+            "TRAPSTAR/TRAPSTAR_6.jpg",
+            "TRAPSTAR/TRAPSTAR_7.jpg",
+            "TRAPSTAR/TRAPSTAR_8.jpg",
+            "TRAPSTAR/TRAPSTAR_9.jpg",
+            "TRAPSTAR/TRAPSTAR_11.jpg",
+            "TRAPSTAR/TRAPSTAR_12.jpg",
+            // Novas roupas - NOCTA x Nike NSW Tech Fleece Sportswear set
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_1.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_2.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_3.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_4.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_5.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_6.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_7.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_8.jpg",
+            "NOCTA x Nike NSW Tech Fleece Sportswear set/NOCTA x Nike NSW Tech Fleece Sportswear set_9.jpg"
         ];
 
         // Image mapping system
@@ -756,8 +817,8 @@
                     }
                 }
                 
-                // Only return if score is high enough (strict matching)
-                return bestScore >= 70 ? bestMatch : null;
+                // Only return if score is high enough (flexible matching for new products)
+                return bestScore >= 50 ? bestMatch : null;
             },
             
             // Get single image (for backward compatibility)
@@ -1336,7 +1397,7 @@
             const usedImages = new Set();
             
             for (const { product, images, score } of productsWithScores) {
-                if (images.length > 0 && score >= 70) {
+                if (images.length > 0 && score >= 50) {
                     // Filter out already used images
                     const availableImages = images.filter(img => !usedImages.has(img));
                     

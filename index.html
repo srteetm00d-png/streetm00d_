@@ -722,18 +722,18 @@
                     imageGroups[baseName].push(fullPath);
                 });
                 
-                // Store up to 3 images per product base name
+                    // Store up to 10 images per product base name (to show more images)
                 for (const [baseName, images] of Object.entries(imageGroups)) {
                     // Sort images to prefer _1.jpg, then _2.jpg, then _3.jpg, etc.
                     images.sort((a, b) => {
-                        const aMatch = a.match(/_(\d+)\.jpg$/);
-                        const bMatch = b.match(/_(\d+)\.jpg$/);
+                            const aMatch = a.match(/_(\d+)\.(jpg|jpeg|png)$/i);
+                            const bMatch = b.match(/_(\d+)\.(jpg|jpeg|png)$/i);
                         const aNum = aMatch ? parseInt(aMatch[1]) : 0;
                         const bNum = bMatch ? parseInt(bMatch[1]) : 0;
                         return aNum - bNum;
                     });
-                    // Store up to 3 images
-                    this.mapping[baseName] = images.slice(0, 3);
+                        // Store up to 10 images (more than 3 for better product display)
+                        this.mapping[baseName] = images.slice(0, 10);
                 }
                 
                 console.log('✅ Mapeamento de imagens inicializado:', Object.keys(this.mapping).length, 'produtos base');
@@ -1405,8 +1405,8 @@
                         // Mark images as used
                         availableImages.forEach(img => usedImages.add(img));
                         
-                        // Assign up to 3 images to product
-                        product.images = availableImages.slice(0, 3);
+                        // Assign up to 10 images to product (more images for better display)
+                        product.images = availableImages.slice(0, 10);
                         // Also set first image for backward compatibility
                         product.image = availableImages[0];
                     } else {
@@ -1425,6 +1425,51 @@
             
             // Return used images set for unidentified products creation
             return usedImages;
+        }
+
+        // Function to determine price based on brand
+        function getPriceByBrand(productName) {
+            const nameLower = productName.toLowerCase();
+            if (nameLower.includes('dior') || nameLower.includes('gucci') || nameLower.includes('versace') || nameLower.includes('louis vuitton') || nameLower.includes('lv') || nameLower.includes('amiri')) {
+                if (nameLower.includes('dior')) return 99;
+                if (nameLower.includes('louis vuitton') || nameLower.includes('lv')) return 100;
+                if (nameLower.includes('gucci') || nameLower.includes('versace') || nameLower.includes('amiri')) return 110;
+                return 110; // Luxo
+            }
+            if (nameLower.includes('jordan') || nameLower.includes('air jordan')) {
+                return 95;
+            }
+            if (nameLower.includes('nike') || nameLower.includes('adidas') || nameLower.includes('puma') || nameLower.includes('new balance')) {
+                return 75;
+            }
+            return 80; // Outros
+        }
+        
+        // Function to extract size from folder name
+        function extractSizeFromName(name) {
+            // Look for patterns like (40-45), (XS-2XL), (M-2XL), etc.
+            const sizeMatch = name.match(/\(([^)]+)\)/);
+            if (sizeMatch) {
+                return sizeMatch[1];
+            }
+            // Look for patterns like 40-45, 36-46 without parentheses
+            const sizeMatch2 = name.match(/(\d{2}-\d{2})/);
+            if (sizeMatch2) {
+                return sizeMatch2[1];
+            }
+            return null;
+        }
+        
+        // Function to clean product name from folder
+        function cleanProductName(folderName) {
+            // Remove size patterns
+            let cleaned = folderName
+                .replace(/\([^)]+\)/g, '') // Remove (40-45), (XS-2XL), etc.
+                .replace(/\d{2}-\d{2}/g, '') // Remove 40-45, 36-46, etc.
+                .replace(/^\d+\s*-\s*/g, '') // Remove leading numbers like "1 - "
+                .replace(/\s+/g, ' ')
+                .trim();
+            return cleaned;
         }
 
         // Create unidentified products from unused images
@@ -1456,10 +1501,11 @@
                 }
                 
                 // Handle folder structure: if path contains /, use folder name as base
+                let folderName = '';
                 if (baseName.includes('/')) {
                     const parts = baseName.split('/');
-                    // Use folder name (second to last part) as base name
-                    baseName = parts[parts.length - 2] || parts[parts.length - 1];
+                    folderName = parts[parts.length - 2] || parts[parts.length - 1];
+                    baseName = folderName;
                 } else {
                     // Remove _1.jpg, _2.jpg, etc. from filename
                     baseName = baseName.replace(/_\d+\.(jpg|jpeg|png)$/i, '');
@@ -1472,13 +1518,21 @@
                 const normalizedBaseName = baseName.toLowerCase().trim();
                 
                 if (!unusedImageGroups[normalizedBaseName]) {
-                    unusedImageGroups[normalizedBaseName] = [];
+                    unusedImageGroups[normalizedBaseName] = {
+                        images: [],
+                        folderName: folderName || baseName,
+                        originalBaseName: baseName
+                    };
                 }
-                unusedImageGroups[normalizedBaseName].push(imgPath);
+                unusedImageGroups[normalizedBaseName].images.push(imgPath);
             }
             
             // Create placeholder products for unused images
-            for (const [normalizedBaseName, images] of Object.entries(unusedImageGroups)) {
+            for (const [normalizedBaseName, group] of Object.entries(unusedImageGroups)) {
+                const images = group.images;
+                const folderName = group.folderName;
+                const originalBaseName = group.originalBaseName;
+                
                 // Determine if it's clothing or sneakers based on image name
                 const normalizedName = normalizedBaseName;
                 const isClothing = normalizedName.includes('hoodie') || 
@@ -1489,36 +1543,48 @@
                                  normalizedName.includes('windbreaker') ||
                                  normalizedName.includes('fato') ||
                                  normalizedName.includes('treino') ||
-                                 normalizedName.includes('set');
+                                 normalizedName.includes('set') ||
+                                 normalizedName.includes('casaco') ||
+                                 normalizedName.includes('jacket') ||
+                                 normalizedName.includes('the north face') ||
+                                 normalizedName.includes('trapstar') ||
+                                 normalizedName.includes('synaword') ||
+                                 normalizedName.includes('nocta');
                 
-                // Get original base name from first image path for reference
-                let originalBaseName = images[0] || '';
-                if (originalBaseName.startsWith('imagens_produtos/')) {
-                    originalBaseName = originalBaseName.substring('imagens_produtos/'.length);
+                // Try to extract product name and size from folder name
+                let productName = cleanProductName(folderName);
+                let productSize = extractSizeFromName(folderName);
+                
+                // If we couldn't extract a meaningful name, use generic
+                if (!productName || productName.length < 3) {
+                    productName = isClothing ? `Roupa não identificada #${unidentifiedCounter}` : `Produto não identificado #${unidentifiedCounter}`;
                 }
-                if (originalBaseName.includes('/')) {
-                    const parts = originalBaseName.split('/');
-                    originalBaseName = parts[parts.length - 2] || parts[parts.length - 1];
+                
+                // Set default size if not found
+                if (!productSize) {
+                    productSize = isClothing ? "S-XL" : "36-45";
                 }
-                originalBaseName = originalBaseName.replace(/_\d+\.(jpg|jpeg|png)$/i, '').replace(/\.(jpg|jpeg|png)$/i, '');
                 
                 // Get highest ID from existing products
                 const maxId = window.products.length > 0 
                     ? Math.max(...window.products.map(p => p.id || 0))
                     : 0;
                 
+                // Determine price based on brand
+                const priceEur = getPriceByBrand(productName);
+                
                 const placeholderProduct = {
                     id: maxId + unidentifiedCounter,
-                    name: isClothing ? `Roupa não identificada #${unidentifiedCounter}` : `Produto não identificado #${unidentifiedCounter}`,
-                    size: isClothing ? "S–XL" : "36-45",
+                    name: productName,
+                    size: productSize,
                     tipo: "stock",
                     category: isClothing ? "roupas" : undefined,
-                    price_eur: null, // Will display as "—"
-                    price: "—",
-                    desc: "Dados ainda não disponíveis — atualização em breve.",
-                    images: images.slice(0, 3), // Up to 3 images
+                    price_eur: priceEur,
+                    price: `${priceEur}€`,
+                    desc: "Estado: Novo. Envio grátis. Caixa STREETMOOD incluída.",
+                    images: images.slice(0, 10), // Up to 10 images (more than 3 for better display)
                     image: images[0] || null,
-                    isUnidentified: true,
+                    isUnidentified: productName.includes('não identificad'),
                     originalImageName: originalBaseName
                 };
                 
@@ -1526,7 +1592,7 @@
                 unidentifiedCounter++;
             }
             
-            console.log(`✅ ${unidentifiedProducts.length} produtos não identificados criados a partir de imagens`);
+            console.log(`✅ ${unidentifiedProducts.length} produtos criados a partir de imagens não utilizadas`);
             return unidentifiedProducts;
         }
 
@@ -1556,21 +1622,12 @@
                     }
                 }
                 
-                // Limit to 200 products (mix of sneakers and roupas)
-                // Prioritize products with images, then balance sneakers and roupas
-                const sneakers = uniqueProducts.filter(p => !p.category || p.category !== 'roupas');
-                const roupas = uniqueProducts.filter(p => p.category === 'roupas');
+                // Don't limit products - show all products to ensure all images appear
+                window.products = uniqueProducts;
                 
-                // Take up to 150 sneakers and 50 roupas (or adjust based on availability)
-                const maxSneakers = Math.min(150, sneakers.length);
-                const maxRoupas = Math.min(50, roupas.length);
-                const selectedSneakers = sneakers.slice(0, maxSneakers);
-                const selectedRoupas = roupas.slice(0, maxRoupas);
-                
-                // Combine and limit to 200 total
-                window.products = [...selectedSneakers, ...selectedRoupas].slice(0, 200);
-                
-                console.log(`✅ ${window.products.length} produtos únicos (${selectedSneakers.length} sneakers, ${selectedRoupas.length} roupas)`);
+                const sneakers = window.products.filter(p => !p.category || p.category !== 'roupas');
+                const roupas = window.products.filter(p => p.category === 'roupas');
+                console.log(`✅ ${window.products.length} produtos únicos (${sneakers.length} sneakers, ${roupas.length} roupas)`);
                 
                 // Assign images to products (one image per product, best match only)
                 const usedImages = assignImagesToProducts();
@@ -1578,11 +1635,10 @@
                 // Create unidentified products from unused images
                 const unidentifiedProducts = createUnidentifiedProducts(usedImages);
                 
-                // Add unidentified products to the list (limit to keep total under reasonable number)
-                const maxUnidentified = Math.max(0, 200 - window.products.length);
-                if (unidentifiedProducts.length > 0 && maxUnidentified > 0) {
-                    window.products = [...window.products, ...unidentifiedProducts.slice(0, maxUnidentified)];
-                    console.log(`✅ Adicionados ${Math.min(unidentifiedProducts.length, maxUnidentified)} produtos não identificados`);
+                // Add all unidentified products to the list (no limit - show all images)
+                if (unidentifiedProducts.length > 0) {
+                    window.products = [...window.products, ...unidentifiedProducts];
+                    console.log(`✅ Adicionados ${unidentifiedProducts.length} produtos criados a partir de imagens não utilizadas`);
                 }
                 // Sort products: by ID (most recent first)
                 window.products.sort((a, b) => {

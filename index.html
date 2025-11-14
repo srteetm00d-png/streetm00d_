@@ -1127,6 +1127,13 @@
                 }
             });
             
+            // Filter out products without images - only show products with images
+            filtered = filtered.filter(p => {
+                const hasImage = (p.images && Array.isArray(p.images) && p.images.length > 0) || 
+                                (p.image && p.image !== null);
+                return hasImage;
+            });
+            
             currentProducts = filtered;
             currentPage = 1; // Reset to first page when filtering
             renderProducts();
@@ -1640,11 +1647,21 @@
                     window.products = [...window.products, ...unidentifiedProducts];
                     console.log(`✅ Adicionados ${unidentifiedProducts.length} produtos criados a partir de imagens não utilizadas`);
                 }
+                
+                // Filter out products without images - only show products with images
+                window.products = window.products.filter(p => {
+                    const hasImage = (p.images && Array.isArray(p.images) && p.images.length > 0) || 
+                                    (p.image && p.image !== null);
+                    return hasImage;
+                });
+                
+                console.log(`✅ ${window.products.length} produtos com imagens (produtos sem imagem foram removidos)`);
+                
                 // Sort products: by ID (most recent first)
                 window.products.sort((a, b) => {
                     return (b.id || 0) - (a.id || 0);
                 });
-                // Show all products (with or without images)
+                // Show only products with images
                 currentProducts = window.products;
                 currentPage = 1;
                 renderProducts();

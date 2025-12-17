@@ -195,7 +195,10 @@
 
         <!-- Tabs -->
         <div class="flex gap-4 mb-8 border-b border-white/10">
-            <button onclick="switchTab('sneakers')" class="tab-button active px-6 py-3 font-bold text-sm uppercase tracking-wide text-white" data-tab="sneakers">
+            <button onclick="switchTab('mais-vendido')" class="tab-button active px-6 py-3 font-bold text-sm uppercase tracking-wide text-white" data-tab="mais-vendido">
+                🔥 Mais Vendido
+            </button>
+            <button onclick="switchTab('sneakers')" class="tab-button px-6 py-3 font-bold text-sm uppercase tracking-wide text-gray-400" data-tab="sneakers">
                 👟 Sneakers
             </button>
             <button onclick="switchTab('roupas')" class="tab-button px-6 py-3 font-bold text-sm uppercase tracking-wide text-gray-400" data-tab="roupas">
@@ -350,7 +353,7 @@
         const INSTAGRAM_URL = 'https://instagram.com/streetm00d_';
 
         let currentProducts = window.products || [];
-        let activeTab = 'sneakers';
+        let activeTab = 'mais-vendido';
         let currentProduct = null;
         let currentPage = 1;
         const productsPerPage = 20;
@@ -1078,8 +1081,11 @@
             
             let filtered = window.products || [];
             
-            // Tab filter - filter by sneakers or roupas
-            if (activeTab === 'sneakers') {
+            // Tab filter - filter by tab type
+            if (activeTab === 'mais-vendido') {
+                // Show only best sellers
+                filtered = filtered.filter(p => p.isBestSeller === true);
+            } else if (activeTab === 'sneakers') {
                 // Show only sneakers (category !== "roupas" or no category field)
                 filtered = filtered.filter(p => !p.category || p.category !== 'roupas');
             } else if (activeTab === 'roupas') {

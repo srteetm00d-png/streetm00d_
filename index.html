@@ -369,16 +369,142 @@
         // No need for hardcoded image list or mapping system
         // All images are loaded from imagens_produtos folder and assigned to products
 
+        // Image path resolver for GitHub Pages compatibility
+        // GitHub Pages is case-sensitive, so we need to normalize paths
+        const imagePathResolver = {
+            // Cache of resolved image paths
+            cache: new Map(),
+            
+            // Normalize path for GitHub Pages (case-sensitive)
+            normalizePath: function(path) {
+                if (!path) return null;
+                // Remove leading/trailing slashes and normalize
+                let normalized = path.replace(/^\/+|\/+$/g, '');
+                // Ensure imagens_produtos prefix
+                if (!normalized.startsWith('imagens_produtos/')) {
+                    normalized = 'imagens_produtos/' + normalized;
+                }
+                return normalized;
+            },
+            
+            // Try to find image by product name (fallback when images not assigned)
+            findImageByName: function(productName) {
+                if (!productName) return null;
+                
+                // Normalize product name for matching
+                let normalizedName = productName
+                    .toLowerCase()
+                    .replace(/['"]/g, '')
+                    .replace(/[()]/g, '')
+                    .replace(/\d{2}-\d{2}/g, '') // Remove sizes like 40-47
+                    .replace(/\d{6,}[-\s]?\d{0,6}/g, '') // Remove codes
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                
+                // Extract key words (remove common words)
+                const commonWords = ['air', 'jordan', 'jordans', 'nike', 'retro', 'high', 'mid', 'low', 'og', 'gs'];
+                const words = normalizedName.split(/\s+/).filter(w => 
+                    w.length > 2 && !commonWords.includes(w.toLowerCase())
+                );
+                const keyName = words.join(' ') || normalizedName;
+                
+                // Generate multiple patterns to try
+                const patterns = [];
+                
+                // Direct patterns
+                patterns.push(keyName + '_1.jpg');
+                patterns.push(keyName + '_1.jpeg');
+                patterns.push(keyName + '_1.png');
+                patterns.push(keyName + '.jpg');
+                patterns.push(keyName + '.jpeg');
+                patterns.push(keyName + '.png');
+                
+                // With underscores
+                const underscored = keyName.replace(/\s+/g, '_');
+                patterns.push(underscored + '_1.jpg');
+                patterns.push(underscored + '_1.jpeg');
+                patterns.push(underscored + '_1.png');
+                
+                // With original name variations
+                patterns.push(normalizedName.replace(/\s+/g, '_') + '_1.jpg');
+                patterns.push(normalizedName.replace(/\s+/g, ' ') + '_1.jpg');
+                
+                // Folder-based patterns (for subfolders)
+                const folderPatterns = [
+                    keyName + '/' + keyName + '_1.jpg',
+                    keyName + '/' + keyName + '_1.jpeg',
+                    underscored + '/' + underscored + '_1.jpg',
+                    normalizedName + '/' + normalizedName + '_1.jpg',
+                ];
+                patterns.push(...folderPatterns);
+                
+                // Return first pattern (will be validated on load)
+                // The actual validation happens in handleImageError
+                return patterns.length > 0 ? this.normalizePath(patterns[0]) : null;
+            },
+            
+            // Resolve image path with fallbacks for GitHub Pages
+            resolvePath: function(imagePath) {
+                if (!imagePath) return null;
+                
+                // Check cache first
+                if (this.cache.has(imagePath)) {
+                    return this.cache.get(imagePath);
+                }
+                
+                // Normalize path
+                let resolved = this.normalizePath(imagePath);
+                
+                // Try original path first
+                const pathsToTry = [
+                    resolved,
+                    resolved.toLowerCase(),
+                    resolved.replace(/\\/g, '/'),
+                    resolved.replace(/\s+/g, '%20'), // URL encode spaces
+                    resolved.replace(/\s+/g, '_'), // Replace spaces with underscores
+                ];
+                
+                // Cache the first path (will be validated on load)
+                this.cache.set(imagePath, pathsToTry[0]);
+                return pathsToTry[0];
+            }
+        };
+        
         // Get product images - products have images assigned directly in the products array
         function getProductImages(product) {
             // Product has images property with array of image paths
             if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-                return product.images;
+                // Resolve all image paths for GitHub Pages compatibility
+                const resolved = product.images
+                    .map(img => imagePathResolver.resolvePath(img))
+                    .filter(img => img !== null);
+                if (resolved.length > 0) {
+                    return resolved;
+                }
             }
             // Fallback to single image for backward compatibility
             if (product.image) {
-                return [product.image];
+                const resolved = imagePathResolver.resolvePath(product.image);
+                if (resolved) {
+                    return [resolved];
+                }
             }
+            
+            // Last resort: try to find image by product name
+            // This is important for products that don't have images assigned yet
+            const foundImage = imagePathResolver.findImageByName(product.name);
+            if (foundImage) {
+                return [foundImage];
+            }
+            
+            // Try with original name if different
+            if (product.originalImageName) {
+                const foundByOriginal = imagePathResolver.findImageByName(product.originalImageName);
+                if (foundByOriginal) {
+                    return [foundByOriginal];
+                }
+            }
+            
             return [];
         }
         
@@ -424,6 +550,103 @@
             return size;
         }
         
+        // Function to try alternative image paths when one fails
+        function tryAlternativeImagePaths(originalPath, productName) {
+            if (!originalPath) return [];
+            
+            const alternatives = [];
+            const basePath = originalPath.replace(/[^\/]*$/, ''); // Get directory
+            const fileName = originalPath.split('/').pop(); // Get filename
+            const nameWithoutExt = fileName.replace(/\.(jpg|jpeg|png)$/i, '');
+            const ext = fileName.match(/\.(jpg|jpeg|png)$/i)?.[1] || 'jpg';
+            
+            // Try different variations
+            alternatives.push(originalPath.toLowerCase());
+            alternatives.push(originalPath.replace(/\s+/g, '%20'));
+            alternatives.push(originalPath.replace(/\s+/g, '_'));
+            alternatives.push(basePath + nameWithoutExt.toLowerCase() + '.' + ext);
+            alternatives.push(basePath + nameWithoutExt.replace(/\s+/g, '_') + '.' + ext);
+            alternatives.push(basePath + nameWithoutExt.replace(/\s+/g, '%20') + '.' + ext);
+            
+            // Try with product name
+            const normalizedProductName = productName
+                .toLowerCase()
+                .replace(/['"]/g, '')
+                .replace(/[()]/g, '')
+                .replace(/\d{2}-\d{2}/g, '')
+                .replace(/\d{6,}[-\s]?\d{0,6}/g, '')
+                .replace(/\s+/g, '_')
+                .trim();
+            
+            if (normalizedProductName) {
+                alternatives.push(`imagens_produtos/${normalizedProductName}_1.jpg`);
+                alternatives.push(`imagens_produtos/${normalizedProductName}_1.jpeg`);
+                alternatives.push(`imagens_produtos/${normalizedProductName}_1.png`);
+                alternatives.push(`imagens_produtos/${normalizedProductName}.jpg`);
+            }
+            
+            return [...new Set(alternatives)]; // Remove duplicates
+        }
+        
+        // Global image error handler - tries alternative paths
+        window.handleImageError = function(imgElement, productName, productId) {
+            const originalSrc = imgElement.getAttribute('data-original-src') || imgElement.src;
+            const alternatives = tryAlternativeImagePaths(originalSrc, productName);
+            let currentIndex = 0;
+            
+            // Show loading placeholder
+            const container = imgElement.closest('.relative');
+            if (container) {
+                const placeholder = container.querySelector('.error-placeholder');
+                if (placeholder) {
+                    placeholder.classList.remove('hidden');
+                    placeholder.querySelector('.text-xs').textContent = 'Tentando carregar imagem...';
+                }
+            }
+            
+            function tryNextAlternative() {
+                if (currentIndex >= alternatives.length) {
+                    // All alternatives failed
+                    if (container) {
+                        const placeholder = container.querySelector('.error-placeholder');
+                        if (placeholder) {
+                            placeholder.querySelector('.text-xs').textContent = 'Imagem não encontrada';
+                        }
+                    }
+                    imgElement.style.display = 'none';
+                    return;
+                }
+                
+                const currentPath = alternatives[currentIndex];
+                const testImg = new Image();
+                
+                testImg.onload = function() {
+                    // Found working path!
+                    imgElement.src = currentPath;
+                    imgElement.style.display = '';
+                    if (container) {
+                        const placeholder = container.querySelector('.error-placeholder');
+                        if (placeholder) {
+                            placeholder.classList.add('hidden');
+                        }
+                    }
+                    // Update cache
+                    imagePathResolver.cache.set(originalSrc, currentPath);
+                };
+                
+                testImg.onerror = function() {
+                    currentIndex++;
+                    tryNextAlternative();
+                };
+                
+                testImg.src = currentPath;
+            }
+            
+            // Hide original image and try alternatives
+            imgElement.style.display = 'none';
+            tryNextAlternative();
+        };
+        
         // Render product card
         function renderProductCard(product) {
             const images = getProductImages(product);
@@ -431,42 +654,68 @@
             // Todos os produtos estão disponíveis no STREETMOOD - sem badges de tipo
             const badge = '';
             
-            // Only render if product has valid image path
+            // Always render products - even if image path is not found yet
+            // The image error handler will try to find alternatives
             const hasImage = image !== null && image !== undefined && image !== '';
+            
+            // If no image found, try to find one by name
+            let finalImage = image;
             if (!hasImage) {
-                return ''; // Don't render products without images
+                const foundImage = imagePathResolver.findImageByName(product.name);
+                finalImage = foundImage;
             }
             
             const formattedName = formatProductName(product);
             const formattedSize = formatSize(product.size);
+            const productId = product.id;
             
             let imageHTML = '';
-            if (hasImage) {
+            // Always show image container - even if image path is not found
+            // The error handler will try alternatives
+            if (finalImage || hasImage) {
+                const imageToUse = finalImage || image;
+                // Create unique ID for image container
+                const imageContainerId = `img-container-${productId}`;
+                
                 // If multiple images, show first image with indicator
                 if (images.length > 1) {
-                    imageHTML = `<div class="relative w-full h-full">
-                                    <img src="${image}" 
+                    imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
+                                    <img src="${imageToUse}" 
                                          alt="${formattedName}" 
                                          class="product-image w-full h-full object-contain"
-                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                         data-product-id="${productId}"
+                                         data-original-src="${imageToUse}"
+                                         onerror="handleImageError(this, '${formattedName.replace(/'/g, "\\'")}', ${productId})">
                                     <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-semibold">
                                         ${images.length} fotos
                                     </div>
-                                    <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl">
+                                    <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl error-placeholder">
                                         <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
-                                        <div class="text-xs text-gray-400">Erro ao carregar imagem</div>
+                                        <div class="text-xs text-gray-400">Carregando imagem...</div>
                                     </div>
                                 </div>`;
                 } else {
-                    imageHTML = `<img src="${image}" 
-                                      alt="${formattedName}" 
-                                      class="product-image w-full h-full object-contain"
-                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                               <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl">
-                                   <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
-                                   <div class="text-xs text-gray-400">Erro ao carregar imagem</div>
-                               </div>`;
+                    imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
+                                    <img src="${imageToUse}" 
+                                         alt="${formattedName}" 
+                                         class="product-image w-full h-full object-contain"
+                                         data-product-id="${productId}"
+                                         data-original-src="${imageToUse}"
+                                         onerror="handleImageError(this, '${formattedName.replace(/'/g, "\\'")}', ${productId})">
+                                    <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl error-placeholder">
+                                        <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
+                                        <div class="text-xs text-gray-400">Carregando imagem...</div>
+                                    </div>
+                                </div>`;
                 }
+            } else {
+                // No image found yet - show placeholder but still render product
+                imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
+                                <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl">
+                                    <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
+                                    <div class="text-xs text-gray-400">Procurando imagem...</div>
+                                </div>
+                            </div>`;
             }
             
             return `
@@ -652,18 +901,9 @@
                 }
             });
             
-            // Filter out products without images - only show products with images
-            // Also check that image path is valid (not empty string)
-            filtered = filtered.filter(p => {
-                if (p.images && Array.isArray(p.images) && p.images.length > 0) {
-                    // Check if at least one image path is valid
-                    return p.images.some(img => img && img !== '' && img !== null && img !== undefined);
-                }
-                if (p.image && p.image !== null && p.image !== '' && p.image !== undefined) {
-                    return true;
-                }
-                return false;
-            });
+            // Don't filter out products without images - let them render
+            // The image error handler and auto-discovery will try to find images
+            // This ensures all products are shown, even if images aren't found yet
             
             currentProducts = filtered;
             currentPage = 1; // Reset to first page when filtering
@@ -722,20 +962,37 @@
             // Check if images exist or use placeholder
             if (images.length > 0) {
                 if (images.length === 1) {
-                    // Single image
+                    // Single image with retry logic
                     const img = new Image();
-                    img.onload = function() {
-                        viewer.innerHTML = `
-                            <img src="${images[0]}" 
-                                 alt="${formattedName}" 
-                                 class="max-w-full max-h-full object-contain rounded-xl">
-                        `;
-                    };
-                    img.onerror = function() {
-                        // If image fails to load, close modal (product shouldn't be shown anyway)
-                        closeModal();
-                    };
-                    img.src = images[0];
+                    const alternatives = tryAlternativeImagePaths(images[0], formattedName);
+                    let currentIndex = 0;
+                    
+                    function tryNextModalImage() {
+                        if (currentIndex >= alternatives.length) {
+                            // All failed, show placeholder
+                            viewer.innerHTML = createPlaceholderHTML(product);
+                            return;
+                        }
+                        
+                        const currentPath = alternatives[currentIndex];
+                        img.onload = function() {
+                            viewer.innerHTML = `
+                                <img src="${currentPath}" 
+                                     alt="${formattedName}" 
+                                     class="max-w-full max-h-full object-contain rounded-xl"
+                                     onerror="this.src=''; this.parentElement.innerHTML='${createPlaceholderHTML(product).replace(/'/g, "\\'")}'">
+                            `;
+                            // Update cache
+                            imagePathResolver.cache.set(images[0], currentPath);
+                        };
+                        img.onerror = function() {
+                            currentIndex++;
+                            tryNextModalImage();
+                        };
+                        img.src = currentPath;
+                    }
+                    
+                    tryNextModalImage();
                 } else {
                     // Multiple images - create carousel
                     let carouselHTML = `
@@ -869,6 +1126,53 @@
         // Products already have images assigned from the products file
         // No need for image assignment functions
 
+        // Function to auto-discover images for products without images
+        async function autoDiscoverImages() {
+            if (!window.products || window.products.length === 0) return;
+            
+            console.log('🔍 Procurando imagens para produtos sem imagens definidas...');
+            let foundCount = 0;
+            
+            for (const product of window.products) {
+                // Skip if product already has images
+                if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                    continue;
+                }
+                if (product.image) {
+                    continue;
+                }
+                
+                // Try to find image by name
+                const foundImage = imagePathResolver.findImageByName(product.name);
+                if (foundImage) {
+                    // Test if image actually exists
+                    const testImg = new Image();
+                    await new Promise((resolve) => {
+                        testImg.onload = function() {
+                            // Image exists! Assign it
+                            if (!product.images) {
+                                product.images = [];
+                            }
+                            product.images.push(foundImage);
+                            product.image = foundImage;
+                            foundCount++;
+                            resolve();
+                        };
+                        testImg.onerror = function() {
+                            resolve();
+                        };
+                        testImg.src = foundImage;
+                    });
+                }
+            }
+            
+            if (foundCount > 0) {
+                console.log(`✅ Encontradas ${foundCount} imagens automaticamente`);
+                // Re-render products to show newly found images
+                filterProducts();
+            }
+        }
+        
         // Initialize
         async function init() {
             // Wait a bit to ensure products are loaded
@@ -902,29 +1206,22 @@
                 const roupas = window.products.filter(p => p.category === 'roupas');
                 console.log(`✅ ${window.products.length} produtos únicos (${sneakers.length} sneakers, ${roupas.length} roupas)`);
                 
-                // Products already have images assigned from the products file
-                // Filter out products without images - only show products with images
-                window.products = window.products.filter(p => {
-                    if (p.images && Array.isArray(p.images) && p.images.length > 0) {
-                        // Check if at least one image path is valid
-                        return p.images.some(img => img && img !== '' && img !== null && img !== undefined);
-                    }
-                    if (p.image && p.image !== null && p.image !== '' && p.image !== undefined) {
-                        return true;
-                    }
-                    return false;
-                });
-                
-                console.log(`✅ ${window.products.length} produtos com imagens (produtos sem imagem foram removidos)`);
+                // Don't filter out products without images - let them render and try to find images
+                // The auto-discovery will find images for products that don't have them
                 
                 // Sort products: by ID (most recent first)
                 window.products.sort((a, b) => {
                     return (b.id || 0) - (a.id || 0);
                 });
-                // Show only products with images
+                
                 currentProducts = window.products;
                 currentPage = 1;
                 renderProducts();
+                
+                // Try to auto-discover images for products without images (in background)
+                setTimeout(() => {
+                    autoDiscoverImages();
+                }, 1000);
             } else {
                 console.error('❌ Nenhum produto foi carregado!');
                 document.getElementById('productsGrid').innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Erro ao carregar produtos. Por favor, recarrega a página.</div>';

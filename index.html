@@ -397,7 +397,7 @@
                 'Air Jordans 1 Mid (GS)555112-500_1.jpg', 'Air Jordans 1 Mid (GS)555112-500_2.jpg',
                 'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_1.jpg', 'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_2.jpg',
                 'Air Jordans 1 Mid SE 852542-400_1.jpg', 'Air Jordans 1 Mid SE 852542-400_2.jpg',
-                'Air Jordans 1 Mid 'Candy' 554725-083_1.jpg', 'Air Jordans 1 Mid 'Candy' 554725-083_2.jpg',
+                'Air Jordans 1 Mid \"Candy\" 554725-083_1.jpg', 'Air Jordans 1 Mid \"Candy\" 554725-083_2.jpg',
                 'Air Jordans 1 Mid "Black Cone" 554724-062_1.jpg', 'Air Jordans 1 Mid "Black Cone" 554724-062_2.jpg',
                 'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_1.jpg', 'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_2.jpg',
                 'Air Jordans 1 Mid "Lakers Top 3"852542-005_1.jpg', 'Air Jordans 1 Mid "Lakers Top 3"852542-005_2.jpg',
@@ -1125,8 +1125,8 @@
             renderProducts();
         }
 
-        // Switch tab
-        function switchTab(tab) {
+        // Switch tab - defined as window function for global access
+        window.switchTab = function(tab) {
             activeTab = tab;
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active', 'text-white');
@@ -1140,7 +1140,7 @@
             // Reset to first page when switching tabs
             currentPage = 1;
             filterProducts();
-        }
+        };
 
         // Open modal
         function openModal(productId) {

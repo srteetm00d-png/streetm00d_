@@ -7,11 +7,13 @@
     height: 100%;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
 }
 
 .carousel-slide.active {
     opacity: 1;
     position: relative;
+    pointer-events: auto;
 }
 
 .carousel-container {
@@ -24,6 +26,8 @@
 .carousel-next {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
+    z-index: 10;
+    cursor: pointer;
 }
 
 .carousel-container:hover .carousel-prev,
@@ -33,8 +37,14 @@
 
 .carousel-dot {
     transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    z-index: 10;
 }
 
 .carousel-dot:hover {
     transform: scale(1.2);
+}
+
+.carousel-dot.bg-white {
+    background-color: white !important;
 }

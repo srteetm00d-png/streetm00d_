@@ -8,6 +8,12 @@
     
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Disable Tailwind CDN warning in production
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            console.log('%c[Tailwind CSS] CDN detected. Consider using Tailwind CLI in production for better performance.', 'color: #f59e0b;');
+        }
+    </script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -354,7 +360,7 @@
         const WHATSAPP_NUMBER = '351929461628';
         const INSTAGRAM_URL = 'https://instagram.com/streetm00d_';
 
-        let currentProducts = filterProductsWithImages(window.products || []);
+        let currentProducts = window.products || [];
         let activeTab = 'mais-vendido';
         let currentProduct = null;
         let currentPage = 1;

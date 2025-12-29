@@ -857,7 +857,9 @@
                         }
                     }
                     // Update cache
-                    imagePathResolver.cache.set(originalSrc, currentPath);
+                    if (typeof imagePathResolver !== 'undefined' && imagePathResolver.cache) {
+                        imagePathResolver.cache.set(originalSrc, currentPath);
+                    }
                 };
                 
                 testImg.onerror = function() {
@@ -1193,10 +1195,12 @@
                                 <img src="${currentPath}" 
                                      alt="${formattedName}" 
                                      class="max-w-full max-h-full object-contain rounded-xl"
-                                     onerror="this.src=''; this.parentElement.innerHTML='${createPlaceholderHTML(product).replace(/'/g, "\\'")}'">
+                                     onerror="window.handleImageError && window.handleImageError(this, '${formattedName}', ${product.id})">
                             `;
                             // Update cache
-                            imagePathResolver.cache.set(images[0], currentPath);
+                            if (typeof imagePathResolver !== 'undefined' && imagePathResolver.cache) {
+                                imagePathResolver.cache.set(images[0], currentPath);
+                            }
                         };
                         img.onerror = function() {
                             currentIndex++;
@@ -1216,7 +1220,7 @@
                                         <img src="${img}" 
                                              alt="${formattedName} - Foto ${index + 1}" 
                                              class="max-w-full max-h-full object-contain rounded-xl"
-                                             onerror="this.parentElement.style.display='none'">
+                                             onerror="window.handleImageError && window.handleImageError(this, '${formattedName}', ${product.id})">
                                     </div>
                                 `).join('')}
                             </div>
@@ -1360,7 +1364,7 @@
                 }
                 
                 // Try to find image by name
-                const foundImage = imagePathResolver.findImageByName(product.name);
+                const foundImage = typeof imagePathResolver !== 'undefined' ? imagePathResolver.findImageByName(product.name) : null;
                 if (foundImage) {
                     // Test if image actually exists
                     const testImg = new Image();

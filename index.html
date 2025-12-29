@@ -352,7 +352,7 @@
         const WHATSAPP_NUMBER = '351929461628';
         const INSTAGRAM_URL = 'https://instagram.com/streetm00d_';
 
-        let currentProducts = window.products || [];
+        let currentProducts = filterProductsWithImages(window.products || []);
         let activeTab = 'mais-vendido';
         let currentProduct = null;
         let currentPage = 1;
@@ -385,6 +385,87 @@
                     normalized = 'imagens_produtos/' + normalized;
                 }
                 return normalized;
+            },
+            
+            // Group images by base name (e.g., "jordan_3_rosa" from "jordan_3_rosa_1.jpg")
+            groupImagesByBaseName: function(allImagePaths) {
+                const groups = {};
+                
+                allImagePaths.forEach(imagePath => {
+                    // Extract base name by removing the last _number and extension
+                    const match = imagePath.match(/(.+?)_\d+\.(jpg|jpeg|png)$/i);
+                    if (match) {
+                        const baseName = match[1];
+                        if (!groups[baseName]) {
+                            groups[baseName] = [];
+                        }
+                        groups[baseName].push(this.normalizePath(imagePath));
+                    } else {
+                        // For images without _number pattern, use the full name without extension
+                        const nameWithoutExt = imagePath.replace(/\.(jpg|jpeg|png)$/i, '');
+                        if (!groups[nameWithoutExt]) {
+                            groups[nameWithoutExt] = [];
+                        }
+                        groups[nameWithoutExt].push(this.normalizePath(imagePath));
+                    }
+                });
+                
+                // Sort each group's images by number
+                Object.keys(groups).forEach(baseName => {
+                    groups[baseName].sort((a, b) => {
+                        const aMatch = a.match(/(\d+)\.(jpg|jpeg|png)$/i);
+                        const bMatch = b.match(/(\d+)\.(jpg|jpeg|png)$/i);
+                        const aNum = aMatch ? parseInt(aMatch[1]) : 0;
+                        const bNum = bMatch ? parseInt(bMatch[1]) : 0;
+                        return aNum - bNum;
+                    });
+                });
+                
+                return groups;
+            },
+            
+            // Find all images for a product based on name patterns
+            findAllImagesForProduct: function(productName, allImageGroups) {
+                if (!productName) return [];
+                
+                // Normalize product name for matching
+                let normalizedName = productName
+                    .toLowerCase()
+                    .replace(/['"]/g, '')
+                    .replace(/[()]/g, '')
+                    .replace(/\d{2}-\d{2}/g, '') // Remove sizes like 40-47
+                    .replace(/\d{6,}[-\s]?\d{0,6}/g, '') // Remove codes
+                    .replace(/\s+/g, '_')
+                    .trim();
+                
+                // Try to find matching image groups
+                const possibleNames = [normalizedName];
+                
+                // Add variations without common words
+                const commonWords = ['air', 'jordan', 'jordans', 'nike', 'retro', 'high', 'mid', 'low', 'og', 'gs'];
+                const words = normalizedName.split('_').filter(w => 
+                    w.length > 2 && !commonWords.includes(w.toLowerCase())
+                );
+                if (words.length > 0) {
+                    possibleNames.push(words.join('_'));
+                }
+                
+                // Search in all image groups
+                for (const name of possibleNames) {
+                    // Direct match
+                    if (allImageGroups[name]) {
+                        return allImageGroups[name];
+                    }
+                    
+                    // Partial match (contains)
+                    for (const groupName in allImageGroups) {
+                        if (groupName.toLowerCase().includes(name) || name.includes(groupName.toLowerCase())) {
+                            return allImageGroups[groupName];
+                        }
+                    }
+                }
+                
+                return [];
             },
             
             // Try to find image by product name (fallback when images not assigned)
@@ -470,6 +551,17 @@
             }
         };
         
+        // Check if product has valid images
+        function productHasValidImages(product) {
+            const images = getProductImages(product);
+            return images && images.length > 0;
+        }
+
+        // Filter products to only include those with valid images
+        function filterProductsWithImages(products) {
+            return products.filter(product => productHasValidImages(product));
+        }
+
         // Get product images - products have images assigned directly in the products array
         function getProductImages(product) {
             // Product has images property with array of image paths
@@ -1214,7 +1306,7 @@
                     return (b.id || 0) - (a.id || 0);
                 });
                 
-                currentProducts = window.products;
+                currentProducts = filterProductsWithImages(window.products);
                 currentPage = 1;
                 renderProducts();
                 

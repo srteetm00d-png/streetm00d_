@@ -180,7 +180,7 @@
                     </div>
                 </div>
                 <button onclick="openWhatsApp()" class="btn-primary px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-wide">
-                    WhatsApp
+                    Instagram
                 </button>
             </div>
         </div>
@@ -1033,7 +1033,7 @@
             const size = currentProduct.size || '';
             const productType = currentProduct.isUnidentified ? 'produto não identificado' : 'produto';
             const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name}${size ? ' (T:' + size + ')' : ''} ainda está disponível?`);
-            window.open(`https://wa.me/351929461628?text=${msg}`, '_blank');
+            window.open(`https://www.instagram.com/streetm00d_`, '_blank');
         }
 
         // Reserve product
@@ -1042,13 +1042,12 @@
             
             const name = currentProduct.name;
             const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${name}. Podes enviar fotos reais antes do envio?`);
-            window.open(`https://wa.me/351929461628?text=${msg}`, '_blank');
+            window.open(`https://www.instagram.com/streetm00d_`, '_blank');
         }
 
-        // Open WhatsApp (header button)
+        // Open Instagram (header button)
         function openWhatsApp() {
-            const msg = encodeURIComponent('Olá STREETMOOD! Quero saber mais sobre os vossos produtos.');
-            window.open(`https://wa.me/351929461628?text=${msg}`, '_blank');
+            window.open(`https://www.instagram.com/streetm00d_`, '_blank');
         }
 
         // Close modal on ESC

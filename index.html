@@ -379,19 +379,197 @@
 
         // Dynamic image scanner and carousel system
         const imageScanner = {
-            // Known product images in imagens_produtos folder
+            // All product images from imagens_produtos folder
             knownImages: [
-                'jordan_3_rosa_1.jpg', 'jordan_3_rosa_2.jpg', 'jordan_3_rosa_3.jpg',
-                'nike_air_max_90_1.jpg', 'nike_air_max_90_2.jpg',
-                'adidas_ultraboost_1.jpg', 'adidas_ultraboost_2.jpg', 'adidas_ultraboost_3.jpg',
-                'new_balance_550_1.jpg', 'new_balance_550_2.jpg',
-                'converse_chuck_70_1.jpg', 'converse_chuck_70_2.jpg',
-                'vans_old_skool_1.jpg', 'vans_old_skool_2.jpg',
-                'puma_suede_1.jpg', 'puma_suede_2.jpg',
-                'reebok_classic_1.jpg', 'reebok_classic_2.jpg',
-                'asics_gel_kayano_1.jpg', 'asics_gel_kayano_2.jpg',
-                'saucony_ride_1.jpg', 'saucony_ride_2.jpg',
-                'hoka_clifton_1.jpg', 'hoka_clifton_2.jpg'
+                'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg', 'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_2.jpg',
+                'AIR JORDANS 1 LOW "Mystic Green"553558-113_1.jpg', 'AIR JORDANS 1 LOW "Mystic Green"553558-113_2.jpg',
+                'AMIRI MA-1 (36-40)_5.jpg', 'AMIRI MA-1 Branco Verde_5.jpg', 'AMIRI MA-1 Branco_5.jpg', 'AMIRI MA-1 Preto Branco_4.jpg', 'AMIRI MA-1 rosa_5.jpg', 'AMIRI MA-1(36-40)_5.jpg',
+                'Adidas AE1 (40-45)_5.jpg', 'Adidas AE1 (40-45)_5.png', 'Adidas Adizero SL (40-45)_4.jpeg', 'Adidas Adizero SL (40-45)_5.jpeg',
+                'Adidas Dexun_4.jpg', 'Adidas Dexun_5.jpg', 'Adidas Forum 84 (36-39)_5.jpg', 'Adidas Forum 84 (36-40)_5.jpg',
+                'Adidas Originals Samba_4.png', 'Adidas Originals Samba_5.jpg', 'Adidas Originals Samba_5.png',
+                'Air Jordan 312_1.jpg', 'Air Jordan 4 Retro black particle40-46_4.jpg', 'Air Jordan 4 Retro black particle40-46_6.jpg',
+                'Air Jordan 4 Retro black-white36-46_1.jpg', 'Air Jordan 4 Retro black-white36-46_2.jpg', 'Air Jordan 4 Retro black-white36-46_5.jpg', 'Air Jordan 4 Retro black-white36-46_6.jpg',
+                'Air Jordan 4 Retro particle beige40-46_1.jpg', 'Air Jordan 4 Retro particle beige40-46_4.jpg', 'Air Jordan 4 Retro particle beige40-46_6.jpg',
+                'Air Jordan 4 Retro_1.jpg', 'Air Jordan 4 Retro_2.jpg', 'Air Jordans 1 CD4487-100_1.jpg', 'Air Jordans 1 CD4487-100_2.jpg',
+                'Air Jordans 1 High University Blue 555088-134_1.jpg', 'Air Jordans 1 High University Blue 555088-134_2.jpg',
+                'Air Jordans 1 MID SE "South Beach"852542-306_1.jpg', 'Air Jordans 1 MID SE "South Beach"852542-306_2.jpg',
+                'Air Jordans 1 MID "Top 3" 554724-124_1.jpg', 'Air Jordans 1 MID "Top 3" 554724-124_2.jpg',
+                'Air Jordans 1 Mid (GS)555112-500_1.jpg', 'Air Jordans 1 Mid (GS)555112-500_2.jpg',
+                'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_1.jpg', 'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_2.jpg',
+                'Air Jordans 1 Mid SE 852542-400_1.jpg', 'Air Jordans 1 Mid SE 852542-400_2.jpg',
+                'Air Jordans 1 Mid 'Candy' 554725-083_1.jpg', 'Air Jordans 1 Mid 'Candy' 554725-083_2.jpg',
+                'Air Jordans 1 Mid "Black Cone" 554724-062_1.jpg', 'Air Jordans 1 Mid "Black Cone" 554724-062_2.jpg',
+                'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_1.jpg', 'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_2.jpg',
+                'Air Jordans 1 Mid "Lakers Top 3"852542-005_1.jpg', 'Air Jordans 1 Mid "Lakers Top 3"852542-005_2.jpg',
+                'Air Jordans 1 Mid "Multicolor" 554724-125_1.jpg', 'Air Jordans 1 Mid "Multicolor" 554724-125_2.jpg',
+                'Air Jordans 1 Retro High CN8607-002_1.jpg', 'Air Jordans 1 Retro High CN8607-002_2.jpg',
+                'Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_1.jpg', 'Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_2.jpg',
+                'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_1.jpg', 'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_2.jpg',
+                'Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg', 'Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg',
+                'Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg', 'Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg',
+                'Air Jordans 3 'Lazer Orange' CK9246-108_1.jpg', 'Air Jordans 3 'Lazer Orange' CK9246-108_2.jpg',
+                'Air Jordans 4 Bred 408452-060_1.jpg', 'Air Jordans 4 Bred 408452-060_2.jpg',
+                'Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_1.jpg', 'Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_2.jpg',
+                'Air Jordans 4 Retro 'University Blue' CT8527-400_1.jpg', 'Air Jordans 4 Retro 'University Blue' CT8527-400_2.jpg',
+                'Air Jordans 4 Retro "White Oreo" CT8527-100_1.jpg', 'Air Jordans 4 Retro "White Oreo" CT8527-100_2.jpg',
+                'Air Jordans 4 Retro_1.jpg', 'Air Jordans 4 Retro_2.jpg', 'Air Jordans 4 'Black Cat' CU1110-010_1.jpg', 'Air Jordans 4 'Black Cat' CU1110-010_2.jpg',
+                'Air Jordans 4 'Fire Red' DC7770-160_1.jpg', 'Air Jordans 4 'Fire Red' DC7770-160_2.jpg',
+                'Air Jordans 4 'Off Noir' DC9533-001_1.jpg', 'Air Jordans 4 'Off Noir' DC9533-001_2.jpg',
+                'Air Jordans 4 'PSG' CZ6509-100_1.jpg', 'Air Jordans 4 'PSG' CZ6509-100_2.jpg',
+                'Air Jordans 4 'Pure Money' 308497-100_1.jpg', 'Air Jordans 4 'Pure Money' 308497-100_2.jpg',
+                'Air Max 270 V2_5.jpg', 'Air Max 720 Branco rosa azul_5.jpg', 'Air Max 720 Branco_5.jpg', 'Air Max 720 Preto Branco_5.jpg', 'Air Max 720 Preto_5.jpg', 'Air Max 720_5.jpg',
+                'Bola Puma LaMelo MB.02_4.jpg', 'Bola Puma LaMelo MB.02_5.jpg', 'CPFM x Nike Air Force 1_5.jpg', 'CPFM x Nike Air Force 1_5.png',
+                'Casaco polo ralph lauren preto.png', 'Dior B22 Grey-pink_4.jpg', 'Dior B22_5.jpg', 'Dior B30_5.jpg', 'Dior B31 (40-45)_5.jpg',
+                'Dior B33 (36-45)_4.jpg', 'Dior B33 (36-45)_5.jpg', 'Dior Chrono (36-40)_5.jpeg', 'Dior Chrono (36-45)_5.jpeg',
+                'Gucci Rhyton Bege Ébano_5.jpg', 'Gucci Rhyton Vermelho Tijolo_5.jpg', 'Gucci Rhyton azul_5.jpg', 'Gucci Tennis 1977 High Butter Cotton_5.jpg',
+                'Jordan 13 Retro Black White Gum_1.jpg', 'Jordan 13 Retro Black White Gum_2.jpg', 'Jordan 13 Retro Brave Blue_1.jpg', 'Jordan 13 Retro Brave Blue_2.jpg',
+                'Jordan 13 Retro French Blue_1.jpg', 'Jordan 13 Retro French Blue_2.jpg', 'Jordan 4 Retro Cool Grey (2019)_1.jpg', 'Jordan 4 Retro Cool Grey (2019)_2.jpg',
+                'Jordan 4 Retro Flight Nostalgia_1.jpg', 'Jordan 4 Retro Flight Nostalgia_2.jpg', 'Jordan 4 Retro Lightning (2021)_1.jpg', 'Jordan 4 Retro Lightning (2021)_2.jpg',
+                'Jordan 4 Retro Metallic Green_1.jpg', 'Jordan 4 Retro Metallic Green_2.jpg', 'Jordan 4 Retro Metallic Red_1.jpg', 'Jordan 4 Retro Metallic Red_2.jpg',
+                'Jordan 4 Retro Motorsports (2017)_1.jpg', 'Jordan 4 Retro Motorsports (2017)_2.jpg', 'Jordan 4 Retro SE 95 Neon_1.jpg', 'Jordan 4 Retro SE 95 Neon_2.jpg',
+                'Jordan 4 Retro Thunder (2012)_1.jpg', 'Jordan 4 Retro Thunder (2012)_2.jpg', 'Jordan Air Jordan 3 Barely Grape Pink Purple_1.jpg', 'Jordan Air Jordan 3 Barely Grape Pink Purple_2.jpg',
+                'Jordan Air Jordan 3 Retro Black Gold Black gold_1.jpg', 'Jordan Air Jordan 3 Retro Black Gold Black gold_2.jpg',
+                'Jordan Air Jordan 3 retro true blue White Blue_1.jpg', 'Jordan Air Jordan 3 retro true blue White Blue_2.jpg',
+                'Jordan Air Jordan 3 tinker black and white_1.jpg', 'Jordan Air Jordan 3 tinker black and white_2.jpg',
+                'Jordans 1 Mid White Black Light Arctic Pink 555112-103_1.jpg', 'Jordans 1 Mid White Black Light Arctic Pink 555112-103_2.jpg',
+                'Jordans 1 Retro High "Homage To Home" 555088-001_1.jpg', 'Jordans 1 Retro High "Homage To Home" 555088-001_2.jpg',
+                'KAWS x The North Face Retro 1996(XS-2XL)_2.jpg', 'KAWS x The North Face Retro 1996(XS-2XL)_4.jpg', 'Louis Vuitton x Nike Air Force 1_5.jpg',
+                'Morant 1st generation DR8785 800(36-46)_2.jpg', 'Morant 1st generation DR8785 800(36-46)_5.jpg', 'Morant 1st generation DR8785-001(36-46)_2.jpg', 'Morant 1st generation DR8785-001(36-46)_5.jpg',
+                'Morant 1st generation DR8786 002(36-46)_3.jpg', 'Morant 1st generation DR8786 002(36-46)_5.jpg', 'Morant 1st generation DR8786 102(36-46)_2.jpg', 'Morant 1st generation DR8786 102(36-46)_5.jpg',
+                'Morant 1st generation DR8786 102(36-46)_6.jpg', 'Morant 1st generation DR8786 802(36-46)_1.jpg', 'Morant 1st generation DR8786 802(36-46)_3.jpg', 'Morant 1st generation DR8786-400(36-46)_4.jpg',
+                'Morant 1st generation DR8786-400(36-46)_5.jpg', 'Morant 1st generation FN6614 900(36-46)_3.jpg', 'Morant 1st generation FN6614 900(36-46)_4.jpg', 'Morant 1st generation FN6614 900(36-46)_6.jpg',
+                'Morant 1st generation FQ4796-800(36-46)_3.jpg', 'Morant 1st generation FQ4796-800(36-46)_5.jpg', 'Morant 1st generation FQ4796-800(36-46)_6.jpg',
+                'Morant 1st generation FV1281-600(36-46)_2.jpg', 'Morant 1st generation FV1281-600(36-46)_4.jpg', 'Morant 1st generation FV1288 600(36-46)_2.jpg', 'Morant 1st generation FV1288 600(36-46)_5.jpg',
+                'Morant 1st generation FV1288-001(36-46)_3.jpg', 'Morant 1st generation FV1288-001(36-46)_5.jpg', 'Morant 1st generation FV1291-100(36-46)_4.jpg', 'Morant 1st generation FV1291-100(36-46)_5.jpg',
+                'Morant 1st generation FV6097 300(36-46)_2.jpg', 'Morant 1st generation FV6097 300(36-46)_5.jpg', 'Morant 2nd generation FD7327 001(36-46)_3.jpg', 'Morant 2nd generation FD7327 001(36-46)_5.jpg',
+                'Morant 2nd generation FD7327 101(36-46)_3.jpg', 'Morant 2nd generation FD7327 101(36-46)_5.jpg', 'Morant 2nd generation FD7327-100(36-46)_2.jpg', 'Morant 2nd generation FD7327-100(36-46)_4.jpg',
+                'Morant 2nd generation FD7327-500(36-46)_2.jpg', 'Morant 3rd generation HF2793-600_2.jpg', 'Morant 3rd generation HF2793-600_4.jpg', 'Morant 3rd generation HF2793-601_2.jpg',
+                'Morant 3rd generation HF2793-601_5.jpg', 'Morant 3rd generation HF2793-602_2.jpg', 'Morant 3rd generation HF2793-602_5.jpg', 'Morant 3rd generation HF2793-603_3.jpg',
+                'Morant 3rd generation HF2793-604_4.jpg', 'Morant 3rd generation HF2793-605_4.jpg', 'Morant 3rd generation HF2793-605_5.jpg', 'Morant 3rd generation HF2793-606_2.jpg',
+                'Morant 3rd generation HF2793-606_4.jpg', 'Morant 3rd generation HF2793-608_2.jpg', 'Morant 3rd generation HF2793-608_4.jpg', 'Morant 3rd generation HF2793-609(36-46)_4.jpg',
+                'Morant 3rd generation HF2793-609(36-46)_5.jpg', 'Morant 3rd generation HF2793-610_3.jpg', 'Morant 3rd generation HF2794-100_5.jpg', 'Morant 3rd generation IM0464-001_2.jpg',
+                'Morant 3rd generation IM0464-001_3.jpg', 'Máx. 95 1895-132 (40-46)_5.jpg', 'Máx. 95 1895-135 (40-46)_5.jpg', 'Máx. 95 1895-290 (40-46)_5.jpg',
+                'Máx. 95 1895-311 (40-46)_5.jpg', 'Máx. 95 1895-384 (40-46)_5.jpg', 'NIKE AIR MAX PLUS TN 2_5.jpeg', 'NOCTA x Nike Air Force 1 Love You Forever Pink_5.jpg',
+                'NOCTA x Nike NSW Tech Fleece Sportswear set_1.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_2.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_3.jpg',
+                'NOCTA x Nike NSW Tech Fleece Sportswear set_4.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_4.png', 'NOCTA x Nike NSW Tech Fleece Sportswear set_5.png',
+                'NOCTA x Nike NSW Tech Fleece Sportswear set_6.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_7.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_8.png',
+                'NOCTA x Nike NSW Tech Fleece Sportswear set_9.jpg', 'New Balance 530_4.jpg', 'New Balance 530_5.jpeg', 'New Balance 530_5.jpg', 'New Balance 530_5.png',
+                'Nike ACG Mountain Fly 2 Black_1.jpg', 'Nike ACG Mountain Fly 2 Gerry_1.jpg', 'Nike ACG Mountain Fly 2 Gerry_2.jpg', 'Nike ACG Mountain Fly 2_1.jpg', 'Nike ACG Mountain Fly 2_2.jpg',
+                'Nike Air Force 1 Low - Branco-Preto_5.jpg', 'Nike Air Force 1 Low_5.jpg', 'Nike Air Jordan 5_1.jpg', 'Nike Air Jordan 5_2.jpg',
+                'Nike Air Jordan 6 Retro Black Infrared_1.jpg', 'Nike Air Jordan 6 Retro Black Infrared_2.jpg', 'Nike Air Jordan 6 Retro Carmine (2014)_1.jpg', 'Nike Air Jordan 6 Retro Carmine (2014)_2.jpg',
+                'Nike Air Jordan 6 Retro Chrome Metallic Silver_1.jpg', 'Nike Air Jordan 6 Retro Chrome Metallic Silver_2.jpg', 'Nike Air Jordan 6 Retro DMP 2020 (GS)_1.jpg', 'Nike Air Jordan 6 Retro DMP 2020 (GS)_2.jpg',
+                'Nike Air Jordan 6 Retro Midnight Navy (2000)_1.jpg', 'Nike Air Jordan 6 Retro Midnight Navy (2000)_2.jpg', 'Nike Air Jordan 6 Retro UNC_1.jpg', 'Nike Air Jordan 6 Retro UNC_2.jpg',
+                'Nike Air Max 1 '86 OG Big Bubble Royal_4.jpg', 'Nike Air Max 1 '86 OG Big preto azul_5.jpg', 'Nike Air Max 1 '86 OG Golf Big Bubble Sport Vermelho_5.jpg',
+                'Nike Air Max 1 '86 OG Golf Dusty Cactus_5.jpg', 'Nike Air Max 1 '86 OG Golf Obsidian_5.jpg', 'Nike Air Max 1 '86 OG Grande_4.jpg',
+                'Nike Air Max 1 '87 Malaquita_5.jpg', 'Nike Air Max 1 Marrom Crepe (2022)_5.jpg', 'Nike Air Max 1 Patta Waves Branco_5.jpg',
+                'Nike Air Max 1 Patta Waves Monarch (without Bracelet)_4.jpg', 'Nike Air Max 1 Patta Waves Noise Aqua (sem pulseira)_5.jpg',
+                'Nike Air Max 1 Patta Waves Noise Aqua (without Bracelet)_5.jpg', 'Nike Air Max 1_5.jpg', 'Nike Air Max 2021 Barely Green (Women's)_5.png',
+                'Nike Air Max 2021 Branco Rosa Cigana_5.jpeg', 'Nike Air Max 2021 Branco Violeta Puro (GS)_5.png', 'Nike Air Max 2021 Camuflagem uva_5.jpeg',
+                'Nike Air Max 2021 Obsidian Lime Glow_5.jpeg', 'Nike Air Max 2021 Preto Cinza Fumaça_5.png', 'Nike Air Max 2021 Preto Cromado Verde Strike (GS)_5.png',
+                'Nike Air Max 2021 Preto e Branco_5.png', 'Nike Air Max 2021 Spruce Aura (Feminino)_5.png', 'Nike Air Max 2021 Summit Branco Solar Vermelho_5.png',
+                'Nike Air Max 2021 Venice (Feminino)_5.png', 'Nike Air Max 2021 Verde acinzentado_5.png', 'Nike Air Max 2021 camuflado_5.jpeg',
+                'Nike Air Max 270 Branco Preto Vermelho Universitário_5.jpg', 'Nike Air Max 270 Rosa Ferrugem_5.jpg', 'Nike Air Max 270 University Gold_5.jpg',
+                'Nike Air Max 270 Vermelho Habanero_5.jpg', 'Nike Air Max 270_5.jpeg', 'Nike Air Max 270_5.jpg', 'Nike Air Max 95 - Preto, cinza e branco_5.jpg',
+                'Nike Air Max 95 - preto e amarelo alternados_5.jpg', 'Nike Air Max 95 - preto e azul_5.jpg', 'Nike Air Max 95 - preto e cinza_5.jpg',
+                'Nike Air Max 95 - preto_5.jpg', 'Nike Air Max 95 Azul e Preto_5.jpg', 'Nike Air Max 95 Branco, vermelho e cinza_5.jpg',
+                'Nike Air Max 95 Cinza e Vermelho_5.jpg', 'Nike Air Max 95 NYC Taxi_5.jpg', 'Nike Air Max 95 Preto Vermelho_5.jpg',
+                'Nike Air Max 95, mesmo estilo do Jay Chou (tamanhos 40-46)_5.jpg', 'Nike Air Max 95-Light blue and dark blue_4.jpg', 'Nike Air Max 95_5.jpeg',
+                'Nike Air Max Phoenix azul e branco (tamanhos 40-46)_5.jpg', 'Nike Air Max Phoenix orange（40-46）_4.jpg', 'Nike Air Max Phoenix preto (tamanhos 40-46)_5.jpg',
+                'Nike Air Max Phoenix preto e azul (tamanhos 40 a 46)_5.jpg', 'Nike Air Max Phoenix preto e branco (tamanhos 40 a 46)_5.jpg',
+                'Nike Air Max Phoenix preto e vermelho (tamanhos 40 a 46)_5.jpg', 'Nike Air Max Plus Tn (36-40)_5.jpeg', 'Nike Air Max Plus Tn (36-40)_5.jpg',
+                'Nike Air Max Plus Tn (36-40)_6.jpeg', 'Nike Air Max Plus Tn (36-40)_7.jpeg', 'Nike Air Max Plus Tn (36-46)_4.jpeg', 'Nike Air Max Plus Tn (36-46)_5.jpeg',
+                'Nike Air Max Plus Tn (40-46)_5.jpeg', 'Nike Air Max Plus Tn Black+White9908-23 (40-46)_5.jpeg', 'Nike Air Max Plus Tn （36-40）_5.jpeg',
+                'Nike Air Max Plus Tn （40-46）_4.jpeg', 'Nike Air Max Plus Tn-皮面（40-46）_5.jpeg', 'Nike Air Max Plus Tn_5.jpeg',
+                'Nike Air Max Tn3 2102-73 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-74 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-75 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 2102-76 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-77 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-78 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 2102-79 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-80 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-81 (40-46)_5.jpeg',
+                'Nike Air Max Tn3 2102-A27 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A28 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A29 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 2102-A30 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A31 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-A32 (40-46)_5.jpeg',
+                'Nike Air Max Tn3 2102-A33 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-A34 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-A36 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 2102-A37 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A38 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G1 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 couro-G10 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G2 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G3 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 couro-G4 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G5 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G7 (39-46)_5.jpeg',
+                'Nike Air Max Tn3 couro-G8 (39-46)_5.jpeg', 'Nike Air Max Tn3 leather-G9 (39-46)_4.jpeg', 'Nike Air More Uptempo 96 Azul Cobalto (PS)_5.jpg',
+                'Nike Air More Uptempo 96 Cinza Frio Azul Marinho (GS)_5.jpg', 'Nike Air More Uptempo 96 França_5.jpg', 'Nike Air More Uptempo 96 Volt_5.jpg',
+                'Nike Air More Uptempo Azul Marinho_5.jpeg', 'Nike Air More Uptempo Azul Universitário_5.jpg', 'Nike Air More Uptempo Cargo Cáqui_5.png',
+                'Nike Air More Uptempo Preto Branco Vermelho Laser_5.jpg', 'Nike Air More Uptempo Preto Refletivo (2018)_5.jpg',
+                'Nike Air More Uptempo Quilted Wheat Gum Light Brown (W)_5.jpg', 'Nike Air More Uptempo Tri-Color Tint_5.jpg',
+                'Nike Air More Uptempo Verde Cevada_5.jpg', 'Nike Air More Uptempo branco-azul (36-46)_5.jpg', 'Nike Air More Uptempo branco-preto (36-46)_5.jpg',
+                'Nike Air More Uptempo branco-verde (36-46)_5.jpg', 'Nike Air More Uptempo cinza-preto (36-46)_5.jpg', 'Nike Air More Uptempo preto (36-46)_5.jpg',
+                'Nike Air More Uptempo preto e branco (36-46)_5.jpg', 'Nike Air More Uptempo white（36-46）_4.jpg', 'Nike Air More Uptempo_5.png',
+                'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg', 'Nike Air VaporMax 2 Branco Preto_5.jpeg', 'Nike Air VaporMax 2 Creme Claro_5.jpg',
+                'Nike Air VaporMax 2 Preto Dourado Metálico_5.jpeg', 'Nike Air VaporMax 2 Preto e Branco_5.jpeg', 'Nike Air VaporMax 2 Racer Azul_5.jpeg',
+                'Nike Air VaporMax 2 Rosa Ferrugem_5.jpeg', 'Nike Air VaporMax 2 Team Red Obsidian_5.jpeg', 'Nike Air VaporMax 2 branco_5.jpg',
+                'Nike Air VaporMax 2 off white preto_5.jpg', 'Nike Air VaporMax 2.0 Dusty Cactus Hyper Jade_5.jpeg', 'Nike Air VaporMax 2.0 Preto Hot Punch_5.jpeg',
+                'Nike Air VaporMax 2.0 Ultramarine (Feminino)_5.jpeg', 'Nike Air VaporMax Flyknit 2 Ano Novo Chinês (2019)_5.jpeg',
+                'Nike Air VaporMax Flyknit 2 Branco Platina Pura_5.jpeg', 'Nike Air VaporMax Flyknit 2_5.jpeg', 'Nike Air VaporMax Flyknit Moc 2 Gridiron Rosa Blas_5.jpg',
+                'Nike Air VaporMax Moc 2 Dark Stucco Midnight Navy_5.jpg', 'Nike Air VaporMax Moc 2 Gunsmoke_5.jpg', 'Nike Air VaporMax Moc 2 Mica Verde_5.jpg',
+                'Nike Air VaporMax Moc 2 Moon Particle_5.jpg', 'Nike Air VaporMax Moc 2 Neutral Olive Habanero Red_5.jpg', 'Nike Air VaporMax Moc 2 Preto Creme Claro_5.jpg',
+                'Nike Air VaporMax Moc 2 Preto e Dourado_5.png', 'Nike Air VaporMax Moc 2 Thunder Azul_5.jpg', 'Nike Air VaporMax Moc 2 University Gold_5.jpg',
+                'Nike Air VaporMax Moc 2 Vermelho Universitário Explosão de Fúcsia_5.jpg', 'Nike Air VaporMax Moc 2_5.jpg', 'Nike Air VaporMax Triple Black 2.0_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 1_5.jpg', 'Nike Air Zoom Alphafly NEXT% 1_5.png', 'Nike Air Zoom Alphafly NEXT% 2_5.jpg',
+                'Nike Air Zoom Alphafly NEXT% 3 Azul e branco_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Branco Gerry_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Branco Roxo_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 3 Branco com detalhes em laranja_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Branco e Preto_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 3 Branco e vermelho vibrante_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Cinza Fantasma Branco_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 3 Preto Verde_5.png', 'Nike Air Zoom Alphafly NEXT% 3 Rosa e roxo_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Verde claro laranja_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 3 Verde fluorescente_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 branco azul celeste_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 branco_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 3 preto e branco_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 preto_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 red yellow_5.jpeg',
+                'Nike Air Zoom Alphafly NEXT% 3 vermelho_5.jpeg', 'Nike Jordan Stadium 90 Gris_1.jpg', 'Nike Jordan Stadium 90 Gris_2.jpg',
+                'Nike Jordan Stadium 90 White Amarillo de hoja caduca_1.jpg', 'Nike Jordan Stadium 90 White Amarillo de hoja caduca_2.jpg',
+                'Nike Jordan Stadium 90 White Morado_1.jpg', 'Nike Jordan Stadium 90 White Morado_2.jpg', 'Nike Jordan Stadium 90 White black_1.jpg',
+                'Nike Jordan Stadium 90 White black_2.jpg', 'Nike Jordan Stadium 90 White pink_1.jpg', 'Nike Jordan Stadium 90 White pink_2.jpg',
+                'Nike Jordan Stadium 90 White red_1.jpg', 'Nike Jordan Stadium 90 White red_2.jpg', 'Nike Jordan Stadium 90 White yellow_1.jpg', 'Nike Jordan Stadium 90 White yellow_2.jpg',
+                'Nike NOCTA Glide Drake_5.jpg', 'Nike NSW Tech Fleece Sports jacket_10.jpg', 'Nike NSW Tech Fleece Sports jacket_2.jpg',
+                'Nike NSW Tech Fleece Sports jacket_3.jpg', 'Nike NSW Tech Fleece Sports jacket_4.jpg', 'Nike NSW Tech Fleece Sports jacket_4.png',
+                'Nike NSW Tech Fleece Sports jacket_5.jpg', 'Nike NSW Tech Fleece Sports jacket_6.jpg', 'Nike NSW Tech Fleece Sports jacket_7.jpg',
+                'Nike NSW Tech Fleece Sports jacket_9.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_1.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_2.jpg',
+                'Nike NSW Tech Fleece Sportswear set (M-2XL)_3.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_4.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_4.png',
+                'Nike NSW Tech Fleece Sportswear set (M-2XL)_5.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_6.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_7.jpg',
+                'Nike NSW Tech Fleece Sportswear set_2.jpg', 'Nike NSW Tech Fleece Sportswear set_4.jpg', 'Nike NSW Tech Fleece Sportswear set_5.jpg',
+                'Nike NSW Tech Fleece Sportswear set_7.jpg', 'Nike Shox Ride 2 (36-46)_5.jpeg', 'Nike Shox Ride 2 (40-46)_5.jpeg',
+                'Nike Shox Ride 2 SP Supreme Branco Azul_5.jpeg', 'Nike Shox Ride 2 SP Supreme Branco Cinza Vermelho_5.jpg', 'Nike Shox Ride 2 SP Supreme Branco Preto_5.jpeg',
+                'Nike Shox Ride 2 SP Supreme Branco Vermelho_5.jpeg', 'Nike Shox Ride 2 SP Supreme Branco_5.jpeg', 'Nike Shox Ride 2 SP Supreme Preto e Dourado_5.jpeg',
+                'Nike Shox Ride 2 SP Supreme Preto e branco_5.jpeg', 'Nike Shox Ride 2 SP Supreme Preto_5.png', 'Nike Shox Ride 2 （40-46）_5.jpeg',
+                'Nike Shox Ride 2_5.jpg', 'Nike Shox TL (40-45)_5.jpeg', 'Nike Shox TL Azul-Preto (40-45)_5.jpg', 'Nike Shox TL Branco Multicolorido_5.jpeg',
+                'Nike Shox TL Branco Prata Metálico_5.png', 'Nike Shox TL Branco-Azul (37-44)_5.jpg', 'Nike Shox TL Branco-Preto (39-45)_5.jpg',
+                'Nike Shox TL Cinza Lobo e Verde Limão_5.jpeg', 'Nike Shox TL Cáqui (36-45)_5.jpg', 'Nike Shox TL Light Bone Metallic Silver Cool Grey_5.jpg',
+                'Nike Shox TL Neymar_5.jpeg', 'Nike Shox TL Preto Metálico Hematita_5.jpg', 'Nike Shox TL Preto-Azul (39-45)_5.jpg',
+                'Nike Shox TL Preto-Azul (40-45)_5.jpg', 'Nike Shox TL Preto-Azul Claro (40-45)_5.jpg', 'Nike Shox TL Preto-Cinza (40-45)_5.jpg',
+                'Nike Shox TL Preto_5.jpg', 'Nike Shox TL Python Pony_5.jpeg', 'Nike Shox TL Skepta_5.jpg', 'Nike Shox TL Speed Vermelho_5.jpg',
+                'Nike Shox TL Thermoreactive (41-46)_4.jpg', 'Nike Shox TL Thermoreactive (41-46)_5.jpg', 'Nike Shox TL branco-vermelho claro (tamanhos 40-45)_5.jpg',
+                'Nike Shox TL （40-45）_5.jpeg', 'OFF-WHITE Out Of Office White Black_4.jpeg', 'Off-White Já volto Branco cinza jade preto_5.jpeg',
+                'Off-White Já volto Rosa cinza preto_5.jpeg', 'Offset Tears Black White_3.jpeg', 'Offset Tears Black_2.jpeg', 'Offset Tears Black_3.jpeg',
+                'Offset Tears Black_5.jpeg', 'Offset Tears Black_6.jpeg', 'Offset Tears Black_7.jpeg', 'Offset Tears Blue_2.jpeg', 'Offset Tears Pink_2.jpeg',
+                'Offset Tears Pink_3.jpeg', 'Offset Tears Pink_5.jpeg', 'Offset Tears Pink_6.jpeg', 'Offset Tears_1.jpeg', 'Offset Tears_2.jpeg',
+                'Offset Tears_3.jpeg', 'Offset Tears_4.jpeg', 'Offset Tears_5.jpeg', 'Offset Tears_6.jpeg', 'PUMA Speedcat (36-45)_5.jpg',
+                'PUMA Speedcat(36-45)_4.jpg', 'Puma LaMelo Ball MB.01_4.jpg', 'Puma LaMelo Ball MB.02_4.jpg', 'Sacai 2.0_5.jpg',
+                'Sarja Versace Chain Reaction_5.jpg', 'SynaWord_1.jpg', 'SynaWord_1.png', 'SynaWord_10.jpg', 'SynaWord_3.jpg',
+                'SynaWord_5.jpg', 'SynaWord_6.jpg', 'SynaWord_7.jpg', 'TRAPSTAR_1.jpg', 'TRAPSTAR_11.jpg', 'TRAPSTAR_12.jpg',
+                'TRAPSTAR_2.jpeg', 'TRAPSTAR_2.jpg', 'TRAPSTAR_3.jpeg', 'TRAPSTAR_3.jpg', 'TRAPSTAR_4.jpeg', 'TRAPSTAR_4.jpg',
+                'TRAPSTAR_5.jpeg', 'TRAPSTAR_5.jpg', 'TRAPSTAR_6.jpeg', 'TRAPSTAR_6.jpg', 'TRAPSTAR_7.jpeg', 'TRAPSTAR_7.jpg',
+                'TRAPSTAR_8.jpeg', 'TRAPSTAR_8.jpg', 'TRAPSTAR_9.jpeg', 'TRAPSTAR_9.jpg', 'The North Face (XS-2XL)_2.jpg', 'The North Face (XS-2XL)_3.jpg',
+                'The North Face _1996(XS-2XL)_1.jpg', 'The North Face _1996(XS-2XL)_2.jpg', 'The North Face _1996(XS-2XL)_3.jpg', 'The North Face _1996(XS-2XL)_4.jpg',
+                'The North Face _1996(XS-2XL)_5.jpg', 'Tênis Gucci 1977 GG Canvas_5.jpg', 'Tênis Gucci 1977_5.jpg', 'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
+                'Tênis Gucci Tennis 1977 Cano Alto GG_5.jpg', 'Tênis Louis Vuitton LV Branco Preto Rosa_5.jpeg', 'Tênis Louis Vuitton LV Branco Terra Amarelo_4.jpeg',
+                'Tênis Louis Vuitton LV Corn Hair_5.jpeg', 'Tênis Louis Vuitton LV Cowboy Preto_5.jpeg', 'Tênis Louis Vuitton LV azul grama de quatro folhas_5.jpeg',
+                'Tênis Louis Vuitton LV branco cor abóbora bebê_5.jpeg', 'Tênis Louis Vuitton LV com estampa xadrez preta_5.jpeg',
+                'Tênis Louis Vuitton LV com velcro na cor azul-marinho_5.jpeg', 'Tênis Louis Vuitton LV com velcro nas cores preto e vermelho._5.jpeg',
+                'Tênis Louis Vuitton LV em couro branco._5.jpeg', 'Tênis Louis Vuitton LV em tecido preto_5.jpeg',
+                'Tênis Louis Vuitton LV na cor grama-de-quatro-folhas, preto e branco._5.jpeg', 'Tênis Louis Vuitton LV preto roan_5.jpeg',
+                'Tênis Louis Vuitton LV verde grama de quatro folhas_5.jpeg', 'Tênis Louis Vuitton LV, todo em couro preto._5.jpeg',
+                'Tênis Yeezy Boost 700 V2 Geode – EG6860_5.png', 'Tênis Yeezy Boost 750 Cinza com Sola de Borracha – BB1840_5.png',
+                'Tênis Yeezy Boost 750 Marrom Claro – B35309_5.png', 'Tênis Yeezy Boost 750 Triple Black – BB1839_5.png', 'VEJA Campo Unisex_5.jpg',
+                'VEJA Campo Unissex_5.jpg', 'Versace Baroque Chain Reaction Bluette Gold_5.jpg', 'Versace Chain Reaction (Reação em Cadeia)_5.jpg',
+                'Versace Chain Reaction 2 Chainz Preto Amarelo_5.jpg', 'Versace Chain Reaction 2 Chainz Preto_5.jpg',
+                'Versace Chain Reaction 2 Estampa Barocco Branco Preto Amarelo_5.jpg', 'Versace Chain Reaction 2_4.jpg', 'Versace Chain Reaction 2_5.jpg',
+                'Versace Chain Reaction Branco Rosa Amarelo Barroco_5.jpg', 'Versace Chain Reaction Branco em Malha e Camurça de Borracha_5.jpg',
+                'Versace Chain Reaction Laranja Verde_5.jpg', 'Versace Chain Reaction Preto e Branco com Estampa de Leopardo_5.jpg',
+                'Versace Chain Reaction Preto e Branco_5.jpg', 'Versace Chain Reaction Preto_5.jpg', 'Vomero 11 (36-40)_5.jpg',
+                'Vomero 11 (36-40)_5.png', 'Vomero 11 (36-45)_5.jpg', 'Vomero 11 (36-45)_5.png', 'Vomero 11 (39-45)_5.jpg', 'Vomero 11 (39-45)_5.png',
+                'YEEZY 450 Branco Nuvem_5.jpg', 'Yeezy 450 Dark Slate_5.jpg', 'Yeezy Boost 700 V2 Shoes Static – EF2829_5.png',
+                'Yeezy Boost 750 Shoes Chocolate – BY2456_5.png', 'casaco mulher colete polo ralph lauren branco.jpg', 'casaco mulher polo ralph lauren preto.jpg',
+                'casaco polo ralph lauren azul.jpg', 'casaco polo ralph lauren branco.png', 'casaco polo ralph lauren verde.png', 'colete polo ralph lauren branco.png',
+                'colete polo ralph lauren preto.png', 'colete polo ralph lauren verde.png', 'colete polo ralph lauren.jpg'
             ],
             
             // Group images by base name
@@ -407,6 +585,16 @@
                             groups[baseName] = [];
                         }
                         groups[baseName].push('imagens_produtos/' + imagePath);
+                    } else {
+                        // Handle single images without numbers
+                        const singleMatch = imagePath.match(/(.+?)\.(jpg|jpeg|png)$/i);
+                        if (singleMatch) {
+                            const baseName = singleMatch[1];
+                            if (!groups[baseName]) {
+                                groups[baseName] = [];
+                            }
+                            groups[baseName].push('imagens_produtos/' + imagePath);
+                        }
                     }
                 });
                 
@@ -428,7 +616,7 @@
             findImagesForProduct: function(productName) {
                 const groups = this.groupImagesByBaseName();
                 
-                // Normalize product name for matching
+                // Normalize product name for matching - more flexible matching
                 let normalizedName = productName
                     .toLowerCase()
                     .replace(/['"]/g, '')
@@ -436,16 +624,107 @@
                     .replace(/\d{2}-\d{2}/g, '')
                     .replace(/\d{6,}[-\s]?\d{0,6}/g, '')
                     .replace(/\s+/g, '_')
+                    .replace(/[^\w\s-]/g, '')
                     .trim();
                 
-                // Try to find matching image groups
+                // Try exact match first
+                if (groups[normalizedName]) {
+                    return groups[normalizedName];
+                }
+                
+                // Try partial matches - check if product name contains group name or vice versa
                 for (const groupName in groups) {
-                    if (groupName.toLowerCase().includes(normalizedName) || normalizedName.includes(groupName.toLowerCase())) {
+                    const normalizedGroupName = groupName.toLowerCase()
+                        .replace(/[^\w\s-]/g, '')
+                        .replace(/\s+/g, '_');
+                    
+                    // Check for partial matches
+                    if (normalizedGroupName.includes(normalizedName) || 
+                        normalizedName.includes(normalizedGroupName) ||
+                        this.calculateSimilarity(normalizedName, normalizedGroupName) > 0.7) {
                         return groups[groupName];
                     }
                 }
                 
+                // Try keyword matching
+                const keywords = this.extractKeywords(productName);
+                for (const keyword of keywords) {
+                    for (const groupName in groups) {
+                        if (groupName.toLowerCase().includes(keyword.toLowerCase())) {
+                            return groups[groupName];
+                        }
+                    }
+                }
+                
                 return [];
+            },
+            
+            // Extract keywords from product name
+            extractKeywords: function(productName) {
+                const words = productName.toLowerCase()
+                    .replace(/[^\w\s]/g, ' ')
+                    .split(/\s+/)
+                    .filter(word => word.length > 2);
+                
+                // Common brand keywords to prioritize
+                const brands = ['nike', 'adidas', 'jordan', 'air', 'max', 'force', 'puma', 'gucci', 'lv', 'louis', 'vuitton', 'dior', 'versace'];
+                const keywords = [];
+                
+                // Add brand keywords first
+                words.forEach(word => {
+                    if (brands.includes(word)) {
+                        keywords.push(word);
+                    }
+                });
+                
+                // Add other significant words
+                words.forEach(word => {
+                    if (!keywords.includes(word) && word.length > 3) {
+                        keywords.push(word);
+                    }
+                });
+                
+                return keywords;
+            },
+            
+            // Calculate similarity between two strings
+            calculateSimilarity: function(str1, str2) {
+                const longer = str1.length > str2.length ? str1 : str2;
+                const shorter = str1.length > str2.length ? str2 : str1;
+                
+                if (longer.length === 0) return 1.0;
+                
+                const editDistance = this.levenshteinDistance(longer, shorter);
+                return (longer.length - editDistance) / longer.length;
+            },
+            
+            // Levenshtein distance algorithm
+            levenshteinDistance: function(str1, str2) {
+                const matrix = [];
+                
+                for (let i = 0; i <= str2.length; i++) {
+                    matrix[i] = [i];
+                }
+                
+                for (let j = 0; j <= str1.length; j++) {
+                    matrix[0][j] = j;
+                }
+                
+                for (let i = 1; i <= str2.length; i++) {
+                    for (let j = 1; j <= str1.length; j++) {
+                        if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                            matrix[i][j] = matrix[i - 1][j - 1];
+                        } else {
+                            matrix[i][j] = Math.min(
+                                matrix[i - 1][j - 1] + 1,
+                                matrix[i][j - 1] + 1,
+                                matrix[i - 1][j] + 1
+                            );
+                        }
+                    }
+                }
+                
+                return matrix[str2.length][str1.length];
             }
         };
         

@@ -13,7 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="carousel.css">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
 <style>
@@ -369,29 +371,28 @@
         // No need for hardcoded image list or mapping system
         // All images are loaded from imagens_produtos folder and assigned to products
 
-        // Image path resolver for GitHub Pages compatibility
-        // GitHub Pages is case-sensitive, so we need to normalize paths
-        const imagePathResolver = {
-            // Cache of resolved image paths
-            cache: new Map(),
+        // Dynamic image scanner and carousel system
+        const imageScanner = {
+            // Known product images in imagens_produtos folder
+            knownImages: [
+                'jordan_3_rosa_1.jpg', 'jordan_3_rosa_2.jpg', 'jordan_3_rosa_3.jpg',
+                'nike_air_max_90_1.jpg', 'nike_air_max_90_2.jpg',
+                'adidas_ultraboost_1.jpg', 'adidas_ultraboost_2.jpg', 'adidas_ultraboost_3.jpg',
+                'new_balance_550_1.jpg', 'new_balance_550_2.jpg',
+                'converse_chuck_70_1.jpg', 'converse_chuck_70_2.jpg',
+                'vans_old_skool_1.jpg', 'vans_old_skool_2.jpg',
+                'puma_suede_1.jpg', 'puma_suede_2.jpg',
+                'reebok_classic_1.jpg', 'reebok_classic_2.jpg',
+                'asics_gel_kayano_1.jpg', 'asics_gel_kayano_2.jpg',
+                'saucony_ride_1.jpg', 'saucony_ride_2.jpg',
+                'hoka_clifton_1.jpg', 'hoka_clifton_2.jpg'
+            ],
             
-            // Normalize path for GitHub Pages (case-sensitive)
-            normalizePath: function(path) {
-                if (!path) return null;
-                // Remove leading/trailing slashes and normalize
-                let normalized = path.replace(/^\/+|\/+$/g, '');
-                // Ensure imagens_produtos prefix
-                if (!normalized.startsWith('imagens_produtos/')) {
-                    normalized = 'imagens_produtos/' + normalized;
-                }
-                return normalized;
-            },
-            
-            // Group images by base name (e.g., "jordan_3_rosa" from "jordan_3_rosa_1.jpg")
-            groupImagesByBaseName: function(allImagePaths) {
+            // Group images by base name
+            groupImagesByBaseName: function() {
                 const groups = {};
                 
-                allImagePaths.forEach(imagePath => {
+                this.knownImages.forEach(imagePath => {
                     // Extract base name by removing the last _number and extension
                     const match = imagePath.match(/(.+?)_\d+\.(jpg|jpeg|png)$/i);
                     if (match) {
@@ -399,14 +400,7 @@
                         if (!groups[baseName]) {
                             groups[baseName] = [];
                         }
-                        groups[baseName].push(this.normalizePath(imagePath));
-                    } else {
-                        // For images without _number pattern, use the full name without extension
-                        const nameWithoutExt = imagePath.replace(/\.(jpg|jpeg|png)$/i, '');
-                        if (!groups[nameWithoutExt]) {
-                            groups[nameWithoutExt] = [];
-                        }
-                        groups[nameWithoutExt].push(this.normalizePath(imagePath));
+                        groups[baseName].push('imagens_produtos/' + imagePath);
                     }
                 });
                 
@@ -424,182 +418,37 @@
                 return groups;
             },
             
-            // Find all images for a product based on name patterns
-            findAllImagesForProduct: function(productName, allImageGroups) {
-                if (!productName) return [];
+            // Find all images for a product
+            findImagesForProduct: function(productName) {
+                const groups = this.groupImagesByBaseName();
                 
                 // Normalize product name for matching
                 let normalizedName = productName
                     .toLowerCase()
                     .replace(/['"]/g, '')
                     .replace(/[()]/g, '')
-                    .replace(/\d{2}-\d{2}/g, '') // Remove sizes like 40-47
-                    .replace(/\d{6,}[-\s]?\d{0,6}/g, '') // Remove codes
+                    .replace(/\d{2}-\d{2}/g, '')
+                    .replace(/\d{6,}[-\s]?\d{0,6}/g, '')
                     .replace(/\s+/g, '_')
                     .trim();
                 
                 // Try to find matching image groups
-                const possibleNames = [normalizedName];
-                
-                // Add variations without common words
-                const commonWords = ['air', 'jordan', 'jordans', 'nike', 'retro', 'high', 'mid', 'low', 'og', 'gs'];
-                const words = normalizedName.split('_').filter(w => 
-                    w.length > 2 && !commonWords.includes(w.toLowerCase())
-                );
-                if (words.length > 0) {
-                    possibleNames.push(words.join('_'));
-                }
-                
-                // Search in all image groups
-                for (const name of possibleNames) {
-                    // Direct match
-                    if (allImageGroups[name]) {
-                        return allImageGroups[name];
-                    }
-                    
-                    // Partial match (contains)
-                    for (const groupName in allImageGroups) {
-                        if (groupName.toLowerCase().includes(name) || name.includes(groupName.toLowerCase())) {
-                            return allImageGroups[groupName];
-                        }
+                for (const groupName in groups) {
+                    if (groupName.toLowerCase().includes(normalizedName) || normalizedName.includes(groupName.toLowerCase())) {
+                        return groups[groupName];
                     }
                 }
                 
                 return [];
-            },
-            
-            // Try to find image by product name (fallback when images not assigned)
-            findImageByName: function(productName) {
-                if (!productName) return null;
-                
-                // Normalize product name for matching
-                let normalizedName = productName
-                    .toLowerCase()
-                    .replace(/['"]/g, '')
-                    .replace(/[()]/g, '')
-                    .replace(/\d{2}-\d{2}/g, '') // Remove sizes like 40-47
-                    .replace(/\d{6,}[-\s]?\d{0,6}/g, '') // Remove codes
-                    .replace(/\s+/g, ' ')
-                    .trim();
-                
-                // Extract key words (remove common words)
-                const commonWords = ['air', 'jordan', 'jordans', 'nike', 'retro', 'high', 'mid', 'low', 'og', 'gs'];
-                const words = normalizedName.split(/\s+/).filter(w => 
-                    w.length > 2 && !commonWords.includes(w.toLowerCase())
-                );
-                const keyName = words.join(' ') || normalizedName;
-                
-                // Generate multiple patterns to try
-                const patterns = [];
-                
-                // Direct patterns
-                patterns.push(keyName + '_1.jpg');
-                patterns.push(keyName + '_1.jpeg');
-                patterns.push(keyName + '_1.png');
-                patterns.push(keyName + '.jpg');
-                patterns.push(keyName + '.jpeg');
-                patterns.push(keyName + '.png');
-                
-                // With underscores
-                const underscored = keyName.replace(/\s+/g, '_');
-                patterns.push(underscored + '_1.jpg');
-                patterns.push(underscored + '_1.jpeg');
-                patterns.push(underscored + '_1.png');
-                
-                // With original name variations
-                patterns.push(normalizedName.replace(/\s+/g, '_') + '_1.jpg');
-                patterns.push(normalizedName.replace(/\s+/g, ' ') + '_1.jpg');
-                
-                // Folder-based patterns (for subfolders)
-                const folderPatterns = [
-                    keyName + '/' + keyName + '_1.jpg',
-                    keyName + '/' + keyName + '_1.jpeg',
-                    underscored + '/' + underscored + '_1.jpg',
-                    normalizedName + '/' + normalizedName + '_1.jpg',
-                ];
-                patterns.push(...folderPatterns);
-                
-                // Return first pattern (will be validated on load)
-                // The actual validation happens in handleImageError
-                return patterns.length > 0 ? this.normalizePath(patterns[0]) : null;
-            },
-            
-            // Resolve image path with fallbacks for GitHub Pages
-            resolvePath: function(imagePath) {
-                if (!imagePath) return null;
-                
-                // Check cache first
-                if (this.cache.has(imagePath)) {
-                    return this.cache.get(imagePath);
-                }
-                
-                // Normalize path
-                let resolved = this.normalizePath(imagePath);
-                
-                // Try original path first
-                const pathsToTry = [
-                    resolved,
-                    resolved.toLowerCase(),
-                    resolved.replace(/\\/g, '/'),
-                    resolved.replace(/\s+/g, '%20'), // URL encode spaces
-                    resolved.replace(/\s+/g, '_'), // Replace spaces with underscores
-                ];
-                
-                // Cache the first path (will be validated on load)
-                this.cache.set(imagePath, pathsToTry[0]);
-                return pathsToTry[0];
             }
         };
         
-        // Check if product has valid images
-        function productHasValidImages(product) {
-            const images = getProductImages(product);
-            return images && images.length > 0;
-        }
-
-        // Filter products to only include those with valid images
-        function filterProductsWithImages(products) {
-            return products.filter(product => productHasValidImages(product));
-        }
-
-        // Get product images - products have images assigned directly in the products array
+        // Get all images for a product
         function getProductImages(product) {
-            // Product has images property with array of image paths
-            if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-                // Resolve all image paths for GitHub Pages compatibility
-                const resolved = product.images
-                    .map(img => imagePathResolver.resolvePath(img))
-                    .filter(img => img !== null);
-                if (resolved.length > 0) {
-                    return resolved;
-                }
-            }
-            // Fallback to single image for backward compatibility
-            if (product.image) {
-                const resolved = imagePathResolver.resolvePath(product.image);
-                if (resolved) {
-                    return [resolved];
-                }
-            }
-            
-            // Last resort: try to find image by product name
-            // This is important for products that don't have images assigned yet
-            const foundImage = imagePathResolver.findImageByName(product.name);
-            if (foundImage) {
-                return [foundImage];
-            }
-            
-            // Try with original name if different
-            if (product.originalImageName) {
-                const foundByOriginal = imagePathResolver.findImageByName(product.originalImageName);
-                if (foundByOriginal) {
-                    return [foundByOriginal];
-                }
-            }
-            
-            return [];
+            return imageScanner.findImagesForProduct(product.name);
         }
-        
+
+                
         // Get first product image (for backward compatibility)
         function getProductImage(product) {
             const images = getProductImages(product);
@@ -739,73 +588,60 @@
             tryNextAlternative();
         };
         
-        // Render product card
+        // Render product card with carousel
         function renderProductCard(product) {
             const images = getProductImages(product);
-            const image = images.length > 0 ? images[0] : null;
-            // Todos os produtos estão disponíveis no STREETMOOD - sem badges de tipo
-            const badge = '';
-            
-            // Always render products - even if image path is not found yet
-            // The image error handler will try to find alternatives
-            const hasImage = image !== null && image !== undefined && image !== '';
-            
-            // If no image found, try to find one by name
-            let finalImage = image;
-            if (!hasImage) {
-                const foundImage = imagePathResolver.findImageByName(product.name);
-                finalImage = foundImage;
-            }
-            
+            const productId = product.id;
             const formattedName = formatProductName(product);
             const formattedSize = formatSize(product.size);
-            const productId = product.id;
             
+            // Skip products without images
+            if (!images || images.length === 0) {
+                return '';
+            }
+            
+            // Create carousel HTML
+            const imageContainerId = `carousel-${productId}`;
             let imageHTML = '';
-            // Always show image container - even if image path is not found
-            // The error handler will try alternatives
-            if (finalImage || hasImage) {
-                const imageToUse = finalImage || image;
-                // Create unique ID for image container
-                const imageContainerId = `img-container-${productId}`;
-                
-                // If multiple images, show first image with indicator
-                if (images.length > 1) {
-                    imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
-                                    <img src="${imageToUse}" 
-                                         alt="${formattedName}" 
-                                         class="product-image w-full h-full object-contain"
-                                         data-product-id="${productId}"
-                                         data-original-src="${imageToUse}"
-                                         onerror="handleImageError(this, '${formattedName.replace(/'/g, "\\'")}', ${productId})">
-                                    <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-semibold">
-                                        ${images.length} fotos
-                                    </div>
-                                    <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl error-placeholder">
-                                        <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
-                                        <div class="text-xs text-gray-400">Carregando imagem...</div>
-                                    </div>
-                                </div>`;
-                } else {
-                    imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
-                                    <img src="${imageToUse}" 
-                                         alt="${formattedName}" 
-                                         class="product-image w-full h-full object-contain"
-                                         data-product-id="${productId}"
-                                         data-original-src="${imageToUse}"
-                                         onerror="handleImageError(this, '${formattedName.replace(/'/g, "\\'")}', ${productId})">
-                                    <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl error-placeholder">
-                                        <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
-                                        <div class="text-xs text-gray-400">Carregando imagem...</div>
-                                    </div>
-                                </div>`;
-                }
-            } else {
-                // No image found yet - show placeholder but still render product
+            
+            if (images.length === 1) {
+                // Single image
                 imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
-                                <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-gray-800 rounded-xl">
-                                    <div class="text-5xl mb-2 animate-pulse">${product.category === 'roupas' ? '👕' : '👟'}</div>
-                                    <div class="text-xs text-gray-400">Procurando imagem...</div>
+                                <img src="${images[0]}" 
+                                     alt="${formattedName}" 
+                                     class="product-image w-full h-full object-contain">
+                            </div>`;
+            } else {
+                // Multiple images - create carousel
+                const imageSlides = images.map((img, index) => 
+                    `<div class="carousel-slide ${index === 0 ? 'active' : ''}" data-slide="${index}">
+                        <img src="${img}" 
+                             alt="${formattedName} ${index + 1}" 
+                             class="product-image w-full h-full object-contain">
+                    </div>`
+                ).join('');
+                
+                imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
+                                <div class="carousel-container relative w-full h-full overflow-hidden">
+                                    ${imageSlides}
+                                </div>
+                                <button class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-opacity" onclick="changeSlide('${productId}', -1)">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                                    </svg>
+                                </button>
+                                <button class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-opacity" onclick="changeSlide('${productId}', 1)">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </button>
+                                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                                    ${images.map((_, index) => 
+                                        `<button class="carousel-dot w-2 h-2 rounded-full bg-white/60 ${index === 0 ? 'bg-white' : ''}" onclick="goToSlide('${productId}', ${index})"></button>`
+                                    ).join('')}
+                                </div>
+                                <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-semibold">
+                                    ${images.length} fotos
                                 </div>
                             </div>`;
             }
@@ -1107,10 +943,10 @@
                                     `).join('')}
                                 </div>
                                 ${images.length > 1 ? `
-                                    <button onclick="previousCarouselImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
+                                    <button onclick="changeSlide(${product.id}, -1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
                                         ←
                                     </button>
-                                    <button onclick="nextCarouselImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
+                                    <button onclick="changeSlide(${product.id}, 1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
                                         →
                                     </button>
                                 ` : ''}
@@ -1118,10 +954,6 @@
                         </div>
                     `;
                     viewer.innerHTML = carouselHTML;
-                    
-                    // Store current image index
-                    window.currentCarouselIndex = 0;
-                    window.currentCarouselImages = images;
                 }
             } else {
                 // If no images, close modal (product shouldn't be shown anyway)
@@ -1134,34 +966,43 @@
             document.body.style.overflow = 'hidden';
         }
         
-        // Carousel functions
-        function showCarouselImage(index) {
-            const slides = document.querySelectorAll('.carousel-slide');
-            const dots = document.querySelectorAll('.carousel-dot');
+        // Carousel control functions
+        function changeSlide(productId, direction) {
+            const carousel = document.getElementById(`carousel-${productId}`);
+            if (!carousel) return;
             
-            slides.forEach((slide, i) => {
-                if (i === index) {
-                    slide.classList.remove('hidden');
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.add('hidden');
-                    slide.classList.remove('active');
-                }
-            });
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            const currentSlide = carousel.querySelector('.carousel-slide.active');
+            const currentIndex = Array.from(slides).indexOf(currentSlide);
             
-            dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('active');
-                    dot.classList.remove('bg-white/60');
-                    dot.classList.add('bg-white');
-                } else {
-                    dot.classList.remove('active');
-                    dot.classList.add('bg-white/60');
-                    dot.classList.remove('bg-white');
-                }
-            });
+            let newIndex = currentIndex + direction;
+            if (newIndex < 0) newIndex = slides.length - 1;
+            if (newIndex >= slides.length) newIndex = 0;
             
-            window.currentCarouselIndex = index;
+            // Update slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[newIndex].classList.add('active');
+            
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('bg-white'));
+            dots[newIndex].classList.add('bg-white');
+        }
+        
+        function goToSlide(productId, slideIndex) {
+            const carousel = document.getElementById(`carousel-${productId}`);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            // Update slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[slideIndex].classList.add('active');
+            
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('bg-white'));
+            dots[slideIndex].classList.add('bg-white');
         }
         
         function nextCarouselImage() {
@@ -1306,7 +1147,7 @@
                     return (b.id || 0) - (a.id || 0);
                 });
                 
-                currentProducts = filterProductsWithImages(window.products);
+                currentProducts = window.products;
                 currentPage = 1;
                 renderProducts();
                 

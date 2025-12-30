@@ -352,7 +352,7 @@
             window.products = products;
             console.log('✅ Products carregados:', window.products.length);
         } else {
-            console.error('❌ Products não definido em streetmood_products.js');
+            console.error('❌ Products não definido em streetmood_products.js - Verificar sintaxe do arquivo');
             window.products = [];
         }
 
@@ -1581,11 +1581,9 @@
                     autoDiscoverImages();
                 }, 1000);
             } else {
-                console.error('❌ Erro ao carregar produtos. Tentando novamente...');
-                // Try to reload products
-                setTimeout(() => {
-                    init();
-                }, 2000);
+                console.error('❌ Erro ao carregar produtos. Verifique se streetmood_products.js tem sintaxe correta.');
+                // Stop trying to avoid infinite loop
+                document.getElementById('productsGrid').innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Erro ao carregar produtos. Por favor, verifique o console para mais detalhes.</div>';
             }
         }
 

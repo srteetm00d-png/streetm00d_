@@ -1257,81 +1257,131 @@
         
         // Carousel control functions
         function changeSlide(productId, direction) {
-            const carousel = document.getElementById(`carousel-${productId}`);
-            if (!carousel) return;
+            console.log('changeSlide called with productId:', productId, 'direction:', direction);
+            
+            // Try both carousel ID patterns
+            let carousel = document.getElementById(`carousel-${productId}`);
+            if (!carousel) {
+                carousel = document.getElementById('imageCarousel');
+            }
+            
+            if (!carousel) {
+                console.error('Carousel not found for product:', productId);
+                return;
+            }
             
             const slides = carousel.querySelectorAll('.carousel-slide');
             const dots = carousel.querySelectorAll('.carousel-dot');
             const currentSlide = carousel.querySelector('.carousel-slide.active');
+            
+            if (!currentSlide || slides.length === 0) {
+                console.error('No active slide or slides found');
+                return;
+            }
+            
             const currentIndex = Array.from(slides).indexOf(currentSlide);
+            console.log('Current index:', currentIndex, 'Total slides:', slides.length);
             
             let newIndex = currentIndex + direction;
             if (newIndex < 0) newIndex = slides.length - 1;
             if (newIndex >= slides.length) newIndex = 0;
             
+            console.log('New index:', newIndex);
+            
             // Update slides
-            slides.forEach(slide => {
+            slides.forEach((slide, index) => {
                 slide.classList.remove('active');
                 slide.classList.add('hidden');
+                if (index === newIndex) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('active');
+                }
             });
-            slides[newIndex].classList.remove('hidden');
-            slides[newIndex].classList.add('active');
             
             // Update dots
-            dots.forEach(dot => {
+            dots.forEach((dot, index) => {
                 dot.classList.remove('bg-white');
                 dot.classList.add('bg-white/60');
+                if (index === newIndex) {
+                    dot.classList.remove('bg-white/60');
+                    dot.classList.add('bg-white');
+                }
             });
-            dots[newIndex].classList.remove('bg-white/60');
-            dots[newIndex].classList.add('bg-white');
         }
         
         function goToSlide(productId, slideIndex) {
-            const carousel = document.getElementById(`carousel-${productId}`);
-            if (!carousel) return;
+            console.log('goToSlide called with productId:', productId, 'slideIndex:', slideIndex);
+            
+            // Try both carousel ID patterns
+            let carousel = document.getElementById(`carousel-${productId}`);
+            if (!carousel) {
+                carousel = document.getElementById('imageCarousel');
+            }
+            
+            if (!carousel) {
+                console.error('Carousel not found for product:', productId);
+                return;
+            }
             
             const slides = carousel.querySelectorAll('.carousel-slide');
             const dots = carousel.querySelectorAll('.carousel-dot');
             
+            console.log('Found slides:', slides.length, 'Found dots:', dots.length);
+            
             // Update slides
-            slides.forEach(slide => {
+            slides.forEach((slide, index) => {
                 slide.classList.remove('active');
                 slide.classList.add('hidden');
+                if (index === slideIndex) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('active');
+                }
             });
-            slides[slideIndex].classList.remove('hidden');
-            slides[slideIndex].classList.add('active');
             
             // Update dots
-            dots.forEach(dot => {
+            dots.forEach((dot, index) => {
                 dot.classList.remove('bg-white');
                 dot.classList.add('bg-white/60');
+                if (index === slideIndex) {
+                    dot.classList.remove('bg-white/60');
+                    dot.classList.add('bg-white');
+                }
             });
-            dots[slideIndex].classList.remove('bg-white/60');
-            dots[slideIndex].classList.add('bg-white');
         }
         
         function showCarouselImage(index) {
+            console.log('showCarouselImage called with index:', index);
+            
             const carousel = document.getElementById('imageCarousel');
-            if (!carousel) return;
+            if (!carousel) {
+                console.error('imageCarousel not found');
+                return;
+            }
             
             const slides = carousel.querySelectorAll('.carousel-slide');
             const dots = carousel.querySelectorAll('.carousel-dot');
             
+            console.log('Found slides:', slides.length, 'Found dots:', dots.length);
+            
             // Update slides
-            slides.forEach(slide => {
+            slides.forEach((slide, i) => {
                 slide.classList.remove('active');
                 slide.classList.add('hidden');
+                if (i === index) {
+                    slide.classList.remove('hidden');
+                    slide.classList.add('active');
+                }
             });
-            slides[index].classList.remove('hidden');
-            slides[index].classList.add('active');
             
             // Update dots
-            dots.forEach(dot => {
+            dots.forEach((dot, i) => {
                 dot.classList.remove('bg-white');
                 dot.classList.add('bg-white/60');
+                if (i === index) {
+                    dot.classList.remove('bg-white/60');
+                    dot.classList.add('bg-white');
+                }
             });
-            dots[index].classList.remove('bg-white/60');
-            dots[index].classList.add('bg-white');
             
             window.currentCarouselIndex = index;
         }

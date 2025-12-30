@@ -1228,14 +1228,14 @@
                                 <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
                                     ${images.map((_, index) => `
                                         <button onclick="showCarouselImage(${index})" 
-                                                class="carousel-dot ${index === 0 ? 'active' : ''} w-2 h-2 rounded-full bg-white/60 hover:bg-white transition-colors"></button>
+                                                class="carousel-dot ${index === 0 ? 'bg-white' : 'bg-white/60'} w-2 h-2 rounded-full hover:bg-white transition-colors"></button>
                                     `).join('')}
                                 </div>
                                 ${images.length > 1 ? `
-                                    <button onclick="changeSlide(${product.id}, -1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
+                                    <button onclick="navigateModalCarousel(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
                                         ←
                                     </button>
-                                    <button onclick="changeSlide(${product.id}, 1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
+                                    <button onclick="navigateModalCarousel(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
                                         →
                                     </button>
                                 ` : ''}
@@ -1353,6 +1353,25 @@
             });
         }
         
+        // Modal carousel navigation function
+        function navigateModalCarousel(direction) {
+            const carousel = document.getElementById('imageCarousel');
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const currentSlide = carousel.querySelector('.carousel-slide.active');
+            
+            if (!currentSlide || slides.length === 0) return;
+            
+            const currentIndex = Array.from(slides).indexOf(currentSlide);
+            let newIndex = currentIndex + direction;
+            
+            if (newIndex < 0) newIndex = slides.length - 1;
+            if (newIndex >= slides.length) newIndex = 0;
+            
+            showCarouselImage(newIndex);
+        }
+
         function showCarouselImage(index) {
             console.log('showCarouselImage called with index:', index);
             

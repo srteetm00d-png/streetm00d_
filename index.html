@@ -882,16 +882,24 @@
             const formattedName = formatProductName(product);
             const formattedSize = formatSize(product.size);
             
-            // Skip products without images
-            if (!images || images.length === 0) {
-                return '';
-            }
+            // Don't skip products without images - show them all
+            // The auto-discovery will try to find images for them
             
             // Create carousel HTML
             const imageContainerId = `carousel-${productId}`;
             let imageHTML = '';
             
-            if (images.length === 1) {
+            if (images.length === 0) {
+                // No images found - show placeholder
+                imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
+                                <div class="flex items-center justify-center h-full bg-gray-800 rounded-xl">
+                                    <div class="text-center p-4">
+                                        <div class="text-gray-400 text-sm mb-2">Imagem não encontrada</div>
+                                        <div class="text-gray-500 text-xs">${formattedName}</div>
+                                    </div>
+                                </div>
+                            </div>`;
+            } else if (images.length === 1) {
                 // Single image
                 imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
                                 <img src="${images[0]}" 
@@ -1466,32 +1474,58 @@
                     continue;
                 }
                 
-                // Try to find image by name
-                const foundImage = typeof imagePathResolver !== 'undefined' ? imagePathResolver.findImageByName(product.name) : null;
-                if (foundImage) {
-                    // Test if image actually exists
+                // Try to find images by exact name matching
+                const productName = product.name.toLowerCase()
+                    .replace(/['"]/g, '')
+                    .replace(/[()]/g, '')
+                    .replace(/\s+/g, '_')
+                    .replace(/[^\w\s-]/g, '')
+                    .trim();
+                
+                // Look for images that match the product name
+                const matchingImages = [];
+                
+                // Check all known images for partial matches
+                window.imageScanner.knownImages.forEach(imagePath => {
+                    const imageName = imagePath.toLowerCase()
+                        .replace(/['"]/g, '')
+                        .replace(/[()]/g, '')
+                        .replace(/\s+/g, '_')
+                        .replace(/[^\w\s-]/g, '')
+                        .replace(/_\d+\.(jpg|jpeg|png)$/i, '') // Remove _1, _2, etc
+                        .trim();
+                    
+                    // Check if product name is contained in image name or vice versa
+                    if (imageName.includes(productName) || productName.includes(imageName)) {
+                        matchingImages.push('imagens_produtos/' + imagePath);
+                    }
+                });
+                
+                // Remove duplicates and sort
+                const uniqueImages = [...new Set(matchingImages)];
+                
+                if (uniqueImages.length > 0) {
+                    // Test if first image exists
                     const testImg = new Image();
                     await new Promise((resolve) => {
                         testImg.onload = function() {
-                            // Image exists! Assign it
-                            if (!product.images) {
-                                product.images = [];
-                            }
-                            product.images.push(foundImage);
-                            product.image = foundImage;
+                            // Image exists! Assign all matching images
+                            product.images = uniqueImages;
+                            product.image = uniqueImages[0];
                             foundCount++;
+                            console.log(`✅ Encontradas ${uniqueImages.length} imagens para: ${product.name}`);
                             resolve();
                         };
                         testImg.onerror = function() {
                             resolve();
                         };
-                        testImg.src = foundImage;
+                        testImg.src = uniqueImages[0];
                     });
                 }
             }
             
             if (foundCount > 0) {
-                console.log(`✅ Encontradas ${foundCount} imagens automaticamente`);
+                console.log(`✅ Total de ${foundCount} produtos com imagens encontradas automaticamente`);
                 // Re-render products to show newly found images
                 filterProducts();
             }

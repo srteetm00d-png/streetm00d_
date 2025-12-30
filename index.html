@@ -1581,8 +1581,11 @@
                     autoDiscoverImages();
                 }, 1000);
             } else {
-                console.error('❌ Nenhum produto foi carregado!');
-                document.getElementById('productsGrid').innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Erro ao carregar produtos. Por favor, recarrega a página.</div>';
+                console.error('❌ Erro ao carregar produtos. Tentando novamente...');
+                // Try to reload products
+                setTimeout(() => {
+                    init();
+                }, 2000);
             }
         }
 

@@ -1270,11 +1270,19 @@
             if (newIndex >= slides.length) newIndex = 0;
             
             // Update slides
-            slides.forEach(slide => slide.classList.remove('active'));
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.classList.add('hidden');
+            });
+            slides[newIndex].classList.remove('hidden');
             slides[newIndex].classList.add('active');
             
             // Update dots
-            dots.forEach(dot => dot.classList.remove('bg-white'));
+            dots.forEach(dot => {
+                dot.classList.remove('bg-white');
+                dot.classList.add('bg-white/60');
+            });
+            dots[newIndex].classList.remove('bg-white/60');
             dots[newIndex].classList.add('bg-white');
         }
         
@@ -1286,24 +1294,46 @@
             const dots = carousel.querySelectorAll('.carousel-dot');
             
             // Update slides
-            slides.forEach(slide => slide.classList.remove('active'));
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.classList.add('hidden');
+            });
+            slides[slideIndex].classList.remove('hidden');
             slides[slideIndex].classList.add('active');
             
             // Update dots
-            dots.forEach(dot => dot.classList.remove('bg-white'));
+            dots.forEach(dot => {
+                dot.classList.remove('bg-white');
+                dot.classList.add('bg-white/60');
+            });
+            dots[slideIndex].classList.remove('bg-white/60');
             dots[slideIndex].classList.add('bg-white');
         }
         
-        function nextCarouselImage() {
-            if (!window.currentCarouselImages || window.currentCarouselImages.length === 0) return;
-            const nextIndex = (window.currentCarouselIndex + 1) % window.currentCarouselImages.length;
-            showCarouselImage(nextIndex);
-        }
-        
-        function previousCarouselImage() {
-            if (!window.currentCarouselImages || window.currentCarouselImages.length === 0) return;
-            const prevIndex = (window.currentCarouselIndex - 1 + window.currentCarouselImages.length) % window.currentCarouselImages.length;
-            showCarouselImage(prevIndex);
+        function showCarouselImage(index) {
+            const carousel = document.getElementById('imageCarousel');
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            // Update slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+                slide.classList.add('hidden');
+            });
+            slides[index].classList.remove('hidden');
+            slides[index].classList.add('active');
+            
+            // Update dots
+            dots.forEach(dot => {
+                dot.classList.remove('bg-white');
+                dot.classList.add('bg-white/60');
+            });
+            dots[index].classList.remove('bg-white/60');
+            dots[index].classList.add('bg-white');
+            
+            window.currentCarouselIndex = index;
         }
 
         // Close modal

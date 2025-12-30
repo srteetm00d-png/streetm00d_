@@ -901,7 +901,7 @@
             } else {
                 // Multiple images - create carousel
                 const imageSlides = images.map((img, index) => 
-                    `<div class="carousel-slide ${index === 0 ? 'active' : ''}" data-slide="${index}">
+                    `<div class="carousel-slide ${index === 0 ? 'active' : 'hidden'} absolute inset-0 flex items-center justify-center" data-slide="${index}">
                         <img src="${img}" 
                              alt="${formattedName} ${index + 1}" 
                              class="product-image w-full h-full object-contain">
@@ -1255,6 +1255,10 @@
             document.body.style.overflow = 'hidden';
         }
         
+        // Remove Tailwind CDN warning
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            console.warn('⚠️ Consider using Tailwind CLI in production for better performance');
+        }
         // Carousel control functions
         function changeSlide(productId, direction) {
             console.log('changeSlide called with productId:', productId, 'direction:', direction);

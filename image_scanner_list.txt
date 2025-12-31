@@ -1,0 +1,6 @@
+﻿// STREETMOOD - Lista de imagens atualizada automaticamente
+// Gerado em: 30/12/2025 17:20:02
+// Total de imagens: 0
+
+// Copie e cole esta lista no index.html onde estÃ¡ o knownImages:
+        ''

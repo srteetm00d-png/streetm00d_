@@ -382,7 +382,7 @@
         let activeTab = 'mais-vendido';
         let currentProduct = null;
         let currentPage = 1;
-        const productsPerPage = 20;
+        const productsPerPage = 12;
 
         // Initialize
         AOS.init({
@@ -986,7 +986,7 @@
             `;
         }
 
-        // Render products grid with pagination
+        // Render products grid with pagination and progressive loading
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             if (currentProducts.length === 0) {
@@ -997,23 +997,35 @@
             
             // Show loading state for better UX
             if (!isLoading) {
-                grid.innerHTML = '<div class="col-span-full text-center py-4"><div class="inline-block animate-spin rounded-full h-6 w-6 border-b-2 border-red-500"></div></div>';
+                grid.innerHTML = '<div class="col-span-full text-center py-4"><div class="loading-spinner mx-auto"></div></div>';
             }
             
-            // Calculate pagination
-            const totalPages = Math.ceil(currentProducts.length / productsPerPage);
-            const startIndex = (currentPage - 1) * productsPerPage;
-            const endIndex = startIndex + productsPerPage;
-            const productsToShow = currentProducts.slice(startIndex, endIndex);
-            
-            // Use setTimeout to prevent blocking UI
+            // Use setTimeout to prevent blocking UI and simulate progressive loading
             setTimeout(() => {
-                grid.innerHTML = productsToShow.map(renderProductCard).join('');
+                // Calculate pagination
+                const totalPages = Math.ceil(currentProducts.length / productsPerPage);
+                const startIndex = (currentPage - 1) * productsPerPage;
+                const endIndex = startIndex + productsPerPage;
+                const productsToShow = currentProducts.slice(startIndex, endIndex);
+                
+                // Filter products with valid images only
+                const validProducts = productsToShow.filter(product => {
+                    const images = getProductImages(product);
+                    return images.length > 0;
+                });
+                
+                // Render only products with images
+                grid.innerHTML = validProducts.map(renderProductCard).join('');
+                
+                // Reinitialize AOS for new elements
                 AOS.refresh();
                 
                 // Render pagination
                 renderPagination(totalPages);
-            }, 100);
+                
+                // Log loading info
+                console.log(`📦 Carregados ${validProducts.length}/${productsToShow.length} produtos (página ${currentPage}/${totalPages})`);
+            }, 200); // Slightly longer delay for better UX
         }
 
         // Render pagination buttons
@@ -1514,34 +1526,246 @@
 
         // Function to auto-discover images for products without images
         async function autoDiscoverImages() {
-            if (!window.products || window.products.length === 0) return;
-            
-            console.log('🔍 Procurando imagens para produtos sem imagens definidas...');
-            let foundCount = 0;
-            
-            for (const product of window.products) {
-                // Skip if product already has images
-                if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-                    continue;
-                }
-                if (product.image) {
-                    continue;
+                
+                // Try both carousel ID patterns
+                let carousel = document.getElementById(`carousel-${productId}`);
+                if (!carousel) {
+                    carousel = document.getElementById('imageCarousel');
                 }
                 
-                // Try to find images by exact name matching
-                const productName = product.name.toLowerCase()
-                    .replace(/['"]/g, '')
-                    .replace(/[()]/g, '')
-                    .replace(/\s+/g, '_')
-                    .replace(/[^\w\s-]/g, '')
-                    .trim();
+                if (!carousel) {
+                    console.error('Carousel not found for product:', productId);
+                    return;
+                }
+                
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                const currentSlide = carousel.querySelector('.carousel-slide.active');
+                
+                if (!currentSlide || slides.length === 0) {
+                    console.error('No active slide or slides found');
+                    return;
+                }
+                
+                const currentIndex = Array.from(slides).indexOf(currentSlide);
+                console.log('Current index:', currentIndex, 'Total slides:', slides.length);
+                
+                let newIndex = currentIndex + direction;
+                if (newIndex < 0) newIndex = slides.length - 1;
+                if (newIndex >= slides.length) newIndex = 0;
+                
+                console.log('New index:', newIndex);
+                
+                // Update slides
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    slide.classList.add('hidden');
+                    if (index === newIndex) {
+                        slide.classList.remove('hidden');
+                        slide.classList.add('active');
+                    }
+                });
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('bg-white/60');
+                    if (index === newIndex) {
+                        dot.classList.remove('bg-white/60');
+                        dot.classList.add('bg-white');
+                    }
+                });
+            }
+            
+            function goToSlide(productId, slideIndex) {
+                console.log('goToSlide called with productId:', productId, 'slideIndex:', slideIndex);
+                
+                // Try both carousel ID patterns
+                let carousel = document.getElementById(`carousel-${productId}`);
+                if (!carousel) {
+                    carousel = document.getElementById('imageCarousel');
+                }
+                
+                if (!carousel) {
+                    console.error('Carousel not found for product:', productId);
+                    return;
+                }
+                
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                
+                console.log('Found slides:', slides.length, 'Found dots:', dots.length);
+                
+                // Update slides
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active');
+                    slide.classList.add('hidden');
+                    if (index === slideIndex) {
+                        slide.classList.remove('hidden');
+                        slide.classList.add('active');
+                    }
+                });
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('bg-white/60');
+                    if (index === slideIndex) {
+                        dot.classList.remove('bg-white/60');
+                        dot.classList.add('bg-white');
+                    }
+                });
+            }
+            
+            // Modal carousel navigation function
+            function navigateModalCarousel(direction) {
+                const carousel = document.getElementById('imageCarousel');
+                if (!carousel) return;
+                
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const currentSlide = carousel.querySelector('.carousel-slide.active');
+                
+                if (!currentSlide || slides.length === 0) return;
+                
+                const currentIndex = Array.from(slides).indexOf(currentSlide);
+                let newIndex = currentIndex + direction;
+                
+                if (newIndex < 0) newIndex = slides.length - 1;
+                if (newIndex >= slides.length) newIndex = 0;
+                
+                showCarouselImage(newIndex);
+            }
+
+            function showCarouselImage(index) {
+                console.log('showCarouselImage called with index:', index);
+                
+                const carousel = document.getElementById('imageCarousel');
+                if (!carousel) {
+                    console.error('imageCarousel not found');
+                    return;
+                }
+                
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const dots = carousel.querySelectorAll('.carousel-dot');
+                
+                console.log('Found slides:', slides.length, 'Found dots:', dots.length);
+                
+                // Update slides
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                    slide.classList.add('hidden');
+                    if (i === index) {
+                        slide.classList.remove('hidden');
+                        slide.classList.add('active');
+                    }
+                });
+                
+                // Update dots
+                dots.forEach((dot, i) => {
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('bg-white/60');
+                    if (i === index) {
+                        dot.classList.remove('bg-white/60');
+                        dot.classList.add('bg-white');
+                    }
+                });
+                
+                window.currentCarouselIndex = index;
+            }
+
+            // Close modal
+            function closeModal() {
+                const modal = document.getElementById('productModal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+
+            // Buy product via Instagram DM
+            function buyProduct() {
+                if (!currentProduct) return;
+                
+                const name = currentProduct.name;
+                const size = currentProduct.size || '';
+                const productType = currentProduct.isUnidentified ? 'produto não identificado' : 'produto';
+                const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name}${size ? ' (T:' + size + ')' : ''} ainda está disponível?`);
+                window.open(`https://www.instagram.com/direct/new/`, '_blank');
+            }
+
+            // Reserve product via Instagram DM
+            function reserveProduct() {
+                if (!currentProduct) return;
+                
+                const name = currentProduct.name;
+                const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${name}. Podes enviar fotos reais antes do envio?`);
+                window.open(`https://www.instagram.com/direct/new/`, '_blank');
+            }
+
+            // Open Instagram DM with pre-filled message (header button)
+            function openWhatsApp() {
+                const msg = encodeURIComponent(`Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?`);
+                window.open(`https://www.instagram.com/direct/new/`, '_blank');
+            }
+
+            // Close modal on ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+
+            // Products already have images assigned from the products file
+            // No need for image assignment functions
+
+            // Enhanced image loading with progressive display
+            function getProductImages(product) {
+                // First try to use images assigned directly to the product
+                if (product.images && product.images.length > 0) {
+                    return product.images.map(img => {
+                        // Ensure proper path format
+                        if (!img.startsWith('imagens_produtos/')) {
+                            return `imagens_produtos/${img}`;
+                        }
+                        return img;
+                    });
+                }
+                
+                // If no images assigned, try to find them by product name
+                const productName = product.name.toLowerCase();
+                const foundImages = [];
                 
                 // Look for images that match the product name
-                const matchingImages = [];
+                for (const knownImage of imageScanner.knownImages) {
+                    const imageName = knownImage.toLowerCase();
+                    
+                    // Check if image name contains product name keywords
+                    if (imageName.includes(productName.split(' ')[0]) || 
+                        imageName.includes(productName.split(' ')[1]) ||
+                        productName.includes(knownImage.split('_')[0].toLowerCase())) {
+                        
+                        foundImages.push(`imagens_produtos/${knownImage}`);
+                    }
+                }
                 
-                // Check all known images for partial matches
-                window.imageScanner.knownImages.forEach(imagePath => {
-                    const imageName = imagePath.toLowerCase()
+                return foundImages.slice(0, 3); // Limit to 3 images per product
+            }
+
+            // Function to auto-discover images for products without images
+            async function autoDiscoverImages() {
+                if (!window.products || window.products.length === 0) return;
+                
+                console.log('🔍 Procurando imagens para produtos sem imagens definidas...');
+                let foundCount = 0;
+                
+                for (const product of window.products) {
+                    // Skip if product already has images
+                    if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+                        continue;
+                    }
+                    if (product.image) {
+                        continue;
+                    }
+                    
+                    // Try to find images by exact name matching
+                    const productName = product.name.toLowerCase()
                         .replace(/['"]/g, '')
                         .replace(/[()]/g, '')
                         .replace(/\s+/g, '_')
@@ -1549,11 +1773,14 @@
                         .replace(/_\d+\.(jpg|jpeg|png)$/i, '') // Remove _1, _2, etc
                         .trim();
                     
-                    // Check if product name is contained in image name or vice versa
-                    if (imageName.includes(productName) || productName.includes(imageName)) {
-                        matchingImages.push('imagens_produtos/' + imagePath);
+                    // Look for images that match the product name
+                    const matchingImages = [];
+                    for (const knownImage of imageScanner.knownImages) {
+                        const imagePath = knownImage.toLowerCase();
+                        if (imagePath.includes(productName) || productName.includes(imagePath)) {
+                            matchingImages.push('imagens_produtos/' + knownImage);
+                        }
                     }
-                });
                 
                 // Remove duplicates and sort
                 const uniqueImages = [...new Set(matchingImages)];

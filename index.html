@@ -903,6 +903,8 @@
             const formattedName = formatProductName(product);
             const formattedSize = formatSize(product.size);
             
+            console.log(`🎨 Renderizando produto: ${product.name} com ${images.length} imagens`);
+            
             // Check if product has valid images
             const hasValidImages = images.length > 0;
             const isBestSeller = product.isBestSeller === true;
@@ -914,6 +916,7 @@
             
             if (!hasValidImages) {
                 // Skip products without images - don't render them
+                console.log(`⚠️ Produto sem imagens: ${product.name}`);
                 return '';
             } else if (images.length === 1) {
                 // Single image
@@ -921,7 +924,8 @@
                                 <img src="${images[0]}" 
                                      alt="${formattedName}" 
                                      class="product-image w-full h-full object-contain"
-                                     loading="lazy">
+                                     loading="lazy"
+                                     onerror="console.error('❌ Erro ao carregar imagem: ${images[0]}'); this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4K'">
                             </div>`;
             } else {
                 // Multiple images - create carousel
@@ -930,7 +934,8 @@
                         <img src="${img}" 
                              alt="${formattedName} ${index + 1}" 
                              class="product-image w-full h-full object-contain"
-                             loading="lazy">
+                             loading="lazy"
+                             onerror="console.error('❌ Erro ao carregar imagem: ${img}'); this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4K'">
                     </div>`
                 ).join('');
                 
@@ -950,7 +955,7 @@
                                 </button>
                                 <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
                                     ${images.map((_, index) => 
-                                        `<button class="carousel-dot w-2 h-2 rounded-full bg-white/60 ${index === 0 ? 'bg-white' : ''}" onclick="goToSlide('${productId}', ${index})"></button>`
+                                        `<button class="carousel-dot w-2 h-2 rounded-full ${index === 0 ? 'bg-white' : 'bg-white/60'} transition-all" onclick="goToSlide('${productId}', ${index})"></button>`
                                     ).join('')}
                                 </div>
                                 <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-semibold">
@@ -1717,8 +1722,11 @@
 
             // Enhanced image loading with progressive display
             function getProductImages(product) {
+                console.log(`🔍 Procurando imagens para: ${product.name}`);
+                
                 // First try to use images assigned directly to the product
                 if (product.images && product.images.length > 0) {
+                    console.log(`✅ Produto tem ${product.images.length} imagens definidas`);
                     return product.images.map(img => {
                         // Ensure proper path format
                         if (!img.startsWith('imagens_produtos/')) {
@@ -1732,6 +1740,8 @@
                 const productName = product.name.toLowerCase();
                 const foundImages = [];
                 
+                console.log(`🔍 Procurando em ${imageScanner.knownImages.length} imagens conhecidas`);
+                
                 // Look for images that match the product name
                 for (const knownImage of imageScanner.knownImages) {
                     const imageName = knownImage.toLowerCase();
@@ -1742,9 +1752,11 @@
                         productName.includes(knownImage.split('_')[0].toLowerCase())) {
                         
                         foundImages.push(`imagens_produtos/${knownImage}`);
+                        console.log(`✅ Encontrada imagem: ${knownImage}`);
                     }
                 }
                 
+                console.log(`📊 Total de imagens encontradas: ${foundImages.length}`);
                 return foundImages.slice(0, 3); // Limit to 3 images per product
             }
 

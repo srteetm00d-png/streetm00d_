@@ -27,12 +27,26 @@
         
         // Disable Tailwind CDN warning completely
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            // Override console.warn to suppress Tailwind CDN warning
+            // Override console methods to suppress all Tailwind CDN warnings
+            const originalLog = console.log;
             const originalWarn = console.warn;
+            
+            console.log = function(...args) {
+                const message = args.join(' ');
+                if (message.includes('cdn.tailwindcss.com should not be used in production') || 
+                    message.includes('CDN detected') || 
+                    message.includes('Consider using Tailwind CLI')) {
+                    return; // Suppress all Tailwind CDN related messages
+                }
+                originalLog.apply(console, args);
+            };
+            
             console.warn = function(...args) {
                 const message = args.join(' ');
-                if (message.includes('cdn.tailwindcss.com should not be used in production')) {
-                    return; // Suppress this specific warning
+                if (message.includes('cdn.tailwindcss.com should not be used in production') || 
+                    message.includes('CDN detected') || 
+                    message.includes('Consider using Tailwind CLI')) {
+                    return; // Suppress all Tailwind CDN related warnings
                 }
                 originalWarn.apply(console, args);
             };

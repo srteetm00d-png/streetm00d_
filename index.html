@@ -25,10 +25,17 @@
             plugins: [],
         }
         
-        // Disable Tailwind CDN warning
+        // Disable Tailwind CDN warning completely
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            // Silently suppress the warning - don't show anything
-            console.warn = function() {};
+            // Override console.warn to suppress Tailwind CDN warning
+            const originalWarn = console.warn;
+            console.warn = function(...args) {
+                const message = args.join(' ');
+                if (message.includes('cdn.tailwindcss.com should not be used in production')) {
+                    return; // Suppress this specific warning
+                }
+                originalWarn.apply(console, args);
+            };
         }
     </script>
     

@@ -1547,62 +1547,72 @@
         
         // Initialize
         async function init() {
-            // Wait a bit to ensure products are loaded
-            if (!window.products || window.products.length === 0) {
-                console.warn('⚠️ Aguardando carregamento de produtos...');
-                let attempts = 0;
-                while ((!window.products || window.products.length === 0) && attempts < 50) {
-                    await new Promise(resolve => setTimeout(resolve, 100));
-                    attempts++;
-                }
-            }
-            
-            if (window.products && window.products.length > 0) {
-                console.log('✅ Produtos carregados:', window.products.length);
-                
-                // Remove duplicates - keep only first occurrence of each product name
-                const seenNames = new Set();
-                const uniqueProducts = [];
-                for (const product of window.products) {
-                    const normalizedName = product.name.toLowerCase().trim();
-                    if (!seenNames.has(normalizedName)) {
-                        seenNames.add(normalizedName);
-                        uniqueProducts.push(product);
+            // Load products script first
+            const script = document.createElement('script');
+            script.src = 'streetmood_products.js';
+            script.onload = async function() {
+                // Wait a bit to ensure products are loaded
+                if (!window.products || window.products.length === 0) {
+                    console.warn('⚠️ Aguardando carregamento de produtos...');
+                    let attempts = 0;
+                    while ((!window.products || window.products.length === 0) && attempts < 50) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        attempts++;
                     }
                 }
-                
-                // Don't limit products - show all products to ensure all images appear
-                window.products = uniqueProducts;
-                
-                const sneakers = window.products.filter(p => !p.category || p.category !== 'roupas');
-                const roupas = window.products.filter(p => p.category === 'roupas');
-                console.log(`✅ ${window.products.length} produtos únicos (${sneakers.length} sneakers, ${roupas.length} roupas)`);
-                
-                // Don't filter out products without images - let them render and try to find images
-                // The auto-discovery will find images for products that don't have them
-                
-                // Sort products: by ID (most recent first)
-                window.products.sort((a, b) => {
-                    return (b.id || 0) - (a.id || 0);
-                });
-                
-                currentProducts = window.products;
-                currentPage = 1;
-                renderProducts();
-                
-                // Try to auto-discover images for products without images (in background)
-                setTimeout(() => {
-                    autoDiscoverImages();
-                }, 1000);
-            } else {
-                console.error('❌ Erro ao carregar produtos. Verifique se streetmood_products.js tem sintaxe correta.');
-                // Stop trying to avoid infinite loop
-                document.getElementById('productsGrid').innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Erro ao carregar produtos. Por favor, verifique o console para mais detalhes.</div>';
+            
+                if (window.products && window.products.length > 0) {
+                    console.log('✅ Produtos carregados:', window.products.length);
+                    
+                    // Remove duplicates - keep only first occurrence of each product name
+                    const seenNames = new Set();
+                    const uniqueProducts = [];
+                    for (const product of window.products) {
+                        const normalizedName = product.name.toLowerCase().trim();
+                        if (!seenNames.has(normalizedName)) {
+                            seenNames.add(normalizedName);
+                            uniqueProducts.push(product);
+                        }
+                    }
+                    
+                    // Don't limit products - show all products to ensure all images appear
+                    window.products = uniqueProducts;
+                    
+                    const sneakers = window.products.filter(p => !p.category || p.category !== 'roupas');
+                    const roupas = window.products.filter(p => p.category === 'roupas');
+                    console.log(`✅ ${window.products.length} produtos únicos (${sneakers.length} sneakers, ${roupas.length} roupas)`);
+                    
+                    // Don't filter out products without images - let them render and try to find images
+                    // The auto-discovery will find images for products that don't have them
+                    
+                    // Sort products: by ID (most recent first)
+                    window.products.sort((a, b) => {
+                        return (b.id || 0) - (a.id || 0);
+                    });
+                    
+                    currentProducts = window.products;
+                    currentPage = 1;
+                    renderProducts();
+                    
+                    // Try to auto-discover images for products without images (in background)
+                    setTimeout(() => {
+                        autoDiscoverImages();
+                    }, 1000);
+                } else {
+                    console.error('❌ Erro ao carregar produtos. Verifique se streetmood_products.js tem sintaxe correta.');
+                    // Stop trying to avoid infinite loop
+                    document.getElementById('productsGrid').innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Erro ao carregar produtos. Por favor, verifique o console para mais detalhes.</div>';
+                }
+            script.onerror = function() {
+                console.error('❌ Erro ao carregar streetmood_products.js');
+                document.getElementById('productsGrid').innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Erro ao carregar produtos. Arquivo não encontrado.</div>';
             }
+            
+            document.head.appendChild(script);
         }
 
         // Start initialization
-        init();
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>

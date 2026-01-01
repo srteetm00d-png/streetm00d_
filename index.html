@@ -27,7 +27,8 @@
         
         // Disable Tailwind CDN warning
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            // Silently handle CDN warning - no console output needed
+            // Silently suppress the warning - don't show anything
+            console.warn = function() {};
         }
     </script>
     
@@ -1197,6 +1198,8 @@
 
         // Switch tab - defined as window function for global access
         window.switchTab = function(tab) {
+            if (isLoading) return; // Prevent switching during loading
+            
             console.log('🔄 Switching to tab:', tab);
             activeTab = tab;
             
@@ -1211,13 +1214,10 @@
                 activeBtn.classList.remove('text-gray-400');
             }
             
-            // Reset to first page when switching tabs
-            currentPage = 1;
-            
-            // Force filter products with delay to ensure UI updates
+            // Filter products with slight delay to ensure UI updates
             setTimeout(() => {
                 filterProducts();
-            }, 100);
+            }, 50);
         };
 
         // Open modal

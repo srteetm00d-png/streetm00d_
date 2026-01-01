@@ -27,7 +27,7 @@
         
         // Disable Tailwind CDN warning
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            console.log('%c[Tailwind CSS] CDN detected. Consider using Tailwind CLI in production for better performance.', 'color: #f59e0b;');
+            // Silently handle CDN warning - no console output needed
         }
     </script>
     
@@ -1867,6 +1867,18 @@
                 if (!window.products || window.products.length === 0) {
                     console.warn('⚠️ Aguardando carregamento de produtos...');
                     let attempts = 0;
+                    while ((!window.products || window.products.length === 0) && attempts < 50) {
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        attempts++;
+                    }
+                }
+
+                if (window.products && window.products.length > 0) {
+                    console.log('✅ Produtos carregados:', window.products.length);
+                    
+                    // Remove duplicates - keep only first occurrence of each product name
+                    const seenNames = new Set();
+                    const uniqueProducts = [];
                     for (const product of window.products) {
                         const normalizedName = product.name.toLowerCase().trim();
                         if (!seenNames.has(normalizedName)) {

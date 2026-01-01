@@ -9,7 +9,17 @@
     <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Disable Tailwind CDN warning in production
+        // Configure Tailwind for production
+        tailwind.config = {
+            important: true,
+            prefix: '',
+            theme: {
+                extend: {},
+            },
+            plugins: [],
+        }
+        
+        // Disable Tailwind CDN warning
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
             console.log('%c[Tailwind CSS] CDN detected. Consider using Tailwind CLI in production for better performance.', 'color: #f59e0b;');
         }
@@ -186,7 +196,7 @@
                     </div>
                 </div>
                 <button onclick="openWhatsApp()" class="btn-primary px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-wide">
-                    Instagram
+                    Instagram DM
                 </button>
             </div>
         </div>
@@ -316,7 +326,7 @@
                         
                         <button 
                             id="reserveBtn" 
-                            onclick="contactSeller()" 
+                            onclick="buyProduct()" 
                             class="btn-primary w-full py-4 rounded-xl font-bold text-lg uppercase tracking-wide mb-4"
                         >
                             💬 Comprar / DM
@@ -381,10 +391,8 @@
         const imageScanner = {
             // All product images from imagens_produtos folder
             knownImages: [
-                'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg', 'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_2.jpg',
-                'AIR JORDANS 1 LOW "Mystic Green"553558-113_1.jpg', 'AIR JORDANS 1 LOW "Mystic Green"553558-113_2.jpg',
-                'AMIRI MA-1 (36-40)_5.jpg', 'AMIRI MA-1 Branco Verde_5.jpg', 'AMIRI MA-1 Branco_5.jpg', 'AMIRI MA-1 Preto Branco_4.jpg', 'AMIRI MA-1 rosa_5.jpg', 'AMIRI MA-1(36-40)_5.jpg',
-                'Adidas AE1 (40-45)_5.jpg', 'Adidas AE1 (40-45)_5.png', 'Adidas Adizero SL (40-45)_4.jpeg', 'Adidas Adizero SL (40-45)_5.jpeg',
+                'Adidas Adizero SL (40-45)_4.jpeg', 'Adidas Adizero SL (40-45)_5.jpeg',
+                'Adidas AE1 (40-45)_5.jpg', 'Adidas AE1 (40-45)_5.png',
                 'Adidas Dexun_4.jpg', 'Adidas Dexun_5.jpg', 'Adidas Forum 84 (36-39)_5.jpg', 'Adidas Forum 84 (36-40)_5.jpg',
                 'Adidas Originals Samba_4.png', 'Adidas Originals Samba_5.jpg', 'Adidas Originals Samba_5.png',
                 'Air Jordan 312_1.jpg', 'Air Jordan 4 Retro black particle40-46_4.jpg', 'Air Jordan 4 Retro black particle40-46_6.jpg',
@@ -392,31 +400,36 @@
                 'Air Jordan 4 Retro particle beige40-46_1.jpg', 'Air Jordan 4 Retro particle beige40-46_4.jpg', 'Air Jordan 4 Retro particle beige40-46_6.jpg',
                 'Air Jordan 4 Retro_1.jpg', 'Air Jordan 4 Retro_2.jpg', 'Air Jordans 1 CD4487-100_1.jpg', 'Air Jordans 1 CD4487-100_2.jpg',
                 'Air Jordans 1 High University Blue 555088-134_1.jpg', 'Air Jordans 1 High University Blue 555088-134_2.jpg',
-                'Air Jordans 1 MID SE "South Beach"852542-306_1.jpg', 'Air Jordans 1 MID SE "South Beach"852542-306_2.jpg',
-                'Air Jordans 1 MID "Top 3" 554724-124_1.jpg', 'Air Jordans 1 MID "Top 3" 554724-124_2.jpg',
+                'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg', 'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_2.jpg',
+                'AIR JORDANS 1 LOW "Mystic Green"553558-113_1.jpg', 'AIR JORDANS 1 LOW "Mystic Green"553558-113_2.jpg',
                 'Air Jordans 1 Mid (GS)555112-500_1.jpg', 'Air Jordans 1 Mid (GS)555112-500_2.jpg',
                 'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_1.jpg', 'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_2.jpg',
                 'Air Jordans 1 Mid SE 852542-400_1.jpg', 'Air Jordans 1 Mid SE 852542-400_2.jpg',
-                'Air Jordans 1 Mid \"Candy\" 554725-083_1.jpg', 'Air Jordans 1 Mid \"Candy\" 554725-083_2.jpg',
+                'Air Jordans 1 MID SE "South Beach"852542-306_1.jpg', 'Air Jordans 1 MID SE "South Beach"852542-306_2.jpg',
+                'Air Jordans 1 Mid 'Candy' 554725-083_1.jpg', 'Air Jordans 1 Mid 'Candy' 554725-083_2.jpg',
                 'Air Jordans 1 Mid "Black Cone" 554724-062_1.jpg', 'Air Jordans 1 Mid "Black Cone" 554724-062_2.jpg',
                 'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_1.jpg', 'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_2.jpg',
                 'Air Jordans 1 Mid "Lakers Top 3"852542-005_1.jpg', 'Air Jordans 1 Mid "Lakers Top 3"852542-005_2.jpg',
                 'Air Jordans 1 Mid "Multicolor" 554724-125_1.jpg', 'Air Jordans 1 Mid "Multicolor" 554724-125_2.jpg',
+                'Air Jordans 1 MID "Top 3" 554724-124_1.jpg', 'Air Jordans 1 MID "Top 3" 554724-124_2.jpg',
                 'Air Jordans 1 Retro High CN8607-002_1.jpg', 'Air Jordans 1 Retro High CN8607-002_2.jpg',
-                'Air Jordans 1 Retro High Co.JP \"Midnight Navy\" DC1788-100_1.jpg', 'Air Jordans 1 Retro High Co.JP \"Midnight Navy\" DC1788-100_2.jpg',
+                'Air Jordans 1 Retro High Co.JP \'Midnight Navy\' DC1788-100_1.jpg', 'Air Jordans 1 Retro High Co.JP \'Midnight Navy\' DC1788-100_2.jpg',
                 'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_1.jpg', 'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_2.jpg',
-                'Air Jordans 11 Retro "Gamma Blue" 378038-006_1.jpg', 'Air Jordans 11 Retro "Gamma Blue" 378038-006_2.jpg',
-                'Air Jordans 3 Retro "Red Cement" CT8532-104_1.jpg', 'Air Jordans 3 Retro "Red Cement" CT8532-104_2.jpg',
-                'Air Jordans 3 "Lazer Orange" CK9246-108_1.jpg', 'Air Jordans 3 "Lazer Orange" CK9246-108_2.jpg',
+                'Air Jordans 11 Retro \'Gamma Blue\' 378038-006_1.jpg', 'Air Jordans 11 Retro \'Gamma Blue\' 378038-006_2.jpg',
+                'Air Jordans 3 Retro \'Red Cement\' CT8532-104_1.jpg', 'Air Jordans 3 Retro \'Red Cement\' CT8532-104_2.jpg',
+                'Air Jordans 3 \'Lazer Orange\' CK9246-108_1.jpg', 'Air Jordans 3 \'Lazer Orange\' CK9246-108_2.jpg',
                 'Air Jordans 4 Bred 408452-060_1.jpg', 'Air Jordans 4 Bred 408452-060_2.jpg',
-                'Air Jordans 4 Retro SP \'Union – Guava Ice\' DC9533-009_1.jpg', 'Air Jordans 4 Retro SP \'Union – Guava Ice\' DC9533-009_2.jpg',
-                'Air Jordans 4 Retro "University Blue" CT8527-400_1.jpg', 'Air Jordans 4 Retro "University Blue" CT8527-400_2.jpg',
+                'Air Jordans 4 Retro SP \'Union - Guava Ice DC9533-009_1.jpg', 'Air Jordans 4 Retro SP \'Union - Guava Ice DC9533-009_2.jpg',
+                'Air Jordans 4 Retro \'University Blue\' CT8527-400_1.jpg', 'Air Jordans 4 Retro \'University Blue\' CT8527-400_2.jpg',
                 'Air Jordans 4 Retro "White Oreo" CT8527-100_1.jpg', 'Air Jordans 4 Retro "White Oreo" CT8527-100_2.jpg',
                 'Air Jordans 4 Retro_1.jpg', 'Air Jordans 4 Retro_2.jpg', 'Air Jordans 4 \'Black Cat\' CU1110-010_1.jpg', 'Air Jordans 4 \'Black Cat\' CU1110-010_2.jpg',
-                'Air Jordans 4 "Fire Red" DC7770-160_1.jpg', 'Air Jordans 4 "Fire Red" DC7770-160_2.jpg',
-                'Air Jordans 4 "Off Noir" DC9533-001_1.jpg', 'Air Jordans 4 "Off Noir" DC9533-001_2.jpg',
-                'Air Jordans 4 "PSG" CZ6509-100_1.jpg', 'Air Jordans 4 "PSG" CZ6509-100_2.jpg',
-                'Air Jordans 4 "Pure Money" 308497-100_1.jpg', 'Air Jordans 4 "Pure Money" 308497-100_2.jpg',
+                'Air Jordans 4 \'Fire Red\' DC7770-160_1.jpg', 'Air Jordans 4 \'Fire Red\' DC7770-160_2.jpg',
+                'Air Jordans 4 \'Off Noir\' DC9533-001_1.jpg', 'Air Jordans 4 \'Off Noir\' DC9533-001_2.jpg',
+                'Air Jordans 4 \'PSG\' CZ6509-100_1.jpg', 'Air Jordans 4 \'PSG\' CZ6509-100_2.jpg',
+                'Air Jordans 4 \'Pure Money\' 308497-100_1.jpg', 'Air Jordans 4 \'Pure Money\' 308497-100_2.jpg',
+                'Air Max 270 V2_5.jpg', 'Air Max 720 Branco rosa azul_5.jpg', 'Air Max 720 Branco_5.jpg', 'Air Max 720 Preto Branco_5.jpg', 'Air Max 720 Preto_5.jpg', 'Air Max 720_5.jpg',
+                'AMIRI MA-1 (36-40)_5.jpg', 'AMIRI MA-1 Branco Verde_5.jpg', 'AMIRI MA-1 Branco_5.jpg', 'AMIRI MA-1 Preto Branco_4.jpg', 'AMIRI MA-1 rosa_5.jpg', 'AMIRI MA-1(36-40)_5.jpg',
+                'Bola Puma LaMelo MB.02_4.jpg', 'Bola Puma LaMelo MB.02_5.jpg', 'casaco mulher colete polo ralph lauren branco.jpg', 'casaco mulher polo ralph lauren preto.jpg', 'casaco polo ralph lauren azul.jpg',
                 'Air Max 270 V2_5.jpg', 'Air Max 720 Branco rosa azul_5.jpg', 'Air Max 720 Branco_5.jpg', 'Air Max 720 Preto Branco_5.jpg', 'Air Max 720 Preto_5.jpg', 'Air Max 720_5.jpg',
                 'Bola Puma LaMelo MB.02_4.jpg', 'Bola Puma LaMelo MB.02_5.jpg', 'CPFM x Nike Air Force 1_5.jpg', 'CPFM x Nike Air Force 1_5.png',
                 'Casaco polo ralph lauren preto.png', 'Dior B22 Grey-pink_4.jpg', 'Dior B22_5.jpg', 'Dior B30_5.jpg', 'Dior B31 (40-45)_5.jpg',
@@ -1425,29 +1438,30 @@
             document.body.style.overflow = '';
         }
 
-        // Contact seller (Buy/DM button)
-        function contactSeller() {
+        // Buy product via Instagram DM
+        function buyProduct() {
             if (!currentProduct) return;
             
             const name = currentProduct.name;
             const size = currentProduct.size || '';
             const productType = currentProduct.isUnidentified ? 'produto não identificado' : 'produto';
             const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name}${size ? ' (T:' + size + ')' : ''} ainda está disponível?`);
-            window.open(`https://www.instagram.com/streetm00d_`, '_blank');
+            window.open(`https://www.instagram.com/direct/new/`, '_blank');
         }
 
-        // Reserve product
+        // Reserve product via Instagram DM
         function reserveProduct() {
             if (!currentProduct) return;
             
             const name = currentProduct.name;
             const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${name}. Podes enviar fotos reais antes do envio?`);
-            window.open(`https://www.instagram.com/streetm00d_`, '_blank');
+            window.open(`https://www.instagram.com/direct/new/`, '_blank');
         }
 
-        // Open Instagram (header button)
+        // Open Instagram DM with pre-filled message (header button)
         function openWhatsApp() {
-            window.open(`https://www.instagram.com/streetm00d_`, '_blank');
+            const msg = encodeURIComponent(`Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?`);
+            window.open(`https://www.instagram.com/direct/new/`, '_blank');
         }
 
         // Close modal on ESC

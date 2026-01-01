@@ -662,8 +662,3 @@ if (typeof products === 'undefined') {
 if (typeof window !== 'undefined') {
     window.products = products;
 }
-
-// Garantir que products está disponível globalmente
-if (typeof window !== 'undefined') {
-    window.products = products;
-}

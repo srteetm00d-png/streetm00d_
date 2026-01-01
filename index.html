@@ -937,9 +937,17 @@
             let imageHTML = '';
             
             if (!hasValidImages) {
-                // Skip products without images - don't render them
-                console.log(`⚠️ Produto sem imagens: ${product.name}`);
-                return '';
+                // Show placeholder instead of skipping
+                imageHTML = `
+                    <div class="relative w-full h-full flex items-center justify-center bg-gray-800 rounded-xl" id="${imageContainerId}">
+                        <div class="text-center p-4">
+                            <div class="text-6xl mb-2">${isRoupas ? '👕' : '👟'}</div>
+                            <div class="text-gray-400 text-sm">STREETMOOD</div>
+                            <div class="text-gray-500 text-xs mt-1">Imagem em breve</div>
+                        </div>
+                    </div>
+                `;
+                console.log(`⚠️ Produto sem imagens: ${product.name} - usando placeholder`);
             } else if (images.length === 1) {
                 // Single image
                 imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
@@ -1035,14 +1043,11 @@
                 const endIndex = startIndex + productsPerPage;
                 const productsToShow = currentProducts.slice(startIndex, endIndex);
                 
-                // Filter products with valid images only
-                const validProducts = productsToShow.filter(product => {
-                    const images = getProductImages(product);
-                    return images.length > 0;
-                });
+                // RENDER ALL PRODUCTS - don't filter by images anymore
+                console.log(`📦 Renderizando ${productsToShow.length} produtos (página ${currentPage}/${totalPages})`);
                 
-                // Render only products with images
-                grid.innerHTML = validProducts.map(renderProductCard).join('');
+                // Render all products
+                grid.innerHTML = productsToShow.map(renderProductCard).join('');
                 
                 // Reinitialize AOS for new elements
                 AOS.refresh();
@@ -1051,7 +1056,7 @@
                 renderPagination(totalPages);
                 
                 // Log loading info
-                console.log(`📦 Carregados ${validProducts.length}/${productsToShow.length} produtos (página ${currentPage}/${totalPages})`);
+                console.log(`📦 Carregados ${productsToShow.length}/${currentProducts.length} produtos (página ${currentPage}/${totalPages})`);
             }, 200); // Slightly longer delay for better UX
         }
 
@@ -1757,13 +1762,13 @@
                     });
                 }
                 
-                // If no images assigned, try to find them by product name
+                // FORCE FALLBACK: Try to find ANY image for this product
                 const productName = product.name.toLowerCase();
                 const foundImages = [];
                 
                 console.log(`🔍 Procurando em ${imageScanner.knownImages.length} imagens conhecidas`);
                 
-                // Look for images that match the product name
+                // Method 1: Exact name matching
                 for (const knownImage of imageScanner.knownImages) {
                     const imageName = knownImage.toLowerCase();
                     
@@ -1774,6 +1779,33 @@
                         
                         foundImages.push(`imagens_produtos/${knownImage}`);
                         console.log(`✅ Encontrada imagem: ${knownImage}`);
+                    }
+                }
+                
+                // Method 2: Brand matching
+                if (foundImages.length === 0) {
+                    const brands = ['nike', 'adidas', 'jordan', 'puma', 'reebok', 'new balance', 'converse', 'vans', 'yeezy'];
+                    for (const brand of brands) {
+                        if (productName.includes(brand)) {
+                            // Find any image with this brand
+                            const brandImages = imageScanner.knownImages.filter(img => 
+                                img.toLowerCase().includes(brand)
+                            );
+                            if (brandImages.length > 0) {
+                                foundImages.push(`imagens_produtos/${brandImages[0]}`);
+                                console.log(`✅ Encontrada imagem por marca: ${brandImages[0]}`);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                // Method 3: Any image fallback
+                if (foundImages.length === 0) {
+                    // Just use the first available image
+                    if (imageScanner.knownImages.length > 0) {
+                        foundImages.push(`imagens_produtos/${imageScanner.knownImages[0]}`);
+                        console.log(`✅ Usando primeira imagem disponível: ${imageScanner.knownImages[0]}`);
                     }
                 }
                 

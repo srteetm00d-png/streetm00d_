@@ -68,85 +68,345 @@
     </script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap');
         
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0A0A0A;
-            overflow-x: hidden;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        .gradient-text {
-            background: linear-gradient(135deg, #FF006E, #3A86FF, #FFBE0B);
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: #000000;
+            color: #FAFAFA;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* iOS 26 Glassmorphism */
+        .glass-card {
+            background: rgba(28, 28, 30, 0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+        
+        .glass-card-dark {
+            background: rgba(44, 44, 46, 0.72);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+        
+        /* Product Cards iOS 26 Style */
+        .product-card {
+            background: #1C1C1E;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.15);
+            border-color: rgba(139, 0, 0, 0.3);
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Image Container */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background: #2C2C2E;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        /* Typography */
+        .brand-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #8B0000, #4A5568);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .neon-border {
-            border: 2px solid transparent;
-            background: linear-gradient(#0A0A0A, #0A0A0A) padding-box,
-                        linear-gradient(135deg, #FF006E, #3A86FF) border-box;
+        .product-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            color: #FAFAFA;
+            line-height: 1.4;
         }
         
-        .card-hover {
+        .product-price {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #8B0000;
+        }
+        
+        .mood-line {
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 0.875rem;
+            color: #A0A0A0;
+            font-style: italic;
+        }
+        
+        /* Buttons iOS 26 Style */
+        .ios-button {
+            background: rgba(139, 0, 0, 0.9);
+            color: #FAFAFA;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .ios-button:hover {
+            background: rgba(139, 0, 0, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(139, 0, 0, 0.3);
+        }
+        
+        .ios-button-secondary {
+            background: rgba(44, 44, 46, 0.8);
+            color: #FAFAFA;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .ios-button-secondary:hover {
+            background: rgba(44, 44, 46, 1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Size Buttons */
+        .size-button {
+            background: rgba(44, 44, 46, 0.6);
+            color: #A0A0A0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .size-button:hover {
+            background: rgba(139, 0, 0, 0.2);
+            color: #FAFAFA;
+            border-color: rgba(139, 0, 0, 0.3);
+        }
+        
+        .size-button.active {
+            background: rgba(139, 0, 0, 0.8);
+            color: #FAFAFA;
+            border-color: rgba(139, 0, 0, 0.5);
+        }
+        
+        /* Tabs */
+        .tab-button {
+            background: rgba(44, 44, 46, 0.6);
+            color: #A0A0A0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 10px 20px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .card-hover:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(255, 0, 110, 0.3);
+        .tab-button:hover {
+            background: rgba(44, 44, 46, 0.8);
+            color: #FAFAFA;
         }
         
-        .tab-active {
-            background: linear-gradient(135deg, #FF006E, #3A86FF);
-            color: white;
+        .tab-button.active {
+            background: rgba(139, 0, 0, 0.9);
+            color: #FAFAFA;
+            border-color: rgba(139, 0, 0, 0.3);
         }
         
+        /* Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            padding: 24px 0;
         }
         
         @media (max-width: 768px) {
             .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1rem;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+                padding: 16px 0;
             }
         }
         
-        .logo-container {
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Loading */
+        .loading-spinner {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #FF006E, #3A86FF);
+            border: 3px solid rgba(139, 0, 0, 0.1);
+            border-top: 3px solid #8B0000;
             border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .modal-content {
+            background: #1C1C1E;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Logo */
+        .logo-container {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #8B0000, #4A5568);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 16px;
-            color: white;
+            font-weight: 900;
+            font-size: 18px;
+            color: #FAFAFA;
             font-family: 'Bebas Neue', cursive;
-            animation: glow 2s ease-in-out infinite;
+            letter-spacing: -0.5px;
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1C1C1E;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #8B0000;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A52A2A;
         }
     </style>
 </head>
-<body class="bg-street-black text-white font-street">
+<body>
     <!-- Header -->
-    <header class="fixed top-0 w-full bg-street-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
-        <div class="container mx-auto px-4 py-4">
+    <header class="header fixed top-0 w-full z-50">
+        <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-2">
-                    <div class="logo-container">SM</div>
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">STREETMOOD</h1>
+                <div class="flex items-center space-x-3">
+                    <div class="logo-container">sm</div>
+                    <h1 class="brand-title">streetm00d</h1>
                 </div>
-                <nav class="hidden md:flex space-x-6">
-                    <a href="#home" class="hover:text-red-500 transition">Início</a>
-                    <a href="#products" class="hover:text-red-500 transition">Produtos</a>
-                    <a href="#contact" class="hover:text-red-500 transition">Contato</a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-text-secondary hover:text-text-primary transition-colors duration-300">início</a>
+                    <a href="#products" class="text-text-secondary hover:text-text-primary transition-colors duration-300">produtos</a>
+                    <a href="#contact" class="text-text-secondary hover:text-text-primary transition-colors duration-300">contato</a>
                 </nav>
-                <button onclick="openWhatsApp()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition">
+                <button onclick="openWhatsApp()" class="ios-button">
                     WhatsApp
                 </button>
             </div>
@@ -155,54 +415,54 @@
 
     <!-- Hero Section -->
     <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-red-900/20 to-blue-900/20"></div>
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h2 class="text-5xl md:text-7xl font-bold mb-6" data-aos="fade-up">
-                <span class="gradient-text">STREETMOOD</span>
+        <div class="absolute inset-0 bg-gradient-to-br from-accent-red/10 to-accent-blue/5"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-6xl md:text-8xl font-black mb-6 animate-fade-in" data-aos="fade-up">
+                <span class="brand-title">streetm00d</span>
             </h2>
-            <p class="text-xl md:text-2xl mb-8 text-gray-300" data-aos="fade-up" data-aos-delay="200">
-                Streetwear Premium para quem tem estilo
+            <p class="text-xl md:text-2xl mb-8 text-text-secondary animate-slide-up" data-aos="fade-up" data-aos-delay="200">
+                real street emotions
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
-                <a href="#products" class="bg-red-600 hover:bg-red-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
-                    Ver Produtos
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" data-aos="fade-up" data-aos-delay="400">
+                <a href="#products" class="ios-button">
+                    ver produtos
                 </a>
-                <button onclick="openInstagram()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
-                    Instagram DM
+                <button onclick="openInstagram()" class="ios-button-secondary">
+                    instagram dm
                 </button>
             </div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section id="products" class="py-20 relative">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">
-                <span class="gradient-text">Nossos Produtos</span>
+    <section id="products" class="py-24 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-5xl md:text-6xl font-black text-center mb-16" data-aos="fade-up">
+                <span class="brand-title">catálogo</span>
             </h2>
 
             <!-- Tabs -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="200">
-                <button onclick="switchTab('todos')" class="tab-btn px-6 py-2 rounded-full bg-red-600 text-white transition">
-                    Todos
+            <div class="flex flex-wrap justify-center gap-3 mb-16" data-aos="fade-up" data-aos-delay="200">
+                <button onclick="switchTab('todos')" class="tab-button active">
+                    todos
                 </button>
-                <button onclick="switchTab('nike')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
-                    Nike
+                <button onclick="switchTab('nike')" class="tab-button">
+                    nike
                 </button>
-                <button onclick="switchTab('adidas')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
-                    Adidas
+                <button onclick="switchTab('adidas')" class="tab-button">
+                    adidas
                 </button>
-                <button onclick="switchTab('jordan')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
-                    Jordan
+                <button onclick="switchTab('jordan')" class="tab-button">
+                    jordan
                 </button>
-                <button onclick="switchTab('outros')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
-                    Outros
+                <button onclick="switchTab('outros')" class="tab-button">
+                    outros
                 </button>
             </div>
 
             <!-- Loading State -->
-            <div id="loadingState" class="hidden justify-center items-center py-12">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
+            <div id="loadingState" class="hidden justify-center items-center py-20">
+                <div class="loading-spinner"></div>
             </div>
 
             <!-- Products Grid -->
@@ -211,44 +471,44 @@
             </div>
 
             <!-- Pagination -->
-            <div id="pagination" class="flex justify-center mt-12 gap-2">
+            <div id="pagination" class="flex justify-center mt-16 gap-2">
                 <!-- Pagination buttons will be loaded here -->
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-street-gray">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-12" data-aos="fade-up">
-                <span class="gradient-text">Entre em Contato</span>
+    <section id="contact" class="py-24 bg-ios-dark">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-5xl md:text-6xl font-black text-center mb-16" data-aos="fade-up">
+                <span class="brand-title">contato</span>
             </h2>
             <div class="flex flex-col sm:flex-row gap-6 justify-center" data-aos="fade-up" data-aos-delay="200">
-                <button onclick="openWhatsApp()" class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
-                    WhatsApp: +351 929 461 628
+                <button onclick="openWhatsApp()" class="ios-button">
+                    +351 929 461 628
                 </button>
-                <button onclick="openInstagram()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
-                    Instagram: @streetm00d_
+                <button onclick="openInstagram()" class="ios-button-secondary">
+                    @streetm00d_
                 </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 border-t border-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-gray-400">© 2024 STREETMOOD. Todos os direitos reservados.</p>
+    <footer class="py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-text-muted">© 2024 streetm00d. real street emotions.</p>
         </div>
     </footer>
 
     <!-- Product Modal -->
-    <div id="productModal" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 hidden">
-        <div class="flex items-center justify-center min-h-screen p-4">
-            <div class="bg-street-gray rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 id="modalTitle" class="text-2xl font-bold"></h3>
-                        <button onclick="closeModal()" class="text-gray-400 hover:text-white">
+    <div id="productModal" class="modal-overlay fixed inset-0 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-6">
+            <div class="modal-content w-full">
+                <div class="p-8">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 id="modalTitle" class="text-2xl font-bold text-text-primary"></h3>
+                        <button onclick="closeModal()" class="text-text-muted hover:text-text-primary transition-colors">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -506,24 +766,25 @@
             const mainImage = images.length > 0 ? images[0] : 'placeholder.jpg';
             const price = product.price || product.price_eur || 0;
             
-            console.log(` Renderizando: ${product.name} - ${images.length} imagens - €${price}`);
+            console.log(`🎨 Renderizando: ${product.name} - ${images.length} imagens - €${price}`);
             
             return `
-                <div class="card-hover bg-street-gray rounded-xl overflow-hidden" data-aos="fade-up">
-                    <div class="relative h-64 bg-gray-800">
-                        <img src="${mainImage}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='placeholder.jpg'">
-                        ${product.bestSeller ? '<div class="absolute top-2 right-2 bg-red-600 px-2 py-1 rounded text-xs font-bold">BEST</div>' : ''}
+                <div class="product-card animate-scale-in" data-aos="fade-up">
+                    <div class="image-container">
+                        <img src="${mainImage}" alt="${product.name}" class="product-image" onerror="this.src='placeholder.jpg'">
+                        ${product.bestSeller ? '<div class="absolute top-3 right-3 ios-button text-xs">BEST</div>' : ''}
                     </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">${product.name}</h3>
-                        <p class="text-gray-400 text-sm mb-2">Tamanhos: ${product.size}</p>
-                        <p class="text-2xl font-bold text-red-500 mb-4">€${price}</p>
-                        <div class="flex gap-2">
-                            <button onclick="buyProduct('${product.name}')" class="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition">
-                                Comprar
+                    <div class="p-6">
+                        <h3 class="product-name mb-2">${product.name}</h3>
+                        <p class="mood-line mb-3">made for street nights</p>
+                        <p class="text-text-secondary text-sm mb-4">Tamanhos: ${product.size}</p>
+                        <p class="product-price mb-6">€${price}</p>
+                        <div class="flex gap-3">
+                            <button onclick="buyProduct('${product.name}')" class="ios-button flex-1">
+                                comprar
                             </button>
-                            <button onclick="openModal('${product.name}')" class="flex-1 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
-                                Ver Detalhes
+                            <button onclick="openModal('${product.name}')" class="ios-button-secondary flex-1">
+                                detalhes
                             </button>
                         </div>
                     </div>
@@ -537,21 +798,21 @@
             
             // Previous button
             if (current > 1) {
-                html += `<button onclick="changePage(${current - 1})" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded transition">←</button>`;
+                html += `<button onclick="changePage(${current - 1})" class="size-button">←</button>`;
             }
             
             // Page numbers
             for (let i = 1; i <= total; i++) {
                 if (i === current) {
-                    html += `<button class="px-3 py-1 bg-red-600 rounded">${i}</button>`;
+                    html += `<button class="size-button active">${i}</button>`;
                 } else {
-                    html += `<button onclick="changePage(${i})" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded transition">${i}</button>`;
+                    html += `<button onclick="changePage(${i})" class="size-button">${i}</button>`;
                 }
             }
             
             // Next button
             if (current < total) {
-                html += `<button onclick="changePage(${current + 1})" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded transition">→</button>`;
+                html += `<button onclick="changePage(${current + 1})" class="size-button">→</button>`;
             }
             
             return html;
@@ -582,23 +843,36 @@
             modalTitle.textContent = product.name;
             
             const images = imageMapper.getProductImages(product.name);
-            const imageGallery = images.map(img => `<img src="${img}" alt="${product.name}" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='placeholder.jpg'">`).join('');
+            const imageGallery = images.map(img => `
+                <img src="${img}" alt="${product.name}" class="w-full h-80 object-cover rounded-xl mb-4" onerror="this.src='placeholder.jpg'">
+            `).join('');
             
             modalContent.innerHTML = `
-                <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        ${imageGallery || '<img src="placeholder.jpg" alt="Placeholder" class="w-full h-64 object-cover rounded-lg">'}
+                        ${imageGallery || '<img src="placeholder.jpg" alt="Placeholder" class="w-full h-80 object-cover rounded-xl">'}
                     </div>
                     <div>
-                        <p class="text-gray-400 mb-4">${product.desc || 'Produto premium de alta qualidade.'}</p>
-                        <p class="text-gray-400 mb-2">Tamanhos: ${product.size}</p>
-                        <p class="text-3xl font-bold text-red-500 mb-6">€${product.price || product.price_eur}</p>
-                        <div class="flex gap-2">
-                            <button onclick="buyProduct('${product.name}')" class="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition">
-                                Comprar
+                        <p class="mood-line mb-6">${product.desc || 'real street emotions'}</p>
+                        <p class="text-text-secondary mb-4">Tamanhos: ${product.size}</p>
+                        <p class="product-price mb-8">€${product.price || product.price_eur}</p>
+                        
+                        <div class="mb-6">
+                            <p class="text-text-secondary text-sm mb-3">escolhe o teu tamanho:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="size-button">S</button>
+                                <button class="size-button">M</button>
+                                <button class="size-button">L</button>
+                                <button class="size-button">XL</button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <button onclick="buyProduct('${product.name}')" class="ios-button flex-1">
+                                comprar agora
                             </button>
-                            <button onclick="reserveProduct('${product.name}')" class="flex-1 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
-                                Reservar
+                            <button onclick="reserveProduct('${product.name}')" class="ios-button-secondary flex-1">
+                                reservar
                             </button>
                         </div>
                     </div>

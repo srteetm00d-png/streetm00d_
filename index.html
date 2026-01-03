@@ -105,19 +105,20 @@
         
         /* Product Cards iOS 26 Style */
         .product-card {
-            background: #1C1C1E;
-            border-radius: 16px;
+            background: linear-gradient(145deg, #1A1A1A, #1F1F1F);
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             position: relative;
             max-width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         
         .product-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 12px 24px rgba(139, 0, 0, 0.1);
-            border-color: rgba(139, 0, 0, 0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.15);
+            border-color: rgba(139, 0, 0, 0.3);
         }
         
         .product-card::before {
@@ -140,10 +141,10 @@
         .image-container {
             position: relative;
             width: 100%;
-            height: 240px;
-            background: #2C2C2E;
+            height: 280px;
+            background: linear-gradient(135deg, #2C2C2E, #1A1A1A);
             overflow: hidden;
-            border-radius: 16px 16px 0 0;
+            border-radius: 20px 20px 0 0;
         }
         
         .product-image {
@@ -151,80 +152,110 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            filter: brightness(0.95) contrast(0.95);
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            filter: brightness(0.9) contrast(0.95) saturate(1.1);
         }
         
         .product-card:hover .product-image {
-            transform: scale(1.03);
-            filter: brightness(1) contrast(1);
+            transform: scale(1.05);
+            filter: brightness(1) contrast(1) saturate(1.2);
         }
         
         /* Typography */
         .brand-title {
             font-family: 'Bebas Neue', cursive;
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 900;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #8B0000, #4A5568);
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #8B0000, #4A5568, #8B0000);
+            background-size: 200% 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .product-name {
             font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 1.125rem;
+            font-weight: 700;
+            font-size: 1.25rem;
             color: #FAFAFA;
-            line-height: 1.4;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
         }
         
         .product-price {
             font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.75rem;
             color: #8B0000;
+            letter-spacing: -0.02em;
         }
         
         .mood-line {
             font-family: 'Inter', sans-serif;
             font-weight: 400;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             color: #A0A0A0;
             font-style: italic;
+            letter-spacing: 0.02em;
         }
         
         /* Buttons iOS 26 Style */
         .ios-button {
-            background: rgba(139, 0, 0, 0.9);
+            background: linear-gradient(135deg, #8B0000, #A52A2A);
             color: #FAFAFA;
             border: none;
-            border-radius: 12px;
-            padding: 12px 24px;
+            border-radius: 14px;
+            padding: 14px 28px;
             font-weight: 600;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ios-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .ios-button:hover::before {
+            left: 100%;
         }
         
         .ios-button:hover {
-            background: rgba(139, 0, 0, 1);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(139, 0, 0, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.4);
         }
         
         .ios-button-secondary {
-            background: rgba(44, 44, 46, 0.8);
+            background: linear-gradient(135deg, #2C2C2E, #1A1A1A);
             color: #FAFAFA;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
         .ios-button-secondary:hover {
-            background: rgba(44, 44, 46, 1);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #3C3C3E, #2A2A2A);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
         
         /* Size Buttons */
@@ -279,24 +310,34 @@
         /* Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 20px 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            padding: 40px 0;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 28px;
+                padding: 32px 0;
+            }
         }
         
         @media (max-width: 768px) {
             .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 16px;
-                padding: 16px 0;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 24px;
+                padding: 24px 0;
             }
         }
         
         @media (max-width: 480px) {
             .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 12px;
-                padding: 12px 0;
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px 0;
             }
         }
         
@@ -785,18 +826,18 @@
                 <div class="product-card animate-scale-in" data-aos="fade-up">
                     <div class="image-container">
                         <img src="${mainImage}" alt="${product.name}" class="product-image" loading="lazy" onerror="this.src='placeholder.jpg'">
-                        ${product.bestSeller ? '<div class="absolute top-3 right-3 ios-button text-xs">BEST</div>' : ''}
+                        ${product.bestSeller ? '<div class="absolute top-4 right-4 ios-button text-xs px-3 py-1">BEST</div>' : ''}
                     </div>
-                    <div class="p-5">
-                        <h3 class="product-name mb-2 text-sm">${product.name.length > 25 ? product.name.substring(0, 25) + '...' : product.name}</h3>
-                        <p class="mood-line mb-3 text-xs">made for street nights</p>
-                        <p class="text-text-secondary text-xs mb-3">Tamanhos: ${product.size}</p>
-                        <p class="product-price mb-4 text-lg">€${price}</p>
-                        <div class="flex gap-2">
-                            <button onclick="buyProduct('${product.name}')" class="ios-button flex-1 text-xs py-2">
+                    <div class="p-6">
+                        <h3 class="product-name mb-3">${product.name}</h3>
+                        <p class="mood-line mb-4">made for street nights</p>
+                        <p class="text-text-secondary text-sm mb-4">Tamanhos: ${product.size}</p>
+                        <p class="product-price mb-6">€${price}</p>
+                        <div class="flex gap-3">
+                            <button onclick="buyProduct('${product.name}')" class="ios-button flex-1">
                                 comprar
                             </button>
-                            <button onclick="openModal('${product.name}')" class="ios-button-secondary flex-1 text-xs py-2">
+                            <button onclick="openModal('${product.name}')" class="ios-button-secondary flex-1">
                                 detalhes
                             </button>
                         </div>

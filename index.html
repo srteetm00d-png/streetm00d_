@@ -3,1985 +3,683 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STREETMOOD — Catálogo Premium</title>
-    <link rel="icon" type="image/jpeg" href="./streetm00d_.jpeg">
-    
-    <!-- TailwindCSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-    <script>
-        // Suppress Tailwind CDN warnings in production
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            console.warn = () => {};
-        }
-    </script>
-    <script>
-        // Configure Tailwind for production
-        tailwind.config = {
-            important: true,
-            prefix: '',
-            theme: {
-                extend: {},
-            },
-            plugins: [],
-        }
-        
-        // Disable Tailwind CDN warning completely
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            // Override console methods to suppress all Tailwind CDN warnings
-            const originalLog = console.log;
-            const originalWarn = console.warn;
-            
-            console.log = function(...args) {
-                const message = args.join(' ');
-                if (message.includes('cdn.tailwindcss.com should not be used in production') || 
-                    message.includes('CDN detected') || 
-                    message.includes('Consider using Tailwind CLI')) {
-                    return; // Suppress all Tailwind CDN related messages
-                }
-                originalLog.apply(console, args);
-            };
-            
-            console.warn = function(...args) {
-                const message = args.join(' ');
-                if (message.includes('cdn.tailwindcss.com should not be used in production') || 
-                    message.includes('CDN detected') || 
-                    message.includes('Consider using Tailwind CLI')) {
-                    return; // Suppress all Tailwind CDN related warnings
-                }
-                originalWarn.apply(console, args);
-            };
-        }
-    </script>
+    <title>STREETMOOD - Streetwear Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="style-enhanced.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="STREETMOOD - Streetwear Premium. Tênis, roupa e acessórios das melhores marcas.">
+    <meta name="keywords" content="streetwear, tênis, roupa, sneakers, moda, street style">
+    <meta property="og:title" content="STREETMOOD - Streetwear Premium">
+    <meta property="og:description" content="Tênis e roupa streetwear das melhores marcas">
+    <meta property="og:image" content="https://srteetm00d-png.github.io/streetm00d_/logo.png">
+    <meta property="og:url" content="https://srteetm00d-png.github.io/streetm00d_/">
+    <meta property="og:type" content="website">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     
-    <!-- AOS Animation Library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Enhanced Styles -->
-    <link rel="stylesheet" href="style-enhanced.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="carousel.css">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-red': '#FF006E',
+                        'neon-blue': '#3A86FF',
+                        'neon-yellow': '#FFBE0B',
+                        'neon-purple': '#8338EC',
+                        'street-black': '#0a0a0a',
+                        'street-gray': '#1a1a1a',
+                        'street-red': '#ff3333',
+                        'street-blue': '#3366ff',
+                        'card-bg': '#1A1A1A',
+                        'text-primary': '#FFFFFF',
+                        'text-secondary': '#B0B0B0',
+                    },
+                    fontFamily: {
+                        'bebas': ['Bebas Neue', 'cursive'],
+                        'street': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(255, 0, 110, 0.5)' },
+                            '50%': { boxShadow: '0 0 40px rgba(255, 0, 110, 0.8)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
-<style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #121212;
-            --accent-red: #ff2a2a;
-            --accent-red-hover: #ff4040;
-            --text-primary: #ffffff;
-            --text-secondary: #9ca3af;
-            --glass: rgba(255, 255, 255, 0.04);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800;900&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            color: var(--text-primary);
-            min-height: 100vh;
+            background: #0A0A0A;
+            overflow-x: hidden;
         }
         
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .gradient-text {
+            background: linear-gradient(135deg, #FF006E, #3A86FF, #FFBE0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .product-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+        .neon-border {
+            border: 2px solid transparent;
+            background: linear-gradient(#0A0A0A, #0A0A0A) padding-box,
+                        linear-gradient(135deg, #FF006E, #3A86FF) border-box;
         }
         
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 42, 42, 0.1) 0%, rgba(255, 64, 64, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 0;
+        .card-hover {
+            transition: all 0.3s ease;
         }
         
-        .product-card:hover::before {
-            opacity: 1;
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 0, 110, 0.3);
         }
         
-        .product-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(255, 42, 42, 0.2), 0 0 30px rgba(255, 42, 42, 0.1);
+        .tab-active {
+            background: linear-gradient(135deg, #FF006E, #3A86FF);
+            color: white;
         }
         
-        .product-image {
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
         }
         
-        .product-card:hover .product-image {
-            transform: scale(1.1);
-        }
-        
-        .drop-badge {
-            background: linear-gradient(135deg, #ff2a2a 0%, #ff4040 100%);
-            animation: pulse-glow 2s infinite;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px rgba(255, 42, 42, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(255, 42, 42, 0.8); }
-        }
-        
-        .modal-overlay {
-            backdrop-filter: blur(8px);
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .modal-content {
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
             }
         }
         
-        .tagline {
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
+        .logo-container {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF006E, #3A86FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+            font-family: 'Bebas Neue', cursive;
+            animation: glow 2s ease-in-out infinite;
         }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-hover) 100%);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
-        }
-        
-        .search-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .search-input:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--accent-red);
-            box-shadow: 0 0 0 3px rgba(255, 42, 42, 0.1);
-        }
-        
-        .tab-button {
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .tab-button.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--accent-red);
-        }
-        
-</style>
+    </style>
 </head>
-<body>
+<body class="bg-street-black text-white font-street">
     <!-- Header -->
-    <header class="sticky top-0 z-40 glass-effect border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <header class="fixed top-0 w-full bg-street-black/90 backdrop-blur-lg z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <div class="w-[52px] h-[52px] rounded-[12px] flex items-center justify-center overflow-hidden" style="box-shadow: 0 0 12px rgba(255,42,42,0.3); margin: 10px 0 10px 10px;">
-                        <img src="./streetm00d_.jpeg" alt="STREETMOOD Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'font-black text-xl text-black\'>SM</span>';">
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-black tracking-tight uppercase">STREETMOOD</h1>
-                        <p class="tagline mt-1">Qualquer vibe, qualquer ocasião.</p>
-                    </div>
+                <div class="flex items-center space-x-2">
+                    <div class="logo-container">SM</div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-red-500 to-blue-500 bg-clip-text text-transparent">STREETMOOD</h1>
                 </div>
-                <button onclick="openWhatsApp()" class="btn-primary px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-wide">
-                    Instagram DM
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#home" class="hover:text-red-500 transition">Início</a>
+                    <a href="#products" class="hover:text-red-500 transition">Produtos</a>
+                    <a href="#contact" class="hover:text-red-500 transition">Contato</a>
+                </nav>
+                <button onclick="openWhatsApp()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition">
+                    WhatsApp
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Page Title Section -->
-        <div class="mb-8 text-center">
-            <h2 class="text-xl md:text-2xl font-black mb-4 text-white leading-relaxed">
-                Todos os produtos STREETMOOD — Sneakers e roupas exclusivas que combinam com o teu estilo.
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-900/20 to-blue-900/20"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h2 class="text-5xl md:text-7xl font-bold mb-6" data-aos="fade-up">
+                <span class="gradient-text">STREETMOOD</span>
             </h2>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300" data-aos="fade-up" data-aos-delay="200">
+                Streetwear Premium para quem tem estilo
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+                <a href="#products" class="bg-red-600 hover:bg-red-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
+                    Ver Produtos
+                </a>
+                <button onclick="openInstagram()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
+                    Instagram DM
+                </button>
+            </div>
         </div>
+    </section>
 
-        <!-- Tabs -->
-        <div class="flex gap-4 mb-8 border-b border-white/10">
-            <button onclick="switchTab('mais-vendido')" class="tab-button active px-6 py-3 font-bold text-sm uppercase tracking-wide text-white" data-tab="mais-vendido">
-                🔥 Mais Vendido
-            </button>
-            <button onclick="switchTab('sneakers')" class="tab-button px-6 py-3 font-bold text-sm uppercase tracking-wide text-gray-400" data-tab="sneakers">
-                👟 Sneakers
-            </button>
-            <button onclick="switchTab('roupas')" class="tab-button px-6 py-3 font-bold text-sm uppercase tracking-wide text-gray-400" data-tab="roupas">
-                👕 Roupas
-            </button>
+    <!-- Products Section -->
+    <section id="products" class="py-20 relative">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">
+                <span class="gradient-text">Nossos Produtos</span>
+            </h2>
+
+            <!-- Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="200">
+                <button onclick="switchTab('todos')" class="tab-btn px-6 py-2 rounded-full bg-red-600 text-white transition">
+                    Todos
+                </button>
+                <button onclick="switchTab('nike')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
+                    Nike
+                </button>
+                <button onclick="switchTab('adidas')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
+                    Adidas
+                </button>
+                <button onclick="switchTab('jordan')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
+                    Jordan
+                </button>
+                <button onclick="switchTab('outros')" class="tab-btn px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
+                    Outros
+                </button>
             </div>
 
-        <!-- Filters -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <div class="relative">
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Pesquisar modelo..." 
-                    class="search-input w-full px-4 py-3 rounded-xl text-white placeholder-gray-500 focus:outline-none"
-                    oninput="filterProducts()"
-                >
+            <!-- Loading State -->
+            <div id="loadingState" class="hidden justify-center items-center py-12">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
             </div>
-            <select id="categorySelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
-                <option value="all">Todas as categorias</option>
-                <option value="stock">Em stock</option>
-                <option value="drop">Fresh Drop</option>
-            </select>
-            <select id="sortSelect" onchange="filterProducts()" class="search-input w-full px-4 py-3 rounded-xl text-white focus:outline-none">
-                <option value="all">Todos</option>
-                <option value="new">Mais recentes</option>
-                <option value="name">Ordenar por nome</option>
-                <option value="price-asc">Preço: menor → maior</option>
-                <option value="price-desc">Preço: maior → menor</option>
-            </select>
-        </div>
 
             <!-- Products Grid -->
-        <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            <!-- Products will be loaded here -->
-        </div>
-
-        <!-- Pagination -->
-        <div id="pagination" class="flex justify-center items-center gap-2 mt-12 mb-8">
-            <!-- Pagination buttons will be inserted here -->
+            <div id="productsGrid" class="product-grid">
+                <!-- Products will be loaded here -->
             </div>
 
-            <!-- Info Tags -->
-        <div class="flex flex-wrap gap-3 mt-12 justify-center">
-            <div class="glass-effect px-4 py-2 rounded-lg text-sm font-semibold">
-                🚚 Envio grátis
-            </div>
-            <div class="glass-effect px-4 py-2 rounded-lg text-sm font-semibold">
-                📦 Caixa STREETMOOD incluída
-            </div>
-            <div class="glass-effect px-4 py-2 rounded-lg text-sm font-semibold">
-                +5€ por caixa original
+            <!-- Pagination -->
+            <div id="pagination" class="flex justify-center mt-12 gap-2">
+                <!-- Pagination buttons will be loaded here -->
             </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-street-gray">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-12" data-aos="fade-up">
+                <span class="gradient-text">Entre em Contato</span>
+            </h2>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center" data-aos="fade-up" data-aos-delay="200">
+                <button onclick="openWhatsApp()" class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
+                    WhatsApp: +351 929 461 628
+                </button>
+                <button onclick="openInstagram()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 px-8 py-3 rounded-lg text-lg font-semibold transition">
+                    Instagram: @streetm00d_
+                </button>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="mt-16 py-8 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-center md:text-left">
-                    <p class="font-bold text-lg mb-2">STREETMOOD</p>
-                    <p class="text-gray-400 text-sm">Fresh drops, encomendas e exclusividades.</p>
-                    <p class="text-gray-500 text-xs mt-1">Envio grátis 🇵🇹 • Caixa STREETMOOD incluída (+5€ se quiser a original)</p>
-                </div>
-                <div class="flex gap-6 items-center">
-                    <a href="https://instagram.com/streetm00d_" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
-                        Instagram
-                    </a>
-                    <span class="text-gray-500">•</span>
-                    <a href="https://wa.me/351929461628" target="_blank" class="text-gray-400 hover:text-white transition-colors font-semibold">
-                        WhatsApp
-                    </a>
-                </div>
-            </div>
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© 2024 STREETMOOD. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <!-- Modal -->
-    <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-overlay">
-        <div class="absolute inset-0 bg-black/80" onclick="closeModal()"></div>
-        <div class="modal-content relative bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto glass-effect border border-white/10">
-            <div class="p-6">
-                <!-- Modal Header -->
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h2 id="modalTitle" class="text-2xl font-black uppercase mb-2"></h2>
-                        <div id="modalBadge" class="mb-2"></div>
+    <!-- Product Modal -->
+    <div id="productModal" class="fixed inset-0 bg-black/80 backdrop-blur-lg z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-street-gray rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-white">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
                     </div>
-                    <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl font-bold">&times;</button>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Image Viewer -->
-                    <div id="modalViewer" class="bg-gray-800 rounded-xl overflow-hidden min-h-[350px] flex items-center justify-center">
-                        <!-- Content will be inserted here -->
-                </div>
-
-                <!-- Product Details -->
-                    <div>
-                        <div class="mb-4">
-                            <p id="modalPrice" class="text-3xl font-black text-red-500 mb-2"></p>
-                            <p id="modalTag" class="text-gray-400 text-sm mb-4"></p>
-                        </div>
-                        
-                        <p id="modalDescription" class="text-gray-300 mb-6 leading-relaxed"></p>
-                        
-                        <button 
-                            id="reserveBtn" 
-                            onclick="buyProduct()" 
-                            class="btn-primary w-full py-4 rounded-xl font-bold text-lg uppercase tracking-wide mb-4"
-                        >
-                            💬 Comprar / DM
-                        </button>
-                        
-                        <button 
-                            onclick="reserveProduct()" 
-                            class="glass-effect w-full py-4 rounded-xl font-bold text-lg uppercase tracking-wide mb-4 hover:bg-white/10 transition-colors"
-                        >
-                            📌 Reservar
-                        </button>
-
-                        <div class="glass-effect p-4 rounded-xl text-sm text-gray-300 space-y-2">
-                        <p>✓ Envio grátis • Caixa STREETMOOD incluída</p>
-                        <p>✓ Caixa original disponível (+5€)</p>
-                        <p>✓ Fotos antes do envio</p>
-                        </div>
-                        
-                        <p class="text-center text-gray-500 text-sm mt-6 font-semibold">
-                            STREETMOOD — Qualquer vibe, qualquer ocasião.
-                        </p>
+                    <div id="modalContent">
+                        <!-- Modal content will be loaded here -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Load products from streetmood_products.js -->
-    <script src="streetmood_products.js"></script>
     <script>
-        // Garantir que products está disponível globalmente
-        if (typeof products !== 'undefined') {
-            window.products = products;
-            console.log('✅ Products carregados:', window.products.length);
-        } else {
-            console.error('❌ Products não definido em streetmood_products.js - Verificar sintaxe do arquivo');
-            window.products = [];
-        }
-
-        // WhatsApp number oficial STREETMOOD
+        // Configuration
         const WHATSAPP_NUMBER = '351929461628';
         const INSTAGRAM_URL = 'https://instagram.com/streetm00d_';
-
-        let currentProducts = window.products || [];
-        let activeTab = 'mais-vendido';
-        let currentProduct = null;
+        
+        let currentProducts = [];
+        let activeTab = 'todos';
         let currentPage = 1;
         const productsPerPage = 12;
+        let isLoading = false;
 
-        // Initialize
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
-            once: true
-        });
-
-        // Products now have images assigned directly in the products array
-        // No need for hardcoded image list or mapping system
-        // All images are loaded from imagens_produtos folder and assigned to products
-
-        // Dynamic image scanner and carousel system
-        const imageScanner = {
-            // All product images from imagens_produtos folder
-            knownImages: [
-                'Adidas Adizero SL (40-45)_4.jpeg', 'Adidas Adizero SL (40-45)_5.jpeg',
-                'Adidas AE1 (40-45)_5.jpg', 'Adidas AE1 (40-45)_5.png',
-                'Adidas Dexun_4.jpg', 'Adidas Dexun_5.jpg', 'Adidas Forum 84 (36-39)_5.jpg', 'Adidas Forum 84 (36-40)_5.jpg',
-                'Adidas Originals Samba_4.png', 'Adidas Originals Samba_5.jpg', 'Adidas Originals Samba_5.png',
-                'Air Jordan 312_1.jpg', 'Air Jordan 4 Retro black particle40-46_4.jpg', 'Air Jordan 4 Retro black particle40-46_6.jpg',
-                'Air Jordan 4 Retro black-white36-46_1.jpg', 'Air Jordan 4 Retro black-white36-46_2.jpg', 'Air Jordan 4 Retro black-white36-46_5.jpg', 'Air Jordan 4 Retro black-white36-46_6.jpg',
-                'Air Jordan 4 Retro particle beige40-46_1.jpg', 'Air Jordan 4 Retro particle beige40-46_4.jpg', 'Air Jordan 4 Retro particle beige40-46_6.jpg',
-                'Air Jordan 4 Retro_1.jpg', 'Air Jordan 4 Retro_2.jpg', 'Air Jordans 1 CD4487-100_1.jpg', 'Air Jordans 1 CD4487-100_2.jpg',
-                'Air Jordans 1 High University Blue 555088-134_1.jpg', 'Air Jordans 1 High University Blue 555088-134_2.jpg',
-                'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg', 'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_2.jpg',
-                'AIR JORDANS 1 LOW "Mystic Green"553558-113_1.jpg', 'AIR JORDANS 1 LOW "Mystic Green"553558-113_2.jpg',
-                'Air Jordans 1 Mid (GS)555112-500_1.jpg', 'Air Jordans 1 Mid (GS)555112-500_2.jpg',
-                'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_1.jpg', 'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_2.jpg',
-                'Air Jordans 1 Mid SE 852542-400_1.jpg', 'Air Jordans 1 Mid SE 852542-400_2.jpg',
-                'Air Jordans 1 MID SE "South Beach"852542-306_1.jpg', 'Air Jordans 1 MID SE "South Beach"852542-306_2.jpg',
-                'Air Jordans 1 Mid "Candy" 554725-083_1.jpg', 'Air Jordans 1 Mid "Candy" 554725-083_2.jpg',
-                'Air Jordans 1 Mid "Black Cone" 554724-062_1.jpg', 'Air Jordans 1 Mid "Black Cone" 554724-062_2.jpg',
-                'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_1.jpg', 'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_2.jpg',
-                'Air Jordans 1 Mid "Lakers Top 3"852542-005_1.jpg', 'Air Jordans 1 Mid "Lakers Top 3"852542-005_2.jpg',
-                'Air Jordans 1 Mid "Multicolor" 554724-125_1.jpg', 'Air Jordans 1 Mid "Multicolor" 554724-125_2.jpg',
-                'Air Jordans 1 MID "Top 3" 554724-124_1.jpg', 'Air Jordans 1 MID "Top 3" 554724-124_2.jpg',
-                'Air Jordans 1 Retro High CN8607-002_1.jpg', 'Air Jordans 1 Retro High CN8607-002_2.jpg',
-                'Air Jordans 1 Retro High Co.JP \'Midnight Navy\' DC1788-100_1.jpg', 'Air Jordans 1 Retro High Co.JP \'Midnight Navy\' DC1788-100_2.jpg',
-                'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_1.jpg', 'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_2.jpg',
-                'Air Jordans 11 Retro \'Gamma Blue\' 378038-006_1.jpg', 'Air Jordans 11 Retro \'Gamma Blue\' 378038-006_2.jpg',
-                'Air Jordans 3 Retro \'Red Cement\' CT8532-104_1.jpg', 'Air Jordans 3 Retro \'Red Cement\' CT8532-104_2.jpg',
-                'Air Jordans 3 \'Lazer Orange\' CK9246-108_1.jpg', 'Air Jordans 3 \'Lazer Orange\' CK9246-108_2.jpg',
-                'Air Jordans 4 Bred 408452-060_1.jpg', 'Air Jordans 4 Bred 408452-060_2.jpg',
-                'Air Jordans 4 Retro SP \'Union - Guava Ice DC9533-009_1.jpg', 'Air Jordans 4 Retro SP \'Union - Guava Ice DC9533-009_2.jpg',
-                'Air Jordans 4 Retro \'University Blue\' CT8527-400_1.jpg', 'Air Jordans 4 Retro \'University Blue\' CT8527-400_2.jpg',
-                'Air Jordans 4 Retro "White Oreo" CT8527-100_1.jpg', 'Air Jordans 4 Retro "White Oreo" CT8527-100_2.jpg',
-                'Air Jordans 4 Retro_1.jpg', 'Air Jordans 4 Retro_2.jpg', 'Air Jordans 4 \'Black Cat\' CU1110-010_1.jpg', 'Air Jordans 4 \'Black Cat\' CU1110-010_2.jpg',
-                'Air Jordans 4 \'Fire Red\' DC7770-160_1.jpg', 'Air Jordans 4 \'Fire Red\' DC7770-160_2.jpg',
-                'Air Jordans 4 \'Off Noir\' DC9533-001_1.jpg', 'Air Jordans 4 \'Off Noir\' DC9533-001_2.jpg',
-                'Air Jordans 4 \'PSG\' CZ6509-100_1.jpg', 'Air Jordans 4 \'PSG\' CZ6509-100_2.jpg',
-                'Air Jordans 4 \'Pure Money\' 308497-100_1.jpg', 'Air Jordans 4 \'Pure Money\' 308497-100_2.jpg',
-                'Air Max 270 V2_5.jpg', 'Air Max 720 Branco rosa azul_5.jpg', 'Air Max 720 Branco_5.jpg', 'Air Max 720 Preto Branco_5.jpg', 'Air Max 720 Preto_5.jpg', 'Air Max 720_5.jpg',
-                'AMIRI MA-1 (36-40)_5.jpg', 'AMIRI MA-1 Branco Verde_5.jpg', 'AMIRI MA-1 Branco_5.jpg', 'AMIRI MA-1 Preto Branco_4.jpg', 'AMIRI MA-1 rosa_5.jpg', 'AMIRI MA-1(36-40)_5.jpg',
-                'Bola Puma LaMelo MB.02_4.jpg', 'Bola Puma LaMelo MB.02_5.jpg', 'casaco mulher colete polo ralph lauren branco.jpg', 'casaco mulher polo ralph lauren preto.jpg', 'casaco polo ralph lauren azul.jpg',
-                'Air Max 270 V2_5.jpg', 'Air Max 720 Branco rosa azul_5.jpg', 'Air Max 720 Branco_5.jpg', 'Air Max 720 Preto Branco_5.jpg', 'Air Max 720 Preto_5.jpg', 'Air Max 720_5.jpg',
-                'Bola Puma LaMelo MB.02_4.jpg', 'Bola Puma LaMelo MB.02_5.jpg', 'CPFM x Nike Air Force 1_5.jpg', 'CPFM x Nike Air Force 1_5.png',
-                'Casaco polo ralph lauren preto.png', 'Dior B22 Grey-pink_4.jpg', 'Dior B22_5.jpg', 'Dior B30_5.jpg', 'Dior B31 (40-45)_5.jpg',
-                'Dior B33 (36-45)_4.jpg', 'Dior B33 (36-45)_5.jpg', 'Dior Chrono (36-40)_5.jpeg', 'Dior Chrono (36-45)_5.jpeg',
-                'Gucci Rhyton Bege Ébano_5.jpg', 'Gucci Rhyton Vermelho Tijolo_5.jpg', 'Gucci Rhyton azul_5.jpg', 'Gucci Tennis 1977 High Butter Cotton_5.jpg',
-                'Jordan 13 Retro Black White Gum_1.jpg', 'Jordan 13 Retro Black White Gum_2.jpg', 'Jordan 13 Retro Brave Blue_1.jpg', 'Jordan 13 Retro Brave Blue_2.jpg',
-                'Jordan 13 Retro French Blue_1.jpg', 'Jordan 13 Retro French Blue_2.jpg', 'Jordan 4 Retro Cool Grey (2019)_1.jpg', 'Jordan 4 Retro Cool Grey (2019)_2.jpg',
-                'Jordan 4 Retro Flight Nostalgia_1.jpg', 'Jordan 4 Retro Flight Nostalgia_2.jpg', 'Jordan 4 Retro Lightning (2021)_1.jpg', 'Jordan 4 Retro Lightning (2021)_2.jpg',
-                'Jordan 4 Retro Metallic Green_1.jpg', 'Jordan 4 Retro Metallic Green_2.jpg', 'Jordan 4 Retro Metallic Red_1.jpg', 'Jordan 4 Retro Metallic Red_2.jpg',
-                'Jordan 4 Retro Motorsports (2017)_1.jpg', 'Jordan 4 Retro Motorsports (2017)_2.jpg', 'Jordan 4 Retro SE 95 Neon_1.jpg', 'Jordan 4 Retro SE 95 Neon_2.jpg',
-                'Jordan 4 Retro Thunder (2012)_1.jpg', 'Jordan 4 Retro Thunder (2012)_2.jpg', 'Jordan Air Jordan 3 Barely Grape Pink Purple_1.jpg', 'Jordan Air Jordan 3 Barely Grape Pink Purple_2.jpg',
-                'Jordan Air Jordan 3 Retro Black Gold Black gold_1.jpg', 'Jordan Air Jordan 3 Retro Black Gold Black gold_2.jpg',
-                'Jordan Air Jordan 3 retro true blue White Blue_1.jpg', 'Jordan Air Jordan 3 retro true blue White Blue_2.jpg',
-                'Jordan Air Jordan 3 tinker black and white_1.jpg', 'Jordan Air Jordan 3 tinker black and white_2.jpg',
-                'Jordans 1 Mid White Black Light Arctic Pink 555112-103_1.jpg', 'Jordans 1 Mid White Black Light Arctic Pink 555112-103_2.jpg',
-                'Jordans 1 Retro High "Homage To Home" 555088-001_1.jpg', 'Jordans 1 Retro High "Homage To Home" 555088-001_2.jpg',
-                'KAWS x The North Face Retro 1996(XS-2XL)_2.jpg', 'KAWS x The North Face Retro 1996(XS-2XL)_4.jpg', 'Louis Vuitton x Nike Air Force 1_5.jpg',
-                'Morant 1st generation DR8785 800(36-46)_2.jpg', 'Morant 1st generation DR8785 800(36-46)_5.jpg', 'Morant 1st generation DR8785-001(36-46)_2.jpg', 'Morant 1st generation DR8785-001(36-46)_5.jpg',
-                'Morant 1st generation DR8786 002(36-46)_3.jpg', 'Morant 1st generation DR8786 002(36-46)_5.jpg', 'Morant 1st generation DR8786 102(36-46)_2.jpg', 'Morant 1st generation DR8786 102(36-46)_5.jpg',
-                'Morant 1st generation DR8786 102(36-46)_6.jpg', 'Morant 1st generation DR8786 802(36-46)_1.jpg', 'Morant 1st generation DR8786 802(36-46)_3.jpg', 'Morant 1st generation DR8786-400(36-46)_4.jpg',
-                'Morant 1st generation DR8786-400(36-46)_5.jpg', 'Morant 1st generation FN6614 900(36-46)_3.jpg', 'Morant 1st generation FN6614 900(36-46)_4.jpg', 'Morant 1st generation FN6614 900(36-46)_6.jpg',
-                'Morant 1st generation FQ4796-800(36-46)_3.jpg', 'Morant 1st generation FQ4796-800(36-46)_5.jpg', 'Morant 1st generation FQ4796-800(36-46)_6.jpg',
-                'Morant 1st generation FV1281-600(36-46)_2.jpg', 'Morant 1st generation FV1281-600(36-46)_4.jpg', 'Morant 1st generation FV1288 600(36-46)_2.jpg', 'Morant 1st generation FV1288 600(36-46)_5.jpg',
-                'Morant 1st generation FV1288-001(36-46)_3.jpg', 'Morant 1st generation FV1288-001(36-46)_5.jpg', 'Morant 1st generation FV1291-100(36-46)_4.jpg', 'Morant 1st generation FV1291-100(36-46)_5.jpg',
-                'Morant 1st generation FV6097 300(36-46)_2.jpg', 'Morant 1st generation FV6097 300(36-46)_5.jpg', 'Morant 2nd generation FD7327 001(36-46)_3.jpg', 'Morant 2nd generation FD7327 001(36-46)_5.jpg',
-                'Morant 2nd generation FD7327 101(36-46)_3.jpg', 'Morant 2nd generation FD7327 101(36-46)_5.jpg', 'Morant 2nd generation FD7327-100(36-46)_2.jpg', 'Morant 2nd generation FD7327-100(36-46)_4.jpg',
-                'Morant 2nd generation FD7327-500(36-46)_2.jpg', 'Morant 3rd generation HF2793-600_2.jpg', 'Morant 3rd generation HF2793-600_4.jpg', 'Morant 3rd generation HF2793-601_2.jpg',
-                'Morant 3rd generation HF2793-601_5.jpg', 'Morant 3rd generation HF2793-602_2.jpg', 'Morant 3rd generation HF2793-602_5.jpg', 'Morant 3rd generation HF2793-603_3.jpg',
-                'Morant 3rd generation HF2793-604_4.jpg', 'Morant 3rd generation HF2793-605_4.jpg', 'Morant 3rd generation HF2793-605_5.jpg', 'Morant 3rd generation HF2793-606_2.jpg',
-                'Morant 3rd generation HF2793-606_4.jpg', 'Morant 3rd generation HF2793-608_2.jpg', 'Morant 3rd generation HF2793-608_4.jpg', 'Morant 3rd generation HF2793-609(36-46)_4.jpg',
-                'Morant 3rd generation HF2793-609(36-46)_5.jpg', 'Morant 3rd generation HF2793-610_3.jpg', 'Morant 3rd generation HF2794-100_5.jpg', 'Morant 3rd generation IM0464-001_2.jpg',
-                'Morant 3rd generation IM0464-001_3.jpg', 'Máx. 95 1895-132 (40-46)_5.jpg', 'Máx. 95 1895-135 (40-46)_5.jpg', 'Máx. 95 1895-290 (40-46)_5.jpg',
-                'Máx. 95 1895-311 (40-46)_5.jpg', 'Máx. 95 1895-384 (40-46)_5.jpg', 'NIKE AIR MAX PLUS TN 2_5.jpeg', 'NOCTA x Nike Air Force 1 Love You Forever Pink_5.jpg',
-                'NOCTA x Nike NSW Tech Fleece Sportswear set_1.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_2.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_3.jpg',
-                'NOCTA x Nike NSW Tech Fleece Sportswear set_4.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_4.png', 'NOCTA x Nike NSW Tech Fleece Sportswear set_5.png',
-                'NOCTA x Nike NSW Tech Fleece Sportswear set_6.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_7.jpg', 'NOCTA x Nike NSW Tech Fleece Sportswear set_8.png',
-                'NOCTA x Nike NSW Tech Fleece Sportswear set_9.jpg', 'New Balance 530_4.jpg', 'New Balance 530_5.jpeg', 'New Balance 530_5.jpg', 'New Balance 530_5.png',
-                'Nike ACG Mountain Fly 2 Black_1.jpg', 'Nike ACG Mountain Fly 2 Gerry_1.jpg', 'Nike ACG Mountain Fly 2 Gerry_2.jpg', 'Nike ACG Mountain Fly 2_1.jpg', 'Nike ACG Mountain Fly 2_2.jpg',
-                'Nike Air Force 1 Low - Branco-Preto_5.jpg', 'Nike Air Force 1 Low_5.jpg', 'Nike Air Jordan 5_1.jpg', 'Nike Air Jordan 5_2.jpg',
-                'Nike Air Jordan 6 Retro Black Infrared_1.jpg', 'Nike Air Jordan 6 Retro Black Infrared_2.jpg', 'Nike Air Jordan 6 Retro Carmine (2014)_1.jpg', 'Nike Air Jordan 6 Retro Carmine (2014)_2.jpg',
-                'Nike Air Jordan 6 Retro Chrome Metallic Silver_1.jpg', 'Nike Air Jordan 6 Retro Chrome Metallic Silver_2.jpg', 'Nike Air Jordan 6 Retro DMP 2020 (GS)_1.jpg', 'Nike Air Jordan 6 Retro DMP 2020 (GS)_2.jpg',
-                'Nike Air Jordan 6 Retro Midnight Navy (2000)_1.jpg', 'Nike Air Jordan 6 Retro Midnight Navy (2000)_2.jpg', 'Nike Air Jordan 6 Retro UNC_1.jpg', 'Nike Air Jordan 6 Retro UNC_2.jpg',
-                'Nike Air Max 1 "86" OG Big Bubble Royal_4.jpg', 'Nike Air Max 1 "86" OG Big preto azul_5.jpg', 'Nike Air Max 1 "86" OG Golf Big Bubble Sport Vermelho_5.jpg',
-                'Nike Air Max 1 "86" OG Golf Dusty Cactus_5.jpg', 'Nike Air Max 1 "86" OG Golf Obsidian_5.jpg', 'Nike Air Max 1 "86" OG Grande_4.jpg',
-                'Nike Air Max 1 "87" Malaquita_5.jpg', 'Nike Air Max 1 Marrom Crepe (2022)_5.jpg', 'Nike Air Max 1 Patta Waves Branco_5.jpg',
-                'Nike Air Max 1 Patta Waves Monarch (without Bracelet)_4.jpg', 'Nike Air Max 1 Patta Waves Noise Aqua (sem pulseira)_5.jpg',
-                'Nike Air Max 1 Patta Waves Noise Aqua (without Bracelet)_5.jpg', 'Nike Air Max 1_5.jpg', 'Nike Air Max 2021 Barely Green (Women\'s)_5.png',
-                'Nike Air Max 2021 Branco Rosa Cigana_5.jpeg', 'Nike Air Max 2021 Branco Violeta Puro (GS)_5.png', 'Nike Air Max 2021 Camuflagem uva_5.jpeg',
-                'Nike Air Max 2021 Obsidian Lime Glow_5.jpeg', 'Nike Air Max 2021 Preto Cinza Fumaça_5.png', 'Nike Air Max 2021 Preto Cromado Verde Strike (GS)_5.png',
-                'Nike Air Max 2021 Preto e Branco_5.png', 'Nike Air Max 2021 Spruce Aura (Feminino)_5.png', 'Nike Air Max 2021 Summit Branco Solar Vermelho_5.png',
-                'Nike Air Max 2021 Venice (Feminino)_5.png', 'Nike Air Max 2021 Verde acinzentado_5.png', 'Nike Air Max 2021 camuflado_5.jpeg',
-                'Nike Air Max 270 Branco Preto Vermelho Universitário_5.jpg', 'Nike Air Max 270 Rosa Ferrugem_5.jpg', 'Nike Air Max 270 University Gold_5.jpg',
-                'Nike Air Max 270 Vermelho Habanero_5.jpg', 'Nike Air Max 270_5.jpeg', 'Nike Air Max 270_5.jpg', 'Nike Air Max 95 - Preto, cinza e branco_5.jpg',
-                'Nike Air Max 95 - preto e amarelo alternados_5.jpg', 'Nike Air Max 95 - preto e azul_5.jpg', 'Nike Air Max 95 - preto e cinza_5.jpg',
-                'Nike Air Max 95 - preto_5.jpg', 'Nike Air Max 95 Azul e Preto_5.jpg', 'Nike Air Max 95 Branco, vermelho e cinza_5.jpg',
-                'Nike Air Max 95 Cinza e Vermelho_5.jpg', 'Nike Air Max 95 NYC Taxi_5.jpg', 'Nike Air Max 95 Preto Vermelho_5.jpg',
-                'Nike Air Max 95, mesmo estilo do Jay Chou (tamanhos 40-46)_5.jpg', 'Nike Air Max 95-Light blue and dark blue_4.jpg', 'Nike Air Max 95_5.jpeg',
-                'Nike Air Max Phoenix azul e branco (tamanhos 40-46)_5.jpg', 'Nike Air Max Phoenix orange（40-46）_4.jpg', 'Nike Air Max Phoenix preto (tamanhos 40-46)_5.jpg',
-                'Nike Air Max Phoenix preto e azul (tamanhos 40 a 46)_5.jpg', 'Nike Air Max Phoenix preto e branco (tamanhos 40 a 46)_5.jpg',
-                'Nike Air Max Phoenix preto e vermelho (tamanhos 40 a 46)_5.jpg', 'Nike Air Max Plus Tn (36-40)_5.jpeg', 'Nike Air Max Plus Tn (36-40)_5.jpg',
-                'Nike Air Max Plus Tn (36-40)_6.jpeg', 'Nike Air Max Plus Tn (36-40)_7.jpeg', 'Nike Air Max Plus Tn (36-46)_4.jpeg', 'Nike Air Max Plus Tn (36-46)_5.jpeg',
-                'Nike Air Max Plus Tn (40-46)_5.jpeg', 'Nike Air Max Plus Tn Black+White9908-23 (40-46)_5.jpeg', 'Nike Air Max Plus Tn （36-40）_5.jpeg',
-                'Nike Air Max Plus Tn （40-46）_4.jpeg', 'Nike Air Max Plus Tn-皮面（40-46）_5.jpeg', 'Nike Air Max Plus Tn_5.jpeg',
-                'Nike Air Max Tn3 2102-73 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-74 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-75 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 2102-76 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-77 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-78 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 2102-79 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-80 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-81 (40-46)_5.jpeg',
-                'Nike Air Max Tn3 2102-A27 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A28 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A29 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 2102-A30 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A31 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-A32 (40-46)_5.jpeg',
-                'Nike Air Max Tn3 2102-A33 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-A34 (40-46)_5.jpeg', 'Nike Air Max Tn3 2102-A36 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 2102-A37 (39-46)_5.jpeg', 'Nike Air Max Tn3 2102-A38 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G1 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 couro-G10 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G2 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G3 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 couro-G4 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G5 (39-46)_5.jpeg', 'Nike Air Max Tn3 couro-G7 (39-46)_5.jpeg',
-                'Nike Air Max Tn3 couro-G8 (39-46)_5.jpeg', 'Nike Air Max Tn3 leather-G9 (39-46)_4.jpeg', 'Nike Air More Uptempo 96 Azul Cobalto (PS)_5.jpg',
-                'Nike Air More Uptempo 96 Cinza Frio Azul Marinho (GS)_5.jpg', 'Nike Air More Uptempo 96 França_5.jpg', 'Nike Air More Uptempo 96 Volt_5.jpg',
-                'Nike Air More Uptempo Azul Marinho_5.jpeg', 'Nike Air More Uptempo Azul Universitário_5.jpg', 'Nike Air More Uptempo Cargo Cáqui_5.png',
-                'Nike Air More Uptempo Preto Branco Vermelho Laser_5.jpg', 'Nike Air More Uptempo Preto Refletivo (2018)_5.jpg',
-                'Nike Air More Uptempo Quilted Wheat Gum Light Brown (W)_5.jpg', 'Nike Air More Uptempo Tri-Color Tint_5.jpg',
-                'Nike Air More Uptempo Verde Cevada_5.jpg', 'Nike Air More Uptempo branco-azul (36-46)_5.jpg', 'Nike Air More Uptempo branco-preto (36-46)_5.jpg',
-                'Nike Air More Uptempo branco-verde (36-46)_5.jpg', 'Nike Air More Uptempo cinza-preto (36-46)_5.jpg', 'Nike Air More Uptempo preto (36-46)_5.jpg',
-                'Nike Air More Uptempo preto e branco (36-46)_5.jpg', 'Nike Air More Uptempo white（36-46）_4.jpg', 'Nike Air More Uptempo_5.png',
-                'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg', 'Nike Air VaporMax 2 Branco Preto_5.jpeg', 'Nike Air VaporMax 2 Creme Claro_5.jpg',
-                'Nike Air VaporMax 2 Preto Dourado Metálico_5.jpeg', 'Nike Air VaporMax 2 Preto e Branco_5.jpeg', 'Nike Air VaporMax 2 Racer Azul_5.jpeg',
-                'Nike Air VaporMax 2 Rosa Ferrugem_5.jpeg', 'Nike Air VaporMax 2 Team Red Obsidian_5.jpeg', 'Nike Air VaporMax 2 branco_5.jpg',
-                'Nike Air VaporMax 2 off white preto_5.jpg', 'Nike Air VaporMax 2.0 Dusty Cactus Hyper Jade_5.jpeg', 'Nike Air VaporMax 2.0 Preto Hot Punch_5.jpeg',
-                'Nike Air VaporMax 2.0 Ultramarine (Feminino)_5.jpeg', 'Nike Air VaporMax Flyknit 2 Ano Novo Chinês (2019)_5.jpeg',
-                'Nike Air VaporMax Flyknit 2 Branco Platina Pura_5.jpeg', 'Nike Air VaporMax Flyknit 2_5.jpeg', 'Nike Air VaporMax Flyknit Moc 2 Gridiron Rosa Blas_5.jpg',
-                'Nike Air VaporMax Moc 2 Dark Stucco Midnight Navy_5.jpg', 'Nike Air VaporMax Moc 2 Gunsmoke_5.jpg', 'Nike Air VaporMax Moc 2 Mica Verde_5.jpg',
-                'Nike Air VaporMax Moc 2 Moon Particle_5.jpg', 'Nike Air VaporMax Moc 2 Neutral Olive Habanero Red_5.jpg', 'Nike Air VaporMax Moc 2 Preto Creme Claro_5.jpg',
-                'Nike Air VaporMax Moc 2 Preto e Dourado_5.png', 'Nike Air VaporMax Moc 2 Thunder Azul_5.jpg', 'Nike Air VaporMax Moc 2 University Gold_5.jpg',
-                'Nike Air VaporMax Moc 2 Vermelho Universitário Explosão de Fúcsia_5.jpg', 'Nike Air VaporMax Moc 2_5.jpg', 'Nike Air VaporMax Triple Black 2.0_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 1_5.jpg', 'Nike Air Zoom Alphafly NEXT% 1_5.png', 'Nike Air Zoom Alphafly NEXT% 2_5.jpg',
-                'Nike Air Zoom Alphafly NEXT% 3 Azul e branco_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Branco Gerry_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Branco Roxo_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 3 Branco com detalhes em laranja_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Branco e Preto_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 3 Branco e vermelho vibrante_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Cinza Fantasma Branco_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 3 Preto Verde_5.png', 'Nike Air Zoom Alphafly NEXT% 3 Rosa e roxo_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 Verde claro laranja_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 3 Verde fluorescente_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 branco azul celeste_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 branco_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 3 preto e branco_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 preto_5.jpeg', 'Nike Air Zoom Alphafly NEXT% 3 red yellow_5.jpeg',
-                'Nike Air Zoom Alphafly NEXT% 3 vermelho_5.jpeg', 'Nike Jordan Stadium 90 Gris_1.jpg', 'Nike Jordan Stadium 90 Gris_2.jpg',
-                'Nike Jordan Stadium 90 White Amarillo de hoja caduca_1.jpg', 'Nike Jordan Stadium 90 White Amarillo de hoja caduca_2.jpg',
-                'Nike Jordan Stadium 90 White Morado_1.jpg', 'Nike Jordan Stadium 90 White Morado_2.jpg', 'Nike Jordan Stadium 90 White black_1.jpg',
-                'Nike Jordan Stadium 90 White black_2.jpg', 'Nike Jordan Stadium 90 White pink_1.jpg', 'Nike Jordan Stadium 90 White pink_2.jpg',
-                'Nike Jordan Stadium 90 White red_1.jpg', 'Nike Jordan Stadium 90 White red_2.jpg', 'Nike Jordan Stadium 90 White yellow_1.jpg', 'Nike Jordan Stadium 90 White yellow_2.jpg',
-                'Nike NOCTA Glide Drake_5.jpg', 'Nike NSW Tech Fleece Sports jacket_10.jpg', 'Nike NSW Tech Fleece Sports jacket_2.jpg',
-                'Nike NSW Tech Fleece Sports jacket_3.jpg', 'Nike NSW Tech Fleece Sports jacket_4.jpg', 'Nike NSW Tech Fleece Sports jacket_4.png',
-                'Nike NSW Tech Fleece Sports jacket_5.jpg', 'Nike NSW Tech Fleece Sports jacket_6.jpg', 'Nike NSW Tech Fleece Sports jacket_7.jpg',
-                'Nike NSW Tech Fleece Sports jacket_9.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_1.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_2.jpg',
-                'Nike NSW Tech Fleece Sportswear set (M-2XL)_3.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_4.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_4.png',
-                'Nike NSW Tech Fleece Sportswear set (M-2XL)_5.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_6.jpg', 'Nike NSW Tech Fleece Sportswear set (M-2XL)_7.jpg',
-                'Nike NSW Tech Fleece Sportswear set_2.jpg', 'Nike NSW Tech Fleece Sportswear set_4.jpg', 'Nike NSW Tech Fleece Sportswear set_5.jpg',
-                'Nike NSW Tech Fleece Sportswear set_7.jpg', 'Nike Shox Ride 2 (36-46)_5.jpeg', 'Nike Shox Ride 2 (40-46)_5.jpeg',
-                'Nike Shox Ride 2 SP Supreme Branco Azul_5.jpeg', 'Nike Shox Ride 2 SP Supreme Branco Cinza Vermelho_5.jpg', 'Nike Shox Ride 2 SP Supreme Branco Preto_5.jpeg',
-                'Nike Shox Ride 2 SP Supreme Branco Vermelho_5.jpeg', 'Nike Shox Ride 2 SP Supreme Branco_5.jpeg', 'Nike Shox Ride 2 SP Supreme Preto e Dourado_5.jpeg',
-                'Nike Shox Ride 2 SP Supreme Preto e branco_5.jpeg', 'Nike Shox Ride 2 SP Supreme Preto_5.png', 'Nike Shox Ride 2 （40-46）_5.jpeg',
-                'Nike Shox Ride 2_5.jpg', 'Nike Shox TL (40-45)_5.jpeg', 'Nike Shox TL Azul-Preto (40-45)_5.jpg', 'Nike Shox TL Branco Multicolorido_5.jpeg',
-                'Nike Shox TL Branco Prata Metálico_5.png', 'Nike Shox TL Branco-Azul (37-44)_5.jpg', 'Nike Shox TL Branco-Preto (39-45)_5.jpg',
-                'Nike Shox TL Cinza Lobo e Verde Limão_5.jpeg', 'Nike Shox TL Cáqui (36-45)_5.jpg', 'Nike Shox TL Light Bone Metallic Silver Cool Grey_5.jpg',
-                'Nike Shox TL Neymar_5.jpeg', 'Nike Shox TL Preto Metálico Hematita_5.jpg', 'Nike Shox TL Preto-Azul (39-45)_5.jpg',
-                'Nike Shox TL Preto-Azul (40-45)_5.jpg', 'Nike Shox TL Preto-Azul Claro (40-45)_5.jpg', 'Nike Shox TL Preto-Cinza (40-45)_5.jpg',
-                'Nike Shox TL Preto_5.jpg', 'Nike Shox TL Python Pony_5.jpeg', 'Nike Shox TL Skepta_5.jpg', 'Nike Shox TL Speed Vermelho_5.jpg',
-                'Nike Shox TL Thermoreactive (41-46)_4.jpg', 'Nike Shox TL Thermoreactive (41-46)_5.jpg', 'Nike Shox TL branco-vermelho claro (tamanhos 40-45)_5.jpg',
-                'Nike Shox TL （40-45）_5.jpeg', 'OFF-WHITE Out Of Office White Black_4.jpeg', 'Off-White Já volto Branco cinza jade preto_5.jpeg',
-                'Off-White Já volto Rosa cinza preto_5.jpeg', 'Offset Tears Black White_3.jpeg', 'Offset Tears Black_2.jpeg', 'Offset Tears Black_3.jpeg',
-                'Offset Tears Black_5.jpeg', 'Offset Tears Black_6.jpeg', 'Offset Tears Black_7.jpeg', 'Offset Tears Blue_2.jpeg', 'Offset Tears Pink_2.jpeg',
-                'Offset Tears Pink_3.jpeg', 'Offset Tears Pink_5.jpeg', 'Offset Tears Pink_6.jpeg', 'Offset Tears_1.jpeg', 'Offset Tears_2.jpeg',
-                'Offset Tears_3.jpeg', 'Offset Tears_4.jpeg', 'Offset Tears_5.jpeg', 'Offset Tears_6.jpeg', 'PUMA Speedcat (36-45)_5.jpg',
-                'PUMA Speedcat(36-45)_4.jpg', 'Puma LaMelo Ball MB.01_4.jpg', 'Puma LaMelo Ball MB.02_4.jpg', 'Sacai 2.0_5.jpg',
-                'Sarja Versace Chain Reaction_5.jpg', 'SynaWord_1.jpg', 'SynaWord_1.png', 'SynaWord_10.jpg', 'SynaWord_3.jpg',
-                'SynaWord_5.jpg', 'SynaWord_6.jpg', 'SynaWord_7.jpg', 'TRAPSTAR_1.jpg', 'TRAPSTAR_11.jpg', 'TRAPSTAR_12.jpg',
-                'TRAPSTAR_2.jpeg', 'TRAPSTAR_2.jpg', 'TRAPSTAR_3.jpeg', 'TRAPSTAR_3.jpg', 'TRAPSTAR_4.jpeg', 'TRAPSTAR_4.jpg',
-                'TRAPSTAR_5.jpeg', 'TRAPSTAR_5.jpg', 'TRAPSTAR_6.jpeg', 'TRAPSTAR_6.jpg', 'TRAPSTAR_7.jpeg', 'TRAPSTAR_7.jpg',
-                'TRAPSTAR_8.jpeg', 'TRAPSTAR_8.jpg', 'TRAPSTAR_9.jpeg', 'TRAPSTAR_9.jpg', 'The North Face (XS-2XL)_2.jpg', 'The North Face (XS-2XL)_3.jpg',
-                'The North Face _1996(XS-2XL)_1.jpg', 'The North Face _1996(XS-2XL)_2.jpg', 'The North Face _1996(XS-2XL)_3.jpg', 'The North Face _1996(XS-2XL)_4.jpg',
-                'The North Face _1996(XS-2XL)_5.jpg', 'Tênis Gucci 1977 GG Canvas_5.jpg', 'Tênis Gucci 1977_5.jpg', 'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
-                'Tênis Gucci Tennis 1977 Cano Alto GG_5.jpg', 'Tênis Louis Vuitton LV Branco Preto Rosa_5.jpeg', 'Tênis Louis Vuitton LV Branco Terra Amarelo_4.jpeg',
-                'Tênis Louis Vuitton LV Corn Hair_5.jpeg', 'Tênis Louis Vuitton LV Cowboy Preto_5.jpeg', 'Tênis Louis Vuitton LV azul grama de quatro folhas_5.jpeg',
-                'Tênis Louis Vuitton LV branco cor abóbora bebê_5.jpeg', 'Tênis Louis Vuitton LV com estampa xadrez preta_5.jpeg',
-                'Tênis Louis Vuitton LV com velcro na cor azul-marinho_5.jpeg', 'Tênis Louis Vuitton LV com velcro nas cores preto e vermelho._5.jpeg',
-                'Tênis Louis Vuitton LV em couro branco._5.jpeg', 'Tênis Louis Vuitton LV em tecido preto_5.jpeg',
-                'Tênis Louis Vuitton LV na cor grama-de-quatro-folhas, preto e branco._5.jpeg', 'Tênis Louis Vuitton LV preto roan_5.jpeg',
-                'Tênis Louis Vuitton LV verde grama de quatro folhas_5.jpeg', 'Tênis Louis Vuitton LV, todo em couro preto._5.jpeg',
-                'Tênis Yeezy Boost 700 V2 Geode – EG6860_5.png', 'Tênis Yeezy Boost 750 Cinza com Sola de Borracha – BB1840_5.png',
-                'Tênis Yeezy Boost 750 Marrom Claro – B35309_5.png', 'Tênis Yeezy Boost 750 Triple Black – BB1839_5.png', 'VEJA Campo Unisex_5.jpg',
-                'VEJA Campo Unissex_5.jpg', 'Versace Baroque Chain Reaction Bluette Gold_5.jpg', 'Versace Chain Reaction (Reação em Cadeia)_5.jpg',
-                'Versace Chain Reaction 2 Chainz Preto Amarelo_5.jpg', 'Versace Chain Reaction 2 Chainz Preto_5.jpg',
-                'Versace Chain Reaction 2 Estampa Barocco Branco Preto Amarelo_5.jpg', 'Versace Chain Reaction 2_4.jpg', 'Versace Chain Reaction 2_5.jpg',
-                'Versace Chain Reaction Branco Rosa Amarelo Barroco_5.jpg', 'Versace Chain Reaction Branco em Malha e Camurça de Borracha_5.jpg',
-                'Versace Chain Reaction Laranja Verde_5.jpg', 'Versace Chain Reaction Preto e Branco com Estampa de Leopardo_5.jpg',
-                'Versace Chain Reaction Preto e Branco_5.jpg', 'Versace Chain Reaction Preto_5.jpg', 'Vomero 11 (36-40)_5.jpg',
-                'Vomero 11 (36-40)_5.png', 'Vomero 11 (36-45)_5.jpg', 'Vomero 11 (36-45)_5.png', 'Vomero 11 (39-45)_5.jpg', 'Vomero 11 (39-45)_5.png',
-                'YEEZY 450 Branco Nuvem_5.jpg', 'Yeezy 450 Dark Slate_5.jpg', 'Yeezy Boost 700 V2 Shoes Static – EF2829_5.png',
-                'Yeezy Boost 750 Shoes Chocolate – BY2456_5.png', 'casaco mulher colete polo ralph lauren branco.jpg', 'casaco mulher polo ralph lauren preto.jpg',
-                'casaco polo ralph lauren azul.jpg', 'casaco polo ralph lauren branco.png', 'casaco polo ralph lauren verde.png', 'colete polo ralph lauren branco.png',
-                'colete polo ralph lauren preto.png', 'colete polo ralph lauren verde.png', 'colete polo ralph lauren.jpg'
+        // NOVO MÉTODO DE IMAGENS - Sistema simples baseado na lista do usuário
+        const imageMapper = {
+            // Lista de produtos com suas imagens
+            productList: [
+                {name: "Adidas Adizero SL (40-45)", images: ["imagens_produtos/Adidas Adizero SL (40-45)_4.jpeg", "imagens_produtos/Adidas Adizero SL (40-45)_5.jpeg"]},
+                {name: "Adidas AE1 (40-45)", images: ["imagens_produtos/Adidas AE1 (40-45)_5.jpg", "imagens_produtos/Adidas AE1 (40-45)_5.png"]},
+                {name: "Adidas Dexun", images: ["imagens_produtos/Adidas Dexun_4.jpg", "imagens_produtos/Adidas Dexun_5.jpg"]},
+                {name: "Adidas Forum 84 (36-39)", images: ["imagens_produtos/Adidas Forum 84 (36-39)_5.jpg"]},
+                {name: "Adidas Forum 84 (36-40)", images: ["imagens_produtos/Adidas Forum 84 (36-40)_5.jpg"]},
+                {name: "Adidas Originals Samba", images: ["imagens_produtos/Adidas Originals Samba_4.png", "imagens_produtos/Adidas Originals Samba_5.jpg", "imagens_produtos/Adidas Originals Samba_5.png"]},
+                {name: "Air Jordan 312", images: ["imagens_produtos/Air Jordan 312_1.jpg"]},
+                {name: "Air Jordan 4 Retro black particle40-46", images: ["imagens_produtos/Air Jordan 4 Retro black particle40-46_4.jpg", "imagens_produtos/Air Jordan 4 Retro black particle40-46_6.jpg"]},
+                {name: "Air Jordan 4 Retro black-white36-46", images: ["imagens_produtos/Air Jordan 4 Retro black-white36-46_1.jpg", "imagens_produtos/Air Jordan 4 Retro black-white36-46_2.jpg", "imagens_produtos/Air Jordan 4 Retro black-white36-46_5.jpg", "imagens_produtos/Air Jordan 4 Retro black-white36-46_6.jpg"]},
+                {name: "Air Jordan 4 Retro particle beige40-46", images: ["imagens_produtos/Air Jordan 4 Retro particle beige40-46_1.jpg", "imagens_produtos/Air Jordan 4 Retro particle beige40-46_4.jpg", "imagens_produtos/Air Jordan 4 Retro particle beige40-46_6.jpg"]},
+                {name: "Air Jordan 4 Retro", images: ["imagens_produtos/Air Jordan 4 Retro_1.jpg", "imagens_produtos/Air Jordan 4 Retro_2.jpg"]},
+                {name: "Air Jordans 1 CD4487-100", images: ["imagens_produtos/Air Jordans 1 CD4487-100_1.jpg", "imagens_produtos/Air Jordans 1 CD4487-100_2.jpg"]},
+                {name: "Air Jordans 1 High University Blue 555088-134", images: ["imagens_produtos/Air Jordans 1 High University Blue 555088-134_1.jpg", "imagens_produtos/Air Jordans 1 High University Blue 555088-134_2.jpg"]},
+                {name: "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104", images: ["imagens_produtos/AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_1.jpg", "imagens_produtos/AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_2.jpg"]},
+                {name: "AIR JORDANS 1 LOW \"Mystic Green\"553558-113", images: ["imagens_produtos/AIR JORDANS 1 LOW \"Mystic Green\"553558-113_1.jpg", "imagens_produtos/AIR JORDANS 1 LOW \"Mystic Green\"553558-113_2.jpg"]},
+                {name: "Air Jordans 1 Mid (GS)555112-500", images: ["imagens_produtos/Air Jordans 1 Mid (GS)555112-500_1.jpg", "imagens_produtos/Air Jordans 1 Mid (GS)555112-500_2.jpg"]},
+                {name: "Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092", images: ["imagens_produtos/Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092_1.jpg", "imagens_produtos/Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092_2.jpg"]},
+                {name: "Air Jordans 1 Mid SE 852542-400", images: ["imagens_produtos/Air Jordans 1 Mid SE 852542-400_1.jpg", "imagens_produtos/Air Jordans 1 Mid SE 852542-400_2.jpg"]},
+                {name: "Air Jordans 1 MID SE \"South Beach\"852542-306", images: ["imagens_produtos/Air Jordans 1 MID SE \"South Beach\"852542-306_1.jpg", "imagens_produtos/Air Jordans 1 MID SE \"South Beach\"852542-306_2.jpg"]},
+                {name: "Air Jordans 1 Mid 'Candy' 554725-083", images: ["imagens_produtos/Air Jordans 1 Mid 'Candy' 554725-083_1.jpg", "imagens_produtos/Air Jordans 1 Mid 'Candy' 554725-083_2.jpg"]},
+                {name: "Air Jordans 1 Mid \"Black Cone\" 554724-062", images: ["imagens_produtos/Air Jordans 1 Mid \"Black Cone\" 554724-062_1.jpg", "imagens_produtos/Air Jordans 1 Mid \"Black Cone\" 554724-062_2.jpg"]},
+                {name: "Air Jordans 1 Mid \"Chicago Black Toe\" 554724-069", images: ["imagens_produtos/Air Jordans 1 Mid \"Chicago Black Toe\" 554724-069_1.jpg", "imagens_produtos/Air Jordans 1 Mid \"Chicago Black Toe\" 554724-069_2.jpg"]},
+                {name: "Air Jordans 1 Mid \"Lakers Top 3\"852542-005", images: ["imagens_produtos/Air Jordans 1 Mid \"Lakers Top 3\"852542-005_1.jpg", "imagens_produtos/Air Jordans 1 Mid \"Lakers Top 3\"852542-005_2.jpg"]},
+                {name: "Air Jordans 1 Mid \"Multicolor\" 554724-125", images: ["imagens_produtos/Air Jordans 1 Mid \"Multicolor\" 554724-125_1.jpg", "imagens_produtos/Air Jordans 1 Mid \"Multicolor\" 554724-125_2.jpg"]},
+                {name: "Air Jordans 1 MID \"Top 3\" 554724-124", images: ["imagens_produtos/Air Jordans 1 MID \"Top 3\" 554724-124_1.jpg", "imagens_produtos/Air Jordans 1 MID \"Top 3\" 554724-124_2.jpg"]},
+                {name: "Air Jordans 1 Retro High CN8607-002", images: ["imagens_produtos/Air Jordans 1 Retro High CN8607-002_1.jpg", "imagens_produtos/Air Jordans 1 Retro High CN8607-002_2.jpg"]},
+                {name: "Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100", images: ["imagens_produtos/Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_1.jpg", "imagens_produtos/Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_2.jpg"]},
+                {name: "Air Jordans 1 Retro High OG GS \"Crimson Tint\" 555088-081", images: ["imagens_produtos/Air Jordans 1 Retro High OG GS \"Crimson Tint\" 555088-081_1.jpg", "imagens_produtos/Air Jordans 1 Retro High OG GS \"Crimson Tint\" 555088-081_2.jpg"]},
+                {name: "Air Jordans 11 Retro 'Gamma Blue' 378038-006", images: ["imagens_produtos/Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg", "imagens_produtos/Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg"]},
+                {name: "Air Jordans 3 Retro 'Red Cement' CT8532-104", images: ["imagens_produtos/Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg", "imagens_produtos/Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg"]},
+                {name: "Air Jordans 3 'Lazer Orange' CK9246-108", images: ["imagens_produtos/Air Jordans 3 'Lazer Orange' CK9246-108_1.jpg", "imagens_produtos/Air Jordans 3 'Lazer Orange' CK9246-108_2.jpg"]},
+                {name: "Air Jordans 4 Bred 408452-060", images: ["imagens_produtos/Air Jordans 4 Bred 408452-060_1.jpg", "imagens_produtos/Air Jordans 4 Bred 408452-060_2.jpg"]},
+                {name: "Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009", images: ["imagens_produtos/Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_1.jpg", "imagens_produtos/Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_2.jpg"]},
+                {name: "Air Jordans 4 Retro 'University Blue' CT8527-400", images: ["imagens_produtos/Air Jordans 4 Retro 'University Blue' CT8527-400_1.jpg", "imagens_produtos/Air Jordans 4 Retro 'University Blue' CT8527-400_2.jpg"]},
+                {name: "Air Jordans 4 Retro \"White Oreo\" CT8527-100", images: ["imagens_produtos/Air Jordans 4 Retro \"White Oreo\" CT8527-100_1.jpg", "imagens_produtos/Air Jordans 4 Retro \"White Oreo\" CT8527-100_2.jpg"]},
+                {name: "Air Jordans 4 Retro", images: ["imagens_produtos/Air Jordans 4 Retro_1.jpg", "imagens_produtos/Air Jordans 4 Retro_2.jpg"]},
+                {name: "Air Jordans 4 'Black Cat' CU1110-010", images: ["imagens_produtos/Air Jordans 4 'Black Cat' CU1110-010_1.jpg", "imagens_produtos/Air Jordans 4 'Black Cat' CU1110-010_2.jpg"]},
+                {name: "Air Jordans 4 'Fire Red' DC7770-160", images: ["imagens_produtos/Air Jordans 4 'Fire Red' DC7770-160_1.jpg", "imagens_produtos/Air Jordans 4 'Fire Red' DC7770-160_2.jpg"]},
+                {name: "Air Jordans 4 'Off Noir' DC9533-001", images: ["imagens_produtos/Air Jordans 4 'Off Noir' DC9533-001_1.jpg", "imagens_produtos/Air Jordans 4 'Off Noir' DC9533-001_2.jpg"]},
+                {name: "Air Jordans 4 'PSG' CZ6509-100", images: ["imagens_produtos/Air Jordans 4 'PSG' CZ6509-100_1.jpg", "imagens_produtos/Air Jordans 4 'PSG' CZ6509-100_2.jpg"]},
+                {name: "Air Jordans 4 'Pure Money' 308497-100", images: ["imagens_produtos/Air Jordans 4 'Pure Money' 308497-100_1.jpg", "imagens_produtos/Air Jordans 4 'Pure Money' 308497-100_2.jpg"]},
+                {name: "Air Max 270 V2", images: ["imagens_produtos/Air Max 270 V2_5.jpg"]},
+                {name: "Air Max 720 Branco rosa azul", images: ["imagens_produtos/Air Max 720 Branco rosa azul_5.jpg"]},
+                {name: "Air Max 720 Branco", images: ["imagens_produtos/Air Max 720 Branco_5.jpg"]},
+                {name: "Air Max 720 Preto Branco", images: ["imagens_produtos/Air Max 720 Preto Branco_5.jpg"]},
+                {name: "Air Max 720 Preto", images: ["imagens_produtos/Air Max 720 Preto_5.jpg"]},
+                {name: "Air Max 720", images: ["imagens_produtos/Air Max 720_5.jpg"]},
+                {name: "AMIRI MA-1 (36-40)", images: ["imagens_produtos/AMIRI MA-1 (36-40)_5.jpg"]},
+                {name: "AMIRI MA-1 Branco Verde", images: ["imagens_produtos/AMIRI MA-1 Branco Verde_5.jpg"]},
+                {name: "AMIRI MA-1 Branco", images: ["imagens_produtos/AMIRI MA-1 Branco_5.jpg"]},
+                {name: "AMIRI MA-1 Preto Branco", images: ["imagens_produtos/AMIRI MA-1 Preto Branco_4.jpg"]},
+                {name: "AMIRI MA-1 rosa", images: ["imagens_produtos/AMIRI MA-1 rosa_5.jpg"]},
+                {name: "AMIRI MA-1(36-40)", images: ["imagens_produtos/AMIRI MA-1(36-40)_5.jpg"]},
+                {name: "Bola Puma LaMelo MB.02", images: ["imagens_produtos/Bola Puma LaMelo MB.02_4.jpg", "imagens_produtos/Bola Puma LaMelo MB.02_5.jpg"]}
             ],
             
-            // Group images by base name
-            groupImagesByBaseName: function() {
-                const groups = {};
-                
-                this.knownImages.forEach(imagePath => {
-                    // Extract base name by removing the last _number and extension
-                    const match = imagePath.match(/(.+?)_\d+\.(jpg|jpeg|png)$/i);
-                    if (match) {
-                        const baseName = match[1];
-                        if (!groups[baseName]) {
-                            groups[baseName] = [];
-                        }
-                        groups[baseName].push('imagens_produtos/' + imagePath);
-                    } else {
-                        // Handle single images without numbers
-                        const singleMatch = imagePath.match(/(.+?)\.(jpg|jpeg|png)$/i);
-                        if (singleMatch) {
-                            const baseName = singleMatch[1];
-                            if (!groups[baseName]) {
-                                groups[baseName] = [];
-                            }
-                            groups[baseName].push('imagens_produtos/' + imagePath);
-                        }
-                    }
-                });
-                
-                // Sort each group's images by number
-                Object.keys(groups).forEach(baseName => {
-                    groups[baseName].sort((a, b) => {
-                        const aMatch = a.match(/(\d+)\.(jpg|jpeg|png)$/i);
-                        const bMatch = b.match(/(\d+)\.(jpg|jpeg|png)$/i);
-                        const aNum = aMatch ? parseInt(aMatch[1]) : 0;
-                        const bNum = bMatch ? parseInt(bMatch[1]) : 0;
-                        return aNum - bNum;
-                    });
-                });
-                
-                return groups;
+            // Função para encontrar imagem pelo nome do produto
+            findImage: function(productName) {
+                return `imagens_produtos/${productName.replace(/[^a-zA-Z0-9\s]/g, '_').trim()}_1.jpg`;
             },
             
-            // Find all images for a product
-            findImagesForProduct: function(productName) {
-                const groups = this.groupImagesByBaseName();
+            // Função para encontrar múltiplas imagens
+            findMultipleImages: function(productName) {
+                return [this.findImage(productName)];
+            },
+            
+            // Função para atualizar o mapeamento com a lista do usuário
+            updateMapping: function(imageList) {
+                this.mapping = {};
+                imageList.forEach(item => {
+                    this.mapping[item.name.toLowerCase()] = item.images;
+                });
+                console.log(' Mapeamento de imagens atualizado com', imageList.length, 'produtos');
+            },
+            
+            // Função para obter imagens de um produto
+            getProductImages: function(productName) {
+                // Primeiro tenta encontrar na productList
+                const normalizedName = productName.toLowerCase().trim();
                 
-                // Normalize product name for matching - more flexible matching
-                let normalizedName = productName
-                    .toLowerCase()
-                    .replace(/['"]/g, '')
-                    .replace(/[()]/g, '')
-                    .replace(/\d{2}-\d{2}/g, '')
-                    .replace(/\d{6,}[-\s]?\d{0,6}/g, '')
-                    .replace(/\s+/g, '_')
-                    .replace(/[^\w\s-]/g, '')
-                    .trim();
-                
-                // Try exact match first
-                if (groups[normalizedName]) {
-                    return groups[normalizedName];
+                for (const product of this.productList) {
+                    if (product.name.toLowerCase() === normalizedName) {
+                        console.log(` Encontrado exato: ${product.name} - ${product.images.length} imagens`);
+                        return product.images;
+                    }
                 }
                 
-                // Try partial matches - check if product name contains group name or vice versa
-                for (const groupName in groups) {
-                    const normalizedGroupName = groupName.toLowerCase()
-                        .replace(/[^\w\s-]/g, '')
-                        .replace(/\s+/g, '_');
+                // Tenta encontrar por correspondência parcial
+                for (const product of this.productList) {
+                    if (normalizedName.includes(product.name.toLowerCase()) || 
+                        product.name.toLowerCase().includes(normalizedName)) {
+                        console.log(` Encontrado parcial: ${product.name} - ${product.images.length} imagens`);
+                        return product.images;
+                    }
+                }
+                
+                // Fallback
+                console.log(` Não encontrado: ${productName} - usando fallback`);
+                return [this.findImage(productName)];
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log(' Iniciando STREETMOOD...');
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out-cubic',
+                once: true
+            });
+            
+            init();
+        });
+
+        // Initialize products
+        async function init() {
+            console.log(' Carregando produtos...');
+            showLoading();
+            
+            try {
+                // Load products script
+                const script = document.createElement('script');
+                script.src = 'streetmood_products.js';
+                script.onload = function() {
+                    console.log(' Script carregado, verificando produtos...');
+                    console.log(' Window products:', window.products);
                     
-                    // Check for partial matches
-                    if (normalizedGroupName.includes(normalizedName) || 
-                        normalizedName.includes(normalizedGroupName) ||
-                        this.calculateSimilarity(normalizedName, normalizedGroupName) > 0.7) {
-                        return groups[groupName];
-                    }
-                }
-                
-                // Try keyword matching
-                const keywords = this.extractKeywords(productName);
-                for (const keyword of keywords) {
-                    for (const groupName in groups) {
-                        if (groupName.toLowerCase().includes(keyword.toLowerCase())) {
-                            return groups[groupName];
-                        }
-                    }
-                }
-                
-                return [];
-            },
-            
-            // Extract keywords from product name
-            extractKeywords: function(productName) {
-                const words = productName.toLowerCase()
-                    .replace(/[^\w\s]/g, ' ')
-                    .split(/\s+/)
-                    .filter(word => word.length > 2);
-                
-                // Common brand keywords to prioritize
-                const brands = ['nike', 'adidas', 'jordan', 'air', 'max', 'force', 'puma', 'gucci', 'lv', 'louis', 'vuitton', 'dior', 'versace'];
-                const keywords = [];
-                
-                // Add brand keywords first
-                words.forEach(word => {
-                    if (brands.includes(word)) {
-                        keywords.push(word);
-                    }
-                });
-                
-                // Add other significant words
-                words.forEach(word => {
-                    if (!keywords.includes(word) && word.length > 3) {
-                        keywords.push(word);
-                    }
-                });
-                
-                return keywords;
-            },
-            
-            // Calculate similarity between two strings
-            calculateSimilarity: function(str1, str2) {
-                const longer = str1.length > str2.length ? str1 : str2;
-                const shorter = str1.length > str2.length ? str2 : str1;
-                
-                if (longer.length === 0) return 1.0;
-                
-                const editDistance = this.levenshteinDistance(longer, shorter);
-                return (longer.length - editDistance) / longer.length;
-            },
-            
-            // Levenshtein distance algorithm
-            levenshteinDistance: function(str1, str2) {
-                const matrix = [];
-                
-                for (let i = 0; i <= str2.length; i++) {
-                    matrix[i] = [i];
-                }
-                
-                for (let j = 0; j <= str1.length; j++) {
-                    matrix[0][j] = j;
-                }
-                
-                for (let i = 1; i <= str2.length; i++) {
-                    for (let j = 1; j <= str1.length; j++) {
-                        if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-                            matrix[i][j] = matrix[i - 1][j - 1];
-                        } else {
-                            matrix[i][j] = Math.min(
-                                matrix[i - 1][j - 1] + 1,
-                                matrix[i][j - 1] + 1,
-                                matrix[i - 1][j] + 1
-                            );
-                        }
-                    }
-                }
-                
-                return matrix[str2.length][str1.length];
-            }
-        };
-        
-        // Get all images for a product
-        function getProductImages(product) {
-            return imageScanner.findImagesForProduct(product.name);
-        }
-
-                
-        // Get first product image (for backward compatibility)
-        function getProductImage(product) {
-            const images = getProductImages(product);
-            return images.length > 0 ? images[0] : null;
-        }
-
-        // Create placeholder HTML
-        function createPlaceholderHTML(product) {
-            const icon = (product && product.category === 'roupas') ? '👕' : '👟';
-            return `
-                <div class="flex flex-col items-center justify-center p-6 text-center h-full">
-                    <div class="text-7xl mb-4 animate-pulse">${icon}</div>
-                    <div class="text-2xl mb-2 font-black text-red-500 uppercase">STREETMOOD</div>
-                    <div class="text-gray-400 text-sm mb-2">Sem foto disponível — em breve.</div>
-                    <div class="text-gray-500 text-xs max-w-xs">Em breve terás acesso<br>à visualização completa deste modelo</div>
-                </div>
-            `;
-        }
-
-        // Format product name - remove codes and format size
-        function formatProductName(product) {
-            let name = product.name;
-            // Remove product codes (like 555088-134, CD4487-100, etc.)
-            name = name.replace(/\s+\d{6,}[-\s]?\d{0,6}/g, '');
-            // Remove codes at the end (like "555088-134")
-            name = name.replace(/\s+\d{6,}-\d{3,}/g, '');
-            // Clean up multiple spaces
-            name = name.replace(/\s+/g, ' ').trim();
-            return name;
-        }
-        
-        // Format size display
-        function formatSize(size) {
-            if (!size) return '';
-            // Convert "36-40" to "tamanhos do 36 ao 40"
-            const match = size.match(/(\d+)-(\d+)/);
-            if (match) {
-                return `tamanhos do ${match[1]} ao ${match[2]}`;
-            }
-            return size;
-        }
-        
-        // Function to try alternative image paths when one fails
-        function tryAlternativeImagePaths(originalPath, productName) {
-            if (!originalPath) return [];
-            
-            const alternatives = [];
-            const basePath = originalPath.replace(/[^\/]*$/, ''); // Get directory
-            const fileName = originalPath.split('/').pop(); // Get filename
-            const nameWithoutExt = fileName.replace(/\.(jpg|jpeg|png)$/i, '');
-            const ext = fileName.match(/\.(jpg|jpeg|png)$/i)?.[1] || 'jpg';
-            
-            // Try different variations
-            alternatives.push(originalPath.toLowerCase());
-            alternatives.push(originalPath.replace(/\s+/g, '%20'));
-            alternatives.push(originalPath.replace(/\s+/g, '_'));
-            alternatives.push(basePath + nameWithoutExt.toLowerCase() + '.' + ext);
-            alternatives.push(basePath + nameWithoutExt.replace(/\s+/g, '_') + '.' + ext);
-            alternatives.push(basePath + nameWithoutExt.replace(/\s+/g, '%20') + '.' + ext);
-            
-            // Try with product name
-            const normalizedProductName = productName
-                .toLowerCase()
-                .replace(/['"]/g, '')
-                .replace(/[()]/g, '')
-                .replace(/\d{2}-\d{2}/g, '')
-                .replace(/\d{6,}[-\s]?\d{0,6}/g, '')
-                .replace(/\s+/g, '_')
-                .trim();
-            
-            if (normalizedProductName) {
-                alternatives.push(`imagens_produtos/${normalizedProductName}_1.jpg`);
-                alternatives.push(`imagens_produtos/${normalizedProductName}_1.jpeg`);
-                alternatives.push(`imagens_produtos/${normalizedProductName}_1.png`);
-                alternatives.push(`imagens_produtos/${normalizedProductName}.jpg`);
-            }
-            
-            return [...new Set(alternatives)]; // Remove duplicates
-        }
-        
-        // Global image error handler - tries alternative paths
-        window.handleImageError = function(imgElement, productName, productId) {
-            const originalSrc = imgElement.getAttribute('data-original-src') || imgElement.src;
-            const alternatives = tryAlternativeImagePaths(originalSrc, productName);
-            let currentIndex = 0;
-            
-            // Show loading placeholder
-            const container = imgElement.closest('.relative');
-            if (container) {
-                const placeholder = container.querySelector('.error-placeholder');
-                if (placeholder) {
-                    placeholder.classList.remove('hidden');
-                    placeholder.querySelector('.text-xs').textContent = 'Tentando carregar imagem...';
-                }
-            }
-            
-            function tryNextAlternative() {
-                if (currentIndex >= alternatives.length) {
-                    // All alternatives failed
-                    if (container) {
-                        const placeholder = container.querySelector('.error-placeholder');
-                        if (placeholder) {
-                            placeholder.querySelector('.text-xs').textContent = 'Imagem não encontrada';
-                        }
-                    }
-                    imgElement.style.display = 'none';
-                    return;
-                }
-                
-                const currentPath = alternatives[currentIndex];
-                const testImg = new Image();
-                
-                testImg.onload = function() {
-                    // Found working path!
-                    imgElement.src = currentPath;
-                    imgElement.style.display = '';
-                    if (container) {
-                        const placeholder = container.querySelector('.error-placeholder');
-                        if (placeholder) {
-                            placeholder.classList.add('hidden');
-                        }
-                    }
-                    // Update cache
-                    if (typeof imagePathResolver !== 'undefined' && imagePathResolver.cache) {
-                        imagePathResolver.cache.set(originalSrc, currentPath);
+                    if (window.products && window.products.length > 0) {
+                        console.log(` Encontrados ${window.products.length} produtos`);
+                        currentProducts = window.products;
+                        hideLoading();
+                        renderProducts();
+                    } else {
+                        console.error(' Nenhum produto encontrado');
+                        showError('Nenhum produto encontrado.');
                     }
                 };
-                
-                testImg.onerror = function() {
-                    currentIndex++;
-                    tryNextAlternative();
+                script.onerror = function(error) {
+                    console.error(' Erro ao carregar script:', error);
+                    showError('Erro ao carregar produtos.');
                 };
-                
-                testImg.src = currentPath;
+                document.head.appendChild(script);
+            } catch (error) {
+                console.error(' Erro ao inicializar:', error);
+                showError('Erro ao inicializar o site.');
             }
-            
-            // Hide original image and try alternatives
-            imgElement.style.display = 'none';
-            tryNextAlternative();
-        };
-        
-        // Render product card with enhanced modern design
-        function renderProductCard(product) {
-            const images = getProductImages(product);
-            const productId = product.id;
-            const formattedName = formatProductName(product);
-            const formattedSize = formatSize(product.size);
-            
-            console.log(`🎨 Renderizando produto: ${product.name} com ${images.length} imagens`);
-            
-            // Check if product has valid images
-            const hasValidImages = images.length > 0;
-            const isBestSeller = product.isBestSeller === true;
-            const isRoupas = product.category === 'roupas';
-            
-            // Create carousel HTML
-            const imageContainerId = `carousel-${productId}`;
-            let imageHTML = '';
-            
-            if (!hasValidImages) {
-                // Show placeholder instead of skipping
-                imageHTML = `
-                    <div class="relative w-full h-full flex items-center justify-center bg-gray-800 rounded-xl" id="${imageContainerId}">
-                        <div class="text-center p-4">
-                            <div class="text-6xl mb-2">${isRoupas ? '👕' : '👟'}</div>
-                            <div class="text-gray-400 text-sm">STREETMOOD</div>
-                            <div class="text-gray-500 text-xs mt-1">Imagem em breve</div>
-                        </div>
-                    </div>
-                `;
-                console.log(`⚠️ Produto sem imagens: ${product.name} - usando placeholder`);
-            } else if (images.length === 1) {
-                // Single image
-                imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
-                                <img src="${images[0]}" 
-                                     alt="${formattedName}" 
-                                     class="product-image w-full h-full object-contain"
-                                     loading="lazy"
-                                     onerror="console.error('❌ Erro ao carregar imagem: ${images[0]}'); this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4K'">
-                            </div>`;
-            } else {
-                // Multiple images - create carousel
-                const imageSlides = images.map((img, index) => 
-                    `<div class="carousel-slide ${index === 0 ? 'active' : 'hidden'} absolute inset-0 flex items-center justify-center" data-slide="${index}">
-                        <img src="${img}" 
-                             alt="${formattedName} ${index + 1}" 
-                             class="product-image w-full h-full object-contain"
-                             loading="lazy"
-                             onerror="console.error('❌ Erro ao carregar imagem: ${img}'); this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik03NSA3NUgxMjVWMTI1SDc1Vjc1WiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4K'">
-                    </div>`
-                ).join('');
-                
-                imageHTML = `<div class="relative w-full h-full" id="${imageContainerId}">
-                                <div class="carousel-container relative w-full h-full overflow-hidden">
-                                    ${imageSlides}
-                                </div>
-                                <button class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-all" onclick="changeSlide('${productId}', -1)">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                                    </svg>
-                                </button>
-                                <button class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-all" onclick="changeSlide('${productId}', 1)">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </button>
-                                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                                    ${images.map((_, index) => 
-                                        `<button class="carousel-dot w-2 h-2 rounded-full ${index === 0 ? 'bg-white' : 'bg-white/60'} transition-all" onclick="goToSlide('${productId}', ${index})"></button>`
-                                    ).join('')}
-                                </div>
-                                <div class="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-semibold">
-                                    ${images.length} fotos
-                                </div>
-                            </div>`;
-            }
-            
-            return `
-                <div class="product-card glass-effect rounded-2xl p-4 cursor-pointer sneaker-card" 
-                     onclick="openModal(${product.id})"
-                     data-aos="fade-up"
-                     data-aos-delay="${Math.min(productId * 50, 500)}"
-                     data-name="${product.name.toLowerCase()}"
-                     data-price="${product.price_eur}"
-                     data-type="${product.tipo}">
-                    ${isBestSeller ? '<div class="drop-badge absolute top-2 left-2 z-10">🔥 Best</div>' : ''}
-                    <div class="relative mb-4 bg-gray-800 rounded-xl overflow-hidden h-48 flex items-center justify-center">
-                        ${imageHTML}
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="font-bold text-sm uppercase leading-tight line-clamp-2">${formattedName}</h3>
-                        ${formattedSize ? `<p class="text-gray-400 text-xs">${formattedSize}</p>` : ''}
-                        <div class="flex justify-between items-center">
-                            <p class="text-red-500 font-black text-lg">${product.price_eur !== null && product.price_eur !== undefined ? product.price_eur + '€' : (product.price || '—')}</p>
-                            ${isRoupas ? '<span class="text-xs text-purple-400">👕</span>' : '<span class="text-xs text-blue-400">👟</span>'}
-                        </div>
-                        <button class="w-full mt-2 btn-primary rounded-lg text-sm font-semibold transition-all hover:shadow-glow">
-                            Ver Detalhes
-                        </button>
-                    </div>
-                </div>
-            `;
         }
 
-        // Render products grid with pagination and progressive loading
+        // Switch tab
+        function switchTab(tab) {
+            console.log(' Mudando para tab:', tab);
+            activeTab = tab;
+            currentPage = 1;
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-red-600');
+                btn.classList.add('bg-gray-700');
+            });
+            
+            event.target.classList.remove('bg-gray-700');
+            event.target.classList.add('bg-red-600');
+            
+            filterProducts();
+        }
+
+        // Filter products
+        function filterProducts() {
+            if (!window.products) return;
+            
+            let filtered = [...window.products];
+            
+            switch(activeTab) {
+                case 'nike':
+                    filtered = filtered.filter(p => p.name.toLowerCase().includes('nike'));
+                    break;
+                case 'adidas':
+                    filtered = filtered.filter(p => p.name.toLowerCase().includes('adidas'));
+                    break;
+                case 'jordan':
+                    filtered = filtered.filter(p => p.name.toLowerCase().includes('jordan'));
+                    break;
+                case 'todos':
+                default:
+                    // Mostrar todos os produtos
+                    break;
+            }
+            
+            currentProducts = filtered;
+            renderProducts();
+        }
+
+        // Render products
         function renderProducts() {
+            console.log('🎨 Renderizando produtos...');
             const grid = document.getElementById('productsGrid');
-            if (currentProducts.length === 0) {
+            const pagination = document.getElementById('pagination');
+            
+            if (!currentProducts || currentProducts.length === 0) {
                 grid.innerHTML = '<div class="col-span-full text-center py-12 text-gray-400">Nenhum produto encontrado.</div>';
-                renderPagination();
+                pagination.innerHTML = '';
                 return;
             }
             
-            // Show loading state for better UX
-            if (!isLoading) {
-                grid.innerHTML = '<div class="col-span-full text-center py-4"><div class="loading-spinner mx-auto"></div></div>';
-            }
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const pageProducts = currentProducts.slice(startIndex, endIndex);
+            const totalPages = Math.ceil(currentProducts.length / productsPerPage);
             
-            // Use setTimeout to prevent blocking UI and simulate progressive loading
-            setTimeout(() => {
-                // Calculate pagination
-                const totalPages = Math.ceil(currentProducts.length / productsPerPage);
-                const startIndex = (currentPage - 1) * productsPerPage;
-                const endIndex = startIndex + productsPerPage;
-                const productsToShow = currentProducts.slice(startIndex, endIndex);
-                
-                // RENDER ALL PRODUCTS - don't filter by images anymore
-                console.log(`📦 Renderizando ${productsToShow.length} produtos (página ${currentPage}/${totalPages})`);
-                
-                // Render all products
-                grid.innerHTML = productsToShow.map(renderProductCard).join('');
-                
-                // Reinitialize AOS for new elements
-                AOS.refresh();
-                
-                // Render pagination
-                renderPagination(totalPages);
-                
-                // Log loading info
-                console.log(`📦 Carregados ${productsToShow.length}/${currentProducts.length} produtos (página ${currentPage}/${totalPages})`);
-            }, 200); // Slightly longer delay for better UX
+            console.log(`📊 Mostrando ${pageProducts.length} de ${currentProducts.length} produtos (página ${currentPage}/${totalPages})`);
+            
+            // Render products
+            grid.innerHTML = pageProducts.map(product => renderProductCard(product)).join('');
+            
+            // Render pagination
+            if (totalPages > 1) {
+                pagination.innerHTML = renderPagination(currentPage, totalPages);
+            } else {
+                pagination.innerHTML = '';
+            }
         }
 
-        // Render pagination buttons
-        function renderPagination(totalPages = 1) {
-            const paginationDiv = document.getElementById('pagination');
-            if (totalPages <= 1) {
-                paginationDiv.innerHTML = '';
-                return;
-            }
+        // Render product card
+        function renderProductCard(product) {
+            const images = imageMapper.getProductImages(product.name);
+            const mainImage = images.length > 0 ? images[0] : 'placeholder.jpg';
+            const price = product.price || product.price_eur || 0;
             
-            let paginationHTML = '';
+            console.log(` Renderizando: ${product.name} - ${images.length} imagens - €${price}`);
+            
+            return `
+                <div class="card-hover bg-street-gray rounded-xl overflow-hidden" data-aos="fade-up">
+                    <div class="relative h-64 bg-gray-800">
+                        <img src="${mainImage}" alt="${product.name}" class="w-full h-full object-cover" onerror="this.src='placeholder.jpg'">
+                        ${product.bestSeller ? '<div class="absolute top-2 right-2 bg-red-600 px-2 py-1 rounded text-xs font-bold">BEST</div>' : ''}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">${product.name}</h3>
+                        <p class="text-gray-400 text-sm mb-2">Tamanhos: ${product.size}</p>
+                        <p class="text-2xl font-bold text-red-500 mb-4">€${price}</p>
+                        <div class="flex gap-2">
+                            <button onclick="buyProduct('${product.name}')" class="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition">
+                                Comprar
+                            </button>
+                            <button onclick="openModal('${product.name}')" class="flex-1 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
+                                Ver Detalhes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render pagination
+        function renderPagination(current, total) {
+            let html = '';
             
             // Previous button
-            if (currentPage > 1) {
-                paginationHTML += `
-                    <button onclick="goToPage(${currentPage - 1})" class="glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                        ← Anterior
-                    </button>
-                `;
+            if (current > 1) {
+                html += `<button onclick="changePage(${current - 1})" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded transition">←</button>`;
             }
             
             // Page numbers
-            const maxVisiblePages = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-            let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-            
-            if (endPage - startPage < maxVisiblePages - 1) {
-                startPage = Math.max(1, endPage - maxVisiblePages + 1);
-            }
-            
-            if (startPage > 1) {
-                paginationHTML += `<button onclick="goToPage(1)" class="glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">1</button>`;
-                if (startPage > 2) {
-                    paginationHTML += `<span class="px-2 text-gray-500">...</span>`;
-                }
-            }
-            
-            for (let i = startPage; i <= endPage; i++) {
-                if (i === currentPage) {
-                    paginationHTML += `
-                        <button class="btn-primary px-4 py-2 rounded-lg font-semibold">
-                            ${i}
-                        </button>
-                    `;
+            for (let i = 1; i <= total; i++) {
+                if (i === current) {
+                    html += `<button class="px-3 py-1 bg-red-600 rounded">${i}</button>`;
                 } else {
-                    paginationHTML += `
-                        <button onclick="goToPage(${i})" class="glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                            ${i}
-                        </button>
-                    `;
+                    html += `<button onclick="changePage(${i})" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded transition">${i}</button>`;
                 }
-            }
-            
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    paginationHTML += `<span class="px-2 text-gray-500">...</span>`;
-                }
-                paginationHTML += `<button onclick="goToPage(${totalPages})" class="glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">${totalPages}</button>`;
             }
             
             // Next button
-            if (currentPage < totalPages) {
-                paginationHTML += `
-                    <button onclick="goToPage(${currentPage + 1})" class="glass-effect px-4 py-2 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                        Próxima →
-                    </button>
-                `;
+            if (current < total) {
+                html += `<button onclick="changePage(${current + 1})" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded transition">→</button>`;
             }
             
-            paginationDiv.innerHTML = paginationHTML;
+            return html;
         }
 
-        // Go to specific page
-        function goToPage(page) {
+        // Change page
+        function changePage(page) {
             currentPage = page;
             renderProducts();
-            // Scroll to top of products grid
-            document.getElementById('productsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.scrollTo({ top: document.getElementById('products').offsetTop - 100, behavior: 'smooth' });
         }
 
-        // Filter products - show loading state
-        function filterProducts() {
-            if (isLoading) return;
-            
-            console.log('🔍 Filtering products for tab:', activeTab);
-            showLoading();
-            
-            // Use setTimeout to prevent blocking UI
-            setTimeout(() => {
-                const search = document.getElementById('searchInput').value.toLowerCase();
-                const sort = document.getElementById('sortSelect').value;
-                const category = document.getElementById('categorySelect').value;
-                
-                let filtered = window.products || [];
-                console.log('📊 Total products:', filtered.length);
-                
-                // Tab filter - filter by tab type
-                if (activeTab === 'mais-vendido') {
-                    // Show only best sellers
-                    filtered = filtered.filter(p => p.isBestSeller === true);
-                    console.log('🔥 Best sellers:', filtered.length);
-                } else if (activeTab === 'sneakers') {
-                    // Show only sneakers (category !== "roupas" or no category field)
-                    filtered = filtered.filter(p => !p.category || p.category !== 'roupas');
-                    console.log('👟 Sneakers:', filtered.length);
-                } else if (activeTab === 'roupas') {
-                    // Show only clothing (category === "roupas")
-                    filtered = filtered.filter(p => p.category === 'roupas');
-                    console.log('👕 Roupas:', filtered.length);
-                } else {
-                    // Show all products for 'all' tab
-                    console.log('📋 All products:', filtered.length);
-                }
-                
-                // Category filter (stock/drop) - applies within the current tab
-                if (category === 'stock') {
-                    filtered = filtered.filter(p => p.tipo === 'stock');
-                } else if (category === 'drop') {
-                    filtered = filtered.filter(p => p.tipo === 'drop');
-                }
-                // If category === 'all', show all products in current tab
-                
-                // Search filter
-                if (search) {
-                    filtered = filtered.filter(p => 
-                        p.name.toLowerCase().includes(search) ||
-                        (p.size && p.size.toLowerCase().includes(search)) ||
-                        (p.tipo && p.tipo.toLowerCase().includes(search)) ||
-                        (p.isUnidentified && 'não identificado'.includes(search))
-                    );
-                }
-                
-                // Sort products
-                filtered.sort((a, b) => {
-                    // Apply selected sorting
-                    if (sort === 'price-asc') {
-                        // Products without price go to end
-                        if (a.price_eur === null || a.price_eur === undefined) return 1;
-                        if (b.price_eur === null || b.price_eur === undefined) return -1;
-                        return (a.price_eur || 0) - (b.price_eur || 0);
-                    } else if (sort === 'price-desc') {
-                        // Products without price go to end
-                        if (a.price_eur === null || a.price_eur === undefined) return 1;
-                        if (b.price_eur === null || b.price_eur === undefined) return -1;
-                        return (b.price_eur || 0) - (a.price_eur || 0);
-                    } else if (sort === 'name') {
-                        return (a.name || '').localeCompare(b.name || '');
-                    } else {
-                        // Mais recentes (por ID, maior ID = mais recente) - default for "all" and "new"
-                        return (b.id || 0) - (a.id || 0);
-                    }
-                });
-                
-                // Don't filter out products without images - let them render
-                // The image error handler and auto-discovery will try to find images
-                // This ensures all products are shown, even if images aren't found yet
-                
-                currentProducts = filtered;
-                currentPage = 1; // Reset to first page when filtering
-                hideLoading();
-                renderProducts();
-            }, 100);
+        // Buy product
+        function buyProduct(productName) {
+            const message = `Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`;
+            window.open(`${INSTAGRAM_URL}?text=${encodeURIComponent(message)}`, '_blank');
         }
-
-        // Switch tab - defined as window function for global access
-        window.switchTab = function(tab) {
-            if (isLoading) return; // Prevent switching during loading
-            
-            console.log('🔄 Switching to tab:', tab);
-            activeTab = tab;
-            
-            // Update button styles
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active', 'text-white');
-                btn.classList.add('text-gray-400');
-            });
-            const activeBtn = document.querySelector(`[data-tab="${tab}"]`);
-            if (activeBtn) {
-                activeBtn.classList.add('active', 'text-white');
-                activeBtn.classList.remove('text-gray-400');
-            }
-            
-            // Filter products with slight delay to ensure UI updates
-            setTimeout(() => {
-                filterProducts();
-            }, 50);
-        };
 
         // Open modal
-        function openModal(productId) {
-            const products = window.products || [];
-            const product = products.find(p => p.id === productId);
+        function openModal(productName) {
+            const product = window.products.find(p => p.name === productName);
             if (!product) return;
             
-            currentProduct = product;
             const modal = document.getElementById('productModal');
-            const images = getProductImages(product);
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
             
-            // Format product name and size for modal
-            const formattedName = formatProductName(product);
-            const formattedSize = formatSize(product.size);
-            const modalTitle = formattedName + (formattedSize ? `, ${formattedSize}` : '');
+            modalTitle.textContent = product.name;
             
-            // Set modal content
-            document.getElementById('modalTitle').textContent = modalTitle;
-            const priceDisplay = product.price_eur !== null && product.price_eur !== undefined 
-                ? `${product.price_eur}€` 
-                : (product.price || '—');
-            document.getElementById('modalPrice').textContent = priceDisplay;
-            document.getElementById('modalTag').textContent = product.isUnidentified ? 'Produto não identificado' : 'Disponível no STREETMOOD';
-            document.getElementById('modalDescription').textContent = product.desc || 
-                `Produto premium importado. Envio grátis. Caixa STREETMOOD incluída. Caixa original disponível (+5€).`;
+            const images = imageMapper.getProductImages(product.name);
+            const imageGallery = images.map(img => `<img src="${img}" alt="${product.name}" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='placeholder.jpg'">`).join('');
             
-            // Todos os produtos estão disponíveis - sem badge de tipo
-            document.getElementById('modalBadge').innerHTML = '';
-            
-            // Set viewer with placeholder if no image
-            const viewer = document.getElementById('modalViewer');
-            viewer.innerHTML = '';
-            
-            // Check if images exist or use placeholder
-            if (images.length > 0) {
-                if (images.length === 1) {
-                    // Single image with retry logic
-                    const img = new Image();
-                    const alternatives = tryAlternativeImagePaths(images[0], formattedName);
-                    let currentIndex = 0;
-                    
-                    function tryNextModalImage() {
-                        if (currentIndex >= alternatives.length) {
-                            // All failed, show placeholder
-                            viewer.innerHTML = createPlaceholderHTML(product);
-                            return;
-                        }
-                        
-                        const currentPath = alternatives[currentIndex];
-                        img.onload = function() {
-                            viewer.innerHTML = `
-                                <img src="${currentPath}" 
-                                     alt="${formattedName}" 
-                                     class="max-w-full max-h-full object-contain rounded-xl"
-                                     onerror="window.handleImageError && window.handleImageError(this, '${formattedName}', ${product.id})">
-                            `;
-                            // Update cache
-                            if (typeof imagePathResolver !== 'undefined' && imagePathResolver.cache) {
-                                imagePathResolver.cache.set(images[0], currentPath);
-                            }
-                        };
-                        img.onerror = function() {
-                            currentIndex++;
-                            tryNextModalImage();
-                        };
-                        img.src = currentPath;
-                    }
-                    
-                    tryNextModalImage();
-                } else {
-                    // Multiple images - create carousel
-                    let carouselHTML = `
-                        <div class="relative w-full h-full">
-                            <div id="imageCarousel" class="relative w-full h-full overflow-hidden rounded-xl">
-                                ${images.map((img, index) => `
-                                    <div class="carousel-slide ${index === 0 ? 'active' : 'hidden'} absolute inset-0 flex items-center justify-center">
-                                        <img src="${img}" 
-                                             alt="${formattedName} - Foto ${index + 1}" 
-                                             class="max-w-full max-h-full object-contain rounded-xl"
-                                             onerror="window.handleImageError && window.handleImageError(this, '${formattedName}', ${product.id})">
-                                    </div>
-                                `).join('')}
-                            </div>
-                            ${images.length > 1 ? `
-                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                                    ${images.map((_, index) => `
-                                        <button onclick="showCarouselImage(${index})" 
-                                                class="carousel-dot ${index === 0 ? 'bg-white' : 'bg-white/60'} w-2 h-2 rounded-full hover:bg-white transition-colors"></button>
-                                    `).join('')}
-                                </div>
-                                ${images.length > 1 ? `
-                                    <button onclick="navigateModalCarousel(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
-                                        ←
-                                    </button>
-                                    <button onclick="navigateModalCarousel(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/60 text-white p-2 rounded-full hover:bg-black/80 transition-colors">
-                                        →
-                                    </button>
-                                ` : ''}
-                            ` : ''}
+            modalContent.innerHTML = `
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        ${imageGallery || '<img src="placeholder.jpg" alt="Placeholder" class="w-full h-64 object-cover rounded-lg">'}
+                    </div>
+                    <div>
+                        <p class="text-gray-400 mb-4">${product.desc || 'Produto premium de alta qualidade.'}</p>
+                        <p class="text-gray-400 mb-2">Tamanhos: ${product.size}</p>
+                        <p class="text-3xl font-bold text-red-500 mb-6">€${product.price || product.price_eur}</p>
+                        <div class="flex gap-2">
+                            <button onclick="buyProduct('${product.name}')" class="flex-1 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition">
+                                Comprar
+                            </button>
+                            <button onclick="reserveProduct('${product.name}')" class="flex-1 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition">
+                                Reservar
+                            </button>
                         </div>
-                    `;
-                    viewer.innerHTML = carouselHTML;
-                }
-            } else {
-                // If no images, close modal (product shouldn't be shown anyway)
-                closeModal();
-                return;
-            }
+                    </div>
+                </div>
+            `;
             
             modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        // Remove Tailwind CDN warning
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            console.warn('⚠️ Consider using Tailwind CLI in production for better performance');
-        }
-        // Carousel control functions
-        function changeSlide(productId, direction) {
-            console.log('changeSlide called with productId:', productId, 'direction:', direction);
-            
-            // Try both carousel ID patterns
-            let carousel = document.getElementById(`carousel-${productId}`);
-            if (!carousel) {
-                carousel = document.getElementById('imageCarousel');
-            }
-            
-            if (!carousel) {
-                console.error('Carousel not found for product:', productId);
-                return;
-            }
-            
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const dots = carousel.querySelectorAll('.carousel-dot');
-            const currentSlide = carousel.querySelector('.carousel-slide.active');
-            
-            if (!currentSlide || slides.length === 0) {
-                console.error('No active slide or slides found');
-                return;
-            }
-            
-            const currentIndex = Array.from(slides).indexOf(currentSlide);
-            console.log('Current index:', currentIndex, 'Total slides:', slides.length);
-            
-            let newIndex = currentIndex + direction;
-            if (newIndex < 0) newIndex = slides.length - 1;
-            if (newIndex >= slides.length) newIndex = 0;
-            
-            console.log('New index:', newIndex);
-            
-            // Update slides
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                slide.classList.add('hidden');
-                if (index === newIndex) {
-                    slide.classList.remove('hidden');
-                    slide.classList.add('active');
-                }
-            });
-            
-            // Update dots
-            dots.forEach((dot, index) => {
-                dot.classList.remove('bg-white');
-                dot.classList.add('bg-white/60');
-                if (index === newIndex) {
-                    dot.classList.remove('bg-white/60');
-                    dot.classList.add('bg-white');
-                }
-            });
-        }
-        
-        function goToSlide(productId, slideIndex) {
-            console.log('goToSlide called with productId:', productId, 'slideIndex:', slideIndex);
-            
-            // Try both carousel ID patterns
-            let carousel = document.getElementById(`carousel-${productId}`);
-            if (!carousel) {
-                carousel = document.getElementById('imageCarousel');
-            }
-            
-            if (!carousel) {
-                console.error('Carousel not found for product:', productId);
-                return;
-            }
-            
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const dots = carousel.querySelectorAll('.carousel-dot');
-            
-            console.log('Found slides:', slides.length, 'Found dots:', dots.length);
-            
-            // Update slides
-            slides.forEach((slide, index) => {
-                slide.classList.remove('active');
-                slide.classList.add('hidden');
-                if (index === slideIndex) {
-                    slide.classList.remove('hidden');
-                    slide.classList.add('active');
-                }
-            });
-            
-            // Update dots
-            dots.forEach((dot, index) => {
-                dot.classList.remove('bg-white');
-                dot.classList.add('bg-white/60');
-                if (index === slideIndex) {
-                    dot.classList.remove('bg-white/60');
-                    dot.classList.add('bg-white');
-                }
-            });
-        }
-        
-        // Modal carousel navigation function
-        function navigateModalCarousel(direction) {
-            const carousel = document.getElementById('imageCarousel');
-            if (!carousel) return;
-            
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const currentSlide = carousel.querySelector('.carousel-slide.active');
-            
-            if (!currentSlide || slides.length === 0) return;
-            
-            const currentIndex = Array.from(slides).indexOf(currentSlide);
-            let newIndex = currentIndex + direction;
-            
-            if (newIndex < 0) newIndex = slides.length - 1;
-            if (newIndex >= slides.length) newIndex = 0;
-            
-            showCarouselImage(newIndex);
-        }
-
-        function showCarouselImage(index) {
-            console.log('showCarouselImage called with index:', index);
-            
-            const carousel = document.getElementById('imageCarousel');
-            if (!carousel) {
-                console.error('imageCarousel not found');
-                return;
-            }
-            
-            const slides = carousel.querySelectorAll('.carousel-slide');
-            const dots = carousel.querySelectorAll('.carousel-dot');
-            
-            console.log('Found slides:', slides.length, 'Found dots:', dots.length);
-            
-            // Update slides
-            slides.forEach((slide, i) => {
-                slide.classList.remove('active');
-                slide.classList.add('hidden');
-                if (i === index) {
-                    slide.classList.remove('hidden');
-                    slide.classList.add('active');
-                }
-            });
-            
-            // Update dots
-            dots.forEach((dot, i) => {
-                dot.classList.remove('bg-white');
-                dot.classList.add('bg-white/60');
-                if (i === index) {
-                    dot.classList.remove('bg-white/60');
-                    dot.classList.add('bg-white');
-                }
-            });
-            
-            window.currentCarouselIndex = index;
         }
 
         // Close modal
         function closeModal() {
-            const modal = document.getElementById('productModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = '';
+            document.getElementById('productModal').classList.add('hidden');
         }
 
-        // Buy product via Instagram DM
-        function buyProduct() {
-            if (!currentProduct) return;
-            
-            const name = currentProduct.name;
-            const size = currentProduct.size || '';
-            const productType = currentProduct.isUnidentified ? 'produto não identificado' : 'produto';
-            const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name}${size ? ' (T:' + size + ')' : ''} ainda está disponível?`);
-            window.open(`https://www.instagram.com/direct/new/`, '_blank');
+        // Reserve product
+        function reserveProduct(productName) {
+            const message = `Olá STREETMOOD 👟 quero reservar o ${productName}. Podes enviar fotos reais antes do envio?`;
+            window.open(`${INSTAGRAM_URL}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        // Reserve product via Instagram DM
-        function reserveProduct() {
-            if (!currentProduct) return;
-            
-            const name = currentProduct.name;
-            const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${name}. Podes enviar fotos reais antes do envio?`);
-            window.open(`https://www.instagram.com/direct/new/`, '_blank');
-        }
-
-        // Open Instagram DM with pre-filled message (header button)
+        // Open WhatsApp
         function openWhatsApp() {
-            const msg = encodeURIComponent(`Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?`);
-            window.open(`https://www.instagram.com/direct/new/`, '_blank');
+            const message = 'Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?';
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        // Close modal on ESC
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        // Products already have images assigned from the products file
-        // No need for image assignment functions
-
-        // Function to auto-discover images for products without images
-        async function autoDiscoverImages() {
-                
-                // Try both carousel ID patterns
-                let carousel = document.getElementById(`carousel-${productId}`);
-                if (!carousel) {
-                    carousel = document.getElementById('imageCarousel');
-                }
-                
-                if (!carousel) {
-                    console.error('Carousel not found for product:', productId);
-                    return;
-                }
-                
-                const slides = carousel.querySelectorAll('.carousel-slide');
-                const dots = carousel.querySelectorAll('.carousel-dot');
-                const currentSlide = carousel.querySelector('.carousel-slide.active');
-                
-                if (!currentSlide || slides.length === 0) {
-                    console.error('No active slide or slides found');
-                    return;
-                }
-                
-                const currentIndex = Array.from(slides).indexOf(currentSlide);
-                console.log('Current index:', currentIndex, 'Total slides:', slides.length);
-                
-                let newIndex = currentIndex + direction;
-                if (newIndex < 0) newIndex = slides.length - 1;
-                if (newIndex >= slides.length) newIndex = 0;
-                
-                console.log('New index:', newIndex);
-                
-                // Update slides
-                slides.forEach((slide, index) => {
-                    slide.classList.remove('active');
-                    slide.classList.add('hidden');
-                    if (index === newIndex) {
-                        slide.classList.remove('hidden');
-                        slide.classList.add('active');
-                    }
-                });
-                
-                // Update dots
-                dots.forEach((dot, index) => {
-                    dot.classList.remove('bg-white');
-                    dot.classList.add('bg-white/60');
-                    if (index === newIndex) {
-                        dot.classList.remove('bg-white/60');
-                        dot.classList.add('bg-white');
-                    }
-                });
-            }
-            
-            function goToSlide(productId, slideIndex) {
-                console.log('goToSlide called with productId:', productId, 'slideIndex:', slideIndex);
-                
-                // Try both carousel ID patterns
-                let carousel = document.getElementById(`carousel-${productId}`);
-                if (!carousel) {
-                    carousel = document.getElementById('imageCarousel');
-                }
-                
-                if (!carousel) {
-                    console.error('Carousel not found for product:', productId);
-                    return;
-                }
-                
-                const slides = carousel.querySelectorAll('.carousel-slide');
-                const dots = carousel.querySelectorAll('.carousel-dot');
-                
-                console.log('Found slides:', slides.length, 'Found dots:', dots.length);
-                
-                // Update slides
-                slides.forEach((slide, index) => {
-                    slide.classList.remove('active');
-                    slide.classList.add('hidden');
-                    if (index === slideIndex) {
-                        slide.classList.remove('hidden');
-                        slide.classList.add('active');
-                    }
-                });
-                
-                // Update dots
-                dots.forEach((dot, index) => {
-                    dot.classList.remove('bg-white');
-                    dot.classList.add('bg-white/60');
-                    if (index === slideIndex) {
-                        dot.classList.remove('bg-white/60');
-                        dot.classList.add('bg-white');
-                    }
-                });
-            }
-            
-            // Modal carousel navigation function
-            function navigateModalCarousel(direction) {
-                const carousel = document.getElementById('imageCarousel');
-                if (!carousel) return;
-                
-                const slides = carousel.querySelectorAll('.carousel-slide');
-                const currentSlide = carousel.querySelector('.carousel-slide.active');
-                
-                if (!currentSlide || slides.length === 0) return;
-                
-                const currentIndex = Array.from(slides).indexOf(currentSlide);
-                let newIndex = currentIndex + direction;
-                
-                if (newIndex < 0) newIndex = slides.length - 1;
-                if (newIndex >= slides.length) newIndex = 0;
-                
-                showCarouselImage(newIndex);
-            }
-
-            function showCarouselImage(index) {
-                console.log('showCarouselImage called with index:', index);
-                
-                const carousel = document.getElementById('imageCarousel');
-                if (!carousel) {
-                    console.error('imageCarousel not found');
-                    return;
-                }
-                
-                const slides = carousel.querySelectorAll('.carousel-slide');
-                const dots = carousel.querySelectorAll('.carousel-dot');
-                
-                console.log('Found slides:', slides.length, 'Found dots:', dots.length);
-                
-                // Update slides
-                slides.forEach((slide, i) => {
-                    slide.classList.remove('active');
-                    slide.classList.add('hidden');
-                    if (i === index) {
-                        slide.classList.remove('hidden');
-                        slide.classList.add('active');
-                    }
-                });
-                
-                // Update dots
-                dots.forEach((dot, i) => {
-                    dot.classList.remove('bg-white');
-                    dot.classList.add('bg-white/60');
-                    if (i === index) {
-                        dot.classList.remove('bg-white/60');
-                        dot.classList.add('bg-white');
-                    }
-                });
-                
-                window.currentCarouselIndex = index;
-            }
-
-            // Close modal
-            function closeModal() {
-                const modal = document.getElementById('productModal');
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-                document.body.style.overflow = '';
-            }
-
-            // Buy product via Instagram DM
-            function buyProduct() {
-                if (!currentProduct) return;
-                
-                const name = currentProduct.name;
-                const size = currentProduct.size || '';
-                const productType = currentProduct.isUnidentified ? 'produto não identificado' : 'produto';
-                const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name}${size ? ' (T:' + size + ')' : ''} ainda está disponível?`);
-                window.open(`https://www.instagram.com/direct/new/`, '_blank');
-            }
-
-            // Reserve product via Instagram DM
-            function reserveProduct() {
-                if (!currentProduct) return;
-                
-                const name = currentProduct.name;
-                const msg = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${name}. Podes enviar fotos reais antes do envio?`);
-                window.open(`https://www.instagram.com/direct/new/`, '_blank');
-            }
-
-            // Open Instagram DM with pre-filled message (header button)
-            function openWhatsApp() {
-                const msg = encodeURIComponent(`Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?`);
-                window.open(`https://www.instagram.com/direct/new/`, '_blank');
-            }
-
-            // Close modal on ESC
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closeModal();
-            });
-
-            // Products already have images assigned from the products file
-            // No need for image assignment functions
-
-            // Enhanced image loading with progressive display
-            function getProductImages(product) {
-                console.log(`🔍 Procurando imagens para: ${product.name}`);
-                
-                // First try to use images assigned directly to the product
-                if (product.images && product.images.length > 0) {
-                    console.log(`✅ Produto tem ${product.images.length} imagens definidas`);
-                    return product.images.map(img => {
-                        // Ensure proper path format
-                        if (!img.startsWith('imagens_produtos/')) {
-                            return `imagens_produtos/${img}`;
-                        }
-                        return img;
-                    });
-                }
-                
-                // FORCE FALLBACK: Try to find ANY image for this product
-                const productName = product.name.toLowerCase();
-                const foundImages = [];
-                
-                console.log(`🔍 Procurando em ${imageScanner.knownImages.length} imagens conhecidas`);
-                
-                // Method 1: Exact name matching
-                for (const knownImage of imageScanner.knownImages) {
-                    const imageName = knownImage.toLowerCase();
-                    
-                    // Check if image name contains product name keywords
-                    if (imageName.includes(productName.split(' ')[0]) || 
-                        imageName.includes(productName.split(' ')[1]) ||
-                        productName.includes(knownImage.split('_')[0].toLowerCase())) {
-                        
-                        foundImages.push(`imagens_produtos/${knownImage}`);
-                        console.log(`✅ Encontrada imagem: ${knownImage}`);
-                    }
-                }
-                
-                // Method 2: Brand matching
-                if (foundImages.length === 0) {
-                    const brands = ['nike', 'adidas', 'jordan', 'puma', 'reebok', 'new balance', 'converse', 'vans', 'yeezy'];
-                    for (const brand of brands) {
-                        if (productName.includes(brand)) {
-                            // Find any image with this brand
-                            const brandImages = imageScanner.knownImages.filter(img => 
-                                img.toLowerCase().includes(brand)
-                            );
-                            if (brandImages.length > 0) {
-                                foundImages.push(`imagens_produtos/${brandImages[0]}`);
-                                console.log(`✅ Encontrada imagem por marca: ${brandImages[0]}`);
-                                break;
-                            }
-                        }
-                    }
-                }
-                
-                // Method 3: Any image fallback
-                if (foundImages.length === 0) {
-                    // Just use the first available image
-                    if (imageScanner.knownImages.length > 0) {
-                        foundImages.push(`imagens_produtos/${imageScanner.knownImages[0]}`);
-                        console.log(`✅ Usando primeira imagem disponível: ${imageScanner.knownImages[0]}`);
-                    }
-                }
-                
-                console.log(`📊 Total de imagens encontradas: ${foundImages.length}`);
-                return foundImages.slice(0, 3); // Limit to 3 images per product
-            }
-
-            // Function to auto-discover images for products without images
-            async function autoDiscoverImages() {
-                if (!window.products || window.products.length === 0) return;
-                
-                console.log('🔍 Procurando imagens para produtos sem imagens definidas...');
-                let foundCount = 0;
-                
-                for (const product of window.products) {
-                    // Skip if product already has images
-                    if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-                        continue;
-                    }
-                    if (product.image) {
-                        continue;
-                    }
-                    
-                    // Try to find images by exact name matching
-                    const productName = product.name.toLowerCase()
-                        .replace(/['"]/g, '')
-                        .replace(/[()]/g, '')
-                        .replace(/\s+/g, '_')
-                        .replace(/[^\w\s-]/g, '')
-                        .replace(/_\d+\.(jpg|jpeg|png)$/i, '') // Remove _1, _2, etc
-                        .trim();
-                    
-                    // Look for images that match the product name
-                    const matchingImages = [];
-                    for (const knownImage of imageScanner.knownImages) {
-                        const imagePath = knownImage.toLowerCase();
-                        if (imagePath.includes(productName) || productName.includes(imagePath)) {
-                            matchingImages.push('imagens_produtos/' + knownImage);
-                        }
-                    }
-                
-                // Remove duplicates and sort
-                const uniqueImages = [...new Set(matchingImages)];
-                
-                if (uniqueImages.length > 0) {
-                    // Test if first image exists
-                    const testImg = new Image();
-                    await new Promise((resolve) => {
-                        testImg.onload = function() {
-                            // Image exists! Assign all matching images
-                            product.images = uniqueImages;
-                            product.image = uniqueImages[0];
-                            foundCount++;
-                            console.log(`✅ Encontradas ${uniqueImages.length} imagens para: ${product.name}`);
-                            resolve();
-                        };
-                        testImg.onerror = function() {
-                            resolve();
-                        };
-                        testImg.src = uniqueImages[0];
-                    });
-                }
-            }
-            
-            if (foundCount > 0) {
-                console.log(`✅ Total de ${foundCount} produtos com imagens encontradas automaticamente`);
-                // Re-render products to show newly found images
-                filterProducts();
-            }
+        // Open Instagram
+        function openInstagram() {
+            const message = 'Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?';
+            window.open(`${INSTAGRAM_URL}?text=${encodeURIComponent(message)}`, '_blank');
         }
-        
-        // Loading state management
-        let isLoading = false;
-        
+
+        // Show loading
         function showLoading() {
             isLoading = true;
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = `
-                <div class="col-span-full text-center py-12">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-red-500"></div>
-                    <p class="text-gray-400 mt-4">Carregando produtos...</p>
-                </div>
-            `;
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('loadingState').classList.add('flex');
         }
-        
+
+        // Hide loading
         function hideLoading() {
             isLoading = false;
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('flex');
         }
 
-        // Enhanced error handling
+        // Show error
         function showError(message) {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = `
+            hideLoading();
+            document.getElementById('productsGrid').innerHTML = `
                 <div class="col-span-full text-center py-12">
-                    <div class="text-red-500 text-xl mb-4">⚠️ ${message}</div>
-                    <button onclick="location.reload()" class="btn-primary px-6 py-2 rounded-lg">
-                        Recarregar Página
-                    </button>
+                    <div class="text-red-500 text-xl mb-4">❌ Erro</div>
+                    <div class="text-gray-400">${message}</div>
                 </div>
             `;
         }
-        
-        // Initialize
-        async function init() {
-            showLoading();
-            
-            // Load products script first
-            const script = document.createElement('script');
-            script.src = 'streetmood_products.js';
-            script.onload = async function() {
-                // Wait a bit to ensure products are loaded
-                if (!window.products || window.products.length === 0) {
-                    console.warn('⚠️ Aguardando carregamento de produtos...');
-                    let attempts = 0;
-                    while ((!window.products || window.products.length === 0) && attempts < 50) {
-                        await new Promise(resolve => setTimeout(resolve, 100));
-                        attempts++;
-                    }
-                }
 
-                if (window.products && window.products.length > 0) {
-                    console.log('✅ Produtos carregados:', window.products.length);
-                    
-                    // Remove duplicates - keep only first occurrence of each product name
-                    const seenNames = new Set();
-                    const uniqueProducts = [];
-                    for (const product of window.products) {
-                        const normalizedName = product.name.toLowerCase().trim();
-                        if (!seenNames.has(normalizedName)) {
-                            seenNames.add(normalizedName);
-                            uniqueProducts.push(product);
-                        }
-                    }
-                    
-                    // Don't limit products - show all products to ensure all images appear
-                    window.products = uniqueProducts;
-                    
-                    const sneakers = window.products.filter(p => !p.category || p.category !== 'roupas');
-                    const roupas = window.products.filter(p => p.category === 'roupas');
-                    console.log(`✅ ${window.products.length} produtos únicos (${sneakers.length} sneakers, ${roupas.length} roupas)`);
-                    
-                    // Don't filter out products without images - let them render and try to find images
-                    // The auto-discovery will find images for products that don't have them
-                    
-                    // Sort products: by ID (most recent first)
-                    window.products.sort((a, b) => {
-                        return (b.id || 0) - (a.id || 0);
-                    });
-                    
-                    currentProducts = window.products;
-                    currentPage = 1;
-                    hideLoading();
-                    renderProducts();
-                    
-                    // Try to auto-discover images for products without images (in background)
-                    setTimeout(() => {
-                        autoDiscoverImages();
-                    }, 1000);
-                } else {
-                    console.error('❌ Erro ao carregar produtos. Verifique se streetmood_products.js tem sintaxe correta.');
-                    hideLoading();
-                    showError('Erro ao carregar produtos. Por favor, verifique o console para mais detalhes.');
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-            };
-            
-            script.onerror = function() {
-                console.error('❌ Erro ao carregar streetmood_products.js');
-                hideLoading();
-                showError('Erro ao carregar produtos. Arquivo não encontrado.');
-            };
-            
-            document.head.appendChild(script);
-        }
+            });
+        });
 
-        // Start initialization
-        document.addEventListener('DOMContentLoaded', init);
+        // Close modal on escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Close modal on background click
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>

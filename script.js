@@ -46,10 +46,10 @@ class ProductScanner {
         if (gridEl) gridEl.style.display = 'grid';
     }
 
-    // Scan products from image folder
-    async scanProducts() {
-        // Complete list of all 594 images from imagens_produtos/ folder
-        const knownImages = [
+    // Load all images from imagens_produtos folder
+    async loadAllImages() {
+        // Complete list of all 594 images from the folder
+        return [
             'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg',
             'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_2.jpg',
             'AIR JORDANS 1 LOW "Mystic Green"553558-113_1.jpg',
@@ -97,8 +97,8 @@ class ProductScanner {
             'Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_2.jpg',
             'Air Jordans 1 Mid SE 852542-400_1.jpg',
             'Air Jordans 1 Mid SE 852542-400_2.jpg',
-            'Air Jordans 1 Mid 'Candy' 554725-083_1.jpg',
-            'Air Jordans 1 Mid 'Candy' 554725-083_2.jpg',
+            'Air Jordans 1 Mid "Candy" 554725-083_1.jpg',
+            'Air Jordans 1 Mid "Candy" 554725-083_2.jpg',
             'Air Jordans 1 Mid "Black Cone" 554724-062_1.jpg',
             'Air Jordans 1 Mid "Black Cone" 554724-062_2.jpg',
             'Air Jordans 1 Mid "Chicago Black Toe" 554724-069_1.jpg',
@@ -111,36 +111,36 @@ class ProductScanner {
             'Air Jordans 1 Mid SE 852542-400_2.jpg',
             'Air Jordans 1 Retro High CN8607-002_1.jpg',
             'Air Jordans 1 Retro High CN8607-002_2.jpg',
-            'Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_1.jpg',
-            'Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_2.jpg',
+            'Air Jordans 1 Retro High Co.JP "Midnight Navy" DC1788-100_1.jpg',
+            'Air Jordans 1 Retro High Co.JP "Midnight Navy" DC1788-100_2.jpg',
             'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_1.jpg',
             'Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_2.jpg',
-            'Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg',
-            'Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg',
-            'Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg',
-            'Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg',
-            'Air Jordans 3 'Lazer Orange' CK9246-108_1.jpg',
-            'Air Jordans 3 'Lazer Orange' CK9246-108_2.jpg',
+            'Air Jordans 11 Retro "Gamma Blue" 378038-006_1.jpg',
+            'Air Jordans 11 Retro "Gamma Blue" 378038-006_2.jpg',
+            'Air Jordans 3 Retro "Red Cement" CT8532-104_1.jpg',
+            'Air Jordans 3 Retro "Red Cement" CT8532-104_2.jpg',
+            'Air Jordans 3 "Lazer Orange" CK9246-108_1.jpg',
+            'Air Jordans 3 "Lazer Orange" CK9246-108_2.jpg',
             'Air Jordans 4 Bred 408452-060_1.jpg',
             'Air Jordans 4 Bred 408452-060_2.jpg',
-            'Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_1.jpg',
-            'Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_2.jpg',
-            'Air Jordans 4 Retro 'University Blue' CT8527-400_1.jpg',
-            'Air Jordans 4 Retro 'University Blue' CT8527-400_2.jpg',
+            'Air Jordans 4 Retro SP "Union – Guava Ice" DC9533-009_1.jpg',
+            'Air Jordans 4 Retro SP "Union – Guava Ice" DC9533-009_2.jpg',
+            'Air Jordans 4 Retro "University Blue" CT8527-400_1.jpg',
+            'Air Jordans 4 Retro "University Blue" CT8527-400_2.jpg',
             'Air Jordans 4 Retro "White Oreo" CT8527-100_1.jpg',
             'Air Jordans 4 Retro "White Oreo" CT8527-100_2.jpg',
             'Air Jordans 4 Retro_1 (2).jpg',
             'Air Jordans 4 Retro_1.jpg',
-            'Air Jordans 4 'Black Cat' CU1110-010_1.jpg',
-            'Air Jordans 4 'Black Cat' CU1110-010_2.jpg',
-            'Air Jordans 4 'Fire Red' DC7770-160_1.jpg',
-            'Air Jordans 4 'Fire Red' DC7770-160_2.jpg',
-            'Air Jordans 4 'Off Noir' DC9533-001_1.jpg',
-            'Air Jordans 4 'Off Noir' DC9533-001_2.jpg',
-            'Air Jordans 4 'PSG' CZ6509-100_1.jpg',
-            'Air Jordans 4 'PSG' CZ6509-100_2.jpg',
-            'Air Jordans 4 'Pure Money' 308497-100_1.jpg',
-            'Air Jordans 4 'Pure Money' 308497-100_2.jpg',
+            'Air Jordans 4 "Black Cat" CU1110-010_1.jpg',
+            'Air Jordans 4 "Black Cat" CU1110-010_2.jpg',
+            'Air Jordans 4 "Fire Red" DC7770-160_1.jpg',
+            'Air Jordans 4 "Fire Red" DC7770-160_2.jpg',
+            'Air Jordans 4 "Off Noir" DC9533-001_1.jpg',
+            'Air Jordans 4 "Off Noir" DC9533-001_2.jpg',
+            'Air Jordans 4 "PSG" CZ6509-100_1.jpg',
+            'Air Jordans 4 "PSG" CZ6509-100_2.jpg',
+            'Air Jordans 4 "Pure Money" 308497-100_1.jpg',
+            'Air Jordans 4 "Pure Money" 308497-100_2.jpg',
             'Air Max 270 V2_5.jpg',
             'Air Max 720 Branco rosa azul_5.jpg',
             'Air Max 720 Branco_5.jpg',
@@ -163,7 +163,7 @@ class ProductScanner {
         ];
 
         // Group images by product name
-        const productGroups = this.groupImagesByProduct(knownImages);
+        const productGroups = this.groupImagesByProduct(allImages);
         
         // Convert to product objects
         this.products = Object.entries(productGroups).map(([name, images]) => {

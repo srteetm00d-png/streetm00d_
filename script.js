@@ -8,10 +8,25 @@ class ProductScanner {
         this.imageFolder = 'imagens_produtos/';
         this.supportedFormats = ['.jpg', '.jpeg', '.png', '.webp'];
         this.manualPrices = {
+            'adidas adizero sl': 70,
+            'adidas ae1': 80,
+            'adidas dexun': 80,
+            'adidas forum 84': 80,
+            'adidas originals samba': 95,
+            'air jordan 312': 110,
+            'air jordan 4 retro': 130,
+            'air jordans 1': 90,
+            'air jordans 11 retro': 90,
+            'air jordans 3 retro': 90,
+            'air jordans 4': 90,
+            'air jordans 4 retro sp': 120,
+            'air max 270': 90,
+            'air max 720': 90,
+            'amiri ma-1': 90,
+            'bola puma lamelo mb.02': 70,
             'casaco mulher colete polo ralph lauren branco': 60,
             'casaco mulher polo ralph lauren preto': 60,
-            'casaco polo ralph lauren azul': 70,
-            'casaco polo ralph lauren branco': 75
+            'casaco polo ralph lauren azul': 70
         };
     }
 
@@ -217,14 +232,8 @@ class ProductScanner {
             }
         }
         
-        // Default pricing based on brand/type
-        if (cleanName.includes('jordan') || cleanName.includes('air jordan')) {
-            return Math.floor(Math.random() * 50) + 120; // 120-170€
-        } else if (cleanName.includes('nike')) {
-            return Math.floor(Math.random() * 40) + 80; // 80-120€
-        } else if (cleanName.includes('adidas')) {
-            return Math.floor(Math.random() * 30) + 70; // 70-100€
-        } else if (cleanName.includes('dior') || cleanName.includes('gucci') || cleanName.includes('louis vuitton')) {
+        // Default pricing for products not in manual list
+        if (cleanName.includes('dior') || cleanName.includes('gucci') || cleanName.includes('louis vuitton')) {
             return Math.floor(Math.random() * 100) + 200; // 200-300€
         } else if (cleanName.includes('casaco') || cleanName.includes('colete')) {
             return Math.floor(Math.random() * 30) + 60; // 60-90€

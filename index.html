@@ -1,121 +1,44 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STREETMOOD - Premium Sneakers & Streetwear</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>STREETMOOD</title>
+
+  <!-- Typography: closer to fashion/editorial -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css"/>
 </head>
+
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>STREETMOOD</h1>
-                    <span class="tagline">Premium Sneakers & Streetwear</span>
-                </div>
-                <nav class="nav">
-                    <button class="nav-btn" onclick="scrollToProducts()">
-                        <span>Catálogo</span>
-                    </button>
-                    <button class="nav-btn contact-btn" onclick="openInstagram()">
-                        <span>Instagram DM</span>
-                    </button>
-                </nav>
-            </div>
-        </header>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h2 class="hero-title">Coleção Exclusiva</h2>
-                    <p class="hero-subtitle">Sneakers premium e streetwear das melhores marcas</p>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number" id="productCount">0</span>
-                            <span class="stat-label">Produtos</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">Premium</span>
-                            <span class="stat-label">Qualidade</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<header class="header">
+  <div class="brand">STREETMOOD</div>
+</header>
 
-        <!-- Products Section -->
-        <main class="products-section" id="products">
-            <div class="section-header">
-                <h2 class="section-title">Todos os Produtos</h2>
-                <p class="section-subtitle">Explore nossa coleção completa</p>
-            </div>
-            
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be dynamically loaded here -->
-            </div>
+<main class="container">
+  <section id="product-grid" class="product-grid"></section>
+</main>
 
-            <!-- Loading State -->
-            <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
-                <p>A carregar produtos...</p>
-            </div>
+<!-- MODAL -->
+<div id="modal" class="modal hidden">
+  <div class="modal-backdrop"></div>
 
-            <!-- Empty State -->
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <div class="empty-icon">📦</div>
-                <h3>Nenhum produto encontrado</h3>
-                <p>Verifique se a pasta imagens_produtos/ contém imagens.</p>
-            </div>
-        </main>
+  <div class="modal-panel">
+    <div class="modal-images" id="modal-images"></div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <h3>STREETMOOD</h3>
-                    <p>Premium sneakers e streetwear</p>
-                </div>
-                <div class="footer-contact">
-                    <button class="contact-button" onclick="openInstagram()">
-                        <span>📱 Contactar via Instagram</span>
-                    </button>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 STREETMOOD. Todos os direitos reservados.</p>
-            </div>
-        </footer>
+    <div class="modal-info">
+      <div class="modal-price">€150</div>
+      <h2 id="modal-name"></h2>
+
+      <button class="btn-primary">Purchase</button>
     </div>
+  </div>
+</div>
 
-    <!-- Product Modal -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalProductName"></h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img id="modalProductImage" src="" alt="">
-                <div class="modal-info">
-                    <div class="price" id="modalProductPrice"></div>
-                    <p id="modalProductDescription"></p>
-                    <div class="modal-actions">
-                        <button class="btn-primary" onclick="buyProduct()">Comprar</button>
-                        <button class="btn-secondary" onclick="reserveProduct()">Reservar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

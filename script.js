@@ -30,7 +30,10 @@ function track(event, data = {}) {
   if (window.gtag) {
     gtag("event", event, data);
   }
-  console.log("Track:", event, data);
+  // Production-ready logging
+  if (location.hostname === "localhost") {
+    console.log("Track:", event, data);
+  }
 }
 
 // 🎯 Drop-specific loading
@@ -91,9 +94,16 @@ function createCard(key, data) {
     <div class="product-info">
       <div class="product-price">${data.currency} ${data.price}</div>
       <div class="product-name">${data.name}</div>
-      <button class="btn-primary" onclick="addToCart(${JSON.stringify(data).replace(/"/g, '&quot;')})">Add to cart</button>
+      <button class="btn-primary">Add to cart</button>
     </div>
   `;
+
+  // Safe event handling (no inline JS)
+  const btn = card.querySelector(".btn-primary");
+  btn.addEventListener("click", e => {
+    e.stopPropagation();
+    addToCart(data);
+  });
 
   // Track product view
   card.addEventListener('click', function(e) {
@@ -104,6 +114,9 @@ function createCard(key, data) {
   });
   
   grid.appendChild(card);
+  
+  // Observe immediately for scroll animations
+  observer.observe(card);
 }
 
 const modal = document.getElementById("modal");
@@ -181,7 +194,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// 🧬 Scroll-driven animations
+// 🧬 Scroll-driven animations (fixed race condition)
 const observer = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
@@ -192,13 +205,6 @@ const observer = new IntersectionObserver(
   },
   { threshold: 0.2 }
 );
-
-// Observe all product cards when DOM is loaded
-setTimeout(() => {
-  document.querySelectorAll(".product-card").forEach(card =>
-    observer.observe(card)
-  );
-}, 100);
 
 function formatName(name) {
   return name.replace(/[-_]/g, " ");

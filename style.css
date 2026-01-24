@@ -165,16 +165,36 @@ body {
 
 @media (prefers-reduced-motion: no-preference) {
   .product-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
   }
 
   .product-image {
     transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    backdrop-filter: blur(6px);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.04),
+      0 18px 40px rgba(0,0,0,0.45);
   }
 
   .product-card:hover .product-image {
     transform: scale(1.04);
   }
+}
+
+/* ===============================
+   ACCESSIBILITY — VISUALLY HIDDEN
+================================ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ===============================

@@ -1,11 +1,14 @@
+const CACHE = "streetmood-v1";
+
 self.addEventListener("install", e => {
   e.waitUntil(
-    caches.open("streetmood-v1").then(cache =>
+    caches.open(CACHE).then(cache =>
       cache.addAll([
-        "/streetm00d_/",
-        "/streetm00d_/style.css",
-        "/streetm00d_/script.js",
-        "/streetm00d_/products.json"
+        "./",
+        "./index.html",
+        "./style.css",
+        "./script.js",
+        "./products.json"
       ])
     )
   );

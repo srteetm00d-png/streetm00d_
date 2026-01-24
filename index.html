@@ -7,8 +7,6 @@
   <meta name="description" content="STREETMOOD is a curated streetwear platform featuring minimalist, editorial and exclusive fashion pieces.">
   <meta name="theme-color" content="#0a0a0a">
   
-  <!-- SEO Meta Tags -->
-  <meta name="keywords" content="streetwear, curated fashion, minimalist, exclusive, sneakers, luxury">
   <meta name="author" content="STREETMOOD">
   
   <!-- Open Graph Tags -->
@@ -16,7 +14,7 @@
   <meta property="og:description" content="Curated streetwear. Minimal. Editorial. Exclusive.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://srteetm00d-png.github.io/streetm00d_/">
-  <meta property="og:image" content="https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/Air Jordans 1 CD4487-100_1.jpg">
+  <meta property="og:image" content="https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/air-jordans-1-cd4487-100-1.jpg">
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://srteetm00d-png.github.io/streetm00d_/">
@@ -43,7 +41,9 @@
 <body>
 
 <header class="header">
-  <h1 class="brand">STREETMOOD</h1>
+  <nav aria-label="Main navigation">
+    <h1 class="brand">STREETMOOD</h1>
+  </nav>
 </header>
 
 <main class="container">
@@ -51,7 +51,7 @@
 </main>
 
 <!-- MODAL -->
-<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-name" aria-describedby="modal-desc">
   <div class="modal-backdrop"></div>
 
   <div class="modal-panel">
@@ -66,6 +66,8 @@
       <a class="btn-primary" href="https://buy.stripe.com/test_XXXXXXXX" target="_blank" rel="noopener">Buy Now</a>
     </div>
   </div>
+  
+  <p id="modal-desc" class="visually-hidden">Product details and purchase options</p>
 </div>
 
 <script src="./script.js"></script>

@@ -6,52 +6,40 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadProducts() {
-  fetch(imageFolder)
-    .then(res => res.text())
-    .then(html => {
-      const temp = document.createElement("div");
-      temp.innerHTML = html;
-
-      const files = [...temp.querySelectorAll("a")]
-        .map(a => a.getAttribute("href"))
-        .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f));
-
-      const products = {};
-
-      files.forEach(file => {
-        const base = file
-          .replace(/_\d+\.(jpg|jpeg|png|webp)$/i, "")
-          .replace(/\.(jpg|jpeg|png|webp)$/i, "");
-
-        if (!products[base]) products[base] = [];
-        products[base].push(file);
-      });
-
-      Object.entries(products).forEach(([name, images]) => {
-        createCard(name, images);
+  fetch("./products.json")
+    .then(res => res.json())
+    .then(products => {
+      Object.entries(products).forEach(([name, data]) => {
+        createCard(name, data);
       });
     })
-    .catch(error => {
-      console.error('Error loading products:', error);
+    .catch(err => {
+      console.error("Products load error:", err);
       // Fallback: show empty state
       grid.innerHTML = '<div style="text-align: center; color: #666; padding: 60px;">No products available</div>';
     });
 }
 
-function createCard(name, images) {
+function createCard(name, data) {
   const card = document.createElement("div");
   card.className = "product-card";
 
   card.innerHTML = `
-    <img class="product-image" loading="lazy" src="${imageFolder + images[0]}" alt="${formatName(name)}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDIwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzMzMzMzMyIvPgo8cGF0aCBkPSJNNjAgMTQwSDE0MFYxNjBINjBWMTQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4='">
+    <img
+      class="product-image"
+      loading="lazy"
+      src="${imageFolder + data.images[0]}"
+      alt="Product image of ${formatName(name)}"
+      onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDIwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzMzMzMzMyIvPgo8cGF0aCBkPSJNNjAgMTQwSDE0MFYxNjBINjBWMTQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4='"
+    >
     <div class="product-info">
-      <div class="product-price">€150</div>
+      <div class="product-price">${data.price}</div>
       <div class="product-name">${formatName(name)}</div>
       <button class="btn-primary">View</button>
     </div>
   `;
 
-  card.querySelector(".btn-primary").onclick = () => openModal(name, images);
+  card.querySelector(".btn-primary").onclick = () => openModal(name, data);
   grid.appendChild(card);
 }
 
@@ -59,13 +47,13 @@ const modal = document.getElementById("modal");
 const modalImages = document.getElementById("modal-images");
 const modalName = document.getElementById("modal-name");
 
-function openModal(name, images) {
+function openModal(name, data) {
   modalImages.innerHTML = "";
 
-  images.forEach(img => {
+  data.images.forEach(img => {
     const i = document.createElement("img");
     i.src = imageFolder + img;
-    i.alt = formatName(name);
+    i.alt = `Detail image of ${formatName(name)}`;
     i.loading = "lazy";
     modalImages.appendChild(i);
   });

@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>STREETMOOD — Curated Streetwear</title>
-  <meta name="description" content="STREETMOOD is a curated streetwear platform featuring minimalist, editorial and exclusive fashion pieces.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DROP 01 — STREETMOOD</title>
+
+  <meta name="description" content="DROP 01 — Limited streetwear pieces curated by STREETMOOD. Once it's gone, it's gone.">
   <meta name="theme-color" content="#0a0a0a">
-  
+  <link rel="canonical" href="https://srteetm00d-png.github.io/streetm00d_/drop-01/">
+
   <!-- SEO Meta Tags -->
-  <meta name="keywords" content="streetwear, curated fashion, minimalist, exclusive, sneakers, luxury">
+  <meta name="keywords" content="drop, limited release, streetwear, exclusive, sneakers">
   <meta name="author" content="STREETMOOD">
   
   <!-- Open Graph Tags -->
-  <meta property="og:title" content="STREETMOOD — Curated Streetwear">
-  <meta property="og:description" content="Curated streetwear. Minimal. Editorial. Exclusive.">
+  <meta property="og:title" content="DROP 01 — STREETMOOD">
+  <meta property="og:description" content="Limited streetwear pieces curated by STREETMOOD. Once it's gone, it's gone.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://srteetm00d-png.github.io/streetm00d_/">
+  <meta property="og:url" content="https://srteetm00d-png.github.io/streetm00d_/drop-01/">
   <meta property="og:image" content="https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/Air Jordans 1 CD4487-100_1.jpg">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://srteetm00d-png.github.io/streetm00d_/">
-
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="manifest.json">
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
@@ -37,16 +33,20 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap"></noscript>
 
-  <link rel="stylesheet" href="./style.css"/>
+  <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
 
 <header class="header">
-  <h1 class="brand">STREETMOOD</h1>
+  <h1 class="brand">DROP 01</h1>
 </header>
 
 <main class="container">
+  <section class="drop-intro">
+    <p>Limited release. No restocks.</p>
+  </section>
+
   <section id="product-grid" class="product-grid"></section>
 </main>
 
@@ -68,12 +68,11 @@
   </div>
 </div>
 
-<script src="./script.js"></script>
+<script src="../script.js"></script>
 <script>
-  // Register Service Worker for PWA
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js");
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    loadDrop("drop01");
+  });
 </script>
 
 </body>

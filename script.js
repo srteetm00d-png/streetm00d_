@@ -33,7 +33,27 @@ function track(event, data = {}) {
   console.log("Track:", event, data);
 }
 
+// 🎯 Drop-specific loading
+function loadDrop(tag) {
+  fetch("./products.json")
+    .then(res => res.json())
+    .then(products => {
+      Object.entries(products)
+        .filter(([key, data]) => data.tags && data.tags.includes(tag))
+        .forEach(([key, data]) => createCard(key, data));
+    })
+    .catch(err => {
+      console.error("Drop load error:", err);
+      grid.innerHTML = '<div style="text-align: center; color: #666; padding: 60px;">No products available for this drop</div>';
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if we're on a drop page
+  if (window.location.pathname.includes('/drop-')) {
+    // Let the drop page handle loading
+    return;
+  }
   loadProducts();
 });
 
@@ -160,6 +180,25 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
+
+// 🧬 Scroll-driven animations
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+      }
+    });
+  },
+  { threshold: 0.2 }
+);
+
+// Observe all product cards when DOM is loaded
+setTimeout(() => {
+  document.querySelectorAll(".product-card").forEach(card =>
+    observer.observe(card)
+  );
+}, 100);
 
 function formatName(name) {
   return name.replace(/[-_]/g, " ");

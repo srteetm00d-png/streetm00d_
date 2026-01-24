@@ -108,19 +108,62 @@ body {
 }
 
 /* ===============================
-   PREMIUM MOTION — GPU ACCELERATED
+   PREMIUM TYPOGRAPHY — STREET + EDITORIAL
+================================ */
+
+.brand {
+  font-family: "Space Grotesk", Inter, system-ui;
+  letter-spacing: 0.38em;
+  font-weight: 600;
+}
+
+.product-name {
+  font-family: "Space Grotesk", Inter;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ===============================
+   DROP PAGE STYLING
+================================ */
+
+.drop-intro {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.drop-intro p {
+  font-family: "Space Grotesk", Inter;
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ===============================
+   SCROLL-DRIVEN ANIMATIONS
+================================ */
+
+.product-card {
+  opacity: 0;
+  transform: translateY(32px);
+}
+
+.product-card.in-view {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity .6s ease,
+    transform .6s cubic-bezier(.2,.8,.2,1);
+}
+
+/* ===============================
+   PREMIUM MOTION — GPU ACCELERATED + SCROLL
 ================================ */
 
 @media (prefers-reduced-motion: no-preference) {
-  .product-card {
-    opacity: 0;
-    transform: translateY(24px);
-    animation: cardIn .6s ease forwards;
-    transition:
-      transform .35s cubic-bezier(.2,.8,.2,1),
-      box-shadow .35s cubic-bezier(.2,.8,.2,1);
-  }
-
   .product-card:hover {
     transform: translateY(-6px);
   }
@@ -131,13 +174,6 @@ body {
 
   .product-card:hover .product-image {
     transform: scale(1.04);
-  }
-}
-
-@keyframes cardIn {
-  to {
-    opacity: 1;
-    transform: none;
   }
 }
 
@@ -154,8 +190,12 @@ body {
   color: #000;
   font-weight: 600;
   font-size: 13.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.45),
     0 10px 22px rgba(0,0,0,0.55);

@@ -39,7 +39,12 @@ function track(event, data = {}) {
 // 🎯 Drop-specific loading
 function loadDrop(tag) {
   fetch("./products.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status} loading products.json`);
+      }
+      return res.json();
+    })
     .then(products => {
       Object.entries(products)
         .filter(([key, data]) => data.tags && data.tags.includes(tag))
@@ -47,7 +52,12 @@ function loadDrop(tag) {
     })
     .catch(err => {
       console.error("Drop load error:", err);
-      grid.innerHTML = '<div style="text-align: center; color: #666; padding: 60px;">No products available for this drop</div>';
+      grid.innerHTML = `
+        <div style="text-align:center;padding:60px;color:#777">
+          Drop products unavailable.<br>
+          Check products.json path and encoding.
+        </div>
+      `;
     });
 }
 
@@ -62,7 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadProducts() {
   fetch("./products.json")
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status} loading products.json`);
+      }
+      return res.json();
+    })
     .then(products => {
       Object.entries(products).forEach(([key, data]) => {
         createCard(key, data);
@@ -70,8 +85,12 @@ function loadProducts() {
     })
     .catch(err => {
       console.error("Products load error:", err);
-      // Fallback: show empty state
-      grid.innerHTML = '<div style="text-align: center; color: #666; padding: 60px;">No products available</div>';
+      grid.innerHTML = `
+        <div style="text-align:center;padding:60px;color:#777">
+          Products unavailable.<br>
+          Check products.json path and encoding.
+        </div>
+      `;
     });
 }
 

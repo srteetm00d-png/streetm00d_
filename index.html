@@ -3,24 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>STREETMOOD - Premium Sneaker Collection</title>
-  <meta name="description" content="Discover exclusive premium sneakers at STREETMOOD. Curated collection of luxury footwear with fashion house aesthetics.">
+  <title>STREETMOOD — Curated Streetwear</title>
+  <meta name="description" content="STREETMOOD is a curated streetwear platform featuring minimalist, editorial and exclusive fashion pieces.">
+  <meta name="theme-color" content="#0a0a0a">
   
   <!-- SEO Meta Tags -->
-  <meta name="keywords" content="sneakers, premium shoes, luxury footwear, streetwear, fashion">
+  <meta name="keywords" content="streetwear, curated fashion, minimalist, exclusive, sneakers, luxury">
   <meta name="author" content="STREETMOOD">
-  <meta property="og:title" content="STREETMOOD - Premium Sneaker Collection">
-  <meta property="og:description" content="Discover exclusive premium sneakers at STREETMOOD. Curated collection of luxury footwear with fashion house aesthetics.">
+  
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="STREETMOOD — Curated Streetwear">
+  <meta property="og:description" content="Curated streetwear. Minimal. Editorial. Exclusive.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://srteetm00d-png.github.io/streetm00d_/">
+  <meta property="og:image" content="https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/Air Jordans 1 CD4487-100_1.jpg">
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://srteetm00d-png.github.io/streetm00d_/">
 
-  <!-- Typography: closer to fashion/editorial -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Font Preload -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"></noscript>
 
   <link rel="stylesheet" href="./style.css"/>
 </head>
@@ -36,10 +39,12 @@
 </main>
 
 <!-- MODAL -->
-<div id="modal" class="modal hidden">
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-name">
   <div class="modal-backdrop"></div>
 
   <div class="modal-panel">
+    <button class="modal-close" aria-label="Close modal">&times;</button>
+    
     <div class="modal-images" id="modal-images"></div>
 
     <div class="modal-info">

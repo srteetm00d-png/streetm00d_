@@ -1,6 +1,8 @@
 const imageFolder = "./imagens_produtos/";
 const grid = document.getElementById("product-grid");
 
+let lastFocusedElement = null;
+
 document.addEventListener('DOMContentLoaded', function() {
   loadProducts();
 });
@@ -48,6 +50,8 @@ const modalImages = document.getElementById("modal-images");
 const modalName = document.getElementById("modal-name");
 
 function openModal(name, data) {
+  lastFocusedElement = document.activeElement;
+
   modalImages.innerHTML = "";
 
   data.images.forEach(img => {
@@ -61,6 +65,9 @@ function openModal(name, data) {
   modalName.textContent = formatName(name);
   modal.classList.remove("hidden");
   
+  // Focus management for accessibility
+  modal.querySelector(".modal-close").focus();
+  
   // Prevent body scroll when modal is open
   document.body.style.overflow = 'hidden';
 }
@@ -68,14 +75,45 @@ function openModal(name, data) {
 function closeModal() {
   modal.classList.add("hidden");
   document.body.style.overflow = '';
+  
+  // Restore focus to previous element
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
 }
 
 document.querySelector(".modal-backdrop").onclick = closeModal;
+document.querySelector(".modal-close").onclick = closeModal;
 
 // Close modal with Escape key
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
+  }
+});
+
+// Trap focus within modal for accessibility
+document.addEventListener('keydown', function(e) {
+  if (!modal.classList.contains('hidden')) {
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (e.key === 'Tab') {
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          lastElement.focus();
+          e.preventDefault();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          firstElement.focus();
+          e.preventDefault();
+        }
+      }
+    }
   }
 });
 

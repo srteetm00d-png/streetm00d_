@@ -180,3 +180,53 @@ body {
   letter-spacing: 0.1em;
   margin-bottom: 32px;
 }
+
+/* ===============================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 24px 32px;
+  }
+  
+  .container {
+    padding: 64px 32px;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 48px 32px;
+  }
+  
+  .modal-panel {
+    grid-template-columns: 1fr;
+    padding: 32px;
+    margin: 20px;
+    max-width: calc(100vw - 40px);
+  }
+  
+  .modal-images img {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 20px 24px;
+  }
+  
+  .container {
+    padding: 48px 24px;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 40px 24px;
+  }
+  
+  .modal-panel {
+    padding: 24px;
+    margin: 16px;
+  }
+}

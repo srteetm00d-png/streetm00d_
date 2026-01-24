@@ -1,15 +1,362 @@
 {
+  "adidas_adizero_sl_v1": {
+    "id": "adidas_adizero_sl",
+    "version": "v1",
+    "name": "Adidas Adizero SL",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Adizero SL (40-45)_4.jpeg", "Adidas Adizero SL (40-45)_5.jpeg"],
+    "tags": ["adidas", "running", "drop01"]
+  },
+  "adidas_ae1_v1": {
+    "id": "adidas_ae1",
+    "version": "v1",
+    "name": "Adidas AE1",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas AE1 (40-45)_5.jpg", "Adidas AE1 (40-45)_5.png"],
+    "tags": ["adidas", "basketball", "drop01"]
+  },
+  "adidas_forum_84_v1": {
+    "id": "adidas_forum_84",
+    "version": "v1",
+    "name": "Adidas Forum 84",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Forum 84 (36-39)_5.jpg", "Adidas Forum 84 (36-40)_5.jpg"],
+    "tags": ["adidas", "retro", "drop01"]
+  },
+  "adidas_samba_v1": {
+    "id": "adidas_samba",
+    "version": "v1",
+    "name": "Adidas Originals Samba",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Originals Samba_4.png", "Adidas Originals Samba_5.jpg", "Adidas Originals Samba_5.png"],
+    "tags": ["adidas", "classic", "drop01"]
+  },
+  "air_jordan_312_v1": {
+    "id": "air_jordan_312",
+    "version": "v1",
+    "name": "Air Jordan 312",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordan 312_1.jpg"],
+    "tags": ["jordan", "retro", "drop01"]
+  },
+  "air_jordan_4_retro_black_particle_v1": {
+    "id": "air_jordan_4_retro_black_particle",
+    "version": "v1",
+    "name": "Air Jordan 4 Retro Black Particle",
+    "price": 130,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordan 4 Retro black particle40-46_4.jpg", "Air Jordan 4 Retro black particle40-46_6.jpg"],
+    "tags": ["jordan", "retro", "drop01"]
+  },
+  "air_jordans_1_cd4487_100_v1": {
+    "id": "air_jordans_1_cd4487_100",
+    "version": "v1",
+    "name": "Air Jordans 1 CD4487-100",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 CD4487-100_1.jpg", "Air Jordans 1 CD4487-100_2.jpg"],
+    "tags": ["jordan", "classic", "drop01"]
+  },
+  "air_jordans_1_high_university_blue_v1": {
+    "id": "air_jordans_1_high_university_blue",
+    "version": "v1",
+    "name": "Air Jordans 1 High University Blue",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 High University Blue 555088-134_1.jpg", "Air Jordans 1 High University Blue 555088-134_2.jpg"],
+    "tags": ["jordan", "university", "drop01"]
+  },
   "air_jordans_1_high_zoom_racer_blue_v1": {
     "id": "air_jordans_1_high_zoom_racer_blue",
     "version": "v1",
     "name": "Air Jordans 1 High Zoom Racer Blue",
-    "price": 220,
+    "price": 90,
     "currency": "EUR",
     "status": "available",
-    "images": [
-      "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_1.jpg",
-      "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_2.jpg"
-    ],
+    "images": ["AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_1.jpg", "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_2.jpg"],
     "tags": ["jordan", "blue", "high", "drop01"]
+  },
+  "air_jordans_1_low_mystic_green_v1": {
+    "id": "air_jordans_1_low_mystic_green",
+    "version": "v1",
+    "name": "Air Jordans 1 Low Mystic Green",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["AIR JORDANS 1 LOW \"Mystic Green\"553558-113_1.jpg", "AIR JORDANS 1 LOW \"Mystic Green\"553558-113_2.jpg"],
+    "tags": ["jordan", "green", "low", "drop01"]
+  },
+  "air_jordans_1_mid_gs_v1": {
+    "id": "air_jordans_1_mid_gs",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid (GS)",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid (GS)555112-500_1.jpg", "Air Jordans 1 Mid (GS)555112-500_2.jpg"],
+    "tags": ["jordan", "mid", "gs", "drop01"]
+  },
+  "air_jordans_1_mid_se_south_beach_v1": {
+    "id": "air_jordans_1_mid_se_south_beach",
+    "version": "v1",
+    "name": "Air Jordans 1 MID SE South Beach",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 MID SE \"South Beach\"852542-306_1.jpg", "Air Jordans 1 MID SE \"South Beach\"852542-306_2.jpg"],
+    "tags": ["jordan", "mid", "se", "drop01"]
+  },
+  "air_jordans_1_mid_top_3_v1": {
+    "id": "air_jordans_1_mid_top_3",
+    "version": "v1",
+    "name": "Air Jordans 1 MID Top 3",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 MID \"Top 3\" 554724-124_1.jpg", "Air Jordans 1 MID \"Top 3\" 554724-124_2.jpg"],
+    "tags": ["jordan", "mid", "top3", "drop01"]
+  },
+  "air_jordans_11_retro_gamma_blue_v1": {
+    "id": "air_jordans_11_retro_gamma_blue",
+    "version": "v1",
+    "name": "Air Jordans 11 Retro Gamma Blue",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg", "Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg"],
+    "tags": ["jordan", "retro", "gamma", "drop01"]
+  },
+  "air_jordans_3_retro_red_cement_v1": {
+    "id": "air_jordans_3_retro_red_cement",
+    "version": "v1",
+    "name": "Air Jordans 3 Retro Red Cement",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg", "Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg"],
+    "tags": ["jordan", "retro", "cement", "drop01"]
+  },
+  "air_jordans_4_bred_v1": {
+    "id": "air_jordans_4_bred",
+    "version": "v1",
+    "name": "Air Jordans 4 Bred",
+    "price": 120,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 4 Bred 408452-060_1.jpg", "Air Jordans 4 Bred 408452-060_2.jpg"],
+    "tags": ["jordan", "bred", "retro", "drop01"]
+  },
+  "air_max_270_v1": {
+    "id": "air_max_270",
+    "version": "v1",
+    "name": "Air Max 270",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Max 270_5.jpg", "Air Max 270_5.jpeg"],
+    "tags": ["nike", "airmax", "lifestyle", "drop01"]
+  },
+  "air_max_720_v1": {
+    "id": "air_max_720",
+    "version": "v1",
+    "name": "Air Max 720",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Max 720 Branco rosa azul_5.jpg", "Air Max 720 Branco_5.jpg", "Air Max 720 Preto Branco_5.jpg", "Air Max 720 Preto_5.jpg", "Air Max 720_5.jpg"],
+    "tags": ["nike", "airmax", "lifestyle", "drop01"]
+  },
+  "amiri_ma1_v1": {
+    "id": "amiri_ma1",
+    "version": "v1",
+    "name": "AMIRI MA-1",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["AMIRI MA-1 (36-40)_5.jpg", "AMIRI MA-1 Branco Verde_5.jpg", "AMIRI MA-1 Branco_5.jpg", "AMIRI MA-1 Preto Branco_4.jpg", "AMIRI MA-1 rosa_5.jpg", "AMIRI MA-1(36-40)_5.jpg"],
+    "tags": ["amiri", "jacket", "luxury", "drop01"]
+  },
+  "cpfm_nike_air_force_1_v1": {
+    "id": "cpfm_nike_air_force_1",
+    "version": "v1",
+    "name": "CPFM x Nike Air Force 1",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["CPFM x Nike Air Force 1_5.jpg", "CPFM x Nike Air Force 1_5.png"],
+    "tags": ["nike", "collab", "airforce", "drop01"]
+  },
+  "dior_b22_v1": {
+    "id": "dior_b22",
+    "version": "v1",
+    "name": "Dior B22",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Dior B22 Grey-pink_4.jpg", "Dior B22_5.jpg"],
+    "tags": ["dior", "luxury", "sneakers", "drop01"]
+  },
+  "dior_b33_v1": {
+    "id": "dior_b33",
+    "version": "v1",
+    "name": "Dior B33",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Dior B33 (36-45)_4.jpg", "Dior B33 (36-45)_5.jpg"],
+    "tags": ["dior", "luxury", "sneakers", "drop01"]
+  },
+  "gucci_rhyton_v1": {
+    "id": "gucci_rhyton",
+    "version": "v1",
+    "name": "Gucci Rhyton",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Gucci Rhyton azul_5.jpg", "Gucci Rhyton Bege Ébano_5.jpg", "Gucci Rhyton Vermelho Tijolo_5.jpg"],
+    "tags": ["gucci", "luxury", "sneakers", "drop01"]
+  },
+  "jordan_13_retro_v1": {
+    "id": "jordan_13_retro",
+    "version": "v1",
+    "name": "Jordan 13 Retro",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Jordan 13 Retro Black White Gum_1.jpg", "Jordan 13 Retro Black White Gum_2.jpg", "Jordan 13 Retro Brave Blue_1.jpg", "Jordan 13 Retro Brave Blue_2.jpg", "Jordan 13 Retro French Blue_1.jpg", "Jordan 13 Retro French Blue_2.jpg"],
+    "tags": ["jordan", "retro", "basketball", "drop01"]
+  },
+  "louis_vuitton_nike_air_force_1_v1": {
+    "id": "louis_vuitton_nike_air_force_1",
+    "version": "v1",
+    "name": "Louis Vuitton x Nike Air Force 1",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Louis Vuitton x Nike Air Force 1_5.jpg"],
+    "tags": ["louisvuitton", "nike", "collab", "luxury", "drop01"]
+  },
+  "new_balance_530_v1": {
+    "id": "new_balance_530",
+    "version": "v1",
+    "name": "New Balance 530",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["New Balance 530_4.jpg", "New Balance 530_5.jpeg", "New Balance 530_5.jpg", "New Balance 530_5.png"],
+    "tags": ["newbalance", "retro", "lifestyle", "drop01"]
+  },
+  "nike_air_force_1_low_v1": {
+    "id": "nike_air_force_1_low",
+    "version": "v1",
+    "name": "Nike Air Force 1 Low",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Force 1 Low - Branco-Preto_5.jpg", "Nike Air Force 1 Low_5.jpg"],
+    "tags": ["nike", "airforce", "classic", "drop01"]
+  },
+  "nike_air_max_95_v1": {
+    "id": "nike_air_max_95",
+    "version": "v1",
+    "name": "Nike Air Max 95",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Max 95 - Preto, cinza e branco_5.jpg", "Nike Air Max 95 - preto e amarelo alternados_5.jpg", "Nike Air Max 95 - preto e azul_5.jpg", "Nike Air Max 95 - preto e cinza_5.jpg", "Nike Air Max 95 - preto_5.jpg", "Nike Air Max 95 Azul e Preto_5.jpg", "Nike Air Max 95 Branco, vermelho e cinza_5.jpg", "Nike Air Max 95 Cinza e Vermelho_5.jpg", "Nike Air Max 95 NYC Taxi_5.jpg", "Nike Air Max 95 Preto Vermelho_5.jpg", "Nike Air Max 95_5.jpeg"],
+    "tags": ["nike", "airmax", "retro", "drop01"]
+  },
+  "nike_air_vapor_max_2_v1": {
+    "id": "nike_air_vapor_max_2",
+    "version": "v1",
+    "name": "Nike Air VaporMax 2",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg", "Nike Air VaporMax 2 Branco Preto_5.jpeg", "Nike Air VaporMax 2 branco_5.jpg", "Nike Air VaporMax 2 Creme Claro_5.jpg", "Nike Air VaporMax 2 off white preto_5.jpg", "Nike Air VaporMax 2 Preto Dourado Metálico_5.jpeg", "Nike Air VaporMax 2 Preto e Branco_5.jpeg", "Nike Air VaporMax 2 Racer Azul_5.jpeg", "Nike Air VaporMax 2 Rosa Ferrugem_5.jpeg", "Nike Air VaporMax 2 Team Red Obsidian_5.jpeg"],
+    "tags": ["nike", "vapormax", "running", "drop01"]
+  },
+  "off_white_tears_v1": {
+    "id": "off_white_tears",
+    "version": "v1",
+    "name": "Off-White Tears",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Offset Tears Black White_3.jpeg", "Offset Tears Black_2.jpeg", "Offset Tears Black_3.jpeg", "Offset Tears Black_5.jpeg", "Offset Tears Black_6.jpeg", "Offset Tears Black_7.jpeg", "Offset Tears Blue_2.jpeg", "Offset Tears Pink_2.jpeg", "Offset Tears Pink_3.jpeg", "Offset Tears Pink_5.jpeg", "Offset Tears Pink_6.jpeg", "Offset Tears_1.jpeg", "Offset Tears_2.jpeg", "Offset Tears_3.jpeg", "Offset Tears_4.jpeg", "Offset Tears_5.jpeg", "Offset Tears_6.jpeg"],
+    "tags": ["offwhite", "designer", "luxury", "drop01"]
+  },
+  "puma_speedcat_v1": {
+    "id": "puma_speedcat",
+    "version": "v1",
+    "name": "PUMA Speedcat",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["PUMA Speedcat (36-45)_5.jpg", "PUMA Speedcat(36-45)_4.jpg"],
+    "tags": ["puma", "racing", "lifestyle", "drop01"]
+  },
+  "ralph_lauren_coats_v1": {
+    "id": "ralph_lauren_coats",
+    "version": "v1",
+    "name": "Ralph Lauren Coats",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["casaco mulher colete polo ralph lauren branco.jpg", "casaco mulher polo ralph lauren preto.jpg", "casaco polo ralph lauren azul.jpg", "casaco polo ralph lauren branco.png", "Casaco polo ralph lauren preto.png", "casaco polo ralph lauren verde.png", "colete polo ralph lauren branco.png", "colete polo ralph lauren preto.png", "colete polo ralph lauren verde.png", "colete polo ralph lauren.jpg"],
+    "tags": ["ralphlauren", "coats", "luxury", "drop01"]
+  },
+  "trapstar_v1": {
+    "id": "trapstar",
+    "version": "v1",
+    "name": "TRAPSTAR",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["TRAPSTAR_1.jpg", "TRAPSTAR_11.jpg", "TRAPSTAR_12.jpg", "TRAPSTAR_2.jpeg", "TRAPSTAR_2.jpg", "TRAPSTAR_3.jpeg", "TRAPSTAR_3.jpg", "TRAPSTAR_4.jpeg", "TRAPSTAR_4.jpg", "TRAPSTAR_5.jpeg", "TRAPSTAR_5.jpg", "TRAPSTAR_6.jpeg", "TRAPSTAR_6.jpg", "TRAPSTAR_7.jpeg", "TRAPSTAR_7.jpg", "TRAPSTAR_8.jpeg", "TRAPSTAR_8.jpg", "TRAPSTAR_9.jpeg", "TRAPSTAR_9.jpg"],
+    "tags": ["trapstar", "streetwear", "uk", "drop01"]
+  },
+  "versace_chain_reaction_v1": {
+    "id": "versace_chain_reaction",
+    "version": "v1",
+    "name": "Versace Chain Reaction",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Versace Baroque Chain Reaction Bluette Gold_5.jpg", "Versace Chain Reaction (Reação em Cadeia)_5.jpg", "Versace Chain Reaction 2 Chainz Preto Amarelo_5.jpg", "Versace Chain Reaction 2 Chainz Preto_5.jpg", "Versace Chain Reaction 2 Estampa Barocco Branco Preto Amarelo_5.jpg", "Versace Chain Reaction 2_4.jpg", "Versace Chain Reaction 2_5.jpg", "Versace Chain Reaction Branco em Malha e Camurça de Borracha_5.jpg", "Versace Chain Reaction Branco Rosa Amarelo Barroco_5.jpg", "Versace Chain Reaction Laranja Verde_5.jpg", "Versace Chain Reaction Preto e Branco com Estampa de Leopardo_5.jpg", "Versace Chain Reaction Preto e Branco_5.jpg", "Versace Chain Reaction Preto_5.jpg"],
+    "tags": ["versace", "luxury", "sneakers", "drop01"]
+  },
+  "yeezy_boost_700_v2_static_v1": {
+    "id": "yeezy_boost_700_v2_static",
+    "version": "v1",
+    "name": "Yeezy Boost 700 V2 Static",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Yeezy Boost 700 V2 Shoes Static – EF2829_5.png"],
+    "tags": ["yeezy", "boost", "static", "drop01"]
+  },
+  "yeezy_boost_750_v1": {
+    "id": "yeezy_boost_750",
+    "version": "v1",
+    "name": "Yeezy Boost 750",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Tênis Yeezy Boost 700 V2 Geode – EG6860_5.png", "Tênis Yeezy Boost 750 Cinza com Sola de Borracha – BB1840_5.png", "Tênis Yeezy Boost 750 Marrom Claro – B35309_5.png", "Tênis Yeezy Boost 750 Triple Black – BB1839_5.png"],
+    "tags": ["yeezy", "boost", "luxury", "drop01"]
   }
 }

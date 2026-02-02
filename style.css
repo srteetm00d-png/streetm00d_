@@ -1,10 +1,12 @@
+/* CATÁLOGO STREETMOOD - APENAS VISUALIZAÇÃO */
+
 /* 1. CORES E BASE */
 :root {
-    --bg-dark: #0d1117;       /* Fundo igual ao vídeo */
-    --card-bg: #161b22;     /* Fundo do carrossel */
-    --accent-pink: #ff3b5c; /* Cor do preço e botão */
-    --text-gray: #8b949e;   /* Texto secundário */
-    --text-primary: #e6edf3; /* Texto principal */
+    --bg-dark: #0d1117;
+    --card-bg: #161b22;
+    --accent-pink: #ff3b5c;
+    --text-gray: #8b949e;
+    --text-primary: #e6edf3;
 }
 
 * {
@@ -20,422 +22,220 @@ body {
     line-height: 1.6;
 }
 
-/* 2. HEADER PRINCIPAL */
-.main-header {
+/* 2. HEADER DO CATÁLOGO */
+.catalog-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    padding: 30px 20px;
     border-bottom: 1px solid #21262d;
-    position: sticky;
-    top: 0;
     background: var(--bg-dark);
-    z-index: 100;
 }
 
-.logo-area h1 {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 2px;
+.brand h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
     color: var(--text-primary);
+    margin-bottom: 5px;
 }
 
-.logo-area p {
-    font-size: 0.7rem;
-    color: var(--text-gray);
-    margin-top: 2px;
-}
-
-.btn-whatsapp {
-    background-color: #25d366;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
+.brand p {
+    font-size: 0.8rem;
+    color: var(--accent-pink);
     font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    letter-spacing: 1px;
 }
 
-.btn-whatsapp:hover {
-    background-color: #128c7e;
+.contact p {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-bottom: 5px;
 }
 
-/* 3. GRID DE PRODUTOS */
-.product-grid {
+.contact p:last-child {
+    margin-bottom: 0;
+}
+
+/* 3. GRID DO CATÁLOGO */
+.catalog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    gap: 25px;
+    padding: 40px 20px;
     max-width: 1400px;
     margin: 0 auto;
 }
 
-/* Cards no grid principal */
-.product-card {
+/* Cards do catálogo */
+.catalog-item {
     background: var(--card-bg);
     border-radius: 16px;
     overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid #21262d;
+    transition: transform 0.2s ease;
 }
 
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.catalog-item:hover {
+    transform: translateY(-8px);
 }
 
-.product-card .image-container {
+.catalog-item .image-container {
     position: relative;
     width: 100%;
     aspect-ratio: 3/4;
     overflow: hidden;
 }
 
-.product-card .image-container img {
+.catalog-item .image-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: transform 0.3s ease;
 }
 
-.product-card:hover .image-container img {
-    transform: scale(1.05);
-}
-
-.product-card .photo-count {
+.catalog-item .photo-count {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.7);
+    top: 12px;
+    right: 12px;
+    background: rgba(0,0,0,0.8);
     color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
     font-size: 0.7rem;
-    font-weight: 500;
-}
-
-.product-card .product-info {
-    padding: 16px;
-}
-
-.product-card .product-info h3 {
-    font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.3;
-    height: 46px;
-    overflow: hidden;
 }
 
-.product-card .size {
+.catalog-item .product-info {
+    padding: 20px;
+}
+
+.catalog-item .product-info h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    color: var(--text-primary);
+}
+
+.catalog-item .size {
     color: var(--text-gray);
     font-size: 0.8rem;
-    margin-bottom: 8px;
-}
-
-.product-card .price {
-    color: var(--accent-pink);
-    font-weight: 700;
-    font-size: 1.1rem;
     margin-bottom: 12px;
 }
 
-.product-card .btn-more {
-    width: 100%;
-    background: #2a2a2a;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.product-card .btn-more:hover {
-    background: #3a3a3a;
-}
-
-/* 4. MODAL MOBILE-FIRST */
-.product-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-dark);
-    z-index: 1000;
-    overflow-y: auto;
-}
-
-.product-modal.hidden {
-    display: none;
-}
-
-.mobile-wrapper {
-    width: 100%;
-    max-width: 450px;
-    min-height: 100vh;
-    margin: 0 auto;
-    position: relative;
-    padding: 20px;
-    padding-bottom: 100px; /* Espaço para o botão fixo */
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.modal-header h2 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    width: 80%;
-    line-height: 1.3;
-}
-
-.close-btn { 
-    font-size: 1.5rem; 
-    color: var(--text-gray); 
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-    transition: color 0.2s ease;
-}
-
-.close-btn:hover {
-    color: var(--text-primary);
-}
-
-/* 5. CARROSSEL COM SWIPE */
-.carousel-container {
-    position: relative;
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    background: var(--card-bg);
-    border: 1px solid #21262d;
-}
-
-.carousel-track {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-}
-
-.carousel-track::-webkit-scrollbar { 
-    display: none; 
-}
-
-.carousel-track img {
-    min-width: 100%;
-    height: 500px;
-    object-fit: cover;
-    object-position: center;
-    scroll-snap-align: start;
-}
-
-.carousel-dots {
-    position: absolute;
-    bottom: 15px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-}
-
-.dot {
-    width: 6px; 
-    height: 6px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.dot.active { 
-    background: white; 
-    transform: scale(1.3); 
-}
-
-/* 6. INFO PRODUTO NO MODAL */
-.price {
+.catalog-item .price {
     color: var(--accent-pink);
-    font-size: 2.2rem;
     font-weight: 800;
-    margin: 20px 0 5px 0;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
 }
 
-.store-name { 
-    color: var(--text-gray); 
-    font-size: 0.9rem; 
-    margin-bottom: 15px; 
-}
-
-.desc { 
-    font-size: 0.95rem; 
-    line-height: 1.5; 
-    color: var(--text-primary);
-    margin-bottom: 20px;
-}
-
-/* 7. BOTÃO FIXO INSTAGRAM */
-.footer-action {
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+.catalog-item .contact-btn {
     width: 100%;
-    max-width: 450px;
-    padding: 20px;
-    background: linear-gradient(transparent, var(--bg-dark) 40%);
-}
-
-.btn-insta {
-    width: 100%;
-    background: var(--accent-pink);
-    color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1rem;
+    background: transparent;
+    color: var(--accent-pink);
+    border: 2px solid var(--accent-pink);
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(255, 59, 92, 0.3);
     transition: all 0.2s ease;
 }
 
-.btn-insta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 59, 92, 0.4);
+.catalog-item .contact-btn:hover {
+    background: var(--accent-pink);
+    color: white;
 }
 
-.btn-insta:active { 
-    transform: scale(0.96); 
+/* 4. FOOTER DO CATÁLOGO */
+.catalog-footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid #21262d;
+    background: var(--bg-dark);
 }
 
-/* 8. ANIMAÇÕES FADE-IN */
-.product-card {
+.catalog-footer p {
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    margin-bottom: 8px;
+}
+
+.catalog-footer p:first-child {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* 5. RESPONSIVO */
+@media (max-width: 768px) {
+    .catalog-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding: 20px 15px;
+    }
+    
+    .brand h1 {
+        font-size: 1.5rem;
+    }
+    
+    .catalog-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    
+    .catalog-item .product-info h3 {
+        font-size: 0.8rem;
+    }
+    
+    .catalog-item .price {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 15px 10px;
+    }
+    
+    .catalog-header {
+        padding: 15px 10px;
+    }
+    
+    .brand h1 {
+        font-size: 1.3rem;
+    }
+    
+    .contact p {
+        font-size: 0.8rem;
+    }
+}
+
+/* 6. ANIMAÇÕES SUAVES */
+.catalog-item {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease forwards;
 }
 
-.product-card:nth-child(1) { animation-delay: 0.1s; }
-.product-card:nth-child(2) { animation-delay: 0.2s; }
-.product-card:nth-child(3) { animation-delay: 0.3s; }
-.product-card:nth-child(4) { animation-delay: 0.4s; }
-.product-card:nth-child(5) { animation-delay: 0.5s; }
-.product-card:nth-child(6) { animation-delay: 0.6s; }
-.product-card:nth-child(7) { animation-delay: 0.7s; }
-.product-card:nth-child(8) { animation-delay: 0.8s; }
+.catalog-item:nth-child(1) { animation-delay: 0.1s; }
+.catalog-item:nth-child(2) { animation-delay: 0.2s; }
+.catalog-item:nth-child(3) { animation-delay: 0.3s; }
+.catalog-item:nth-child(4) { animation-delay: 0.4s; }
+.catalog-item:nth-child(5) { animation-delay: 0.5s; }
+.catalog-item:nth-child(6) { animation-delay: 0.6s; }
+.catalog-item:nth-child(7) { animation-delay: 0.7s; }
+.catalog-item:nth-child(8) { animation-delay: 0.8s; }
 
 @keyframes fadeInUp {
     to {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* 9. RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    .main-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-        padding: 15px;
-    }
-    
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
-        padding: 15px;
-    }
-    
-    .logo-area h1 {
-        font-size: 1.3rem;
-    }
-    
-    .product-card .product-info h3 {
-        font-size: 0.8rem;
-        height: 40px;
-    }
-    
-    .product-card .price {
-        font-size: 1rem;
-    }
-    
-    .carousel-track img {
-        height: 400px;
-    }
-}
-
-@media (max-width: 480px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
-    }
-    
-    .main-header {
-        padding: 10px;
-    }
-    
-    .logo-area h1 {
-        font-size: 1.2rem;
-    }
-    
-    .btn-whatsapp {
-        padding: 8px 12px;
-        font-size: 0.9rem;
-    }
-    
-    .carousel-track img {
-        height: 350px;
-    }
-}
-
-@media (max-width: 360px) {
-    .carousel-track img {
-        height: 300px;
-    }
-}
-
-/* 10. ACCESSIBILITY */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Focus styles */
-button:focus,
-.product-card:focus {
-    outline: 2px solid var(--accent-pink);
-    outline-offset: 2px;
-}
-
-/* Loading states */
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
 }

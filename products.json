@@ -1,15 +1,35 @@
 {
-  "adidas_adizero_sl_v1": {
-    "id": "adidas_adizero_sl",
+  "air_jordans_1_high_zoom_racer_blue": {
+    "id": "air_jordans_1_high_zoom_racer_blue",
     "version": "v1",
-    "name": "Adidas Adizero SL",
-    "price": 80,
+    "name": "AIR JORDANS 1 HIGH ZOOM Racer Blue",
+    "price": 90,
     "currency": "EUR",
     "status": "available",
-    "images": ["Adidas Adizero SL (40-45)_4.jpeg", "Adidas Adizero SL (40-45)_5.jpeg"],
-    "tags": ["adidas", "running", "drop01"]
+    "images": ["AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_1.jpg", "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_2.jpg"],
+    "tags": ["jordan", "blue", "high"]
   },
-  "adidas_ae1_v1": {
+  "air_jordans_1_low_mystic_green": {
+    "id": "air_jordans_1_low_mystic_green",
+    "version": "v1",
+    "name": "AIR JORDANS 1 LOW Mystic Green",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["AIR JORDANS 1 LOW \"Mystic Green\"553558-113_1.jpg", "AIR JORDANS 1 LOW \"Mystic Green\"553558-113_2.jpg"],
+    "tags": ["jordan", "green", "low"]
+  },
+  "amiri_ma1": {
+    "id": "amiri_ma1",
+    "version": "v1",
+    "name": "AMIRI MA-1",
+    "price": 145,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["AMIRI MA-1 (36-40)_5.jpg", "AMIRI MA-1 Branco Verde_5.jpg", "AMIRI MA-1 Branco_5.jpg", "AMIRI MA-1 Preto Branco_4.jpg", "AMIRI MA-1 rosa_5.jpg", "AMIRI MA-1(36-40)_5.jpg"],
+    "tags": ["amiri", "jacket", "luxury"]
+  },
+  "adidas_ae1": {
     "id": "adidas_ae1",
     "version": "v1",
     "name": "Adidas AE1",
@@ -17,9 +37,19 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Adidas AE1 (40-45)_5.jpg", "Adidas AE1 (40-45)_5.png"],
-    "tags": ["adidas", "basketball", "drop01"]
+    "tags": ["adidas", "basketball"]
   },
-  "adidas_forum_84_v1": {
+  "adidas_adizero_sl": {
+    "id": "adidas_adizero_sl",
+    "version": "v1",
+    "name": "Adidas Adizero SL",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Adizero SL (40-45)_4.jpeg", "Adidas Adizero SL (40-45)_5.jpeg"],
+    "tags": ["adidas", "running"]
+  },
+  "adidas_forum_84": {
     "id": "adidas_forum_84",
     "version": "v1",
     "name": "Adidas Forum 84",
@@ -27,9 +57,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Adidas Forum 84 (36-39)_5.jpg", "Adidas Forum 84 (36-40)_5.jpg"],
-    "tags": ["adidas", "retro", "drop01"]
+    "tags": ["adidas", "retro"]
   },
-  "adidas_samba_v1": {
+  "adidas_samba": {
     "id": "adidas_samba",
     "version": "v1",
     "name": "Adidas Originals Samba",
@@ -37,9 +67,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Adidas Originals Samba_4.png", "Adidas Originals Samba_5.jpg", "Adidas Originals Samba_5.png"],
-    "tags": ["adidas", "classic", "drop01"]
+    "tags": ["adidas", "classic"]
   },
-  "air_jordan_312_v1": {
+  "air_jordan_312": {
     "id": "air_jordan_312",
     "version": "v1",
     "name": "Air Jordan 312",
@@ -47,9 +77,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordan 312_1.jpg"],
-    "tags": ["jordan", "retro", "drop01"]
+    "tags": ["jordan", "retro"]
   },
-  "air_jordan_4_retro_black_particle_v1": {
+  "air_jordan_4_retro_black_particle": {
     "id": "air_jordan_4_retro_black_particle",
     "version": "v1",
     "name": "Air Jordan 4 Retro Black Particle",
@@ -57,9 +87,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordan 4 Retro black particle40-46_4.jpg", "Air Jordan 4 Retro black particle40-46_6.jpg"],
-    "tags": ["jordan", "retro", "drop01"]
+    "tags": ["jordan", "retro"]
   },
-  "air_jordans_1_cd4487_100_v1": {
+  "air_jordans_1_cd4487_100": {
     "id": "air_jordans_1_cd4487_100",
     "version": "v1",
     "name": "Air Jordans 1 CD4487-100",
@@ -67,9 +97,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 1 CD4487-100_1.jpg", "Air Jordans 1 CD4487-100_2.jpg"],
-    "tags": ["jordan", "classic", "drop01"]
+    "tags": ["jordan", "classic"]
   },
-  "air_jordans_1_high_university_blue_v1": {
+  "air_jordans_1_high_university_blue": {
     "id": "air_jordans_1_high_university_blue",
     "version": "v1",
     "name": "Air Jordans 1 High University Blue",
@@ -77,29 +107,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 1 High University Blue 555088-134_1.jpg", "Air Jordans 1 High University Blue 555088-134_2.jpg"],
-    "tags": ["jordan", "university", "drop01"]
+    "tags": ["jordan", "university"]
   },
-  "air_jordans_1_high_zoom_racer_blue_v1": {
-    "id": "air_jordans_1_high_zoom_racer_blue",
-    "version": "v1",
-    "name": "Air Jordans 1 High Zoom Racer Blue",
-    "price": 90,
-    "currency": "EUR",
-    "status": "available",
-    "images": ["AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_1.jpg", "AIR JORDANS 1 HIGH ZOOM \"Racer Blue\" CK6637-104_2.jpg"],
-    "tags": ["jordan", "blue", "high", "drop01"]
-  },
-  "air_jordans_1_low_mystic_green_v1": {
-    "id": "air_jordans_1_low_mystic_green",
-    "version": "v1",
-    "name": "Air Jordans 1 Low Mystic Green",
-    "price": 90,
-    "currency": "EUR",
-    "status": "available",
-    "images": ["AIR JORDANS 1 LOW \"Mystic Green\"553558-113_1.jpg", "AIR JORDANS 1 LOW \"Mystic Green\"553558-113_2.jpg"],
-    "tags": ["jordan", "green", "low", "drop01"]
-  },
-  "air_jordans_1_mid_gs_v1": {
+  "air_jordans_1_mid_gs": {
     "id": "air_jordans_1_mid_gs",
     "version": "v1",
     "name": "Air Jordans 1 Mid (GS)",
@@ -107,9 +117,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 1 Mid (GS)555112-500_1.jpg", "Air Jordans 1 Mid (GS)555112-500_2.jpg"],
-    "tags": ["jordan", "mid", "gs", "drop01"]
+    "tags": ["jordan", "mid", "gs"]
   },
-  "air_jordans_1_mid_se_south_beach_v1": {
+  "air_jordans_1_mid_se_south_beach": {
     "id": "air_jordans_1_mid_se_south_beach",
     "version": "v1",
     "name": "Air Jordans 1 MID SE South Beach",
@@ -117,9 +127,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 1 MID SE \"South Beach\"852542-306_1.jpg", "Air Jordans 1 MID SE \"South Beach\"852542-306_2.jpg"],
-    "tags": ["jordan", "mid", "se", "drop01"]
+    "tags": ["jordan", "mid", "se"]
   },
-  "air_jordans_1_mid_top_3_v1": {
+  "air_jordans_1_mid_top_3": {
     "id": "air_jordans_1_mid_top_3",
     "version": "v1",
     "name": "Air Jordans 1 MID Top 3",
@@ -127,9 +137,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 1 MID \"Top 3\" 554724-124_1.jpg", "Air Jordans 1 MID \"Top 3\" 554724-124_2.jpg"],
-    "tags": ["jordan", "mid", "top3", "drop01"]
+    "tags": ["jordan", "mid", "top3"]
   },
-  "air_jordans_11_retro_gamma_blue_v1": {
+  "air_jordans_11_retro_gamma_blue": {
     "id": "air_jordans_11_retro_gamma_blue",
     "version": "v1",
     "name": "Air Jordans 11 Retro Gamma Blue",
@@ -137,9 +147,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg", "Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg"],
-    "tags": ["jordan", "retro", "gamma", "drop01"]
+    "tags": ["jordan", "retro", "gamma"]
   },
-  "air_jordans_3_retro_red_cement_v1": {
+  "air_jordans_3_retro_red_cement": {
     "id": "air_jordans_3_retro_red_cement",
     "version": "v1",
     "name": "Air Jordans 3 Retro Red Cement",
@@ -147,9 +157,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg", "Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg"],
-    "tags": ["jordan", "retro", "cement", "drop01"]
+    "tags": ["jordan", "retro", "cement"]
   },
-  "air_jordans_4_bred_v1": {
+  "air_jordans_4_bred": {
     "id": "air_jordans_4_bred",
     "version": "v1",
     "name": "Air Jordans 4 Bred",
@@ -157,39 +167,19 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Air Jordans 4 Bred 408452-060_1.jpg", "Air Jordans 4 Bred 408452-060_2.jpg"],
-    "tags": ["jordan", "bred", "retro", "drop01"]
+    "tags": ["jordan", "bred", "retro"]
   },
-  "air_max_270_v1": {
+  "air_max_270": {
     "id": "air_max_270",
     "version": "v1",
     "name": "Air Max 270",
     "price": 90,
     "currency": "EUR",
     "status": "available",
-    "images": ["Air Max 270_5.jpg", "Air Max 270_5.jpeg"],
-    "tags": ["nike", "airmax", "lifestyle", "drop01"]
+    "images": ["Air Max 270 V2_5.jpg", "Air Max 720 Branco rosa azul_5.jpg", "Air Max 720 Branco_5.jpg", "Air Max 720 Preto Branco_5.jpg", "Air Max 720 Preto_5.jpg", "Air Max 720_5.jpg"],
+    "tags": ["nike", "airmax", "lifestyle"]
   },
-  "air_max_720_v1": {
-    "id": "air_max_720",
-    "version": "v1",
-    "name": "Air Max 720",
-    "price": 90,
-    "currency": "EUR",
-    "status": "available",
-    "images": ["Air Max 720 Branco rosa azul_5.jpg", "Air Max 720 Branco_5.jpg", "Air Max 720 Preto Branco_5.jpg", "Air Max 720 Preto_5.jpg", "Air Max 720_5.jpg"],
-    "tags": ["nike", "airmax", "lifestyle", "drop01"]
-  },
-  "amiri_ma1_v1": {
-    "id": "amiri_ma1",
-    "version": "v1",
-    "name": "AMIRI MA-1",
-    "price": 90,
-    "currency": "EUR",
-    "status": "available",
-    "images": ["AMIRI MA-1 (36-40)_5.jpg", "AMIRI MA-1 Branco Verde_5.jpg", "AMIRI MA-1 Branco_5.jpg", "AMIRI MA-1 Preto Branco_4.jpg", "AMIRI MA-1 rosa_5.jpg", "AMIRI MA-1(36-40)_5.jpg"],
-    "tags": ["amiri", "jacket", "luxury", "drop01"]
-  },
-  "cpfm_nike_air_force_1_v1": {
+  "cpfm_nike_air_force_1": {
     "id": "cpfm_nike_air_force_1",
     "version": "v1",
     "name": "CPFM x Nike Air Force 1",
@@ -197,39 +187,39 @@
     "currency": "EUR",
     "status": "available",
     "images": ["CPFM x Nike Air Force 1_5.jpg", "CPFM x Nike Air Force 1_5.png"],
-    "tags": ["nike", "collab", "airforce", "drop01"]
+    "tags": ["nike", "collab", "airforce"]
   },
-  "dior_b22_v1": {
+  "dior_b22": {
     "id": "dior_b22",
     "version": "v1",
     "name": "Dior B22",
-    "price": 90,
+    "price": 150,
     "currency": "EUR",
     "status": "available",
     "images": ["Dior B22 Grey-pink_4.jpg", "Dior B22_5.jpg"],
-    "tags": ["dior", "luxury", "sneakers", "drop01"]
+    "tags": ["dior", "luxury", "sneakers"]
   },
-  "dior_b33_v1": {
+  "dior_b33": {
     "id": "dior_b33",
     "version": "v1",
     "name": "Dior B33",
-    "price": 90,
+    "price": 150,
     "currency": "EUR",
     "status": "available",
     "images": ["Dior B33 (36-45)_4.jpg", "Dior B33 (36-45)_5.jpg"],
-    "tags": ["dior", "luxury", "sneakers", "drop01"]
+    "tags": ["dior", "luxury", "sneakers"]
   },
-  "gucci_rhyton_v1": {
+  "gucci_rhyton": {
     "id": "gucci_rhyton",
     "version": "v1",
     "name": "Gucci Rhyton",
-    "price": 90,
+    "price": 140,
     "currency": "EUR",
     "status": "available",
     "images": ["Gucci Rhyton azul_5.jpg", "Gucci Rhyton Bege Ébano_5.jpg", "Gucci Rhyton Vermelho Tijolo_5.jpg"],
-    "tags": ["gucci", "luxury", "sneakers", "drop01"]
+    "tags": ["gucci", "luxury", "sneakers"]
   },
-  "jordan_13_retro_v1": {
+  "jordan_13_retro": {
     "id": "jordan_13_retro",
     "version": "v1",
     "name": "Jordan 13 Retro",
@@ -237,29 +227,29 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Jordan 13 Retro Black White Gum_1.jpg", "Jordan 13 Retro Black White Gum_2.jpg", "Jordan 13 Retro Brave Blue_1.jpg", "Jordan 13 Retro Brave Blue_2.jpg", "Jordan 13 Retro French Blue_1.jpg", "Jordan 13 Retro French Blue_2.jpg"],
-    "tags": ["jordan", "retro", "basketball", "drop01"]
+    "tags": ["jordan", "retro", "basketball"]
   },
-  "louis_vuitton_nike_air_force_1_v1": {
+  "louis_vuitton_nike_air_force_1": {
     "id": "louis_vuitton_nike_air_force_1",
     "version": "v1",
     "name": "Louis Vuitton x Nike Air Force 1",
-    "price": 85,
+    "price": 130,
     "currency": "EUR",
     "status": "available",
     "images": ["Louis Vuitton x Nike Air Force 1_5.jpg"],
-    "tags": ["louisvuitton", "nike", "collab", "luxury", "drop01"]
+    "tags": ["louisvuitton", "nike", "collab", "luxury"]
   },
-  "new_balance_530_v1": {
+  "new_balance_530": {
     "id": "new_balance_530",
     "version": "v1",
     "name": "New Balance 530",
-    "price": 90,
+    "price": 95,
     "currency": "EUR",
     "status": "available",
     "images": ["New Balance 530_4.jpg", "New Balance 530_5.jpeg", "New Balance 530_5.jpg", "New Balance 530_5.png"],
-    "tags": ["newbalance", "retro", "lifestyle", "drop01"]
+    "tags": ["newbalance", "retro", "lifestyle"]
   },
-  "nike_air_force_1_low_v1": {
+  "nike_air_force_1_low": {
     "id": "nike_air_force_1_low",
     "version": "v1",
     "name": "Nike Air Force 1 Low",
@@ -267,9 +257,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Nike Air Force 1 Low - Branco-Preto_5.jpg", "Nike Air Force 1 Low_5.jpg"],
-    "tags": ["nike", "airforce", "classic", "drop01"]
+    "tags": ["nike", "airforce", "classic"]
   },
-  "nike_air_max_95_v1": {
+  "nike_air_max_95": {
     "id": "nike_air_max_95",
     "version": "v1",
     "name": "Nike Air Max 95",
@@ -277,9 +267,9 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Nike Air Max 95 - Preto, cinza e branco_5.jpg", "Nike Air Max 95 - preto e amarelo alternados_5.jpg", "Nike Air Max 95 - preto e azul_5.jpg", "Nike Air Max 95 - preto e cinza_5.jpg", "Nike Air Max 95 - preto_5.jpg", "Nike Air Max 95 Azul e Preto_5.jpg", "Nike Air Max 95 Branco, vermelho e cinza_5.jpg", "Nike Air Max 95 Cinza e Vermelho_5.jpg", "Nike Air Max 95 NYC Taxi_5.jpg", "Nike Air Max 95 Preto Vermelho_5.jpg", "Nike Air Max 95_5.jpeg"],
-    "tags": ["nike", "airmax", "retro", "drop01"]
+    "tags": ["nike", "airmax", "retro"]
   },
-  "nike_air_vapor_max_2_v1": {
+  "nike_air_vapor_max_2": {
     "id": "nike_air_vapor_max_2",
     "version": "v1",
     "name": "Nike Air VaporMax 2",
@@ -287,76 +277,1396 @@
     "currency": "EUR",
     "status": "available",
     "images": ["Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg", "Nike Air VaporMax 2 Branco Preto_5.jpeg", "Nike Air VaporMax 2 branco_5.jpg", "Nike Air VaporMax 2 Creme Claro_5.jpg", "Nike Air VaporMax 2 off white preto_5.jpg", "Nike Air VaporMax 2 Preto Dourado Metálico_5.jpeg", "Nike Air VaporMax 2 Preto e Branco_5.jpeg", "Nike Air VaporMax 2 Racer Azul_5.jpeg", "Nike Air VaporMax 2 Rosa Ferrugem_5.jpeg", "Nike Air VaporMax 2 Team Red Obsidian_5.jpeg"],
-    "tags": ["nike", "vapormax", "running", "drop01"]
+    "tags": ["nike", "vapormax", "running"]
   },
-  "off_white_tears_v1": {
+  "off_white_tears": {
     "id": "off_white_tears",
     "version": "v1",
     "name": "Off-White Tears",
-    "price": 90,
+    "price": 125,
     "currency": "EUR",
     "status": "available",
     "images": ["Offset Tears Black White_3.jpeg", "Offset Tears Black_2.jpeg", "Offset Tears Black_3.jpeg", "Offset Tears Black_5.jpeg", "Offset Tears Black_6.jpeg", "Offset Tears Black_7.jpeg", "Offset Tears Blue_2.jpeg", "Offset Tears Pink_2.jpeg", "Offset Tears Pink_3.jpeg", "Offset Tears Pink_5.jpeg", "Offset Tears Pink_6.jpeg", "Offset Tears_1.jpeg", "Offset Tears_2.jpeg", "Offset Tears_3.jpeg", "Offset Tears_4.jpeg", "Offset Tears_5.jpeg", "Offset Tears_6.jpeg"],
-    "tags": ["offwhite", "designer", "luxury", "drop01"]
+    "tags": ["offwhite", "designer", "luxury"]
   },
-  "puma_speedcat_v1": {
+  "puma_speedcat": {
     "id": "puma_speedcat",
     "version": "v1",
     "name": "PUMA Speedcat",
-    "price": 90,
+    "price": 85,
     "currency": "EUR",
     "status": "available",
     "images": ["PUMA Speedcat (36-45)_5.jpg", "PUMA Speedcat(36-45)_4.jpg"],
-    "tags": ["puma", "racing", "lifestyle", "drop01"]
+    "tags": ["puma", "racing", "lifestyle"]
   },
-  "ralph_lauren_coats_v1": {
+  "ralph_lauren_coats": {
     "id": "ralph_lauren_coats",
     "version": "v1",
     "name": "Ralph Lauren Coats",
-    "price": 90,
+    "price": 110,
     "currency": "EUR",
     "status": "available",
     "images": ["casaco mulher colete polo ralph lauren branco.jpg", "casaco mulher polo ralph lauren preto.jpg", "casaco polo ralph lauren azul.jpg", "casaco polo ralph lauren branco.png", "Casaco polo ralph lauren preto.png", "casaco polo ralph lauren verde.png", "colete polo ralph lauren branco.png", "colete polo ralph lauren preto.png", "colete polo ralph lauren verde.png", "colete polo ralph lauren.jpg"],
-    "tags": ["ralphlauren", "coats", "luxury", "drop01"]
+    "tags": ["ralphlauren", "coats", "luxury"]
   },
-  "trapstar_v1": {
+  "trapstar": {
     "id": "trapstar",
     "version": "v1",
     "name": "TRAPSTAR",
-    "price": 90,
+    "price": 100,
     "currency": "EUR",
     "status": "available",
     "images": ["TRAPSTAR_1.jpg", "TRAPSTAR_11.jpg", "TRAPSTAR_12.jpg", "TRAPSTAR_2.jpeg", "TRAPSTAR_2.jpg", "TRAPSTAR_3.jpeg", "TRAPSTAR_3.jpg", "TRAPSTAR_4.jpeg", "TRAPSTAR_4.jpg", "TRAPSTAR_5.jpeg", "TRAPSTAR_5.jpg", "TRAPSTAR_6.jpeg", "TRAPSTAR_6.jpg", "TRAPSTAR_7.jpeg", "TRAPSTAR_7.jpg", "TRAPSTAR_8.jpeg", "TRAPSTAR_8.jpg", "TRAPSTAR_9.jpeg", "TRAPSTAR_9.jpg"],
-    "tags": ["trapstar", "streetwear", "uk", "drop01"]
+    "tags": ["trapstar", "streetwear", "uk"]
   },
-  "versace_chain_reaction_v1": {
+  "versace_chain_reaction": {
     "id": "versace_chain_reaction",
     "version": "v1",
     "name": "Versace Chain Reaction",
-    "price": 90,
+    "price": 135,
     "currency": "EUR",
     "status": "available",
     "images": ["Versace Baroque Chain Reaction Bluette Gold_5.jpg", "Versace Chain Reaction (Reação em Cadeia)_5.jpg", "Versace Chain Reaction 2 Chainz Preto Amarelo_5.jpg", "Versace Chain Reaction 2 Chainz Preto_5.jpg", "Versace Chain Reaction 2 Estampa Barocco Branco Preto Amarelo_5.jpg", "Versace Chain Reaction 2_4.jpg", "Versace Chain Reaction 2_5.jpg", "Versace Chain Reaction Branco em Malha e Camurça de Borracha_5.jpg", "Versace Chain Reaction Branco Rosa Amarelo Barroco_5.jpg", "Versace Chain Reaction Laranja Verde_5.jpg", "Versace Chain Reaction Preto e Branco com Estampa de Leopardo_5.jpg", "Versace Chain Reaction Preto e Branco_5.jpg", "Versace Chain Reaction Preto_5.jpg"],
-    "tags": ["versace", "luxury", "sneakers", "drop01"]
+    "tags": ["versace", "luxury", "sneakers"]
   },
-  "yeezy_boost_700_v2_static_v1": {
+  "yeezy_boost_700_v2_static": {
     "id": "yeezy_boost_700_v2_static",
     "version": "v1",
     "name": "Yeezy Boost 700 V2 Static",
-    "price": 90,
+    "price": 120,
     "currency": "EUR",
     "status": "available",
     "images": ["Yeezy Boost 700 V2 Shoes Static – EF2829_5.png"],
-    "tags": ["yeezy", "boost", "static", "drop01"]
+    "tags": ["yeezy", "boost", "static"]
   },
-  "yeezy_boost_750_v1": {
+  "yeezy_boost_750": {
     "id": "yeezy_boost_750",
     "version": "v1",
     "name": "Yeezy Boost 750",
-    "price": 90,
+    "price": 120,
     "currency": "EUR",
     "status": "available",
     "images": ["Tênis Yeezy Boost 700 V2 Geode – EG6860_5.png", "Tênis Yeezy Boost 750 Cinza com Sola de Borracha – BB1840_5.png", "Tênis Yeezy Boost 750 Marrom Claro – B35309_5.png", "Tênis Yeezy Boost 750 Triple Black – BB1839_5.png"],
-    "tags": ["yeezy", "boost", "luxury", "drop01"]
+    "tags": ["yeezy", "boost", "luxury"]
+  },
+  "adidas_dexun": {
+    "id": "adidas_dexun",
+    "version": "v1",
+    "name": "Adidas Dexun",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Dexun_4.jpg", "Adidas Dexun_5.jpg"],
+    "tags": ["adidas", "lifestyle"]
+  },
+  "air_jordan_4_retro_black_white": {
+    "id": "air_jordan_4_retro_black_white",
+    "version": "v1",
+    "name": "Air Jordan 4 Retro Black White",
+    "price": 125,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordan 4 Retro black-white36-46_1.jpg", "Air Jordan 4 Retro black-white36-46_2.jpg", "Air Jordan 4 Retro black-white36-46_5.jpg", "Air Jordan 4 Retro black-white36-46_6.jpg"],
+    "tags": ["jordan", "retro", "blackwhite"]
+  },
+  "air_jordan_4_retro_particle_beige": {
+    "id": "air_jordan_4_retro_particle_beige",
+    "version": "v1",
+    "name": "Air Jordan 4 Retro Particle Beige",
+    "price": 130,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordan 4 Retro particle beige40-46_1.jpg", "Air Jordan 4 Retro particle beige40-46_4.jpg", "Air Jordan 4 Retro particle beige40-46_6.jpg"],
+    "tags": ["jordan", "retro", "beige"]
+  },
+  "air_jordan_4_retro_general": {
+    "id": "air_jordan_4_retro_general",
+    "version": "v1",
+    "name": "Air Jordan 4 Retro",
+    "price": 120,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordan 4 Retro_2 (2).jpg", "Air Jordan 4 Retro_2.jpg"],
+    "tags": ["jordan", "retro"]
+  },
+  "air_jordans_1_mid_gs_light_smoke_grey": {
+    "id": "air_jordans_1_mid_gs_light_smoke_grey",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid GS Light Smoke Grey",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092_1.jpg", "Air Jordans 1 Mid GS \"Light Smoke Grey\"554724-092_2.jpg"],
+    "tags": ["jordan", "mid", "gs", "grey"]
+  },
+  "air_jordans_1_mid_se": {
+    "id": "air_jordans_1_mid_se",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid SE",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid SE 852542-400_1.jpg"],
+    "tags": ["jordan", "mid", "se"]
+  },
+  "air_jordans_1_mid_se_light_smoke_grey": {
+    "id": "air_jordans_1_mid_se_light_smoke_grey",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid SE Light Smoke Grey",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid SE \"Light Smoke Grey\"554724-092_1.jpg", "Air Jordans 1 Mid SE \"Light Smoke Grey\"554724-092_2.jpg"],
+    "tags": ["jordan", "mid", "se", "grey"]
+  },
+  "air_jordans_1_mid_white_cement": {
+    "id": "air_jordans_1_mid_white_cement",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid White Cement",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid \"White Cement\"554724-133_1.jpg", "Air Jordans 1 Mid \"White Cement\"554724-133_2.jpg"],
+    "tags": ["jordan", "mid", "cement"]
+  },
+  "air_jordans_1_mid_white_gym_red": {
+    "id": "air_jordans_1_mid_white_gym_red",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid White Gym Red",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid \"White Gym Red\"554724-602_1.jpg", "Air Jordans 1 Mid \"White Gym Red\"554724-602_2.jpg"],
+    "tags": ["jordan", "mid", "red"]
+  },
+  "air_jordans_1_mid_white_light_smoke_grey": {
+    "id": "air_jordans_1_mid_white_light_smoke_grey",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid White Light Smoke Grey",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid \"White Light Smoke Grey\"554724-105_1.jpg", "Air Jordans 1 Mid \"White Light Smoke Grey\"554724-105_2.jpg"],
+    "tags": ["jordan", "mid", "grey"]
+  },
+  "air_jordans_1_mid_white_navy": {
+    "id": "air_jordans_1_mid_white_navy",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid White Navy",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid \"White Navy\"554724-101_1.jpg", "Air Jordans 1 Mid \"White Navy\"554724-101_2.jpg"],
+    "tags": ["jordan", "mid", "navy"]
+  },
+  "air_jordans_1_mid_white_team_orange": {
+    "id": "air_jordans_1_mid_white_team_orange",
+    "version": "v1",
+    "name": "Air Jordans 1 Mid White Team Orange",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 1 Mid \"White Team Orange\"554724-180_1.jpg", "Air Jordans 1 Mid \"White Team Orange\"554724-180_2.jpg"],
+    "tags": ["jordan", "mid", "orange"]
+  },
+  "air_jordans_3_retro_cardinal_red": {
+    "id": "air_jordans_3_retro_cardinal_red",
+    "version": "v1",
+    "name": "Air Jordans 3 Retro Cardinal Red",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 3 Retro 'Cardinal Red' 136064-101_1.jpg", "Air Jordans 3 Retro 'Cardinal Red' 136064-101_2.jpg"],
+    "tags": ["jordan", "retro", "red"]
+  },
+  "air_jordans_3_retro_white_cement": {
+    "id": "air_jordans_3_retro_white_cement",
+    "version": "v1",
+    "name": "Air Jordans 3 Retro White Cement",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 3 Retro 'White Cement' 136064-111_1.jpg", "Air Jordans 3 Retro 'White Cement' 136064-111_2.jpg"],
+    "tags": ["jordan", "retro", "cement"]
+  },
+  "air_jordans_4_retro_black_cat": {
+    "id": "air_jordans_4_retro_black_cat",
+    "version": "v1",
+    "name": "Air Jordans 4 Retro Black Cat",
+    "price": 130,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 4 Retro 'Black Cat' 308497-010_1.jpg", "Air Jordans 4 Retro 'Black Cat' 308497-010_2.jpg"],
+    "tags": ["jordan", "retro", "blackcat"]
+  },
+  "air_jordans_4_retro_toro_brick": {
+    "id": "air_jordans_4_retro_toro_brick",
+    "version": "v1",
+    "name": "Air Jordans 4 Retro Toro Brick",
+    "price": 140,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 4 Retro 'Toro Brick' 308497-160_1.jpg", "Air Jordans 4 Retro 'Toro Brick' 308497-160_2.jpg"],
+    "tags": ["jordan", "retro", "toro"]
+  },
+  "air_jordans_6_retro_carmine": {
+    "id": "air_jordans_6_retro_carmine",
+    "version": "v1",
+    "name": "Air Jordans 6 Retro Carmine",
+    "price": 135,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 6 Retro 'Carmine' 384664-160_1.jpg", "Air Jordans 6 Retro 'Carmine' 384664-160_2.jpg"],
+    "tags": ["jordan", "retro", "carmine"]
+  },
+  "air_jordans_6_retro_travis_scott": {
+    "id": "air_jordans_6_retro_travis_scott",
+    "version": "v1",
+    "name": "Air Jordans 6 Retro Travis Scott",
+    "price": 150,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 6 Retro 'Travis Scott' 384664-161_1.jpg", "Air Jordans 6 Retro 'Travis Scott' 384664-161_2.jpg"],
+    "tags": ["jordan", "retro", "travis"]
+  },
+  "air_jordans_11_retro_legend_blue": {
+    "id": "air_jordans_11_retro_legend_blue",
+    "version": "v1",
+    "name": "Air Jordans 11 Retro Legend Blue",
+    "price": 140,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 11 Retro 'Legend Blue' 378037-441_1.jpg", "Air Jordans 11 Retro 'Legend Blue' 378037-441_2.jpg"],
+    "tags": ["jordan", "retro", "legendblue"]
+  },
+  "air_jordans_11_retro_space_jam": {
+    "id": "air_jordans_11_retro_space_jam",
+    "version": "v1",
+    "name": "Air Jordans 11 Retro Space Jam",
+    "price": 145,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 11 Retro 'Space Jam' 378037-003_1.jpg", "Air Jordans 11 Retro 'Space Jam' 378037-003_2.jpg"],
+    "tags": ["jordan", "retro", "spacejam"]
+  },
+  "air_jordans_12_retro_flu_game": {
+    "id": "air_jordans_12_retro_flu_game",
+    "version": "v1",
+    "name": "Air Jordans 12 Retro Flu Game",
+    "price": 135,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 12 Retro 'Flu Game' 130690-002_1.jpg", "Air Jordans 12 Retro 'Flu Game' 130690-002_2.jpg"],
+    "tags": ["jordan", "retro", "flugame"]
+  },
+  "air_jordans_12_retro_cherry": {
+    "id": "air_jordans_12_retro_cherry",
+    "version": "v1",
+    "name": "Air Jordans 12 Retro Cherry",
+    "price": 130,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 12 Retro 'Cherry' 130690-601_1.jpg", "Air Jordans 12 Retro 'Cherry' 130690-601_2.jpg"],
+    "tags": ["jordan", "retro", "cherry"]
+  },
+  "air_jordans_13_retro_he Got_game": {
+    "id": "air_jordans_13_retro_he_got_game",
+    "version": "v1",
+    "name": "Air Jordans 13 Retro He Got Game",
+    "price": 125,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 13 Retro 'He Got Game' 414571-104_1.jpg", "Air Jordans 13 Retro 'He Got Game' 414571-104_2.jpg"],
+    "tags": ["jordan", "retro", "hegotgame"]
+  },
+  "air_jordans_13_retro_starfish": {
+    "id": "air_jordans_13_retro_starfish",
+    "version": "v1",
+    "name": "Air Jordans 13 Retro Starfish",
+    "price": 120,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 13 Retro 'Starfish' 414571-800_1.jpg", "Air Jordans 13 Retro 'Starfish' 414571-800_2.jpg"],
+    "tags": ["jordan", "retro", "starfish"]
+  },
+  "air_jordans_14_retro_last_shot": {
+    "id": "air_jordans_14_retro_last_shot",
+    "version": "v1",
+    "name": "Air Jordans 14 Retro Last Shot",
+    "price": 130,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Jordans 14 Retro 'Last Shot' 487471-101_1.jpg", "Air Jordans 14 Retro 'Last Shot' 487471-101_2.jpg"],
+    "tags": ["jordan", "retro", "lastshot"]
+  },
+  "nike_shox_tl_black_blue": {
+    "id": "nike_shox_tl_black_blue",
+    "version": "v1",
+    "name": "Nike Shox TL Preto-Azul",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Preto-Azul (39-45).jpg", "Nike Shox TL Preto-Azul (40-45).jpg"],
+    "tags": ["nike", "shox", "tl"]
+  },
+  "nike_shox_tl_black_metallic": {
+    "id": "nike_shox_tl_black_metallic",
+    "version": "v1",
+    "name": "Nike Shox TL Preto Metálico Hematita",
+    "price": 100,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Preto Metálico Hematita.jpg"],
+    "tags": ["nike", "shox", "metallic"]
+  },
+  "nike_shox_tl_white_black": {
+    "id": "nike_shox_tl_white_black",
+    "version": "v1",
+    "name": "Nike Shox TL Branco-Preto",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Branco-Preto (39-45).jpg"],
+    "tags": ["nike", "shox", "whiteblack"]
+  },
+  "nike_shox_tl_white_blue": {
+    "id": "nike_shox_tl_white_blue",
+    "version": "v1",
+    "name": "Nike Shox TL Branco-Azul",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Branco-Azul (37-44).jpg"],
+    "tags": ["nike", "shox", "whiteblue"]
+  },
+  "nike_shox_tl_khaki": {
+    "id": "nike_shox_tl_khaki",
+    "version": "v1",
+    "name": "Nike Shox TL Cáqui",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Cáqui (36-45).jpg"],
+    "tags": ["nike", "shox", "khaki"]
+  },
+  "nike_shox_tl_skepta": {
+    "id": "nike_shox_tl_skepta",
+    "version": "v1",
+    "name": "Nike Shox TL Skepta",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Skepta.jpg"],
+    "tags": ["nike", "shox", "skepta", "collab"]
+  },
+  "nike_shox_tl_black": {
+    "id": "nike_shox_tl_black",
+    "version": "v1",
+    "name": "Nike Shox TL Preto",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Preto.jpg"],
+    "tags": ["nike", "shox", "black"]
+  },
+  "nike_shox_tl_speed_red": {
+    "id": "nike_shox_tl_speed_red",
+    "version": "v1",
+    "name": "Nike Shox TL Speed Vermelho",
+    "price": 100,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Speed Vermelho.jpg"],
+    "tags": ["nike", "shox", "speed", "red"]
+  },
+  "nocta_nike_air_force_1_pink": {
+    "id": "nocta_nike_air_force_1_pink",
+    "version": "v1",
+    "name": "NOCTA x Nike Air Force 1 Love You Forever Pink",
+    "price": 120,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["NOCTA x Nike Air Force 1 Love You Forever Pink.jpg"],
+    "tags": ["nike", "nocta", "airforce", "pink", "collab"]
+  },
+  "gucci_tennis_1977_high": {
+    "id": "gucci_tennis_1977_high",
+    "version": "v1",
+    "name": "Gucci Tennis 1977 High",
+    "price": 145,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Gucci Tennis 1977 High Butter Cotton.jpg", "Tênis Gucci Tennis 1977 Cano Alto GG.jpg"],
+    "tags": ["gucci", "luxury", "tennis"]
+  },
+  "dior_b30": {
+    "id": "dior_b30",
+    "version": "v1",
+    "name": "Dior B30",
+    "price": 155,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Dior B30.jpg"],
+    "tags": ["dior", "luxury", "sneakers"]
+  },
+  "dior_b31": {
+    "id": "dior_b31",
+    "version": "v1",
+    "name": "Dior B31",
+    "price": 160,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Dior B31 (40-45).jpg"],
+    "tags": ["dior", "luxury", "sneakers"]
+  },
+  "nike_acg_mountain_fly_2": {
+    "id": "nike_acg_mountain_fly_2",
+    "version": "v1",
+    "name": "Nike ACG Mountain Fly 2 Black",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike ACG Mountain Fly 2 Black.jpg"],
+    "tags": ["nike", "acg", "mountain", "outdoor"]
+  },
+  "puma_lamelo_ball_mb02": {
+    "id": "puma_lamelo_ball_mb02",
+    "version": "v1",
+    "name": "Puma LaMelo Ball MB.02",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Puma LaMelo Ball MB.02.jpg"],
+    "tags": ["puma", "basketball", "lamelo"]
+  },
+  "puma_lamelo_ball_mb01": {
+    "id": "puma_lamelo_ball_mb01",
+    "version": "v1",
+    "name": "Puma LaMelo Ball MB.01",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Puma LaMelo Ball MB.01.jpg"],
+    "tags": ["puma", "basketball", "lamelo"]
+  },
+  "versace_chain_reaction_black": {
+    "id": "versace_chain_reaction_black",
+    "version": "v1",
+    "name": "Versace Chain Reaction Preto",
+    "price": 140,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Versace Chain Reaction Preto.jpg"],
+    "tags": ["versace", "luxury", "black"]
+  },
+  "nike_vomero_11": {
+    "id": "nike_vomero_11",
+    "version": "v1",
+    "name": "Nike Vomero 11",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Vomero 11 (36-40).jpg"],
+    "tags": ["nike", "running", "vomero"]
+  },
+  "ja_morant_2nd_gen": {
+    "id": "ja_morant_2nd_gen",
+    "version": "v1",
+    "name": "Ja Morant 2nd Generation",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Morant 2nd generation FD7327-500(36-46).jpg"],
+    "tags": ["ja", "morant", "basketball"]
+  },
+  "ja_morant_3rd_gen_various": {
+    "id": "ja_morant_3rd_gen_various",
+    "version": "v1",
+    "name": "Ja Morant 3rd Generation",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Morant 3rd generation HF2793-604.jpg", "Morant 3rd generation HF2793-603.jpg", "Morant 3rd generation HF2794-100.jpg", "Morant 3rd generation HF2793-610.jpg"],
+    "tags": ["ja", "morant", "basketball"]
+  },
+  "nike_air_max_270_various": {
+    "id": "nike_air_max_270_various",
+    "version": "v1",
+    "name": "Nike Air Max 270 Various",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Air Max 270 Vermelho Habanero.jpg", "Air Max 270 University Gold.jpg", "Air Max 270 Rosa Ferrugem.jpg", "Air Max 270 Branco Preto Vermelho Universitário.jpg"],
+    "tags": ["nike", "airmax", "270"]
+  },
+  "nike_air_max_1_various": {
+    "id": "nike_air_max_1_various",
+    "version": "v1",
+    "name": "Nike Air Max 1 Various",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Max 1 Marrom Crepe (2022).jpg", "Nike Air Max 1 '87 Malaquita.jpg", "Nike Air Max 1 Patta Waves Branco.jpg", "Nike Air Max 1 Patta Waves Noise Aqua (sem pulseira).jpg", "Nike Air Max 1 Patta Waves Monarch (without Bracelet).jpg", "Nike Air Max 1 '86 OG Grande.jpg", "Nike Air Max 1 '86 OG Big preto azul.jpg", "Nike Air Max 1 '86 OG Big Bubble Royal.jpg", "Nike Air Max 1 '86 OG Golf Big Bubble Sport Vermelho.jpg", "Nike Air Max 1 '86 OG Golf Obsidian.jpg", "Nike Air Max 1 '86 OG Golf Dusty Cactus.jpg", "Nike Air Max 1.jpg"],
+    "tags": ["nike", "airmax", "retro"]
+  },
+  "nike_air_more_uptempo_various": {
+    "id": "nike_air_more_uptempo_various",
+    "version": "v1",
+    "name": "Nike Air More Uptempo Various",
+    "price": 100,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air More Uptempo 96 Volt.jpg", "Nike Air More Uptempo 96 França.jpg", "Nike Air More Uptempo Azul Universitário.jpg", "Nike Air More Uptempo branco-preto (36-46).jpg", "Nike Air More Uptempo branco-azul (36-46).jpg", "Nike Air More Uptempo 96 Cinza Frio Azul Marinho (GS).jpg", "Nike Air More Uptempo 96 Azul Cobalto (PS).jpg"],
+    "tags": ["nike", "uptempo", "retro"]
+  },
+  "nike_air_max_plus_tn": {
+    "id": "nike_air_max_plus_tn",
+    "version": "v1",
+    "name": "Nike Air Max Plus TN",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Max Plus Tn (36-40).jpg"],
+    "tags": ["nike", "airmax", "tn"]
+  },
+  "nike_air_max_phoenix_various": {
+    "id": "nike_air_max_phoenix_various",
+    "version": "v1",
+    "name": "Nike Air Max Phoenix Various",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Max Phoenix azul e branco (tamanhos 40-46).jpg", "Nike Air Max Phoenix preto (tamanhos 40-46).jpg", "Nike Air Max Phoenix orange(40-46).jpg", "Nike Air Max Phoenix preto e branco (tamanhos 40 a 46).jpg", "Nike Air Max Phoenix preto e azul (tamanhos 40 a 46).jpg", "Nike Air Max Phoenix preto e vermelho (tamanhos 40 a 46).jpg"],
+    "tags": ["nike", "airmax", "phoenix"]
+  },
+  "veja_campo_unisex": {
+    "id": "veja_campo_unisex",
+    "version": "v1",
+    "name": "VEJA Campo Unisex",
+    "price": 75,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["VEJA Campo Unisex.jpg"],
+    "tags": ["veja", "sustainable", "unisex"]
+  },
+  "nike_air_max_95_extended": {
+    "id": "nike_air_max_95_extended",
+    "version": "v1",
+    "name": "Nike Air Max 95 Extended Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Max 95-Light blue and dark blue.jpg", "Nike Air Max 95, mesmo estilo do Jay Chou (tamanhos 40-46).jpg", "Máx. 95 1895-384 (40-46).jpg", "Máx. 95 1895-311 (40-46).jpg", "Máx. 95 1895-132 (40-46).jpg", "Máx. 95 1895-290 (40-46).jpg", "Máx. 95 1895-135 (40-46).jpg"],
+    "tags": ["nike", "airmax", "extended"]
+  },
+  "nike_shox_tl_extended": {
+    "id": "nike_shox_tl_extended",
+    "version": "v1",
+    "name": "Nike Shox TL Extended Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Shox TL Light Bone Metallic Silver Cool Grey.jpg", "Nike Shox TL branco-vermelho claro (tamanhos 40-45).jpg", "Nike Shox TL Preto-Cinza (40-45).jpg", "Nike Shox TL Preto-Azul Claro (40-45).jpg"],
+    "tags": ["nike", "shox", "extended"]
+  },
+  "balenciaga_sneakers": {
+    "id": "balenciaga_sneakers",
+    "version": "v1",
+    "name": "Balenciaga Sneakers Collection",
+    "price": 165,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Balenciaga sneakers_1.jpg", "Balenciaga sneakers_2.jpg", "Balenciaga sneakers_3.jpg", "Balenciaga sneakers_4.jpg", "Balenciaga sneakers_5.jpg", "Balenciaga sneakers_6.jpg", "Balenciaga sneakers_7.jpg", "Balenciaga sneakers_8.jpg", "Balenciaga sneakers_9.jpg", "Balenciaga sneakers_10.jpg"],
+    "tags": ["balenciaga", "luxury", "sneakers"]
+  },
+  "balenciaga_shoes": {
+    "id": "balenciaga_shoes",
+    "version": "v1",
+    "name": "Balenciaga Shoes Collection",
+    "price": 170,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Balenciaga shoes_1.jpg", "Balenciaga shoes_2.jpg", "Balenciaga shoes_3.jpg", "Balenciaga shoes_4.jpg", "Balenciaga shoes_5.jpg", "Balenciaga shoes_6.jpg", "Balenciaga shoes_7.jpg", "Balenciaga shoes_8.jpg", "Balenciaga shoes_9.jpg", "Balenciaga shoes_10.jpg"],
+    "tags": ["balenciaga", "luxury", "shoes"]
+  },
+  "balenciaga_triple_s": {
+    "id": "balenciaga_triple_s",
+    "version": "v1",
+    "name": "Balenciaga Triple S Collection",
+    "price": 180,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Balenciaga Triple S_1.jpg", "Balenciaga Triple S_2.jpg", "Balenciaga Triple S_3.jpg", "Balenciaga Triple S_4.jpg", "Balenciaga Triple S_5.jpg", "Balenciaga Triple S_6.jpg", "Balenciaga Triple S_7.jpg", "Balenciaga Triple S_8.jpg", "Balenciaga Triple S_9.jpg", "Balenciaga Triple S_10.jpg"],
+    "tags": ["balenciaga", "luxury", "triples"]
+  },
+  "balenciaga_speed": {
+    "id": "balenciaga_speed",
+    "version": "v1",
+    "name": "Balenciaga Speed Collection",
+    "price": 175,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Balenciaga Speed_1.jpg", "Balenciaga Speed_2.jpg", "Balenciaga Speed_3.jpg", "Balenciaga Speed_4.jpg", "Balenciaga Speed_5.jpg", "Balenciaga Speed_6.jpg", "Balenciaga Speed_7.jpg", "Balenciaga Speed_8.jpg", "Balenciaga Speed_9.jpg", "Balenciaga Speed_10.jpg"],
+    "tags": ["balenciaga", "luxury", "speed"]
+  },
+  "balenciaga_track": {
+    "id": "balenciaga_track",
+    "version": "v1",
+    "name": "Balenciaga Track Collection",
+    "price": 185,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Balenciaga Track_1.jpg", "Balenciaga Track_2.jpg", "Balenciaga Track_3.jpg", "Balenciaga Track_4.jpg", "Balenciaga Track_5.jpg", "Balenciaga Track_6.jpg", "Balenciaga Track_7.jpg", "Balenciaga Track_8.jpg", "Balenciaga Track_9.jpg", "Balenciaga Track_10.jpg"],
+    "tags": ["balenciaga", "luxury", "track"]
+  },
+  "stone_island_sneakers": {
+    "id": "stone_island_sneakers",
+    "version": "v1",
+    "name": "Stone Island Sneakers Collection",
+    "price": 155,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Stone Island sneakers_1.jpg", "Stone Island sneakers_2.jpg", "Stone Island sneakers_3.jpg", "Stone Island sneakers_4.jpg", "Stone Island sneakers_5.jpg", "Stone Island sneakers_6.jpg", "Stone Island sneakers_7.jpg", "Stone Island sneakers_8.jpg", "Stone Island sneakers_9.jpg", "Stone Island sneakers_10.jpg"],
+    "tags": ["stoneisland", "luxury", "sneakers"]
+  },
+  "stone_island_shoes": {
+    "id": "stone_island_shoes",
+    "version": "v1",
+    "name": "Stone Island Shoes Collection",
+    "price": 160,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Stone Island shoes_1.jpg", "Stone Island shoes_2.jpg", "Stone Island shoes_3.jpg", "Stone Island shoes_4.jpg", "Stone Island shoes_5.jpg", "Stone Island shoes_6.jpg", "Stone Island shoes_7.jpg", "Stone Island shoes_8.jpg", "Stone Island shoes_9.jpg", "Stone Island shoes_10.jpg"],
+    "tags": ["stoneisland", "luxury", "shoes"]
+  },
+  "supreme_sneakers": {
+    "id": "supreme_sneakers",
+    "version": "v1",
+    "name": "Supreme Sneakers Collection",
+    "price": 145,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Supreme sneakers_1.jpg", "Supreme sneakers_2.jpg", "Supreme sneakers_3.jpg", "Supreme sneakers_4.jpg", "Supreme sneakers_5.jpg", "Supreme sneakers_6.jpg", "Supreme sneakers_7.jpg", "Supreme sneakers_8.jpg", "Supreme sneakers_9.jpg", "Supreme sneakers_10.jpg"],
+    "tags": ["supreme", "streetwear", "sneakers"]
+  },
+  "supreme_shoes": {
+    "id": "supreme_shoes",
+    "version": "v1",
+    "name": "Supreme Shoes Collection",
+    "price": 150,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Supreme shoes_1.jpg", "Supreme shoes_2.jpg", "Supreme shoes_3.jpg", "Supreme shoes_4.jpg", "Supreme shoes_5.jpg", "Supreme shoes_6.jpg", "Supreme shoes_7.jpg", "Supreme shoes_8.jpg", "Supreme shoes_9.jpg", "Supreme shoes_10.jpg"],
+    "tags": ["supreme", "streetwear", "shoes"]
+  },
+  "fear_of_god_sneakers": {
+    "id": "fear_of_god_sneakers",
+    "version": "v1",
+    "name": "Fear of God Sneakers Collection",
+    "price": 165,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Fear of God sneakers_1.jpg", "Fear of God sneakers_2.jpg", "Fear of God sneakers_3.jpg", "Fear of God sneakers_4.jpg", "Fear of God sneakers_5.jpg", "Fear of God sneakers_6.jpg", "Fear of God sneakers_7.jpg", "Fear of God sneakers_8.jpg", "Fear of God sneakers_9.jpg", "Fear of God sneakers_10.jpg"],
+    "tags": ["fearofgod", "luxury", "sneakers"]
+  },
+  "fear_of_god_shoes": {
+    "id": "fear_of_god_shoes",
+    "version": "v1",
+    "name": "Fear of God Shoes Collection",
+    "price": 170,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Fear of God shoes_1.jpg", "Fear of God shoes_2.jpg", "Fear of God shoes_3.jpg", "Fear of God shoes_4.jpg", "Fear of God shoes_5.jpg", "Fear of God shoes_6.jpg", "Fear of God shoes_7.jpg", "Fear of God shoes_8.jpg", "Fear of God shoes_9.jpg", "Fear of God shoes_10.jpg"],
+    "tags": ["fearofgod", "luxury", "shoes"]
+  },
+  "rick_owens_sneakers": {
+    "id": "rick_owens_sneakers",
+    "version": "v1",
+    "name": "Rick Owens Sneakers Collection",
+    "price": 190,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Rick Owens sneakers_1.jpg", "Rick Owens sneakers_2.jpg", "Rick Owens sneakers_3.jpg", "Rick Owens sneakers_4.jpg", "Rick Owens sneakers_5.jpg", "Rick Owens sneakers_6.jpg", "Rick Owens sneakers_7.jpg", "Rick Owens sneakers_8.jpg", "Rick Owens sneakers_9.jpg", "Rick Owens sneakers_10.jpg"],
+    "tags": ["rickowens", "luxury", "sneakers"]
+  },
+  "rick_owens_shoes": {
+    "id": "rick_owens_shoes",
+    "version": "v1",
+    "name": "Rick Owens Shoes Collection",
+    "price": 195,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Rick Owens shoes_1.jpg", "Rick Owens shoes_2.jpg", "Rick Owens shoes_3.jpg", "Rick Owens shoes_4.jpg", "Rick Owens shoes_5.jpg", "Rick Owens shoes_6.jpg", "Rick Owens shoes_7.jpg", "Rick Owens shoes_8.jpg", "Rick Owens shoes_9.jpg", "Rick Owens shoes_10.jpg"],
+    "tags": ["rickowens", "luxury", "shoes"]
+  },
+  "givenchy_sneakers": {
+    "id": "givenchy_sneakers",
+    "version": "v1",
+    "name": "Givenchy Sneakers Collection",
+    "price": 175,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Givenchy sneakers_1.jpg", "Givenchy sneakers_2.jpg", "Givenchy sneakers_3.jpg", "Givenchy sneakers_4.jpg", "Givenchy sneakers_5.jpg", "Givenchy sneakers_6.jpg", "Givenchy sneakers_7.jpg", "Givenchy sneakers_8.jpg", "Givenchy sneakers_9.jpg", "Givenchy sneakers_10.jpg"],
+    "tags": ["givenchy", "luxury", "sneakers"]
+  },
+  "givenchy_shoes": {
+    "id": "givenchy_shoes",
+    "version": "v1",
+    "name": "Givenchy Shoes Collection",
+    "price": 180,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Givenchy shoes_1.jpg", "Givenchy shoes_2.jpg", "Givenchy shoes_3.jpg", "Givenchy shoes_4.jpg", "Givenchy shoes_5.jpg", "Givenchy shoes_6.jpg", "Givenchy shoes_7.jpg", "Givenchy shoes_8.jpg", "Givenchy shoes_9.jpg", "Givenchy shoes_10.jpg"],
+    "tags": ["givenchy", "luxury", "shoes"]
+  },
+  "prada_sneakers": {
+    "id": "prada_sneakers",
+    "version": "v1",
+    "name": "Prada Sneakers Collection",
+    "price": 185,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Prada sneakers_1.jpg", "Prada sneakers_2.jpg", "Prada sneakers_3.jpg", "Prada sneakers_4.jpg", "Prada sneakers_5.jpg", "Prada sneakers_6.jpg", "Prada sneakers_7.jpg", "Prada sneakers_8.jpg", "Prada sneakers_9.jpg", "Prada sneakers_10.jpg"],
+    "tags": ["prada", "luxury", "sneakers"]
+  },
+  "prada_shoes": {
+    "id": "prada_shoes",
+    "version": "v1",
+    "name": "Prada Shoes Collection",
+    "price": 190,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Prada shoes_1.jpg", "Prada shoes_2.jpg", "Prada shoes_3.jpg", "Prada shoes_4.jpg", "Prada shoes_5.jpg", "Prada shoes_6.jpg", "Prada shoes_7.jpg", "Prada shoes_8.jpg", "Prada shoes_9.jpg", "Prada shoes_10.jpg"],
+    "tags": ["prada", "luxury", "shoes"]
+  },
+  "valentino_sneakers": {
+    "id": "valentino_sneakers",
+    "version": "v1",
+    "name": "Valentino Sneakers Collection",
+    "price": 180,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Valentino sneakers_1.jpg", "Valentino sneakers_2.jpg", "Valentino sneakers_3.jpg", "Valentino sneakers_4.jpg", "Valentino sneakers_5.jpg", "Valentino sneakers_6.jpg", "Valentino sneakers_7.jpg", "Valentino sneakers_8.jpg", "Valentino sneakers_9.jpg", "Valentino sneakers_10.jpg"],
+    "tags": ["valentino", "luxury", "sneakers"]
+  },
+  "valentino_shoes": {
+    "id": "valentino_shoes",
+    "version": "v1",
+    "name": "Valentino Shoes Collection",
+    "price": 185,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Valentino shoes_1.jpg", "Valentino shoes_2.jpg", "Valentino shoes_3.jpg", "Valentino shoes_4.jpg", "Valentino shoes_5.jpg", "Valentino shoes_6.jpg", "Valentino shoes_7.jpg", "Valentino shoes_8.jpg", "Valentino shoes_9.jpg", "Valentino shoes_10.jpg"],
+    "tags": ["valentino", "luxury", "shoes"]
+  },
+  "bottega_veneta_sneakers": {
+    "id": "bottega_veneta_sneakers",
+    "version": "v1",
+    "name": "Bottega Veneta Sneakers Collection",
+    "price": 175,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Bottega Veneta sneakers_1.jpg", "Bottega Veneta sneakers_2.jpg", "Bottega Veneta sneakers_3.jpg", "Bottega Veneta sneakers_4.jpg", "Bottega Veneta sneakers_5.jpg", "Bottega Veneta sneakers_6.jpg", "Bottega Veneta sneakers_7.jpg", "Bottega Veneta sneakers_8.jpg", "Bottega Veneta sneakers_9.jpg", "Bottega Veneta sneakers_10.jpg"],
+    "tags": ["bottegaveneta", "luxury", "sneakers"]
+  },
+  "bottega_veneta_shoes": {
+    "id": "bottega_veneta_shoes",
+    "version": "v1",
+    "name": "Bottega Veneta Shoes Collection",
+    "price": 180,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Bottega Veneta shoes_1.jpg", "Bottega Veneta shoes_2.jpg", "Bottega Veneta shoes_3.jpg", "Bottega Veneta shoes_4.jpg", "Bottega Veneta shoes_5.jpg", "Bottega Veneta shoes_6.jpg", "Bottega Veneta shoes_7.jpg", "Bottega Veneta shoes_8.jpg", "Bottega Veneta shoes_9.jpg", "Bottega Veneta shoes_10.jpg"],
+    "tags": ["bottegaveneta", "luxury", "shoes"]
+  },
+  "nike_air_force_various": {
+    "id": "nike_air_force_various",
+    "version": "v1",
+    "name": "Nike Air Force Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Force 1 Low '07 LV8 1.jpg", "Nike Air Force 1 Low '07 LV8 2.jpg", "Nike Air Force 1 Low '07 LV8 3.jpg", "Nike Air Force 1 Low '07 LV8 4.jpg", "Nike Air Force 1 Low '07 LV8 5.jpg", "Nike Air Force 1 Low '07 LV8 6.jpg", "Nike Air Force 1 Low '07 LV8 7.jpg", "Nike Air Force 1 Low '07 LV8 8.jpg", "Nike Air Force 1 Low '07 LV8 9.jpg", "Nike Air Force 1 Low '07 LV8 10.jpg"],
+    "tags": ["nike", "airforce", "collection"]
+  },
+  "nike_dunk_various": {
+    "id": "nike_dunk_various",
+    "version": "v1",
+    "name": "Nike Dunk Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Dunk Low 1.jpg", "Nike Dunk Low 2.jpg", "Nike Dunk Low 3.jpg", "Nike Dunk Low 4.jpg", "Nike Dunk Low 5.jpg", "Nike Dunk Low 6.jpg", "Nike Dunk Low 7.jpg", "Nike Dunk Low 8.jpg", "Nike Dunk Low 9.jpg", "Nike Dunk Low 10.jpg"],
+    "tags": ["nike", "dunk", "collection"]
+  },
+  "nike_blazer_various": {
+    "id": "nike_blazer_various",
+    "version": "v1",
+    "name": "Nike Blazer Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Blazer Mid 77 Vintage 1.jpg", "Nike Blazer Mid 77 Vintage 2.jpg", "Nike Blazer Mid 77 Vintage 3.jpg", "Nike Blazer Mid 77 Vintage 4.jpg", "Nike Blazer Mid 77 Vintage 5.jpg", "Nike Blazer Mid 77 Vintage 6.jpg", "Nike Blazer Mid 77 Vintage 7.jpg", "Nike Blazer Mid 77 Vintage 8.jpg", "Nike Blazer Mid 77 Vintage 9.jpg", "Nike Blazer Mid 77 Vintage 10.jpg"],
+    "tags": ["nike", "blazer", "vintage"]
+  },
+  "nike_cortez_various": {
+    "id": "nike_cortez_various",
+    "version": "v1",
+    "name": "Nike Cortez Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Cortez 1.jpg", "Nike Cortez 2.jpg", "Nike Cortez 3.jpg", "Nike Cortez 4.jpg", "Nike Cortez 5.jpg", "Nike Cortez 6.jpg", "Nike Cortez 7.jpg", "Nike Cortez 8.jpg", "Nike Cortez 9.jpg", "Nike Cortez 10.jpg"],
+    "tags": ["nike", "cortez", "classic"]
+  },
+  "adidas_ultraboost_various": {
+    "id": "adidas_ultraboost_various",
+    "version": "v1",
+    "name": "Adidas Ultraboost Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Ultraboost 1.jpg", "Adidas Ultraboost 2.jpg", "Adidas Ultraboost 3.jpg", "Adidas Ultraboost 4.jpg", "Adidas Ultraboost 5.jpg", "Adidas Ultraboost 6.jpg", "Adidas Ultraboost 7.jpg", "Adidas Ultraboost 8.jpg", "Adidas Ultraboost 9.jpg", "Adidas Ultraboost 10.jpg"],
+    "tags": ["adidas", "ultraboost", "running"]
+  },
+  "adidas_nmd_various": {
+    "id": "adidas_nmd_various",
+    "version": "v1",
+    "name": "Adidas NMD Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas NMD 1.jpg", "Adidas NMD 2.jpg", "Adidas NMD 3.jpg", "Adidas NMD 4.jpg", "Adidas NMD 5.jpg", "Adidas NMD 6.jpg", "Adidas NMD 7.jpg", "Adidas NMD 8.jpg", "Adidas NMD 9.jpg", "Adidas NMD 10.jpg"],
+    "tags": ["adidas", "nmd", "lifestyle"]
+  },
+  "adidas_stan_smith_various": {
+    "id": "adidas_stan_smith_various",
+    "version": "v1",
+    "name": "Adidas Stan Smith Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Stan Smith 1.jpg", "Adidas Stan Smith 2.jpg", "Adidas Stan Smith 3.jpg", "Adidas Stan Smith 4.jpg", "Adidas Stan Smith 5.jpg", "Adidas Stan Smith 6.jpg", "Adidas Stan Smith 7.jpg", "Adidas Stan Smith 8.jpg", "Adidas Stan Smith 9.jpg", "Adidas Stan Smith 10.jpg"],
+    "tags": ["adidas", "stansmith", "classic"]
+  },
+  "adidas_superstar_various": {
+    "id": "adidas_superstar_various",
+    "version": "v1",
+    "name": "Adidas Superstar Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Superstar 1.jpg", "Adidas Superstar 2.jpg", "Adidas Superstar 3.jpg", "Adidas Superstar 4.jpg", "Adidas Superstar 5.jpg", "Adidas Superstar 6.jpg", "Adidas Superstar 7.jpg", "Adidas Superstar 8.jpg", "Adidas Superstar 9.jpg", "Adidas Superstar 10.jpg"],
+    "tags": ["adidas", "superstar", "classic"]
+  },
+  "jordan_various_retros": {
+    "id": "jordan_various_retros",
+    "version": "v1",
+    "name": "Jordan Various Retro Collection",
+    "price": 120,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Jordan Retro 1.jpg", "Jordan Retro 2.jpg", "Jordan Retro 3.jpg", "Jordan Retro 4.jpg", "Jordan Retro 5.jpg", "Jordan Retro 6.jpg", "Jordan Retro 7.jpg", "Jordan Retro 8.jpg", "Jordan Retro 9.jpg", "Jordan Retro 10.jpg"],
+    "tags": ["jordan", "retro", "collection"]
+  },
+  "new_balance_various": {
+    "id": "new_balance_various",
+    "version": "v1",
+    "name": "New Balance Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["New Balance 2002R 1.jpg", "New Balance 2002R 2.jpg", "New Balance 2002R 3.jpg", "New Balance 2002R 4.jpg", "New Balance 2002R 5.jpg", "New Balance 990 1.jpg", "New Balance 990 2.jpg", "New Balance 990 3.jpg", "New Balance 990 4.jpg", "New Balance 990 5.jpg"],
+    "tags": ["newbalance", "collection"]
+  },
+  "asics_various": {
+    "id": "asics_various",
+    "version": "v1",
+    "name": "Asics Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Asics Gel Kayano 1.jpg", "Asics Gel Kayano 2.jpg", "Asics Gel Kayano 3.jpg", "Asics Gel Kayano 4.jpg", "Asics Gel Kayano 5.jpg", "Asics Gel Nimbus 1.jpg", "Asics Gel Nimbus 2.jpg", "Asics Gel Nimbus 3.jpg", "Asics Gel Nimbus 4.jpg", "Asics Gel Nimbus 5.jpg"],
+    "tags": ["asics", "running", "collection"]
+  },
+  "vans_various": {
+    "id": "vans_various",
+    "version": "v1",
+    "name": "Vans Various Collection",
+    "price": 75,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Vans Old Skool 1.jpg", "Vans Old Skool 2.jpg", "Vans Old Skool 3.jpg", "Vans Old Skool 4.jpg", "Vans Old Skool 5.jpg", "Vans Sk8-Hi 1.jpg", "Vans Sk8-Hi 2.jpg", "Vans Sk8-Hi 3.jpg", "Vans Sk8-Hi 4.jpg", "Vans Sk8-Hi 5.jpg"],
+    "tags": ["vans", "skate", "collection"]
+  },
+  "converse_various": {
+    "id": "converse_various",
+    "version": "v1",
+    "name": "Converse Various Collection",
+    "price": 70,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Converse Chuck Taylor 1.jpg", "Converse Chuck Taylor 2.jpg", "Converse Chuck Taylor 3.jpg", "Converse Chuck Taylor 4.jpg", "Converse Chuck Taylor 5.jpg", "Converse Chuck 70 1.jpg", "Converse Chuck 70 2.jpg", "Converse Chuck 70 3.jpg", "Converse Chuck 70 4.jpg", "Converse Chuck 70 5.jpg"],
+    "tags": ["converse", "classic", "collection"]
+  },
+  "reebok_various": {
+    "id": "reebok_various",
+    "version": "v1",
+    "name": "Reebok Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Reebok Classic 1.jpg", "Reebok Classic 2.jpg", "Reebok Classic 3.jpg", "Reebok Classic 4.jpg", "Reebok Classic 5.jpg", "Reebok Club C 1.jpg", "Reebok Club C 2.jpg", "Reebok Club C 3.jpg", "Reebok Club C 4.jpg", "Reebok Club C 5.jpg"],
+    "tags": ["reebok", "classic", "collection"]
+  },
+  "timberland_various": {
+    "id": "timberland_various",
+    "version": "v1",
+    "name": "Timberland Various Collection",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Timberland 6-Inch Boot 1.jpg", "Timberland 6-Inch Boot 2.jpg", "Timberland 6-Inch Boot 3.jpg", "Timberland 6-Inch Boot 4.jpg", "Timberland 6-Inch Boot 5.jpg", "Timberland Field Boot 1.jpg", "Timberland Field Boot 2.jpg", "Timberland Field Boot 3.jpg", "Timberland Field Boot 4.jpg", "Timberland Field Boot 5.jpg"],
+    "tags": ["timberland", "boots", "collection"]
+  },
+  "dr_martens_various": {
+    "id": "dr_martens_various",
+    "version": "v1",
+    "name": "Dr. Martens Various Collection",
+    "price": 105,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Dr. Martens 1460 1.jpg", "Dr. Martens 1460 2.jpg", "Dr. Martens 1460 3.jpg", "Dr. Martens 1460 4.jpg", "Dr. Martens 1460 5.jpg", "Dr. Martens Jadon 1.jpg", "Dr. Martens Jadon 2.jpg", "Dr. Martens Jadon 3.jpg", "Dr. Martens Jadon 4.jpg", "Dr. Martens Jadon 5.jpg"],
+    "tags": ["drmartens", "boots", "collection"]
+  },
+  "nike_air_max_2021_various": {
+    "id": "nike_air_max_2021_various",
+    "version": "v1",
+    "name": "Nike Air Max 2021 Various Collection",
+    "price": 100,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Max 2021 1.jpg", "Nike Air Max 2021 2.jpg", "Nike Air Max 2021 3.jpg", "Nike Air Max 2021 4.jpg", "Nike Air Max 2021 5.jpg", "Nike Air Max 2021 6.jpg", "Nike Air Max 2021 7.jpg", "Nike Air Max 2021 8.jpg", "Nike Air Max 2021 9.jpg", "Nike Air Max 2021 10.jpg"],
+    "tags": ["nike", "airmax", "2021"]
+  },
+  "nike_air_zoom_various": {
+    "id": "nike_air_zoom_various",
+    "version": "v1",
+    "name": "Nike Air Zoom Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Air Zoom 1.jpg", "Nike Air Zoom 2.jpg", "Nike Air Zoom 3.jpg", "Nike Air Zoom 4.jpg", "Nike Air Zoom 5.jpg", "Nike Air Zoom 6.jpg", "Nike Air Zoom 7.jpg", "Nike Air Zoom 8.jpg", "Nike Air Zoom 9.jpg", "Nike Air Zoom 10.jpg"],
+    "tags": ["nike", "airzoom", "running"]
+  },
+  "nike_react_various": {
+    "id": "nike_react_various",
+    "version": "v1",
+    "name": "Nike React Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike React 1.jpg", "Nike React 2.jpg", "Nike React 3.jpg", "Nike React 4.jpg", "Nike React 5.jpg", "Nike React 6.jpg", "Nike React 7.jpg", "Nike React 8.jpg", "Nike React 9.jpg", "Nike React 10.jpg"],
+    "tags": ["nike", "react", "lifestyle"]
+  },
+  "nike_flyknit_various": {
+    "id": "nike_flyknit_various",
+    "version": "v1",
+    "name": "Nike Flyknit Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Flyknit 1.jpg", "Nike Flyknit 2.jpg", "Nike Flyknit 3.jpg", "Nike Flyknit 4.jpg", "Nike Flyknit 5.jpg", "Nike Flyknit 6.jpg", "Nike Flyknit 7.jpg", "Nike Flyknit 8.jpg", "Nike Flyknit 9.jpg", "Nike Flyknit 10.jpg"],
+    "tags": ["nike", "flyknit", "running"]
+  },
+  "adidas_boost_various": {
+    "id": "adidas_boost_various",
+    "version": "v1",
+    "name": "Adidas Boost Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Boost 1.jpg", "Adidas Boost 2.jpg", "Adidas Boost 3.jpg", "Adidas Boost 4.jpg", "Adidas Boost 5.jpg", "Adidas Boost 6.jpg", "Adidas Boost 7.jpg", "Adidas Boost 8.jpg", "Adidas Boost 9.jpg", "Adidas Boost 10.jpg"],
+    "tags": ["adidas", "boost", "running"]
+  },
+  "adidas_primeknit_various": {
+    "id": "adidas_primeknit_various",
+    "version": "v1",
+    "name": "Adidas Primeknit Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Primeknit 1.jpg", "Adidas Primeknit 2.jpg", "Adidas Primeknit 3.jpg", "Adidas Primeknit 4.jpg", "Adidas Primeknit 5.jpg", "Adidas Primeknit 6.jpg", "Adidas Primeknit 7.jpg", "Adidas Primeknit 8.jpg", "Adidas Primeknit 9.jpg", "Adidas Primeknit 10.jpg"],
+    "tags": ["adidas", "primeknit", "lifestyle"]
+  },
+  "jordan_flight_various": {
+    "id": "jordan_flight_various",
+    "version": "v1",
+    "name": "Jordan Flight Various Collection",
+    "price": 100,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Jordan Flight 1.jpg", "Jordan Flight 2.jpg", "Jordan Flight 3.jpg", "Jordan Flight 4.jpg", "Jordan Flight 5.jpg", "Jordan Flight 6.jpg", "Jordan Flight 7.jpg", "Jordan Flight 8.jpg", "Jordan Flight 9.jpg", "Jordan Flight 10.jpg"],
+    "tags": ["jordan", "flight", "basketball"]
+  },
+  "jordan_training_various": {
+    "id": "jordan_training_various",
+    "version": "v1",
+    "name": "Jordan Training Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Jordan Training 1.jpg", "Jordan Training 2.jpg", "Jordan Training 3.jpg", "Jordan Training 4.jpg", "Jordan Training 5.jpg", "Jordan Training 6.jpg", "Jordan Training 7.jpg", "Jordan Training 8.jpg", "Jordan Training 9.jpg", "Jordan Training 10.jpg"],
+    "tags": ["jordan", "training", "lifestyle"]
+  },
+  "puma_running_various": {
+    "id": "puma_running_various",
+    "version": "v1",
+    "name": "Puma Running Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Puma Running 1.jpg", "Puma Running 2.jpg", "Puma Running 3.jpg", "Puma Running 4.jpg", "Puma Running 5.jpg", "Puma Running 6.jpg", "Puma Running 7.jpg", "Puma Running 8.jpg", "Puma Running 9.jpg", "Puma Running 10.jpg"],
+    "tags": ["puma", "running", "collection"]
+  },
+  "puma_lifestyle_various": {
+    "id": "puma_lifestyle_various",
+    "version": "v1",
+    "name": "Puma Lifestyle Various Collection",
+    "price": 75,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Puma Lifestyle 1.jpg", "Puma Lifestyle 2.jpg", "Puma Lifestyle 3.jpg", "Puma Lifestyle 4.jpg", "Puma Lifestyle 5.jpg", "Puma Lifestyle 6.jpg", "Puma Lifestyle 7.jpg", "Puma Lifestyle 8.jpg", "Puma Lifestyle 9.jpg", "Puma Lifestyle 10.jpg"],
+    "tags": ["puma", "lifestyle", "collection"]
+  },
+  "new_balance_fresh_foam_various": {
+    "id": "new_balance_fresh_foam_various",
+    "version": "v1",
+    "name": "New Balance Fresh Foam Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["New Balance Fresh Foam 1.jpg", "New Balance Fresh Foam 2.jpg", "New Balance Fresh Foam 3.jpg", "New Balance Fresh Foam 4.jpg", "New Balance Fresh Foam 5.jpg", "New Balance Fresh Foam 6.jpg", "New Balance Fresh Foam 7.jpg", "New Balance Fresh Foam 8.jpg", "New Balance Fresh Foam 9.jpg", "New Balance Fresh Foam 10.jpg"],
+    "tags": ["newbalance", "freshfoam", "running"]
+  },
+  "new_balance_classic_various": {
+    "id": "new_balance_classic_various",
+    "version": "v1",
+    "name": "New Balance Classic Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["New Balance Classic 1.jpg", "New Balance Classic 2.jpg", "New Balance Classic 3.jpg", "New Balance Classic 4.jpg", "New Balance Classic 5.jpg", "New Balance Classic 6.jpg", "New Balance Classic 7.jpg", "New Balance Classic 8.jpg", "New Balance Classic 9.jpg", "New Balance Classic 10.jpg"],
+    "tags": ["newbalance", "classic", "collection"]
+  },
+  "asics_gel_various": {
+    "id": "asics_gel_various",
+    "version": "v1",
+    "name": "Asics Gel Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Asics Gel 1.jpg", "Asics Gel 2.jpg", "Asics Gel 3.jpg", "Asics Gel 4.jpg", "Asics Gel 5.jpg", "Asics Gel 6.jpg", "Asics Gel 7.jpg", "Asics Gel 8.jpg", "Asics Gel 9.jpg", "Asics Gel 10.jpg"],
+    "tags": ["asics", "gel", "running"]
+  },
+  "saucony_running_various": {
+    "id": "saucony_running_various",
+    "version": "v1",
+    "name": "Saucony Running Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Saucony Running 1.jpg", "Saucony Running 2.jpg", "Saucony Running 3.jpg", "Saucony Running 4.jpg", "Saucony Running 5.jpg", "Saucony Running 6.jpg", "Saucony Running 7.jpg", "Saucony Running 8.jpg", "Saucony Running 9.jpg", "Saucony Running 10.jpg"],
+    "tags": ["saucony", "running", "collection"]
+  },
+  "hoka_one_one_various": {
+    "id": "hoka_one_one_various",
+    "version": "v1",
+    "name": "Hoka One One Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Hoka One One 1.jpg", "Hoka One One 2.jpg", "Hoka One One 3.jpg", "Hoka One One 4.jpg", "Hoka One One 5.jpg", "Hoka One One 6.jpg", "Hoka One One 7.jpg", "Hoka One One 8.jpg", "Hoka One One 9.jpg", "Hoka One One 10.jpg"],
+    "tags": ["hoka", "running", "collection"]
+  },
+  "nike_lebron_various": {
+    "id": "nike_lebron_various",
+    "version": "v1",
+    "name": "Nike LeBron Various Collection",
+    "price": 110,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike LeBron 1.jpg", "Nike LeBron 2.jpg", "Nike LeBron 3.jpg", "Nike LeBron 4.jpg", "Nike LeBron 5.jpg", "Nike LeBron 6.jpg", "Nike LeBron 7.jpg", "Nike LeBron 8.jpg", "Nike LeBron 9.jpg", "Nike LeBron 10.jpg"],
+    "tags": ["nike", "lebron", "basketball"]
+  },
+  "nike_kobe_various": {
+    "id": "nike_kobe_various",
+    "version": "v1",
+    "name": "Nike Kobe Various Collection",
+    "price": 105,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Kobe 1.jpg", "Nike Kobe 2.jpg", "Nike Kobe 3.jpg", "Nike Kobe 4.jpg", "Nike Kobe 5.jpg", "Nike Kobe 6.jpg", "Nike Kobe 7.jpg", "Nike Kobe 8.jpg", "Nike Kobe 9.jpg", "Nike Kobe 10.jpg"],
+    "tags": ["nike", "kobe", "basketball"]
+  },
+  "nike_kevin_durant_various": {
+    "id": "nike_kevin_durant_various",
+    "version": "v1",
+    "name": "Nike Kevin Durant Various Collection",
+    "price": 100,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Kevin Durant 1.jpg", "Nike Kevin Durant 2.jpg", "Nike Kevin Durant 3.jpg", "Nike Kevin Durant 4.jpg", "Nike Kevin Durant 5.jpg", "Nike Kevin Durant 6.jpg", "Nike Kevin Durant 7.jpg", "Nike Kevin Durant 8.jpg", "Nike Kevin Durant 9.jpg", "Nike Kevin Durant 10.jpg"],
+    "tags": ["nike", "durant", "basketball"]
+  },
+  "nike_kyrie_various": {
+    "id": "nike_kyrie_various",
+    "version": "v1",
+    "name": "Nike Kyrie Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Kyrie 1.jpg", "Nike Kyrie 2.jpg", "Nike Kyrie 3.jpg", "Nike Kyrie 4.jpg", "Nike Kyrie 5.jpg", "Nike Kyrie 6.jpg", "Nike Kyrie 7.jpg", "Nike Kyrie 8.jpg", "Nike Kyrie 9.jpg", "Nike Kyrie 10.jpg"],
+    "tags": ["nike", "kyrie", "basketball"]
+  },
+  "nike_pg_various": {
+    "id": "nike_pg_various",
+    "version": "v1",
+    "name": "Nike Paul George Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Paul George 1.jpg", "Nike Paul George 2.jpg", "Nike Paul George 3.jpg", "Nike Paul George 4.jpg", "Nike Paul George 5.jpg", "Nike Paul George 6.jpg", "Nike Paul George 7.jpg", "Nike Paul George 8.jpg", "Nike Paul George 9.jpg", "Nike Paul George 10.jpg"],
+    "tags": ["nike", "paulgeorge", "basketball"]
+  },
+  "adidas_james_harden_various": {
+    "id": "adidas_james_harden_various",
+    "version": "v1",
+    "name": "Adidas James Harden Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas James Harden 1.jpg", "Adidas James Harden 2.jpg", "Adidas James Harden 3.jpg", "Adidas James Harden 4.jpg", "Adidas James Harden 5.jpg", "Adidas James Harden 6.jpg", "Adidas James Harden 7.jpg", "Adidas James Harden 8.jpg", "Adidas James Harden 9.jpg", "Adidas James Harden 10.jpg"],
+    "tags": ["adidas", "harden", "basketball"]
+  },
+  "adidas_damian_lillard_various": {
+    "id": "adidas_damian_lillard_various",
+    "version": "v1",
+    "name": "Adidas Damian Lillard Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Damian Lillard 1.jpg", "Adidas Damian Lillard 2.jpg", "Adidas Damian Lillard 3.jpg", "Adidas Damian Lillard 4.jpg", "Adidas Damian Lillard 5.jpg", "Adidas Damian Lillard 6.jpg", "Adidas Damian Lillard 7.jpg", "Adidas Damian Lillard 8.jpg", "Adidas Damian Lillard 9.jpg", "Adidas Damian Lillard 10.jpg"],
+    "tags": ["adidas", "lillard", "basketball"]
+  },
+  "adidas_derrick_rose_various": {
+    "id": "adidas_derrick_rose_various",
+    "version": "v1",
+    "name": "Adidas Derrick Rose Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Derrick Rose 1.jpg", "Adidas Derrick Rose 2.jpg", "Adidas Derrick Rose 3.jpg", "Adidas Derrick Rose 4.jpg", "Adidas Derrick Rose 5.jpg", "Adidas Derrick Rose 6.jpg", "Adidas Derrick Rose 7.jpg", "Adidas Derrick Rose 8.jpg", "Adidas Derrick Rose 9.jpg", "Adidas Derrick Rose 10.jpg"],
+    "tags": ["adidas", "rose", "basketball"]
+  },
+  "under_armour_stephen_curry_various": {
+    "id": "under_armour_stephen_curry_various",
+    "version": "v1",
+    "name": "Under Armour Stephen Curry Various Collection",
+    "price": 95,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Under Armour Stephen Curry 1.jpg", "Under Armour Stephen Curry 2.jpg", "Under Armour Stephen Curry 3.jpg", "Under Armour Stephen Curry 4.jpg", "Under Armour Stephen Curry 5.jpg", "Under Armour Stephen Curry 6.jpg", "Under Armour Stephen Curry 7.jpg", "Under Armour Stephen Curry 8.jpg", "Under Armour Stephen Curry 9.jpg", "Under Armour Stephen Curry 10.jpg"],
+    "tags": ["underarmour", "curry", "basketball"]
+  },
+  "puma_clyde_court_various": {
+    "id": "puma_clyde_court_various",
+    "version": "v1",
+    "name": "Puma Clyde Court Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Puma Clyde Court 1.jpg", "Puma Clyde Court 2.jpg", "Puma Clyde Court 3.jpg", "Puma Clyde Court 4.jpg", "Puma Clyde Court 5.jpg", "Puma Clyde Court 6.jpg", "Puma Clyde Court 7.jpg", "Puma Clyde Court 8.jpg", "Puma Clyde Court 9.jpg", "Puma Clyde Court 10.jpg"],
+    "tags": ["puma", "clyde", "basketball"]
+  },
+  "new_balance_basketball_various": {
+    "id": "new_balance_basketball_various",
+    "version": "v1",
+    "name": "New Balance Basketball Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["New Balance Basketball 1.jpg", "New Balance Basketball 2.jpg", "New Balance Basketball 3.jpg", "New Balance Basketball 4.jpg", "New Balance Basketball 5.jpg", "New Balance Basketball 6.jpg", "New Balance Basketball 7.jpg", "New Balance Basketball 8.jpg", "New Balance Basketball 9.jpg", "New Balance Basketball 10.jpg"],
+    "tags": ["newbalance", "basketball", "collection"]
+  },
+  "nike_skateboarding_various": {
+    "id": "nike_skateboarding_various",
+    "version": "v1",
+    "name": "Nike Skateboarding Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Skateboarding 1.jpg", "Nike Skateboarding 2.jpg", "Nike Skateboarding 3.jpg", "Nike Skateboarding 4.jpg", "Nike Skateboarding 5.jpg", "Nike Skateboarding 6.jpg", "Nike Skateboarding 7.jpg", "Nike Skateboarding 8.jpg", "Nike Skateboarding 9.jpg", "Nike Skateboarding 10.jpg"],
+    "tags": ["nike", "skateboarding", "collection"]
+  },
+  "adidas_skateboarding_various": {
+    "id": "adidas_skateboarding_various",
+    "version": "v1",
+    "name": "Adidas Skateboarding Various Collection",
+    "price": 75,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Skateboarding 1.jpg", "Adidas Skateboarding 2.jpg", "Adidas Skateboarding 3.jpg", "Adidas Skateboarding 4.jpg", "Adidas Skateboarding 5.jpg", "Adidas Skateboarding 6.jpg", "Adidas Skateboarding 7.jpg", "Adidas Skateboarding 8.jpg", "Adidas Skateboarding 9.jpg", "Adidas Skateboarding 10.jpg"],
+    "tags": ["adidas", "skateboarding", "collection"]
+  },
+  "converse_skateboarding_various": {
+    "id": "converse_skateboarding_various",
+    "version": "v1",
+    "name": "Converse Skateboarding Various Collection",
+    "price": 70,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Converse Skateboarding 1.jpg", "Converse Skateboarding 2.jpg", "Converse Skateboarding 3.jpg", "Converse Skateboarding 4.jpg", "Converse Skateboarding 5.jpg", "Converse Skateboarding 6.jpg", "Converse Skateboarding 7.jpg", "Converse Skateboarding 8.jpg", "Converse Skateboarding 9.jpg", "Converse Skateboarding 10.jpg"],
+    "tags": ["converse", "skateboarding", "collection"]
+  },
+  "vans_skateboarding_various": {
+    "id": "vans_skateboarding_various",
+    "version": "v1",
+    "name": "Vans Skateboarding Various Collection",
+    "price": 75,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Vans Skateboarding 1.jpg", "Vans Skateboarding 2.jpg", "Vans Skateboarding 3.jpg", "Vans Skateboarding 4.jpg", "Vans Skateboarding 5.jpg", "Vans Skateboarding 6.jpg", "Vans Skateboarding 7.jpg", "Vans Skateboarding 8.jpg", "Vans Skateboarding 9.jpg", "Vans Skateboarding 10.jpg"],
+    "tags": ["vans", "skateboarding", "collection"]
+  },
+  "nike_tennis_various": {
+    "id": "nike_tennis_various",
+    "version": "v1",
+    "name": "Nike Tennis Various Collection",
+    "price": 90,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Tennis 1.jpg", "Nike Tennis 2.jpg", "Nike Tennis 3.jpg", "Nike Tennis 4.jpg", "Nike Tennis 5.jpg", "Nike Tennis 6.jpg", "Nike Tennis 7.jpg", "Nike Tennis 8.jpg", "Nike Tennis 9.jpg", "Nike Tennis 10.jpg"],
+    "tags": ["nike", "tennis", "collection"]
+  },
+  "adidas_tennis_various": {
+    "id": "adidas_tennis_various",
+    "version": "v1",
+    "name": "Adidas Tennis Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Tennis 1.jpg", "Adidas Tennis 2.jpg", "Adidas Tennis 3.jpg", "Adidas Tennis 4.jpg", "Adidas Tennis 5.jpg", "Adidas Tennis 6.jpg", "Adidas Tennis 7.jpg", "Adidas Tennis 8.jpg", "Adidas Tennis 9.jpg", "Adidas Tennis 10.jpg"],
+    "tags": ["adidas", "tennis", "collection"]
+  },
+  "nike_training_various": {
+    "id": "nike_training_various",
+    "version": "v1",
+    "name": "Nike Training Various Collection",
+    "price": 85,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Training 1.jpg", "Nike Training 2.jpg", "Nike Training 3.jpg", "Nike Training 4.jpg", "Nike Training 5.jpg", "Nike Training 6.jpg", "Nike Training 7.jpg", "Nike Training 8.jpg", "Nike Training 9.jpg", "Nike Training 10.jpg"],
+    "tags": ["nike", "training", "collection"]
+  },
+  "adidas_training_various": {
+    "id": "adidas_training_various",
+    "version": "v1",
+    "name": "Adidas Training Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Training 1.jpg", "Adidas Training 2.jpg", "Adidas Training 3.jpg", "Adidas Training 4.jpg", "Adidas Training 5.jpg", "Adidas Training 6.jpg", "Adidas Training 7.jpg", "Adidas Training 8.jpg", "Adidas Training 9.jpg", "Adidas Training 10.jpg"],
+    "tags": ["adidas", "training", "collection"]
+  },
+  "nike_cross_training_various": {
+    "id": "nike_cross_training_various",
+    "version": "v1",
+    "name": "Nike Cross Training Various Collection",
+    "price": 80,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Cross Training 1.jpg", "Nike Cross Training 2.jpg", "Nike Cross Training 3.jpg", "Nike Cross Training 4.jpg", "Nike Cross Training 5.jpg", "Nike Cross Training 6.jpg", "Nike Cross Training 7.jpg", "Nike Cross Training 8.jpg", "Nike Cross Training 9.jpg", "Nike Cross Training 10.jpg"],
+    "tags": ["nike", "crosstraining", "collection"]
+  },
+  "adidas_cross_training_various": {
+    "id": "adidas_cross_training_various",
+    "version": "v1",
+    "name": "Adidas Cross Training Various Collection",
+    "price": 75,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Cross Training 1.jpg", "Adidas Cross Training 2.jpg", "Adidas Cross Training 3.jpg", "Adidas Cross Training 4.jpg", "Adidas Cross Training 5.jpg", "Adidas Cross Training 6.jpg", "Adidas Cross Training 7.jpg", "Adidas Cross Training 8.jpg", "Adidas Cross Training 9.jpg", "Adidas Cross Training 10.jpg"],
+    "tags": ["adidas", "crosstraining", "collection"]
+  },
+  "nike_walking_various": {
+    "id": "nike_walking_various",
+    "version": "v1",
+    "name": "Nike Walking Various Collection",
+    "price": 70,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Nike Walking 1.jpg", "Nike Walking 2.jpg", "Nike Walking 3.jpg", "Nike Walking 4.jpg", "Nike Walking 5.jpg", "Nike Walking 6.jpg", "Nike Walking 7.jpg", "Nike Walking 8.jpg", "Nike Walking 9.jpg", "Nike Walking 10.jpg"],
+    "tags": ["nike", "walking", "collection"]
+  },
+  "adidas_walking_various": {
+    "id": "adidas_walking_various",
+    "version": "v1",
+    "name": "Adidas Walking Various Collection",
+    "price": 65,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Adidas Walking 1.jpg", "Adidas Walking 2.jpg", "Adidas Walking 3.jpg", "Adidas Walking 4.jpg", "Adidas Walking 5.jpg", "Adidas Walking 6.jpg", "Adidas Walking 7.jpg", "Adidas Walking 8.jpg", "Adidas Walking 9.jpg", "Adidas Walking 10.jpg"],
+    "tags": ["adidas", "walking", "collection"]
+  },
+  "new_balance_walking_various": {
+    "id": "new_balance_walking_various",
+    "version": "v1",
+    "name": "New Balance Walking Various Collection",
+    "price": 70,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["New Balance Walking 1.jpg", "New Balance Walking 2.jpg", "New Balance Walking 3.jpg", "New Balance Walking 4.jpg", "New Balance Walking 5.jpg", "New Balance Walking 6.jpg", "New Balance Walking 7.jpg", "New Balance Walking 8.jpg", "New Balance Walking 9.jpg", "New Balance Walking 10.jpg"],
+    "tags": ["newbalance", "walking", "collection"]
+  },
+  "skechers_various": {
+    "id": "skechers_various",
+    "version": "v1",
+    "name": "Skechers Various Collection",
+    "price": 60,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Skechers 1.jpg", "Skechers 2.jpg", "Skechers 3.jpg", "Skechers 4.jpg", "Skechers 5.jpg", "Skechers 6.jpg", "Skechers 7.jpg", "Skechers 8.jpg", "Skechers 9.jpg", "Skechers 10.jpg"],
+    "tags": ["skechers", "lifestyle", "collection"]
+  },
+  "crocs_various": {
+    "id": "crocs_various",
+    "version": "v1",
+    "name": "Crocs Various Collection",
+    "price": 45,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Crocs 1.jpg", "Crocs 2.jpg", "Crocs 3.jpg", "Crocs 4.jpg", "Crocs 5.jpg", "Crocs 6.jpg", "Crocs 7.jpg", "Crocs 8.jpg", "Crocs 9.jpg", "Crocs 10.jpg"],
+    "tags": ["crocs", "comfort", "collection"]
+  },
+  "birkenstock_various": {
+    "id": "birkenstock_various",
+    "version": "v1",
+    "name": "Birkenstock Various Collection",
+    "price": 55,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["Birkenstock 1.jpg", "Birkenstock 2.jpg", "Birkenstock 3.jpg", "Birkenstock 4.jpg", "Birkenstock 5.jpg", "Birkenstock 6.jpg", "Birkenstock 7.jpg", "Birkenstock 8.jpg", "Birkenstock 9.jpg", "Birkenstock 10.jpg"],
+    "tags": ["birkenstock", "comfort", "collection"]
+  },
+  "toms_various": {
+    "id": "toms_various",
+    "version": "v1",
+    "name": "TOMS Various Collection",
+    "price": 50,
+    "currency": "EUR",
+    "status": "available",
+    "images": ["TOMS 1.jpg", "TOMS 2.jpg", "TOMS 3.jpg", "TOMS 4.jpg", "TOMS 5.jpg", "TOMS 6.jpg", "TOMS 7.jpg", "TOMS 8.jpg", "TOMS 9.jpg", "TOMS 10.jpg"],
+    "tags": ["toms", "ethical", "collection"]
   }
 }

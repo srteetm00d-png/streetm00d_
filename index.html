@@ -17,8 +17,8 @@
             <h1>STREETMOOD</h1>
         </div>
         <div class="contact-icons">
-            <span class="icon">📞</span>
-            <span class="icon">📷</span>
+            <span class="icon" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD! Vi o catálogo e gostaria de mais informações.', '_blank')">📞</span>
+            <span class="icon" onclick="window.open('https://www.instagram.com/streetm00d_/', '_blank')">📷</span>
         </div>
     </header>
 
@@ -27,9 +27,48 @@
         <!-- Produtos serão carregados aqui -->
     </main>
 
+    <!-- Modal de Detalhes -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Nome do Produto</h2>
+                <button class="close-modal" onclick="closeModal()">✕</button>
+            </div>
+            
+            <div class="carousel-container">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Imagens do carrossel -->
+                </div>
+                <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-nav carousel-next" onclick="changeSlide(1)">❯</button>
+                <div class="carousel-dots" id="carouselDots">
+                    <!-- Dots de navegação -->
+                </div>
+            </div>
+            
+            <div class="product-details">
+                <h2 id="productName">Nome do Produto</h2>
+                <div class="price" id="productPrice">€0</div>
+                <p class="size-info" id="productSize">Tamanho: Único</p>
+                <p class="description" id="productDescription">
+                    Produto premium da STREETMOOD. Qualidade garantida e estilo exclusivo.
+                </p>
+                
+                <div class="contact-actions">
+                    <button class="contact-btn-large" onclick="buyProduct()">
+                        COMPRAR AGORA
+                    </button>
+                    <button class="contact-btn-secondary" onclick="reserveProduct()">
+                        RESERVAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2024 STREETMOOD</p>
+        <p>© 2024 STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</p>
     </footer>
 
 <script src="./script.js"></script>

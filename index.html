@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</title>
+    <meta name="description" content="STREETMOOD é uma plataforma curated de streetwear. QUALQUER VIBE, QUALQUER OCASIÃO.">
+    <meta name="theme-color" content="#0d1117">
+    
+    <meta name="author" content="STREETMOOD">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO">
+    <meta property="og:description" content="QUALQUER VIBE, QUALQUER OCASIÃO.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://srteetm00d-png.github.io/streetm00d_/">
+    <meta property="og:image" content="https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/air-jordans-1-cd4487-100-1.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://srteetm00d-png.github.io/streetm00d_/">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXX');
+    </script>
+
+    <!-- Premium Typography -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap"></noscript>
+
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+
+<body>
+
+    <!-- Header Principal -->
+    <header class="main-header">
+        <div class="logo-area">
+            <h1>STREETMOOD</h1>
+            <p>QUALQUER VIBE, QUALQUER OCASIÃO.</p>
+        </div>
+        <button class="btn-whatsapp" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?', '_blank')">WHATSAPP</button>
+    </header>
+
+    <!-- Grid de Produtos -->
+    <main class="product-grid" id="product-grid">
+        <!-- Products will be loaded here -->
+    </main>
+
+    <!-- Modal de Detalhes do Produto -->
+    <div id="product-modal" class="product-modal hidden">
+        <div class="mobile-wrapper">
+            <div class="modal-header">
+                <h2 id="modal-product-name">NOME DO PRODUTO</h2>
+                <span class="close-btn" onclick="closeProductModal()">✕</span>
+            </div>
+
+            <div class="carousel-container">
+                <div class="carousel-track" id="modal-carousel-track">
+                    <!-- Images will be loaded here -->
+                </div>
+                <div class="carousel-dots" id="modal-carousel-dots">
+                    <!-- Dots will be loaded here -->
+                </div>
+            </div>
+
+            <div class="price" id="modal-product-price">90€</div>
+            <p class="store-name">Disponível no STREETMOOD</p>
+            <p class="desc" id="modal-product-desc">Descrição do produto</p>
+
+            <div class="footer-action">
+                <button class="btn-insta" onclick="contactInstagram()">
+                    ✈️ ENVIAR DM NO INSTA
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script src="./script.js"></script>
+<script>
+  // Register Service Worker for PWA
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js");
+  }
+</script>
+
+</body>
+</html>

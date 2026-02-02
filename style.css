@@ -1,241 +1,155 @@
-/* CATÁLOGO STREETMOOD - APENAS VISUALIZAÇÃO */
-
-/* 1. CORES E BASE */
-:root {
-    --bg-dark: #0d1117;
-    --card-bg: #161b22;
-    --accent-pink: #ff3b5c;
-    --text-gray: #8b949e;
-    --text-primary: #e6edf3;
-}
+/* DESIGN BASEADO NAS IMAGENS ENVIADAS */
 
 * {
-    margin: 0; 
-    padding: 0; 
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-primary);
-    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f5f5f5;
+    color: #333;
 }
 
-/* 2. HEADER DO CATÁLOGO */
-.catalog-header {
+/* Header */
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 20px;
-    border-bottom: 1px solid #21262d;
-    background: var(--bg-dark);
+    padding: 20px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.brand h1 {
-    font-size: 2rem;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: var(--text-primary);
-    margin-bottom: 5px;
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000;
 }
 
-.brand p {
-    font-size: 0.8rem;
-    color: var(--accent-pink);
-    font-weight: 600;
-    letter-spacing: 1px;
+.contact-icons {
+    display: flex;
+    gap: 15px;
 }
 
-.contact p {
-    font-size: 0.9rem;
-    color: var(--text-gray);
-    margin-bottom: 5px;
+.icon {
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
-.contact p:last-child {
-    margin-bottom: 0;
-}
-
-/* 3. GRID DO CATÁLOGO */
-.catalog-grid {
+/* Catálogo Grid */
+.catalog {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 40px 20px;
-    max-width: 1400px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Cards do catálogo */
-.catalog-item {
-    background: var(--card-bg);
-    border-radius: 16px;
+/* Cards do Catálogo */
+.product-card {
+    background: white;
+    border-radius: 8px;
     overflow: hidden;
-    border: 1px solid #21262d;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s ease;
 }
 
-.catalog-item:hover {
-    transform: translateY(-8px);
+.product-card:hover {
+    transform: translateY(-2px);
 }
 
-.catalog-item .image-container {
-    position: relative;
+.product-card img {
     width: 100%;
-    aspect-ratio: 3/4;
-    overflow: hidden;
-}
-
-.catalog-item .image-container img {
-    width: 100%;
-    height: 100%;
+    height: 250px;
     object-fit: cover;
-    object-position: center;
 }
 
-.catalog-item .photo-count {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(0,0,0,0.8);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.7rem;
+.product-info {
+    padding: 15px;
+}
+
+.product-name {
+    font-size: 0.9rem;
     font-weight: 600;
-}
-
-.catalog-item .product-info {
-    padding: 20px;
-}
-
-.catalog-item .product-info h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    line-height: 1.4;
-    color: var(--text-primary);
-}
-
-.catalog-item .size {
-    color: var(--text-gray);
-    font-size: 0.8rem;
-    margin-bottom: 12px;
-}
-
-.catalog-item .price {
-    color: var(--accent-pink);
-    font-weight: 800;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-}
-
-.catalog-item .contact-btn {
-    width: 100%;
-    background: transparent;
-    color: var(--accent-pink);
-    border: 2px solid var(--accent-pink);
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.catalog-item .contact-btn:hover {
-    background: var(--accent-pink);
-    color: white;
-}
-
-/* 4. FOOTER DO CATÁLOGO */
-.catalog-footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid #21262d;
-    background: var(--bg-dark);
-}
-
-.catalog-footer p {
-    font-size: 0.9rem;
-    color: var(--text-gray);
     margin-bottom: 8px;
+    line-height: 1.3;
+    color: #333;
 }
 
-.catalog-footer p:first-child {
-    color: var(--text-primary);
+.product-price {
+    font-size: 1.1rem;
     font-weight: 700;
-    font-size: 1rem;
+    color: #000;
+    margin-bottom: 12px;
 }
 
-/* 5. RESPONSIVO */
+.contact-btn {
+    width: 100%;
+    background: #000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.contact-btn:hover {
+    background: #333;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 40px;
+}
+
+.footer p {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Responsivo */
 @media (max-width: 768px) {
-    .catalog-header {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-        padding: 20px 15px;
-    }
-    
-    .brand h1 {
-        font-size: 1.5rem;
-    }
-    
-    .catalog-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    .catalog {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 15px;
-        padding: 20px 15px;
+        padding: 15px;
     }
     
-    .catalog-item .product-info h3 {
-        font-size: 0.8rem;
+    .product-card img {
+        height: 200px;
     }
     
-    .catalog-item .price {
-        font-size: 1.1rem;
+    .logo h1 {
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 480px) {
-    .catalog-grid {
+    .catalog {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .product-card img {
+        height: 180px;
+    }
+    
+    .header {
         padding: 15px 10px;
     }
     
-    .catalog-header {
-        padding: 15px 10px;
-    }
-    
-    .brand h1 {
-        font-size: 1.3rem;
-    }
-    
-    .contact p {
-        font-size: 0.8rem;
-    }
-}
-
-/* 6. ANIMAÇÕES SUAVES */
-.catalog-item {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease forwards;
-}
-
-.catalog-item:nth-child(1) { animation-delay: 0.1s; }
-.catalog-item:nth-child(2) { animation-delay: 0.2s; }
-.catalog-item:nth-child(3) { animation-delay: 0.3s; }
-.catalog-item:nth-child(4) { animation-delay: 0.4s; }
-.catalog-item:nth-child(5) { animation-delay: 0.5s; }
-.catalog-item:nth-child(6) { animation-delay: 0.6s; }
-.catalog-item:nth-child(7) { animation-delay: 0.7s; }
-.catalog-item:nth-child(8) { animation-delay: 0.8s; }
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .logo h1 {
+        font-size: 1.2rem;
     }
 }

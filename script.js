@@ -1,9 +1,9 @@
-// CATÁLOGO STREETMOOD - APENAS CARREGAMENTO DE PRODUTOS
+// CATÁLOGO STREETMOOD - DESIGN SIMPLES
 
 const imageFolder = "./imagens_produtos/";
-const catalog = document.getElementById("catalog-grid");
+const catalog = document.getElementById("catalog");
 
-// Carregar produtos do JSON
+// Carregar produtos
 document.addEventListener('DOMContentLoaded', function() {
     loadCatalog();
 });
@@ -18,56 +18,43 @@ function loadCatalog() {
         })
         .then(products => {
             Object.entries(products).forEach(([key, data]) => {
-                createCatalogItem(key, data);
+                createProductCard(key, data);
             });
         })
         .catch(err => {
             console.error("Erro ao carregar catálogo:", err);
             catalog.innerHTML = `
-                <div style="text-align:center;padding:60px;color:#777;grid-column:1/-1">
-                    Catálogo indisponível no momento.<br>
-                    Entre em contato direto pelo WhatsApp.
+                <div style="text-align:center;padding:60px;color:#666;grid-column:1/-1">
+                    Catálogo indisponível no momento.
                 </div>
             `;
         });
 }
 
-// Criar item do catálogo
-function createCatalogItem(key, data) {
-    const item = document.createElement("article");
-    item.className = "catalog-item";
+function createProductCard(key, data) {
+    const card = document.createElement("div");
+    card.className = "product-card";
     
-    // Contar fotos
-    const photoCount = data.images ? data.images.length : 1;
-    
-    // Formatar tamanho se disponível
-    const size = data.size ? `<p class="size">${data.size}</p>` : '';
-    
-    item.innerHTML = `
-        <div class="image-container">
-            <span class="photo-count">${photoCount} fotos</span>
-            <img
-                loading="lazy"
-                src="${imageFolder + (data.images ? data.images[0] : key + '.jpg')}"
-                alt="${data.name}"
-                onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDIwMCAyODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjgwIiBmaWxsPSIjMjAyMDIwIi8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzMzMzMzMyIvPgo8cGF0aCBkPSJNNjAgMTQwSDE0MFYxNjBINjBWMTQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4='"
-            >
-        </div>
+    card.innerHTML = `
+        <img
+            loading="lazy"
+            src="${imageFolder + (data.images ? data.images[0] : key + '.jpg')}"
+            alt="${data.name}"
+            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjI1MCIgdmlld0JveD0iMCAwIDIwMCAyNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjUwIiBmaWxsPSIjZjBmMGYwIi8+CjxwYXRoIGQ9Ik04MCA5MEgxMjBWMTIwSDgwVjkwWiIgZmlsbD0iIzMzMzMzMyIvPgo8cGF0aCBkPSJNNjAgMTQwSDE0MFYxNjBINjBWMTQwWiIgZmlsbD0iIzMzMzMzMyIvPgo8L3N2Zz4='"
+        >
         <div class="product-info">
-            <h3>${data.name}</h3>
-            ${size}
-            <p class="price">${data.currency || '€'} ${data.price}</p>
-            <button class="contact-btn" onclick="contactAboutProduct('${data.name}', '${data.currency || '€'} ${data.price}')">
+            <h3 class="product-name">${data.name}</h3>
+            <p class="product-price">${data.currency || '€'} ${data.price}</p>
+            <button class="contact-btn" onclick="contactProduct('${data.name}', '${data.currency || '€'} ${data.price}')">
                 ENVIAR MENSAGEM
             </button>
         </div>
     `;
     
-    catalog.appendChild(item);
+    catalog.appendChild(card);
 }
 
-// Contato sobre produto (abre WhatsApp)
-function contactAboutProduct(productName, price) {
-    const message = encodeURIComponent(`Olá STREETMOOD 👟 Tenho interesse no ${productName} (${price}). Gostaria de mais informações.`);
+function contactProduct(name, price) {
+    const message = encodeURIComponent(`Olá STREETMOOD! Tenho interesse no ${name} (${price}).`);
     window.open(`https://wa.me/351912345678?text=${message}`, '_blank');
 }

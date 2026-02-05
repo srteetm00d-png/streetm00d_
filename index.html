@@ -3,79 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STREETMOOD — Catálogo</title>
-    <meta name="description" content="Catálogo STREETMOOD de streetwear premium">
-    <meta name="keywords" content="streetwear, sneakers, tênis, moda, STREETMOOD">
-    <meta property="og:title" content="STREETMOOD — Catálogo Premium">
-    <meta property="og:description" content="Catálogo exclusivo de streetwear e sneakers premium">
+    <title>STREETMOOD — Sneakers Premium</title>
+    <meta name="description" content="Catálogo exclusivo de sneakers premium e streetwear autêntico">
+    <meta name="keywords" content="sneakers, streetwear, tênis, moda, premium, STREETMOOD">
+    <meta property="og:title" content="STREETMOOD — Sneakers Premium">
+    <meta property="og:description" content="Catálogo exclusivo de sneakers premium e streetwear autêntico">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="./imagens_produtos/hero-bg.jpg">
     
     <link rel="stylesheet" href="./style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
-    <!-- Header -->
-    <header class="header">
+    <!-- Header Moderno -->
+    <header class="header" id="header">
         <div class="logo">
+            <div class="logo-icon">S</div>
             <h1>STREETMOOD</h1>
         </div>
-        <div class="contact-icons">
-            <span class="icon" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?', '_blank')">📞</span>
-            <span class="icon" onclick="window.open('https://www.instagram.com/direct/t/streetm00d_/', '_blank')">📷</span>
+        
+        <div class="header-actions">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Buscar sneakers..." id="searchInput">
+            </div>
+            
+            <div class="contact-icons">
+                <button class="icon-btn" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?', '_blank')">📱</button>
+                <button class="icon-btn" onclick="window.open('https://www.instagram.com/direct/t/streetm00d_/', '_blank')">📷</button>
+            </div>
         </div>
     </header>
 
-    <!-- Catálogo Grid -->
-    <main class="catalog" id="catalog">
-        <!-- Produtos serão carregados aqui -->
-    </main>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>SNEAKERS PREMIUM</h1>
+            <p class="hero-subtitle">Coleção exclusiva de streetwear autêntico</p>
+            
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">130+</span>
+                    <span class="stat-label">Produtos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Marcas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Autêntico</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Modal de Detalhes -->
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="nike">Nike</button>
+            <button class="filter-btn" data-filter="adidas">Adidas</button>
+            <button class="filter-btn" data-filter="jordan">Jordan</button>
+            <button class="filter-btn" data-filter="luxury">Luxury</button>
+            <button class="filter-btn" data-filter="running">Running</button>
+            <button class="filter-btn" data-filter="basketball">Basketball</button>
+            
+            <select class="sort-dropdown" id="sortDropdown">
+                <option value="name">Nome</option>
+                <option value="price-low">Menor Preço</option>
+                <option value="price-high">Maior Preço</option>
+                <option value="newest">Mais Novos</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog-section">
+        <div class="catalog-header">
+            <h2 class="catalog-title">Catálogo Completo</h2>
+            <span class="results-count" id="resultsCount">130 produtos encontrados</span>
+        </div>
+        
+        <div class="catalog" id="catalog">
+            <!-- Loading -->
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Moderno -->
     <div id="productModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">Nome do Produto</h2>
-                <button class="close-modal" onclick="closeModal()">✕</button>
-            </div>
+            <button class="modal-close" onclick="closeModal()">✕</button>
             
-            <div class="carousel-container">
-                <div class="carousel-track" id="carouselTrack">
-                    <!-- Imagens do carrossel -->
+            <div class="modal-body">
+                <div class="modal-carousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Imagens do carrossel -->
+                    </div>
+                    <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">❮</button>
+                    <button class="carousel-nav carousel-next" onclick="changeSlide(1)">❯</button>
+                    <div class="carousel-dots" id="carouselDots">
+                        <!-- Dots de navegação -->
+                    </div>
                 </div>
-                <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">❮</button>
-                <button class="carousel-nav carousel-next" onclick="changeSlide(1)">❯</button>
-                <div class="carousel-dots" id="carouselDots">
-                    <!-- Dots de navegação -->
-                </div>
-            </div>
-            
-            <div class="product-details">
-                <h2 id="productName">Nome do Produto</h2>
-                <div class="price" id="productPrice">€0</div>
-                <p class="size-info" id="productSize">Tamanho: Único</p>
-                <p class="description" id="productDescription">
-                    Produto premium da STREETMOOD. Qualidade garantida e estilo exclusivo.
-                </p>
                 
-                <div class="contact-actions">
-                    <button class="contact-btn-large" onclick="buyProduct()">
-                        Instagram DM - COMPRAR
-                    </button>
-                    <button class="contact-btn-secondary" onclick="reserveProduct()">
-                        Instagram DM - RESERVAR
-                    </button>
+                <div class="modal-info">
+                    <div class="modal-brand" id="modalBrand">NIKE</div>
+                    <h2 class="modal-title" id="modalTitle">Nome do Produto</h2>
+                    <div class="modal-price" id="modalPrice">€0</div>
+                    <p class="modal-description" id="modalDescription">
+                        Produto premium da STREETMOOD. Qualidade garantida e estilo exclusivo.
+                    </p>
+                    
+                    <div class="modal-actions">
+                        <button class="modal-btn modal-btn-primary" onclick="buyProduct()">
+                            Instagram DM - COMPRAR
+                        </button>
+                        <button class="modal-btn modal-btn-secondary" onclick="reserveProduct()">
+                            Instagram DM - RESERVAR
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer Moderno -->
     <footer class="footer">
-        <p>© 2024 STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>STREETMOOD</h3>
+                <p>Catálogo premium de sneakers e streetwear autêntico.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/streetm00d_/" target="_blank" class="social-link">📷</a>
+                    <a href="https://wa.me/351912345678" target="_blank" class="social-link">📱</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Categorias</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="filterProducts('nike')">Nike</a></li>
+                    <li><a href="#" onclick="filterProducts('adidas')">Adidas</a></li>
+                    <li><a href="#" onclick="filterProducts('jordan')">Jordan</a></li>
+                    <li><a href="#" onclick="filterProducts('luxury')">Luxury</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Serviço</h3>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 preciso de ajuda com o meu pedido.', '_blank')">Suporte</a></li>
+                    <li><a href="#" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 gostaria de saber sobre o status do meu pedido.', '_blank')">Rastreamento</a></li>
+                    <li><a href="#" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 como funciona o processo de devolução?', '_blank')">Devoluções</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <ul class="footer-links">
+                    <li><a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank">Instagram DM</a></li>
+                    <li><a href="https://wa.me/351912345678" target="_blank">WhatsApp</a></li>
+                    <li><a href="#" onclick="window.open('mailto:streetm00d@email.com')">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</p>
+        </div>
     </footer>
 
 <script src="./script.js"></script>

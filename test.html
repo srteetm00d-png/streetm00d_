@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREETMOOD — Sneakers Premium</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 48px; color: #333; margin-bottom: 10px; }
+        .header p { font-size: 18px; color: #666; }
+        .catalog { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .product-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-image { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
+        .product-name { font-size: 16px; font-weight: bold; margin-bottom: 10px; color: #333; }
+        .product-price { font-size: 20px; color: #007bff; font-weight: bold; margin-bottom: 15px; }
+        .btn { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #0056b3; }
+        .loading { text-align: center; padding: 40px; font-size: 18px; }
+        .error { text-align: center; padding: 40px; color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>STREETMOOD</h1>
+            <p>Sneakers Premium - Catálogo Completo</p>
+        </div>
+        
+        <div id="catalog">
+            <div class="loading">🔄 Carregando produtos...</div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🚀 Iniciando STREETMOOD...');
+        
+        // Carregar produtos imediatamente
+        loadProducts();
+        
+        async function loadProducts() {
+            console.log('📦 Carregando produtos...');
+            
+            try {
+                const response = await fetch('./products.json');
+                console.log('Status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('Produtos carregados:', Object.keys(data).length);
+                
+                renderProducts(data);
+                
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                document.getElementById('catalog').innerHTML = `
+                    <div class="error">
+                        <h3>❌ Erro ao carregar produtos</h3>
+                        <p>${error.message}</p>
+                        <button onclick="location.reload()" class="btn">Recarregar</button>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderProducts(data) {
+            const catalog = document.getElementById('catalog');
+            catalog.innerHTML = '';
+            
+            const products = Object.entries(data);
+            console.log('Renderizando', products.length, 'produtos');
+            
+            products.slice(0, 12).forEach(([key, product]) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                const firstImage = product.images && product.images.length > 0 ? product.images[0] : null;
+                
+                card.innerHTML = `
+                    ${firstImage ? `
+                        <img src="./imagens_produtos/${firstImage}" 
+                             alt="${product.name}" 
+                             class="product-image"
+                             onerror="this.style.display='none';">
+                    ` : ''}
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">€${product.price}</div>
+                    <button class="btn" onclick="quickBuy('${product.name}')">🛒 Comprar</button>
+                `;
+                
+                catalog.appendChild(card);
+            });
+            
+            console.log('✅ Produtos renderizados!');
+        }
+        
+        function quickBuy(name) {
+            const message = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name} ainda está disponível?`);
+            window.open(`https://www.instagram.com/direct/t/streetm00d_/?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>

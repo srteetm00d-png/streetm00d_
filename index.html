@@ -28,12 +28,16 @@
         <div class="header-actions">
             <div class="search-container">
                 <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" placeholder="Buscar sneakers..." id="searchInput">
+                <input type="text" id="searchInput" placeholder="Buscar sneakers..." class="search-input">
             </div>
             
             <div class="contact-icons">
-                <button class="icon-btn" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre os produtos disponíveis. Podem ajudar-me?', '_blank')">📱</button>
-                <button class="icon-btn" onclick="window.open('https://www.instagram.com/direct/t/streetm00d_/', '_blank')">📷</button>
+                <a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank" class="contact-icon">
+                    <span>📷</span>
+                </a>
+                <a href="https://wa.me/351912345678" target="_blank" class="contact-icon">
+                    <span>📱</span>
+                </a>
             </div>
         </div>
     </header>
@@ -41,57 +45,68 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>SNEAKERS PREMIUM</h1>
-            <p class="hero-subtitle">Coleção exclusiva de streetwear autêntico</p>
-            
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">130+</span>
-                    <span class="stat-label">Produtos</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">40+</span>
-                    <span class="stat-label">Marcas</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Autêntico</span>
+            <div class="hero-text">
+                <h1>STREETMOOD</h1>
+                <h2>SNEAKERS PREMIUM</h2>
+                <p>Coleção exclusiva de streetwear autêntico</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">167+</span>
+                        <span class="stat-label">Produtos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Marcas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Autêntico</span>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="hero-overlay"></div>
     </section>
 
     <!-- Filters Section -->
     <section class="filters-section">
-        <div class="filters-container">
-            <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="nike">Nike</button>
-            <button class="filter-btn" data-filter="adidas">Adidas</button>
-            <button class="filter-btn" data-filter="jordan">Jordan</button>
-            <button class="filter-btn" data-filter="luxury">Luxury</button>
-            <button class="filter-btn" data-filter="running">Running</button>
-            <button class="filter-btn" data-filter="basketball">Basketball</button>
+        <div class="container">
+            <div class="filters-header">
+                <h2>Categorias</h2>
+                <div class="sort-container">
+                    <label for="sortDropdown">Ordenar:</label>
+                    <select id="sortDropdown" class="sort-dropdown">
+                        <option value="name">Nome</option>
+                        <option value="price-low">Menor Preço</option>
+                        <option value="price-high">Maior Preço</option>
+                        <option value="newest">Mais Novos</option>
+                    </select>
+                </div>
+            </div>
             
-            <select class="sort-dropdown" id="sortDropdown">
-                <option value="name">Nome</option>
-                <option value="price-low">Menor Preço</option>
-                <option value="price-high">Maior Preço</option>
-                <option value="newest">Mais Novos</option>
-            </select>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="nike">Nike</button>
+                <button class="filter-btn" data-filter="adidas">Adidas</button>
+                <button class="filter-btn" data-filter="jordan">Jordan</button>
+                <button class="filter-btn" data-filter="luxury">Luxury</button>
+            </div>
         </div>
     </section>
 
     <!-- Catalog Section -->
     <section class="catalog-section">
-        <div class="catalog-header">
-            <h2 class="catalog-title">Catálogo Completo</h2>
-            <span class="results-count" id="resultsCount">130 produtos encontrados</span>
-        </div>
-        
-        <div class="catalog" id="catalog">
-            <!-- Loading -->
-            <div class="loading" id="loading">
-                <div class="loading-spinner"></div>
+        <div class="container">
+            <div class="catalog-header">
+                <h2 class="catalog-title">Catálogo Completo</h2>
+                <span class="results-count" id="resultsCount">167 produtos encontrados</span>
+            </div>
+            
+            <div class="catalog" id="catalog">
+                <!-- Loading -->
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -122,11 +137,11 @@
                     </p>
                     
                     <div class="modal-actions">
-                        <button class="modal-btn modal-btn-primary" onclick="buyProduct()">
-                            Instagram DM - COMPRAR
+                        <button class="btn btn-primary btn-large" onclick="buyProduct()">
+                            Instagram DM
                         </button>
-                        <button class="modal-btn modal-btn-secondary" onclick="reserveProduct()">
-                            Instagram DM - RESERVAR
+                        <button class="btn btn-secondary btn-large" onclick="reserveProduct()">
+                            Reservar
                         </button>
                     </div>
                 </div>
@@ -134,49 +149,51 @@
         </div>
     </div>
 
-    <!-- Footer Moderno -->
+    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>STREETMOOD</h3>
-                <p>Catálogo premium de sneakers e streetwear autêntico.</p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/streetm00d_/" target="_blank" class="social-link">📷</a>
-                    <a href="https://wa.me/351912345678" target="_blank" class="social-link">📱</a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>STREETMOOD</h3>
+                    <p>Catálogo premium de sneakers e streetwear autêntico.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/streetm00d_/" target="_blank">📷</a>
+                        <a href="https://wa.me/351912345678" target="_blank">📱</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Categorias</h4>
+                    <ul>
+                        <li><a href="#" onclick="filterProducts('nike')">Nike</a></li>
+                        <li><a href="#" onclick="filterProducts('adidas')">Adidas</a></li>
+                        <li><a href="#" onclick="filterProducts('jordan')">Jordan</a></li>
+                        <li><a href="#" onclick="filterProducts('luxury')">Luxury</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Serviço</h4>
+                    <ul>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">Rastreamento</a></li>
+                        <li><a href="#">Devoluções</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank">Instagram DM</a></li>
+                        <li><a href="https://wa.me/351912345678" target="_blank">WhatsApp</a></li>
+                        <li><a href="#" onclick="window.open('mailto:streetm00d@email.com')">Email</a></li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="footer-section">
-                <h3>Categorias</h3>
-                <ul class="footer-links">
-                    <li><a href="#" onclick="filterProducts('nike')">Nike</a></li>
-                    <li><a href="#" onclick="filterProducts('adidas')">Adidas</a></li>
-                    <li><a href="#" onclick="filterProducts('jordan')">Jordan</a></li>
-                    <li><a href="#" onclick="filterProducts('luxury')">Luxury</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2024 STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</p>
             </div>
-            
-            <div class="footer-section">
-                <h3>Serviço</h3>
-                <ul class="footer-links">
-                    <li><a href="#" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 preciso de ajuda com o meu pedido.', '_blank')">Suporte</a></li>
-                    <li><a href="#" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 gostaria de saber sobre o status do meu pedido.', '_blank')">Rastreamento</a></li>
-                    <li><a href="#" onclick="window.open('https://wa.me/351912345678?text=Olá STREETMOOD 👟 como funciona o processo de devolução?', '_blank')">Devoluções</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Contato</h3>
-                <ul class="footer-links">
-                    <li><a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank">Instagram DM</a></li>
-                    <li><a href="https://wa.me/351912345678" target="_blank">WhatsApp</a></li>
-                    <li><a href="#" onclick="window.open('mailto:streetm00d@email.com')">Email</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2024 STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</p>
         </div>
     </footer>
 

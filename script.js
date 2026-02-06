@@ -1,5 +1,5 @@
-// STREETMOOD 3.0 - Sistema Avançado e Profissional
-console.log('🚀 STREETMOOD 3.0 - Iniciando sistema avançado...');
+// STREETMOOD 4.0 - Sistema Profissional Premium
+console.log('🚀 STREETMOOD 4.0 - Iniciando sistema premium...');
 
 // CONFIGURAÇÃO GLOBAL AVANÇADA
 const CONFIG = {
@@ -7,10 +7,9 @@ const CONFIG = {
     apiEndpoint: "./products.json",
     currency: "EUR",
     itemsPerPage: 12,
-    animationDelay: 50,
-    imageQuality: 'high',
+    animationDelay: 100,
     lazyLoading: true,
-    paginationThreshold: 100
+    instagramUrl: "https://www.instagram.com/direct/t/streetm00d_/"
 };
 
 // ESTADO GLOBAL AVANÇADO
@@ -24,22 +23,23 @@ const STATE = {
     isLoading: false,
     searchQuery: '',
     selectedProduct: null,
-    imageCache: new Map(),
-    intersectionObserver: null
+    currentImageIndex: 0
 };
 
 // ELEMENTOS DOM OTIMIZADOS
 const DOM = {
-    catalog: null,
+    navbar: null,
+    productsGrid: null,
     loading: null,
     resultsCount: null,
     searchInput: null,
     sortDropdown: null,
-    header: null,
-    filters: null,
-    modal: null,
-    pagination: null,
-    loadMoreBtn: null
+    categoryTabs: null,
+    navLinks: null,
+    productModal: null,
+    galleryMain: null,
+    galleryThumbnails: null,
+    paginationContainer: null
 };
 
 // CLASSE AVANÇADA DE PRODUTO
@@ -55,7 +55,7 @@ class Product {
         this.version = data.version;
         this.brand = this.detectBrand();
         this.badge = this.getBadge();
-        this.processedImages = this.processImages();
+        this.category = this.getCategory();
     }
 
     detectBrand() {
@@ -100,61 +100,48 @@ class Product {
     }
 
     getBadge() {
-        if (this.price > 150) return 'LUXURY';
-        if (this.price > 100) return 'PREMIUM';
-        if (this.tags.includes('new')) return 'NEW';
-        if (this.tags.includes('limited')) return 'LIMITED';
+        if (this.price > 200) return 'exclusive';
+        if (this.price > 150) return 'limited';
+        if (this.tags.includes('new')) return 'new';
         return null;
     }
 
-    processImages() {
-        return this.images.map((img, index) => ({
-            original: img,
-            thumbnail: this.generateThumbnail(img),
-            optimized: this.optimizeImage(img),
-            index: index
-        }));
-    }
-
-    generateThumbnail(imagePath) {
-        return imagePath; // Implementar thumbnail generation se necessário
-    }
-
-    optimizeImage(imagePath) {
-        return imagePath; // Implementar otimização se necessário
+    getCategory() {
+        const name = this.name.toLowerCase();
+        const tags = this.tags.map(tag => tag.toLowerCase());
+        
+        if (tags.includes('clothing') || name.includes('shirt') || name.includes('hoodie') || name.includes('jacket')) {
+            return 'clothing';
+        }
+        if (tags.includes('accessories') || name.includes('bag') || name.includes('cap') || name.includes('socks')) {
+            return 'accessories';
+        }
+        return 'sneakers';
     }
 }
 
 // CLASSE AVANÇADA DE RENDERIZAÇÃO
 class ProductRenderer {
-    constructor() {
-        this.imageLoader = new ImageLoader();
-    }
-
     createProductCard(product, index) {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.dataset.productId = product.id;
         card.style.animationDelay = `${index * CONFIG.animationDelay}ms`;
         
-        const firstImage = product.processedImages[0];
+        const firstImage = product.images && product.images.length > 0 ? product.images[0] : null;
         
         card.innerHTML = `
-            ${product.badge ? `<div class="product-badge ${product.badge.toLowerCase()}">${product.badge}</div>` : ''}
-            <div class="product-image-container">
-                <div class="image-wrapper">
-                    <img 
-                        src="${firstImage.original}" 
-                        alt="${product.name}"
-                        class="product-image"
-                        loading="lazy"
-                        onerror="this.src='data:image/svg+xml;base64,${this.getPlaceholderSVG()}'"
-                    >
-                    <div class="image-overlay">
-                        <div class="overlay-content">
-                            <span class="view-details">Ver Detalhes</span>
-                        </div>
-                    </div>
+            ${product.badge ? `<div class="product-badge ${product.badge}">${this.getBadgeText(product.badge)}</div>` : ''}
+            <div class="product-image-container" onclick="openProductModal('${product.id}')">
+                <img src="${firstImage ? CONFIG.imageFolder + firstImage : ''}" 
+                     alt="${product.name}"
+                     class="product-image"
+                     loading="lazy"
+                     onerror="this.src='data:image/svg+xml;base64,${this.getPlaceholderSVG()}'">
+                <div class="image-overlay">
+                    <button class="quick-view-btn" onclick="event.stopPropagation(); openProductModal('${product.id}')">
+                        Ver Detalhes
+                    </button>
                 </div>
             </div>
             <div class="product-info">
@@ -162,106 +149,39 @@ class ProductRenderer {
                 <h3 class="product-name">${product.name}</h3>
                 <div class="product-price-row">
                     <span class="product-price">${product.currency} ${product.price}</span>
-                    ${product.badge ? `<span class="price-badge">${product.badge}</span>` : ''}
                 </div>
                 <div class="product-actions">
-                    <button class="btn btn-primary" onclick="quickPurchase('${product.id}')">
-                        <span class="btn-icon">🛒</span>
-                        <span>Comprar</span>
+                    <button class="btn btn-primary" onclick="event.stopPropagation(); quickPurchase('${product.id}')">
+                        📷 Instagram DM
                     </button>
-                    <button class="btn btn-secondary" onclick="viewProduct('${product.id}')">
-                        <span class="btn-icon">👁️</span>
-                        <span>Ver</span>
+                    <button class="btn btn-secondary" onclick="event.stopPropagation(); openProductModal('${product.id}')">
+                        👁️ Ver
                     </button>
                 </div>
             </div>
         `;
         
-        // Event listeners avançados
-        this.setupCardInteractions(card, product);
-        
         return card;
     }
 
-    setupCardInteractions(card, product) {
-        // Hover effects avançados
-        card.addEventListener('mouseenter', () => {
-            card.classList.add('hover');
-            this.preloadImages(product.processedImages);
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.classList.remove('hover');
-        });
-
-        // Click handler
-        card.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('btn')) {
-                viewProduct(product.id);
-            }
-        });
-
-        // Touch events para mobile
-        card.addEventListener('touchstart', () => {
-            card.classList.add('touch');
-        });
-
-        card.addEventListener('touchend', () => {
-            setTimeout(() => card.classList.remove('touch'), 300);
-        });
-    }
-
-    preloadImages(images) {
-        images.slice(0, 3).forEach(imageData => {
-            const img = new Image();
-            img.src = imageData.original;
-        });
+    getBadgeText(badge) {
+        const badgeTexts = {
+            'exclusive': 'EXCLUSIVO',
+            'limited': 'LIMITADO',
+            'new': 'NOVO'
+        };
+        return badgeTexts[badge] || badge.toUpperCase();
     }
 
     getPlaceholderSVG() {
         return btoa(`
-            <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="300" height="200" fill="#f8f9fa"/>
-                <path d="M120 80h60v40h-60z" fill="#dee2e6"/>
-                <path d="M100 120h100v20h-100z" fill="#adb5bd"/>
-                <text x="150" y="100" text-anchor="middle" fill="#6c757d" font-family="Arial" font-size="14">📷</text>
+            <svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="400" height="400" fill="#1a1a1a"/>
+                <path d="M150 120h100v160h-100z" fill="#333"/>
+                <path d="M120 280h160v40h-160z" fill="#444"/>
+                <text x="200" y="200" text-anchor="middle" fill="#666" font-family="Arial" font-size="20">📷</text>
             </svg>
         `);
-    }
-}
-
-// CLASSE AVANÇADA DE CARREGAMENTO DE IMAGENS
-class ImageLoader {
-    constructor() {
-        this.cache = new Map();
-        this.loadingPromises = new Map();
-    }
-
-    async loadImage(src) {
-        if (this.cache.has(src)) {
-            return this.cache.get(src);
-        }
-
-        if (this.loadingPromises.has(src)) {
-            return this.loadingPromises.get(src);
-        }
-
-        const promise = new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => {
-                this.cache.set(src, img);
-                this.loadingPromises.delete(src);
-                resolve(img);
-            };
-            img.onerror = () => {
-                this.loadingPromises.delete(src);
-                reject(new Error(`Failed to load image: ${src}`));
-            };
-            img.src = src;
-        });
-
-        this.loadingPromises.set(src, promise);
-        return promise;
     }
 }
 
@@ -286,11 +206,11 @@ class PaginationManager {
 
     createPaginationControls() {
         const container = document.createElement('div');
-        container.className = 'pagination-container';
+        container.className = 'pagination';
         
         if (this.totalPages <= 1) return container;
 
-        let html = '<div class="pagination">';
+        let html = '';
         
         // Previous button
         html += `<button class="pagination-btn prev" ${this.currentPage === 1 ? 'disabled' : ''} onclick="changePage(${this.currentPage - 1})">←</button>`;
@@ -316,9 +236,7 @@ class PaginationManager {
         // Next button
         html += `<button class="pagination-btn next" ${this.currentPage === this.totalPages ? 'disabled' : ''} onclick="changePage(${this.currentPage + 1})">→</button>`;
         
-        html += '</div>';
         container.innerHTML = html;
-        
         return container;
     }
 
@@ -327,87 +245,24 @@ class PaginationManager {
     }
 }
 
-// CLASSE AVANÇADA DE FILTROS
-class FilterManager {
-    constructor() {
-        this.activeFilters = {
-            category: 'all',
-            search: '',
-            priceRange: null,
-            brands: []
-        };
-    }
-
-    applyFilters(products) {
-        return products.filter(product => {
-            // Category filter
-            if (this.activeFilters.category !== 'all') {
-                const category = this.activeFilters.category.toLowerCase();
-                const matchesCategory = product.tags.some(tag => 
-                    tag.toLowerCase().includes(category)
-                ) || product.brand.toLowerCase().includes(category);
-                
-                if (!matchesCategory) return false;
-            }
-
-            // Search filter
-            if (this.activeFilters.search) {
-                const searchLower = this.activeFilters.search.toLowerCase();
-                const matchesSearch = product.name.toLowerCase().includes(searchLower) ||
-                    product.tags.some(tag => tag.toLowerCase().includes(searchLower)) ||
-                    product.brand.toLowerCase().includes(searchLower);
-                
-                if (!matchesSearch) return false;
-            }
-
-            // Price range filter
-            if (this.activeFilters.priceRange) {
-                const { min, max } = this.activeFilters.priceRange;
-                if (product.price < min || product.price > max) return false;
-            }
-
-            // Brands filter
-            if (this.activeFilters.brands.length > 0) {
-                if (!this.activeFilters.brands.includes(product.brand)) return false;
-            }
-
-            return true;
-        });
-    }
-
-    setFilter(type, value) {
-        this.activeFilters[type] = value;
-    }
-
-    clearFilters() {
-        this.activeFilters = {
-            category: 'all',
-            search: '',
-            priceRange: null,
-            brands: []
-        };
-    }
-}
-
 // SISTEMA PRINCIPAL AVANÇADO
 class StreetMoodApp {
     constructor() {
         this.productRenderer = new ProductRenderer();
         this.paginationManager = new PaginationManager();
-        this.filterManager = new FilterManager();
-        this.imageLoader = new ImageLoader();
         this.products = [];
         this.filteredProducts = [];
     }
 
     async init() {
-        console.log('🚀 Inicializando STREETMOOD 3.0...');
+        console.log('🚀 Inicializando STREETMOOD 4.0...');
         
         try {
             await this.initializeDOM();
             this.setupEventListeners();
             await this.loadProducts();
             this.setupIntersectionObserver();
+            this.setupNavigationEffects();
             console.log('✅ Sistema inicializado com sucesso!');
         } catch (error) {
             console.error('❌ Erro na inicialização:', error);
@@ -416,17 +271,20 @@ class StreetMoodApp {
     }
 
     async initializeDOM() {
-        DOM.catalog = document.getElementById("catalog");
+        DOM.navbar = document.getElementById("navbar");
+        DOM.productsGrid = document.getElementById("productsGrid");
         DOM.loading = document.getElementById("loading");
         DOM.resultsCount = document.getElementById("resultsCount");
         DOM.searchInput = document.getElementById("searchInput");
         DOM.sortDropdown = document.getElementById("sortDropdown");
-        DOM.header = document.getElementById("header");
-        DOM.filters = document.querySelectorAll('.filter-btn');
-        DOM.modal = document.getElementById("productModal");
-        DOM.pagination = document.querySelector('.pagination-container');
+        DOM.categoryTabs = document.querySelectorAll('.category-tab');
+        DOM.navLinks = document.querySelectorAll('.nav-link');
+        DOM.productModal = document.getElementById("productModal");
+        DOM.galleryMain = document.getElementById("galleryMain");
+        DOM.galleryThumbnails = document.getElementById("galleryThumbnails");
+        DOM.paginationContainer = document.getElementById("paginationContainer");
 
-        const requiredElements = ['catalog', 'loading', 'resultsCount'];
+        const requiredElements = ['productsGrid', 'loading', 'resultsCount'];
         const missing = requiredElements.filter(name => !DOM[name]);
         
         if (missing.length > 0) {
@@ -435,11 +293,11 @@ class StreetMoodApp {
     }
 
     setupEventListeners() {
-        // Search com debounce avançado
+        // Search com debounce
         if (DOM.searchInput) {
             DOM.searchInput.addEventListener('input', 
                 this.debounce((e) => {
-                    this.filterManager.setFilter('search', e.target.value);
+                    STATE.searchQuery = e.target.value;
                     this.applyFiltersAndRender();
                 }, 300)
             );
@@ -448,26 +306,50 @@ class StreetMoodApp {
         // Sort
         if (DOM.sortDropdown) {
             DOM.sortDropdown.addEventListener('change', (e) => {
-                this.sortProducts(e.target.value);
+                STATE.currentSort = e.target.value;
                 this.applyFiltersAndRender();
             });
         }
 
         // Category filters
-        DOM.filters.forEach(btn => {
+        DOM.categoryTabs.forEach(btn => {
             btn.addEventListener('click', () => {
                 const filter = btn.dataset.filter;
-                this.setActiveFilter(filter);
-                this.filterManager.setFilter('category', filter);
+                this.setActiveCategoryTab(filter);
+                STATE.currentFilter = filter;
                 this.applyFiltersAndRender();
             });
         });
 
+        // Navigation links
+        DOM.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const category = link.dataset.category;
+                this.setActiveNavLink(link);
+                
+                if (category && category !== 'about') {
+                    STATE.currentFilter = category;
+                    this.applyFiltersAndRender();
+                    this.setActiveCategoryTab(category);
+                }
+                
+                // Smooth scroll
+                const targetId = link.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
         // Modal events
-        if (DOM.modal) {
-            DOM.modal.addEventListener('click', (e) => {
-                if (e.target === DOM.modal) {
-                    this.closeModal();
+        if (DOM.productModal) {
+            DOM.productModal.addEventListener('click', (e) => {
+                if (e.target === DOM.productModal) {
+                    this.closeProductModal();
                 }
             });
         }
@@ -475,7 +357,13 @@ class StreetMoodApp {
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                this.closeModal();
+                this.closeProductModal();
+            }
+            if (e.key === 'ArrowLeft' && DOM.productModal.classList.contains('active')) {
+                this.previousImage();
+            }
+            if (e.key === 'ArrowRight' && DOM.productModal.classList.contains('active')) {
+                this.nextImage();
             }
         });
 
@@ -483,11 +371,6 @@ class StreetMoodApp {
         window.addEventListener('scroll', this.throttle(() => {
             this.handleScroll();
         }, 16));
-
-        // Resize handler
-        window.addEventListener('resize', this.throttle(() => {
-            this.handleResize();
-        }, 250));
     }
 
     async loadProducts() {
@@ -519,16 +402,54 @@ class StreetMoodApp {
     }
 
     applyFiltersAndRender() {
-        this.filteredProducts = this.filterManager.applyFilters(this.products);
+        this.filteredProducts = this.filterProducts();
+        this.sortProducts();
         this.paginationManager.calculatePagination(this.filteredProducts.length);
         this.paginationManager.setCurrentPage(1);
         this.renderProducts();
     }
 
-    renderProducts() {
-        if (!DOM.catalog) return;
+    filterProducts() {
+        return this.products.filter(product => {
+            // Category filter
+            if (STATE.currentFilter !== 'all') {
+                const matchesCategory = product.category === STATE.currentFilter ||
+                    product.tags.some(tag => tag.toLowerCase().includes(STATE.currentFilter)) ||
+                    product.brand.toLowerCase().includes(STATE.currentFilter);
+                
+                if (!matchesCategory) return false;
+            }
 
-        DOM.catalog.innerHTML = '';
+            // Search filter
+            if (STATE.searchQuery) {
+                const searchLower = STATE.searchQuery.toLowerCase();
+                const matchesSearch = product.name.toLowerCase().includes(searchLower) ||
+                    product.tags.some(tag => tag.toLowerCase().includes(searchLower)) ||
+                    product.brand.toLowerCase().includes(searchLower);
+                
+                if (!matchesSearch) return false;
+            }
+
+            return true;
+        });
+    }
+
+    sortProducts() {
+        const sortFunctions = {
+            'name': (a, b) => a.name.localeCompare(b.name),
+            'price-low': (a, b) => a.price - b.price,
+            'price-high': (a, b) => b.price - a.price,
+            'newest': (a, b) => (b.version || 'v1').localeCompare(a.version || 'v1')
+        };
+
+        const sortFn = sortFunctions[STATE.currentSort] || sortFunctions['name'];
+        this.filteredProducts.sort(sortFn);
+    }
+
+    renderProducts() {
+        if (!DOM.productsGrid) return;
+
+        DOM.productsGrid.innerHTML = '';
         
         // Update results count
         if (DOM.resultsCount) {
@@ -541,7 +462,7 @@ class StreetMoodApp {
         // Render products
         paginatedProducts.forEach((product, index) => {
             const card = this.productRenderer.createProductCard(product, index);
-            DOM.catalog.appendChild(card);
+            DOM.productsGrid.appendChild(card);
         });
 
         // Add pagination
@@ -552,13 +473,13 @@ class StreetMoodApp {
     }
 
     renderPagination() {
-        const existingPagination = document.querySelector('.pagination-container');
-        if (existingPagination) {
-            existingPagination.remove();
-        }
-
+        if (!DOM.paginationContainer) return;
+        
+        DOM.paginationContainer.innerHTML = '';
         const paginationContainer = this.paginationManager.createPaginationControls();
-        DOM.catalog.parentNode.insertBefore(paginationContainer, DOM.catalog.nextSibling);
+        if (paginationContainer.innerHTML) {
+            DOM.paginationContainer.appendChild(paginationContainer);
+        }
     }
 
     setupLazyLoading() {
@@ -566,12 +487,12 @@ class StreetMoodApp {
 
         const images = document.querySelectorAll('.product-image[loading="lazy"]');
         
-        this.imageLoader.intersectionObserver = new IntersectionObserver((entries) => {
+        const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
                     img.loading = 'eager';
-                    this.imageLoader.intersectionObserver.unobserve(img);
+                    imageObserver.unobserve(img);
                 }
             });
         }, {
@@ -579,7 +500,7 @@ class StreetMoodApp {
         });
 
         images.forEach(img => {
-            this.imageLoader.intersectionObserver.observe(img);
+            imageObserver.observe(img);
         });
     }
 
@@ -606,60 +527,139 @@ class StreetMoodApp {
             });
         });
 
-        mutationObserver.observe(DOM.catalog, {
+        mutationObserver.observe(DOM.productsGrid, {
             childList: true
         });
     }
 
-    sortProducts(sortBy) {
-        const sortFunctions = {
-            'name': (a, b) => a.name.localeCompare(b.name),
-            'price-low': (a, b) => a.price - b.price,
-            'price-high': (a, b) => b.price - a.price,
-            'newest': (a, b) => (b.version || 'v1').localeCompare(a.version || 'v1')
-        };
-
-        const sortFn = sortFunctions[sortBy] || sortFunctions['name'];
-        this.filteredProducts.sort(sortFn);
+    setupNavigationEffects() {
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (DOM.navbar) {
+                DOM.navbar.classList.toggle('scrolled', window.scrollY > 50);
+            }
+        });
     }
 
-    setActiveFilter(filter) {
-        DOM.filters.forEach(btn => {
+    setActiveCategoryTab(filter) {
+        DOM.categoryTabs.forEach(btn => {
             btn.classList.toggle('active', btn.dataset.filter === filter);
         });
     }
 
-    handleScroll() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (DOM.header) {
-            DOM.header.classList.toggle('scrolled', scrollTop > 50);
-        }
-
-        // Infinite scroll (opcional)
-        if (scrollTop + window.innerHeight >= document.documentElement.offsetHeight - 1000) {
-            // this.loadMoreProducts();
+    setActiveNavLink(activeLink) {
+        DOM.navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        if (activeLink) {
+            activeLink.classList.add('active');
         }
     }
 
-    handleResize() {
-        // Ajustar layout baseado no tamanho da tela
-        const width = window.innerWidth;
-        if (width < 768) {
-            CONFIG.itemsPerPage = 8;
-        } else if (width < 1024) {
-            CONFIG.itemsPerPage = 9;
-        } else {
-            CONFIG.itemsPerPage = 12;
-        }
+    openProductModal(productId) {
+        const product = this.products.find(p => p.id === productId);
+        if (!product) return;
+
+        STATE.selectedProduct = product;
+        STATE.currentImageIndex = 0;
+
+        // Update modal content
+        document.getElementById('modalBrand').textContent = product.brand;
+        document.getElementById('modalTitle').textContent = product.name;
+        document.getElementById('modalPrice').textContent = `${product.currency} ${product.price}`;
+        document.getElementById('modalDescription').textContent = this.getProductDescription(product);
+
+        // Setup gallery
+        this.setupGallery(product);
+
+        // Show modal
+        DOM.productModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    setupGallery(product) {
+        if (!product.images || product.images.length === 0) return;
+
+        // Set main image
+        const mainImg = document.getElementById('mainImage');
+        mainImg.src = CONFIG.imageFolder + product.images[0];
+        mainImg.alt = product.name;
+
+        // Setup thumbnails
+        const thumbnailsContainer = DOM.galleryThumbnails;
+        thumbnailsContainer.innerHTML = '';
+
+        product.images.forEach((image, index) => {
+            const thumbnail = document.createElement('div');
+            thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+            thumbnail.onclick = () => this.selectImage(index);
+            
+            const img = document.createElement('img');
+            img.src = CONFIG.imageFolder + image;
+            img.alt = `${product.name} - Imagem ${index + 1}`;
+            
+            thumbnail.appendChild(img);
+            thumbnailsContainer.appendChild(thumbnail);
+        });
+    }
+
+    selectImage(index) {
+        if (!STATE.selectedProduct || !STATE.selectedProduct.images) return;
+
+        STATE.currentImageIndex = index;
         
-        this.paginationManager.itemsPerPage = CONFIG.itemsPerPage;
-        this.applyFiltersAndRender();
+        // Update main image
+        const mainImg = document.getElementById('mainImage');
+        mainImg.src = CONFIG.imageFolder + STATE.selectedProduct.images[index];
+
+        // Update thumbnails
+        const thumbnails = DOM.galleryThumbnails.querySelectorAll('.thumbnail');
+        thumbnails.forEach((thumb, i) => {
+            thumb.classList.toggle('active', i === index);
+        });
+    }
+
+    previousImage() {
+        if (!STATE.selectedProduct || !STATE.selectedProduct.images) return;
+        
+        const newIndex = STATE.currentImageIndex > 0 
+            ? STATE.currentImageIndex - 1 
+            : STATE.selectedProduct.images.length - 1;
+        
+        this.selectImage(newIndex);
+    }
+
+    nextImage() {
+        if (!STATE.selectedProduct || !STATE.selectedProduct.images) return;
+        
+        const newIndex = STATE.currentImageIndex < STATE.selectedProduct.images.length - 1 
+            ? STATE.currentImageIndex + 1 
+            : 0;
+        
+        this.selectImage(newIndex);
+    }
+
+    closeProductModal() {
+        DOM.productModal.classList.remove('active');
+        document.body.style.overflow = '';
+        STATE.selectedProduct = null;
+        STATE.currentImageIndex = 0;
+    }
+
+    getProductDescription(product) {
+        return `${product.name} - Produto premium da STREETMOOD. 
+                Design exclusivo da marca ${product.brand} com materiais de alta qualidade. 
+                Perfeito para quem busca estilo e conforto. 
+                ${product.badge ? `Edição ${this.getBadgeText(product.badge).toLowerCase()}.` : ''}`;
+    }
+
+    handleScroll() {
+        // Implement scroll effects if needed
     }
 
     showError(message) {
-        if (DOM.catalog) {
-            DOM.catalog.innerHTML = `
+        if (DOM.productsGrid) {
+            DOM.productsGrid.innerHTML = `
                 <div class="error-container">
                     <div class="error-icon">❌</div>
                     <h3>Erro</h3>
@@ -667,13 +667,6 @@ class StreetMoodApp {
                     <button onclick="location.reload()" class="btn btn-primary">Recarregar Página</button>
                 </div>
             `;
-        }
-    }
-
-    closeModal() {
-        if (DOM.modal) {
-            DOM.modal.classList.remove('active');
-            document.body.style.overflow = '';
         }
     }
 
@@ -710,15 +703,15 @@ async function quickPurchase(productId) {
     if (!product) return;
 
     const message = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${product.name} ainda está disponível?`);
-    window.open(`https://www.instagram.com/direct/t/streetm00d_/?text=${message}`, '_blank');
+    window.open(`${CONFIG.instagramUrl}/?text=${message}`, '_blank');
 }
 
-async function viewProduct(productId) {
-    const product = app.products.find(p => p.id === productId);
-    if (!product) return;
+function openProductModal(productId) {
+    app.openProductModal(productId);
+}
 
-    // Implementar modal de produto
-    console.log('Visualizando produto:', product.name);
+function closeProductModal() {
+    app.closeProductModal();
 }
 
 function changePage(page) {
@@ -727,10 +720,30 @@ function changePage(page) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function filterProducts(category) {
+    STATE.currentFilter = category;
+    app.setActiveCategoryTab(category);
+    app.applyFiltersAndRender();
+}
+
+function buyProduct() {
+    if (!STATE.selectedProduct) return;
+    
+    const message = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${STATE.selectedProduct.name} ainda está disponível?`);
+    window.open(`${CONFIG.instagramUrl}/?text=${message}`, '_blank');
+}
+
+function reserveProduct() {
+    if (!STATE.selectedProduct) return;
+    
+    const message = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${STATE.selectedProduct.name}. Podes enviar fotos reais antes do envio?`);
+    window.open(`${CONFIG.instagramUrl}/?text=${message}`, '_blank');
+}
+
 // Inicialização
 document.addEventListener('DOMContentLoaded', async () => {
     app = new StreetMoodApp();
     await app.init();
 });
 
-console.log('✅ STREETMOOD 3.0 - Sistema avançado carregado!');
+console.log('✅ STREETMOOD 4.0 - Sistema premium carregado!');

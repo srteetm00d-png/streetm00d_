@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STREETMOOD — Sneakers Premium</title>
+    <title>STREETMOOD - Sneakers Premium</title>
     <meta name="description" content="Catálogo exclusivo de sneakers premium e streetwear autêntico">
     <meta name="keywords" content="sneakers, streetwear, tênis, moda, premium, STREETMOOD">
-    <meta property="og:title" content="STREETMOOD — Sneakers Premium">
+    <meta property="og:title" content="STREETMOOD - Sneakers Premium">
     <meta property="og:description" content="Catálogo exclusivo de sneakers premium e streetwear autêntico">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="./imagens_produtos/hero-bg.jpg">
     
     <link rel="stylesheet" href="./style.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,61 +17,82 @@
 </head>
 
 <body>
-    <!-- Header Moderno -->
-    <header class="header" id="header">
-        <div class="logo">
-            <div class="logo-icon">S</div>
-            <h1>STREETMOOD</h1>
-        </div>
-        
-        <div class="header-actions">
-            <div class="search-container">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Buscar sneakers..." class="search-input">
-            </div>
-            
-            <div class="contact-icons">
-                <a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank" class="contact-icon instagram-only">
-                    <span>📷</span>
-                    <span class="contact-label">Instagram</span>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
+    <!-- NAVIGATION BAR PROFISSIONAL -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#home" class="nav-brand">
+                <div class="nav-logo">S</div>
                 <h1>STREETMOOD</h1>
-                <h2>SNEAKERS PREMIUM</h2>
-                <p>Coleção exclusiva de streetwear autêntico</p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">167+</span>
-                        <span class="stat-label">Produtos</span>
+            </a>
+            
+            <div class="nav-menu">
+                <div class="nav-links">
+                    <a href="#sneakers" class="nav-link active" data-category="all">Sneakers</a>
+                    <a href="#clothing" class="nav-link" data-category="clothing">Roupas</a>
+                    <a href="#accessories" class="nav-link" data-category="accessories">Acessórios</a>
+                    <a href="#about" class="nav-link" data-category="about">Sobre</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar produtos...">
                     </div>
-                    <div class="stat">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Marcas</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Autêntico</span>
-                    </div>
+                    <a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank" class="nav-contact">
+                        Instagram DM
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="hero-overlay"></div>
+    </nav>
+
+    <!-- HERO SECTION PROFISSIONAL -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">STREETMOOD</h1>
+            <h2 class="hero-subtitle">SNEAKERS PREMIUM</h2>
+            <p class="hero-description">
+                Coleção exclusiva de streetwear autêntico. Os melhores sneakers do mercado em um só lugar.
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">167+</span>
+                    <span class="stat-label">Produtos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Marcas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Autêntico</span>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Filters Section -->
-    <section class="filters-section">
+    <!-- CATEGORIES NAVIGATION -->
+    <section class="categories-nav">
         <div class="container">
-            <div class="filters-header">
-                <h2>Categorias</h2>
-                <div class="sort-container">
-                    <label for="sortDropdown">Ordenar:</label>
+            <h2 class="categories-title">Categorias</h2>
+            <div class="categories-tabs">
+                <button class="category-tab active" data-filter="all">Todos</button>
+                <button class="category-tab" data-filter="nike">Nike</button>
+                <button class="category-tab" data-filter="adidas">Adidas</button>
+                <button class="category-tab" data-filter="jordan">Jordan</button>
+                <button class="category-tab" data-filter="luxury">Luxury</button>
+                <button class="category-tab" data-filter="clothing">Roupas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="products-section" id="sneakers">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Catálogo Completo</h2>
+                <div class="results-info">
+                    <div class="results-count" id="resultsCount">167 produtos encontrados</div>
                     <select id="sortDropdown" class="sort-dropdown">
                         <option value="name">Nome</option>
                         <option value="price-low">Menor Preço</option>
@@ -82,64 +102,51 @@
                 </div>
             </div>
             
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="nike">Nike</button>
-                <button class="filter-btn" data-filter="adidas">Adidas</button>
-                <button class="filter-btn" data-filter="jordan">Jordan</button>
-                <button class="filter-btn" data-filter="luxury">Luxury</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Catalog Section -->
-    <section class="catalog-section">
-        <div class="container">
-            <div class="catalog-header">
-                <h2 class="catalog-title">Catálogo Completo</h2>
-                <span class="results-count" id="resultsCount">167 produtos encontrados</span>
-            </div>
-            
-            <div class="catalog" id="catalog">
+            <div class="products-grid" id="productsGrid">
                 <!-- Loading -->
                 <div class="loading" id="loading">
                     <div class="loading-spinner"></div>
                 </div>
             </div>
+            
+            <!-- Paginação -->
+            <div class="pagination-container" id="paginationContainer"></div>
         </div>
     </section>
 
-    <!-- Modal Moderno -->
-    <div id="productModal" class="modal">
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="product-modal" id="productModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">✕</button>
+            <button class="modal-close" onclick="closeProductModal()">✕</button>
             
             <div class="modal-body">
-                <div class="modal-carousel">
-                    <div class="carousel-track" id="carouselTrack">
-                        <!-- Imagens do carrossel -->
+                <div class="modal-gallery">
+                    <div class="gallery-main" id="galleryMain">
+                        <img id="mainImage" src="" alt="">
                     </div>
-                    <button class="carousel-nav carousel-prev" onclick="changeSlide(-1)">❮</button>
-                    <button class="carousel-nav carousel-next" onclick="changeSlide(1)">❯</button>
-                    <div class="carousel-dots" id="carouselDots">
-                        <!-- Dots de navegação -->
+                    <div class="gallery-thumbnails" id="galleryThumbnails">
+                        <!-- Thumbnails gerados dinamicamente -->
                     </div>
                 </div>
                 
                 <div class="modal-info">
                     <div class="modal-brand" id="modalBrand">NIKE</div>
                     <h2 class="modal-title" id="modalTitle">Nome do Produto</h2>
-                    <div class="modal-price" id="modalPrice">€0</div>
+                    <div class="modal-price-row">
+                        <div class="modal-price" id="modalPrice">€0</div>
+                        <div class="modal-original-price" id="modalOriginalPrice" style="display: none;">€0</div>
+                    </div>
                     <p class="modal-description" id="modalDescription">
                         Produto premium da STREETMOOD. Qualidade garantida e estilo exclusivo.
+                        Design moderno e materiais de alta qualidade para o máximo de conforto e performance.
                     </p>
                     
                     <div class="modal-actions">
                         <button class="btn btn-primary btn-large" onclick="buyProduct()">
-                            Instagram DM
+                            📷 Instagram DM
                         </button>
                         <button class="btn btn-secondary btn-large" onclick="reserveProduct()">
-                            Reservar
+                            📧 Reservar
                         </button>
                     </div>
                 </div>
@@ -147,24 +154,26 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>STREETMOOD</h3>
-                    <p>Catálogo premium de sneakers e streetwear autêntico.</p>
+                    <p>
+                        Catálogo premium de sneakers e streetwear autêntico. 
+                        Os melhores produtos das marcas mais exclusivas do mercado.
+                    </p>
                     <div class="social-links">
-                        <a href="https://www.instagram.com/streetm00d_/" target="_blank" class="social-link instagram">
-                            <span>📷</span>
-                            <span>Instagram</span>
+                        <a href="https://www.instagram.com/streetm00d_/" target="_blank" class="social-link">
+                            📷 Instagram
                         </a>
                     </div>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Categorias</h4>
-                    <ul>
+                    <ul class="footer-links">
                         <li><a href="#" onclick="filterProducts('nike')">Nike</a></li>
                         <li><a href="#" onclick="filterProducts('adidas')">Adidas</a></li>
                         <li><a href="#" onclick="filterProducts('jordan')">Jordan</a></li>
@@ -174,22 +183,25 @@
                 
                 <div class="footer-section">
                     <h4>Serviço</h4>
-                    <ul>
+                    <ul class="footer-links">
                         <li><a href="#">Suporte</a></li>
                         <li><a href="#">Rastreamento</a></li>
                         <li><a href="#">Devoluções</a></li>
+                        <li><a href="#">Tamanho</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Contato</h4>
-                    <ul>
-                        <li><a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank" class="contact-link">
-                            <span>📷</span> Instagram DM
+                    <ul class="footer-links">
+                        <li><a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank">
+                            📷 Instagram DM
                         </a></li>
-                        <li><a href="#" onclick="window.open('mailto:streetm00d@email.com')" class="contact-link">
-                            <span>📧</span> Email
+                        <li><a href="#" onclick="window.open('mailto:streetm00d@email.com')">
+                            📧 Email
                         </a></li>
+                        <li><a href="#">📍 Localização</a></li>
+                        <li><a href="#">⏰ Horário</a></li>
                     </ul>
                 </div>
             </div>

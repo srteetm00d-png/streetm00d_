@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STREETMOOD 4.0 TESTE</title>
+    <style>
+        /* VARIÁVEIS */
+        :root {
+            --primary-black: #0a0a0a;
+            --accent-red: #ff3333;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --surface-dark: #1f1f1f;
+            --border-dark: #2a2a2a;
+            --gradient-red: linear-gradient(135deg, #ff3333 0%, #cc0000 100%);
+            --border-radius-lg: 20px;
+        }
+
+        /* BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: var(--primary-black); color: var(--text-primary); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-dark);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-red);
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 22px;
+        }
+
+        .nav-brand h1 {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .nav-contact {
+            padding: 12px 24px;
+            background: var(--gradient-red);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius-lg);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 80px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 80px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            background: var(--gradient-red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 40px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* CATEGORIES */
+        .categories-nav {
+            background: var(--surface-dark);
+            padding: 32px 0;
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+        }
+
+        .categories-nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .categories-title {
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .categories-tabs {
+            display: flex;
+            gap: 8px;
+        }
+
+        .category-tab {
+            padding: 16px 32px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-dark);
+            border-radius: var(--border-radius-lg);
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover,
+        .category-tab.active {
+            background: var(--gradient-red);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* PRODUCTS */
+        .products-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 64px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            background: var(--surface-dark);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-dark);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            border-color: var(--accent-red);
+        }
+
+        .product-image-container {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+            filter: brightness(1.1) contrast(1.2) saturate(1.2);
+        }
+
+        .product-info {
+            padding: 32px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .product-price {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--accent-red);
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--gradient-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.4);
+        }
+
+        /* LOADING */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="nav-brand">
+                <div class="nav-logo">S</div>
+                <h1>STREETMOOD</h1>
+            </a>
+            <a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank" class="nav-contact">
+                Instagram DM
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">STREETMOOD</h1>
+            <h2 class="hero-subtitle">SNEAKERS PREMIUM</h2>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories-nav">
+        <div class="container">
+            <h2 class="categories-title">Categorias</h2>
+            <div class="categories-tabs">
+                <button class="category-tab active">Todos</button>
+                <button class="category-tab">Nike</button>
+                <button class="category-tab">Adidas</button>
+                <button class="category-tab">Jordan</button>
+                <button class="category-tab">Luxury</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Catálogo Completo</h2>
+            <div class="products-grid" id="productsGrid">
+                <div class="loading">🔄 Carregando produtos...</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        console.log('🚀 STREETMOOD 4.0 - Teste do novo design');
+        
+        // Carregar produtos
+        async function loadProducts() {
+            try {
+                const response = await fetch('./products.json');
+                const data = await response.json();
+                const products = Object.entries(data);
+                
+                console.log(`✅ ${products.length} produtos carregados`);
+                
+                renderProducts(products.slice(0, 12));
+                
+            } catch (error) {
+                console.error('❌ Erro:', error);
+                document.getElementById('productsGrid').innerHTML = '<div class="loading">❌ Erro ao carregar produtos</div>';
+            }
+        }
+        
+        function renderProducts(products) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            products.forEach(([key, product], index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                const firstImage = product.images && product.images.length > 0 ? product.images[0] : null;
+                
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        ${firstImage ? `
+                            <img src="./imagens_produtos/${firstImage}" 
+                                 alt="${product.name}" 
+                                 class="product-image"
+                                 onerror="this.style.display='none';">
+                        ` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-price">€${product.price}</div>
+                        <button class="btn btn-primary" onclick="quickBuy('${product.name}')">
+                            📷 Instagram DM
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+            
+            console.log('✅ Produtos renderizados com novo design');
+        }
+        
+        function quickBuy(name) {
+            const message = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${name} ainda está disponível?`);
+            window.open(`https://www.instagram.com/direct/t/streetm00d_/?text=${message}`, '_blank');
+        }
+        
+        // Category tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                console.log('Categoria selecionada:', tab.textContent);
+            });
+        });
+        
+        // Iniciar carregamento
+        loadProducts();
+    </script>
+</body>
+</html>

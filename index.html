@@ -804,6 +804,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let heroIndex = 0;
   let heroTimer;
   let currentProduct = null;
+  let currentPage = 1;
+  let productsPerPage = 12;
 
   init();
 
@@ -858,7 +860,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const price = priceMap[brand] || 220;
     const extMatch = clean.match(/\.(jpg|jpeg|png)$/i);
     const ext = extMatch ? extMatch[0] : '.jpg';
-    const encodedPath = encodeURI(`/imagens_produtos/${clean}`);
+    const encodedPath = `./imagens_produtos/${clean}`;
     const base = encodedPath.replace(ext,'');
     const images = [
       encodedPath,
@@ -987,6 +989,35 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
   }
 
+  function setupPagination(){
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const endIndex = startIndex + productsPerPage;
+    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+    renderPaginatedProducts(paginatedProducts);
+  }
+
+  function renderPaginatedProducts(products){
+    refs.productGrid.innerHTML = '';
+    if(!products.length){
+      refs.productGrid.innerHTML = `<div class="empty-state">
+        <p>Nenhum drop encontrado.</p>
+        <p class="muted small">Ajuste filtros ou fale com nosso concierge.</p>
+      </div>`;
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    products.forEach(product => {
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = createProductCard(product);
+      const card = wrapper.firstElementChild;
+      const img = card.querySelector('img');
+      lazyObserver.observe(img);
+      fragment.appendChild(card);
+    });
+    refs.productGrid.appendChild(fragment);
+  }
+
   function updateCounters(){
     refs.visibleCount.textContent = filteredProducts.length;
     refs.totalCount.textContent = allProducts.length;
@@ -1004,24 +1035,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderProducts(){
-    refs.productGrid.innerHTML = '';
-    if(!filteredProducts.length){
-      refs.productGrid.innerHTML = `<div class="empty-state">
-        <p>Nenhum drop encontrado.</p>
-        <p class="muted small">Ajuste filtros ou fale com nosso concierge.</p>
-      </div>`;
-      return;
-    }
-    const fragment = document.createDocumentFragment();
-    filteredProducts.forEach(product => {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = createProductCard(product);
-      const card = wrapper.firstElementChild;
-      const img = card.querySelector('img');
-      lazyObserver.observe(img);
-      fragment.appendChild(card);
-    });
-    refs.productGrid.appendChild(fragment);
+    setupPagination();
   }
 
   function createProductCard(product){

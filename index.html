@@ -561,6 +561,50 @@ body {
     color: var(--text-secondary);
 }
 
+.product-details {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.detail-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--bg-element);
+}
+
+.detail-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.detail-list {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.detail-list li {
+    margin-bottom: 0.4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.detail-list li span:first-child {
+    font-weight: 500;
+    color: var(--text-secondary);
+    flex-basis: 120px; /* Fixo para alinhar */
+}
+
+.detail-list li span:last-child {
+    color: var(--text-primary);
+    flex-grow: 1;
+    text-align: right;
+}
+
 .sizes-section h3 {
     font-size: 1rem;
     margin-bottom: 0.75rem;
@@ -700,6 +744,45 @@ body {
     margin-top: 1rem;
 }
 
+/* Paginação */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 2rem 1.25rem;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    background: var(--bg-element);
+    border: var(--frosted-border);
+    color: var(--text-primary);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    min-width: 44px;
+}
+
+.page-btn:hover:not(:disabled) {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.page-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Responsive */
 @media (max-width: 370px) {
     .products-grid {
@@ -797,7 +880,7 @@ body {
     </section>
 
     <!-- Products Grid -->
-    <main class="products-grid" id="productGrid">
+    <main class="products-grid" id="productsGrid">
         <!-- Products will be inserted here by JavaScript -->
     </main>
 
@@ -821,6 +904,19 @@ body {
             <div class="modal-content">
                 <h1 class="modal-name" id="modalName">Air Jordan 4 Retro</h1>
                 <p class="modal-description" id="modalDescription">Edição especial com design premium e materiais de alta qualidade. Conforto excepcional para uso diário e colecionadores.</p>
+                
+                <div class="product-details">
+                    <div class="detail-section">
+                        <h3>Detalhes Técnicos</h3>
+                        <ul class="detail-list">
+                            <li><span>Marca:</span> <span id="detail-brand">Nike</span></li>
+                            <li><span>Modelo:</span> <span id="detail-model">Air Jordan 4</span></li>
+                            <li><span>Colorway:</span> <span id="detail-colorway">Bred</span></li>
+                            <li><span>Materiais:</span> <span id="detail-materials">Couro, Nubuck</span></li>
+                            <li><span>Tecnologia:</span> <span id="detail-tech">Visible Air Unit</span></li>
+                        </ul>
+                    </div>
+                </div>
                 
                 <div class="sizes-section">
                     <h3>Tamanhos disponíveis</h3>
@@ -857,354 +953,568 @@ body {
     </footer>
 
     <script>
-        // Configuração
-        const BRAND_PRICES = {
-            'Nike': 150,
-            'Adidas': 140,
-            'Jordan': 180,
-            'Puma': 130,
-            'Balenciaga': 250,
-            'Off White': 220,
-            'Luxury': 300
-        };
+// JavaScript para STREETMOOD - Aprimoramentos Premium
 
-        // Estado da aplicação
-        let allProducts = [];
-        let filteredProducts = [];
-        let currentProduct = null;
+// --- Configurações Globais ---
+const BRAND_PRICES = {
+    'Nike': 150, 'Adidas': 140, 'Jordan': 180, 'Puma': 130,
+    'Balenciaga': 250, 'Off White': 220, 'Luxury': 300
+};
+const PRODUCTS_PER_PAGE = 12; // Produtos por página para paginação
+const WHATSAPP_NUMBER = '+351912345678'; // Substitua pelo número real
 
-        // Elementos DOM
-        const productsGrid = document.getElementById('productGrid');
-        const productCount = document.getElementById('count');
-        const searchInput = document.getElementById('searchInput');
-        const brandFilter = document.getElementById('brandFilter');
-        const sizeFilter = document.getElementById('sizeFilter');
-        const priceFilter = document.getElementById('priceFilter');
-        const priceSlider = document.getElementById('priceSlider');
-        const sliderValue = document.getElementById('sliderValue');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const closeModal = document.getElementById('closeModal');
-        const modalBrand = document.getElementById('modalBrand');
-        const modalName = document.getElementById('modalName');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalSizes = document.getElementById('modalSizes');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalBuy = document.getElementById('modalBuy');
-        const modalReserve = document.getElementById('modalReserve');
-        const whatsappFloat = document.getElementById('whatsappFloat');
-        const galleryTrack = document.getElementById('galleryTrack');
-        const galleryNav = document.getElementById('galleryNav');
+// --- Dados de Exemplo (Fallback) ---
+// Em um cenário real, isto seria carregado de um arquivo .txt ou API
+const FALLBACK_PRODUCTS = [
+    { id: 1, name: 'Air Jordan 4 Retro', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Edição retro com design clássico e conforto premium.', colorway: 'Bred', materials: 'Couro, Nubuck', tech: 'Visible Air Unit' },
+    { id: 2, name: 'Dunk Low Panda', brand: 'Nike', sizes: [39, 40, 41, 42], price: 150, description: 'Clássico preto e branco, versátil e atemporal. Perfeito para o dia a dia.', colorway: 'Black/White', materials: 'Couro', tech: 'Durable Rubber Sole' },
+    { id: 3, name: 'Yeezy Boost 350 V2', brand: 'Adidas', sizes: [40, 41, 42, 43, 44, 45], price: 140, description: 'Conforto máximo com a tecnologia Boost, ideal para quem busca estilo e bem-estar.', colorway: 'Zebra', materials: 'Primeknit', tech: 'Boost™ Midsole' },
+    { id: 4, name: 'Air Force 1 '07', brand: 'Nike', sizes: [38, 39, 40, 41, 42], price: 150, description: 'O ténis mais icónico de sempre, em branco puro, elevando qualquer look.', colorway: 'Triple White', materials: 'Couro', tech: 'Nike Air Cushioning' },
+    { id: 5, name: 'RS-X³ Puzzle', brand: 'Puma', sizes: [40, 41, 42, 43], price: 130, description: 'Design futurista e arrojado com amortecimento avançado para uma passada confortável.', colorway: 'Grey/Red', materials: 'Mesh, Couro', tech: 'Running System' },
+    { id: 6, name: 'Balenciaga Triple S', brand: 'Balenciaga', sizes: [41, 42, 43, 44], price: 250, description: 'Silhueta oversized com solado distinto, um ícone de moda e luxo.', colorway: 'Black', materials: 'Couro, Camurça, Mesh', tech: 'Multi-component Sole' },
+    { id: 7, name: 'Air Jordan 1 Mid', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Versão de cano médio do AJ1, mantendo o estilo e o legado.', colorway: 'Light Smoke Grey', materials: 'Couro', tech: 'Air-Sole Unit' },
+    { id: 8, name: 'Adidas NMD_R1', brand: 'Adidas', sizes: [39, 40, 41, 42, 43], price: 140, description: 'Estilo urbano com blocos de EVA responsivos para conforto e performance.', colorway: 'White/Black', materials: 'Primeknit', tech: 'Boost™ Midsole' },
+    { id: 9, name: 'Air Max 97 OG', brand: 'Nike', sizes: [40, 41, 42, 43, 44], price: 150, description: 'Design inspirado em comboios-bala japoneses, com amortecimento Air Max a toda a volta.', colorway: 'Silver Bullet', materials: 'Couro, Mesh', tech: 'Full-Length Visible Air' },
+    { id: 10, name: 'Off-White x Nike Blazer', brand: 'Off White', sizes: [41, 42, 43, 44], price: 220, description: 'Colaboração icónica que reinterpreta o clássico Blazer com detalhes deconstruídos.', colorway: 'All Hallows Eve', materials: 'Couro, Camurça', tech: 'Deconstructed design' },
+    { id: 11, name: 'Puma Suede Classic', brand: 'Puma', sizes: [38, 39, 40, 41, 42], price: 130, description: 'O lendário Suede em sua forma clássica, sinónimo de estilo e conforto.', colorway: 'Peacoat', materials: 'Camurça', tech: 'Comfortable insole' },
+    { id: 12, name: 'Air Jordan 11', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Um ícone de luxo e performance com cabedal em patente leather.', colorway: 'Concord', materials: 'Couro Patent, Mesh', tech: 'Full-length Carbon Fiber Plate' },
+    { id: 13, name: 'Adidas Gazelle', brand: 'Adidas', sizes: [39, 40, 41, 42, 43], price: 140, description: 'Um clássico dos anos 60, reinventado com camurça macia e design intemporal.', colorway: 'Green', materials: 'Camurça', tech: 'Rubber outsole' },
+    { id: 14, name: 'Nike Vomero 5', brand: 'Nike', sizes: [40, 41, 42, 43, 44], price: 150, description: 'Conforto e estilo técnico com linhas retro-running.', colorway: 'Sail/Light Bone', materials: 'Mesh, Couro', tech: 'Zoom Air + Cushlon' },
+    { id: 15, name: 'Balenciaga Speed Trainer', brand: 'Balenciaga', sizes: [41, 42, 43, 44], price: 250, description: 'O ténis ultra-confortável com silhueta sock-like.', colorway: 'Black', materials: 'Knit', tech: 'Memory Sole technology' },
+    { id: 16, name: 'Puma MB.01', brand: 'Puma', sizes: [42, 43, 44, 45, 46], price: 130, description: 'Assinatura de LaMelo Ball, com performance e estilo que chamam a atenção.', colorway: 'Quack', materials: 'Mesh, Couro', tech: 'Nitro Foam' },
+    { id: 17, name: 'Air Jordan 3 Retro', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'O primeiro Jordan com o icónico "Jumpman" e pele de elefante.', colorway: 'White Cement', materials: 'Couro', tech: 'Visible Air Unit' },
+    { id: 18, name: 'Adidas Samba OG', brand: 'Adidas', sizes: [38, 39, 40, 41, 42], price: 140, description: 'Um ícone do futebol que transcendeu para a moda urbana.', colorway: 'White/Black', materials: 'Camurça, Couro', tech: 'Gum sole' },
+    { id: 19, name: 'Nike Sacai Vaporwaffle', brand: 'Nike', sizes: [40, 41, 42, 43], price: 150, description: 'Colaboração única que funde dois ícones Nike com design em camadas.', colorway: 'White/Black', materials: 'Mesh, Couro', tech: 'Layered midsole' },
+    { id: 20, name: 'Off-White Air Jordan 5', brand: 'Off White', sizes: [42, 43, 44, 45], price: 220, description: 'Uma releitura futurista do clássico AJ5 com detalhes translúcidos e materiais inovadores.', colorway: 'Sail', materials: 'Couro, Translucent materials', tech: 'Translucent materials, "AIR" branding' }
+];
 
-        // Detectar marca pelo nome
-        function detectBrand(name) {
-            const upperName = name.toUpperCase();
-            
-            if (upperName.includes('NIKE') || upperName.includes('AIR') || upperName.includes('FORCE')) {
-                return 'Nike';
-            } else if (upperName.includes('ADIDAS')) {
-                return 'Adidas';
-            } else if (upperName.includes('JORDAN')) {
-                return 'Jordan';
-            } else if (upperName.includes('GUCCI') || upperName.includes('DIOR') || 
-                       upperName.includes('VERSACE') || upperName.includes('LOUIS')) {
-                return 'Luxury';
-            } else if (upperName.includes('PUMA')) {
-                return 'Puma';
-            } else if (upperName.includes('NEW BALANCE')) {
-                return 'New Balance';
-            } else if (upperName.includes('YEEZY')) {
-                return 'Adidas';
-            } else if (upperName.includes('BALENCIAGA') || upperName.includes('OFF WHITE')) {
-                return upperName.includes('BALENCIAGA') ? 'Balenciaga' : 'Off White';
-            } else {
-                return 'Nike';
-            }
-        }
+// --- Variáveis de Estado ---
+let allProducts = [];
+let filteredProducts = [];
+let currentPage = 1;
+let currentProductModal = null; // Guarda o produto atualmente aberto no modal
 
-        // Gerar tamanhos baseado no nome
-        function generateSizes(name) {
-            const upperName = name.toUpperCase();
-            const sizes = [];
-            
-            // Tamanhos base para todos
-            const baseSizes = ['40', '41', '42', '43', '44'];
-            
-            // Verificar se há tamanhos específicos no nome
-            const sizeMatch = name.match(/\((\d+)-?(\d*)\)/);
-            if (sizeMatch) {
-                const startSize = parseInt(sizeMatch[1]);
-                const endSize = sizeMatch[2] ? parseInt(sizeMatch[2]) : startSize;
-                
-                for (let size = startSize; size <= endSize; size++) {
-                    sizes.push(size.toString());
-                }
-            } else {
-                // Adicionar tamanhos base
-                sizes.push(...baseSizes);
-            }
-            
-            return sizes;
-        }
+// --- Elementos DOM ---
+const productsGrid = document.getElementById('productsGrid');
+const productCountSpan = document.getElementById('count');
+const searchInput = document.getElementById('searchInput');
+const brandFilter = document.getElementById('brandFilter');
+const sizeFilter = document.getElementById('sizeFilter');
+const priceFilterSelect = document.getElementById('priceFilter');
+const priceSlider = document.getElementById('priceSlider');
+const sliderValueSpan = document.getElementById('sliderValue');
 
-        // Gerar preço baseado na marca e tipo
-        function generatePrice(name, brand) {
-            const upperName = name.toUpperCase();
-            
-            let price = BRAND_PRICES[brand] || 150;
-            
-            // Ajustar preço baseado em características
-            if (upperName.includes('LUXURY') || upperName.includes('PREMIUM')) {
-                price += 100;
-            }
-            if (upperName.includes('LIMITED') || upperName.includes('EXCLUSIVE')) {
-                price += 80;
-            }
-            if (upperName.includes('HIGH') || upperName.includes('RETRO')) {
-                price += 50;
-            }
-            
-            // Adicionar variação aleatória
-            price += Math.floor(Math.random() * 50) - 25;
-            
-            return Math.max(50, Math.min(500, price));
-        }
+const modalOverlay = document.getElementById('modalOverlay');
+const closeModalBtn = document.getElementById('closeModal');
+const modalBrandSpan = document.getElementById('modalBrand');
+const modalNameH1 = document.getElementById('modalName');
+const modalDescriptionP = document.getElementById('modalDescription');
+const modalDetailBrandSpan = document.getElementById('detail-brand');
+const modalDetailModelSpan = document.getElementById('detail-model');
+const modalDetailColorwaySpan = document.getElementById('detail-colorway');
+const modalPriceDiv = document.getElementById('modalPrice');
+const modalSizesDiv = document.getElementById('modalSizes');
+const modalBuyBtn = document.getElementById('modalBuy');
+const modalReserveBtn = document.getElementById('modalReserve');
+const galleryTrackDiv = document.getElementById('galleryTrack');
+const galleryNavDiv = document.getElementById('galleryNav');
 
-        // Gerar descrição
-        function generateDescription(name, brand) {
-            const upperName = name.toUpperCase();
-            
-            if (upperName.includes('CASACO') || upperName.includes('COLETE')) {
-                return `Peça exclusiva da ${brand}, confeccionada com materiais premium. Ideal para o inverno.`;
-            } else if (upperName.includes('MOLETOM') || upperName.includes('HOODIE')) {
-                return `Moletom premium da ${brand}, 100% algodão com design exclusivo e acabamento impecável.`;
-            } else {
-                return `Modelo exclusivo da ${brand}, design moderno e materiais de alta qualidade. Conforto garantido.`;
-            }
-        }
+const whatsappFloatA = document.getElementById('whatsappFloat');
 
-        // Carregar produtos manualmente (fallback)
-        function loadProductsManually() {
-            const productImages = [
-                'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg',
-                'Nike Air Force 1 Low_5.jpg',
-                'Adidas Originals Samba_5.jpg',
-                'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
-                'Yeezy Boost 700 V2 Geode – EG6860_5.png',
-                'New Balance 530_5.jpg',
-                'Puma LaMelo Ball MB.02_4.jpg',
-                'Air Jordan 4 Retro black particle40-46_4.jpg',
-                'Nike Air Max 270_5.jpg',
-                'Dior B22_5.jpg',
-                'Louis Vuitton x Nike Air Force 1_5.jpg',
-                'Off-White Já volto Branco cinza jade preto_5.jpeg',
-                'casaco polo ralph lauren azul.jpg',
-                'colete polo ralph lauren branco.png',
-                'TRAPSTAR_1.jpg',
-                'The North Face _1996(XS-2XL)_1.jpg',
-                'Nike Shox Ride 2 (36-46)_5.jpeg',
-                'Máx. 95 1895-132 (40-46)_5.jpg',
-                'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg'
-            ];
-            
-            allProducts = productImages.map((filename, index) => {
-                const name = filename.replace(/\.(jpg|jpeg|png)$/i, '');
-                const brand = detectBrand(name);
-                
-                return {
-                    id: index + 1,
-                    name: name,
-                    brand: brand,
-                    sizes: generateSizes(name),
-                    price: generatePrice(name, brand),
-                    images: [filename],
-                    description: generateDescription(name, brand)
-                };
-            });
-            
-            console.log(`✅ ${allProducts.length} produtos carregados manualmente`);
-            filteredProducts = [...allProducts];
-            renderProducts();
-        }
+// --- Elementos de Paginação ---
+const paginationControls = document.createElement('div');
+paginationControls.className = 'pagination-controls';
+// Adicionar isto ao DOM após o grid de produtos
+let paginationContainer;
 
-        // Renderizar produtos
-        function renderProducts() {
-            productsGrid.innerHTML = '';
-            
-            filteredProducts.forEach(product => {
-                const card = createProductCard(product);
-                productsGrid.appendChild(card);
-            });
-        }
+// --- Observadores e Listeners ---
+let searchTimeout; // Para debounce na pesquisa
+const imageObserver = new IntersectionObserver(handleImageIntersection, {
+    rootMargin: '0px 0px 200px 0px' // Começa a carregar imagens quando estão a 200px da viewport
+});
 
-        // Criar card de produto
-        function createProductCard(product) {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            
-            const imageUrl = `./imagens_produtos/${product.images[0]}`;
-            
-            card.innerHTML = `
-              <div class="card-image">
-                <img src="${imageUrl}" 
-                     alt="${product.name}"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2224%22%3E👟%3C/text%3E%3C/svg%3E'">
+// --- Funções ---
+
+// 1. Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+    loadProducts();
+    setupEventListeners();
+    setupPagination();
+    updateWhatsappFloatLink();
+    applyInitialFiltersFromURL(); // Tenta carregar filtros do URL (se suportado)
+});
+
+// 2. Carregar Produtos (Fallback)
+function loadProducts() {
+    // Simulando carregamento de dados. Em um cenário real, leria de imagens.txt
+    allProducts = FALLBACK_PRODUCTS.map((p, index) => ({
+        ...p,
+        // Simula 3 imagens por produto
+        images: Array(3).fill(0).map((_, i) => `👟${i + 1}`),
+        // Define preço automaticamente se não estiver definido (baseado na marca)
+        price: p.price || BRAND_PRICES[p.brand] || 150
+    }));
+    
+    // Se fosse carregar de um arquivo de texto:
+    // fetch('path/to/imagens.txt')
+    //     .then(response => response.text())
+    //     .then(data => {
+    //         const lines = data.trim().split('\n');
+    //         allProducts = parseProductData(lines); // Função para parsear
+    //         renderProducts();
+    //         updatePagination();
+    //     })
+    //     .catch(error => {
+    //         console.error("Falha ao carregar produtos de imagens.txt, usando fallback.", error);
+    //         allProducts = FALLBACK_PRODUCTS.map(...); // Usa fallback
+    //         renderProducts();
+    //         updatePagination();
+    //     });
+
+    applyFilters(); // Aplica filtros iniciais após carregar produtos
+}
+
+// 3. Renderizar Produtos (com Paginação e Lazy Loading)
+function renderProducts() {
+    productsGrid.innerHTML = ''; // Limpa o grid atual
+
+    const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+    const endIndex = startIndex + PRODUCTS_PER_PAGE;
+    const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
+
+    if (productsToDisplay.length === 0) {
+        productsGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--text-secondary);">Nenhum produto encontrado com os filtros selecionados.</p>';
+        return;
+    }
+
+    productsToDisplay.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.dataset.id = product.id;
+        
+        const placeholderSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" class="placeholder-svg"><path d="M50 25L25 50L50 75L75 50L50 25Z" fill="rgba(255,255,255,0.2)"/><path d="M70 30L60 40L70 50L80 40L70 30Z" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="15" fill="rgba(255,255,255,0.1)"/></svg>`;
+        
+        card.innerHTML = `
+            <div class="card-image">
+                <div class="image-placeholder">${placeholderSvg}</div>
                 <div class="sizes-badge">${product.sizes.length} tamanhos</div>
-              </div>
-              <div class="card-content">
+            </div>
+            <div class="card-content">
                 <div class="brand">${product.brand}</div>
                 <h3 class="name">${product.name}</h3>
                 <div class="price">${product.price}€</div>
                 <div class="card-buttons">
-                  <button class="btn btn-primary" onclick="buyProduct('${product.name}')">Comprar</button>
-                  <button class="btn btn-secondary" onclick="reserveProduct('${product.name}')">Reservar</button>
+                    <button class="btn btn-primary" data-action="buy" data-id="${product.id}"><span>🛒</span> Comprar</button>
+                    <button class="btn btn-secondary" data-action="reserve" data-id="${product.id}"><span>🔒</span> Reservar</button>
                 </div>
-              </div>
-            `;
-            
-            card.addEventListener('click', (e) => {
-                if (e.target.tagName.toLowerCase() !== 'button') {
-                    openModal(product);
-                }
-            });
-            
-            return card;
-        }
+            </div>
+        `;
+        
+        // Adiciona o listener de clique para abrir o modal
+        card.querySelector('.card-content').addEventListener('click', () => openProductModal(product));
+        
+        productsGrid.appendChild(card);
+        
+        // Configura o lazy loading para a imagem principal do card (simulado)
+        const cardImageDiv = card.querySelector('.card-image');
+        // Em um cenário real, você teria uma tag <img> com data-src
+        // Aqui, simulamos que o placeholder será substituído.
+        // A lógica de lazy loading seria mais robusta com <img loading="lazy" data-src="...">
+        // Exemplo: if (cardImageDiv.querySelector('img')) imageObserver.observe(cardImageDiv.querySelector('img'));
+    });
+    
+    // Adiciona event listeners aos botões do card
+    attachCardButtonListeners();
+}
 
-        // Abrir modal
-        function openModal(product) {
-            currentProduct = product;
-            
-            modalBrand.textContent = product.brand;
-            modalName.textContent = product.name;
-            modalDescription.textContent = product.description;
-            modalPrice.textContent = `${product.price}€`;
-            
-            // Tamanhos
-            modalSizes.innerHTML = '';
-            product.sizes.forEach(size => {
-                const sizeEl = document.createElement('div');
-                sizeEl.className = 'size-option';
-                sizeEl.textContent = size;
-                modalSizes.appendChild(sizeEl);
-            });
-            
-            // Galeria
-            galleryTrack.innerHTML = '';
-            galleryNav.innerHTML = '';
-            
-            product.images.forEach((img, index) => {
-                const slide = document.createElement('div');
-                slide.className = 'gallery-slide';
-                slide.innerHTML = `<div class="image-placeholder">👟</div>`;
-                galleryTrack.appendChild(slide);
-                
-                const dot = document.createElement('div');
-                dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
-                dot.dataset.index = index;
-                galleryNav.appendChild(dot);
-            });
-            
-            modalOverlay.style.display = 'flex';
-        }
+// 4. Filtros e Paginação
+function applyFilters() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const brand = brandFilter.value;
+    const size = sizeFilter.value;
+    const maxPrice = parseInt(priceSlider.value);
+    
+    filteredProducts = allProducts.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                             product.brand.toLowerCase().includes(searchTerm);
+        const matchesBrand = !brand || product.brand === brand;
+        const matchesSize = !size || product.sizes.includes(parseInt(size));
+        const matchesPrice = product.price <= maxPrice;
+        
+        return matchesSearch && matchesBrand && matchesSize && matchesPrice;
+    });
+    
+    currentPage = 1; // Reseta para a primeira página ao aplicar filtros
+    renderProducts();
+    updatePagination();
+    updateProductCount();
+    // updateURLFilters(); // Opcional: salva filtros no URL
+}
 
-        // Fechar modal
-        function closeModalFunc() {
-            modalOverlay.style.display = 'none';
-        }
+function debounceSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(applyFilters, 220); // Debounce de 220ms
+}
 
-        // Comprar produto
-        function buyProduct(productName) {
-            const message = `Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`;
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/351912345678?text=${encodedMessage}`, '_blank');
-        }
+function setupPagination() {
+    paginationContainer = document.createElement('div');
+    paginationContainer.className = 'pagination-controls';
+    productsGrid.parentNode.insertBefore(paginationContainer, productsGrid.nextSibling);
+    updatePagination();
+}
 
-        // Reservar produto
-        function reserveProduct(productName) {
-            const message = `Olá STREETMOOD 👟 quero reservar o ${productName}`;
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/351912345678?text=${encodedMessage}`, '_blank');
-        }
+function updatePagination() {
+    paginationContainer.innerHTML = ''; // Limpa controles antigos
+    const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
 
-        // Filtrar produtos
-        function filterProducts() {
-            const search = searchInput.value.toLowerCase();
-            const brand = brandFilter.value;
-            const size = sizeFilter.value;
-            const maxPrice = parseInt(priceSlider.value);
-            
-            filteredProducts = allProducts.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search);
-                const matchesSize = size === '' || p.sizes.includes(size);
-                const matchesPrice = p.price <= maxPrice;
-                return matchesSearch && matchesSize && matchesPrice;
-            });
-            
+    if (totalPages <= 1) return; // Não mostra paginação se for apenas uma página
+
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Anterior';
+    prevButton.disabled = currentPage === 1;
+    prevButton.className = 'page-btn';
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
             renderProducts();
-            updateProductCount();
+            updatePagination();
+            // window.scrollTo(0, productsGrid.offsetTop - 100); // Scroll para o topo dos produtos
         }
+    });
+    paginationContainer.appendChild(prevButton);
 
-        // Atualizar contador
-        function updateProductCount() {
-            productCount.textContent = filteredProducts.length;
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+        pageButton.addEventListener('click', () => {
+            currentPage = i;
+            renderProducts();
+            updatePagination();
+            // window.scrollTo(0, productsGrid.offsetTop - 100);
+        });
+        paginationContainer.appendChild(pageButton);
+    }
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Próximo';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.className = 'page-btn';
+    nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderProducts();
+            updatePagination();
+            // window.scrollTo(0, productsGrid.offsetTop - 100);
         }
+    });
+    paginationContainer.appendChild(nextButton);
+}
 
-        // Event listeners
-        searchInput.addEventListener('input', filterProducts);
-        brandFilter.addEventListener('change', filterProducts);
-        sizeFilter.addEventListener('change', filterProducts);
-        priceFilter.addEventListener('change', () => {
-            priceSlider.value = priceFilter.value;
-            sliderValue.textContent = `${priceSlider.value}€`;
-            filterProducts();
-        });
+function updateProductCount() {
+    productCountSpan.textContent = filteredProducts.length;
+}
+
+// 5. Modal do Produto com Detalhes Aprimorados e Glassmorphism
+function openProductModal(product) {
+    currentProductModal = product;
+    
+    modalBrandSpan.textContent = product.brand;
+    modalNameH1.textContent = product.name;
+    modalDescriptionP.textContent = product.description;
+
+    // Preenche detalhes técnicos
+    modalDetailBrandSpan.textContent = product.brand;
+    modalDetailModelSpan.textContent = product.name; // Ou um campo específico 'modelName'
+    modalDetailColorwaySpan.textContent = product.colorway || 'N/A';
+    // Adicionar mais detalhes se disponíveis nos dados do produto
+    // Ex: document.getElementById('detail-materials').textContent = product.materials || 'N/A';
+
+    modalPriceDiv.textContent = `${product.price}€`;
+    
+    // Tamanhos
+    modalSizesDiv.innerHTML = '';
+    product.sizes.forEach(size => {
+        const sizeEl = document.createElement('div');
+        sizeEl.className = 'size-option';
+        sizeEl.textContent = size;
+        sizeEl.dataset.size = size; // Para referência
+        sizeEl.addEventListener('click', () => selectSize(sizeEl));
+        modalSizesDiv.appendChild(sizeEl);
+    });
+    
+    // Galeria de Imagens (Simulada)
+    galleryTrackDiv.innerHTML = '';
+    galleryNavDiv.innerHTML = '';
+    
+    product.images.forEach((imgIdentifier, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        // Simulação de imagem: Placeholder + ID
+        slide.innerHTML = `<div class="image-placeholder" style="font-size: 4rem;">${imgIdentifier}</div>`; 
+        // Em um cenário real: <img src="path/to/${imgIdentifier}.jpg" alt="${product.name} ${imgIdentifier}">
+        galleryTrackDiv.appendChild(slide);
         
-        priceSlider.addEventListener('input', () => {
-            sliderValue.textContent = `${priceSlider.value}€`;
-            filterProducts();
+        const dot = document.createElement('div');
+        dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
+        dot.dataset.index = index;
+        dot.addEventListener('click', () => goToGallerySlide(index));
+        galleryNavDiv.appendChild(dot);
+    });
+    
+    modalOverlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Bloqueia scroll do body
+    
+    // Seleciona o primeiro tamanho por padrão (se existir)
+    if (product.sizes.length > 0) {
+        const firstSizeOption = modalSizesDiv.querySelector('.size-option');
+        if (firstSizeOption) selectSize(firstSizeOption);
+    }
+}
+
+function closeProductModal() {
+    modalOverlay.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Libera scroll do body
+    currentProductModal = null;
+}
+
+function selectSize(sizeEl) {
+    // Remove classe 'selected' de todos os botões de tamanho
+    modalSizesDiv.querySelectorAll('.size-option').forEach(el => el.classList.remove('selected'));
+    // Adiciona classe 'selected' ao botão clicado
+    sizeEl.classList.add('selected');
+}
+
+function goToGallerySlide(index) {
+    const track = galleryTrackDiv;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    
+    galleryNavDiv.querySelectorAll('.gallery-dot').forEach(dot => dot.classList.remove('active'));
+    galleryNavDiv.querySelector(`.gallery-dot[data-index="${index}"]`).classList.add('active');
+}
+
+// 6. Ações do Botão (Comprar/Reservar) e WhatsApp
+function handleBuyClick() {
+    if (!currentProductModal) return;
+    const selectedSizeEl = modalSizesDiv.querySelector('.size-option.selected');
+    if (!selectedSizeEl) {
+        alert("Por favor, selecione um tamanho.");
+        return;
+    }
+    const selectedSize = selectedSizeEl.dataset.size;
+    const productName = `${currentProductModal.name} (Tam: ${selectedSize})`;
+    const message = `Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`;
+    openWhatsApp(message);
+}
+
+function handleReserveClick() {
+    if (!currentProductModal) return;
+    const selectedSizeEl = modalSizesDiv.querySelector('.size-option.selected');
+    if (!selectedSizeEl) {
+        alert("Por favor, selecione um tamanho.");
+        return;
+    }
+    const selectedSize = selectedSizeEl.dataset.size;
+    const productName = `${currentProductModal.name} (Tam: ${selectedSize})`;
+    const message = `Olá STREETMOOD 👟 quero reservar o ${productName}`;
+    openWhatsApp(message);
+}
+
+function openWhatsApp(message) {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+}
+
+function updateWhatsappFloatLink() {
+    const baseMessage = "Olá STREETMOOD 👟 gostaria de mais informações";
+    const encodedMessage = encodeURIComponent(baseMessage);
+    whatsappFloatA.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+}
+
+// 7. Lazy Loading de Imagens (Simulado)
+function handleImageIntersection(entries, observer) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = entry.target;
+            // Na implementação real, target seria uma tag <img> com data-src
+            // Aqui, apenas simulamos a substituição do placeholder
+            const placeholder = target.querySelector('.image-placeholder');
+            if (placeholder) {
+                // Simula o carregamento da imagem real
+                setTimeout(() => {
+                    placeholder.innerHTML = `<img src="images/simulated_product_${target.dataset.productId || 'default'}.jpg" alt="Produto simulado">`; // Caminho real da imagem
+                    // Garante que o CSS para a imagem real é aplicado
+                    const imgElement = placeholder.querySelector('img');
+                    if (imgElement) {
+                        imgElement.style.width = '100%';
+                        imgElement.style.height = '100%';
+                        imgElement.style.objectFit = 'cover';
+                        imgElement.style.transition = 'transform 0.5s ease-out';
+                    }
+                }, Math.random() * 500 + 200); // Simula um pequeno delay de carregamento
+            }
+            observer.unobserve(target); // Para de observar após carregar
+        }
+    });
+}
+
+// 8. Event Listeners
+function setupEventListeners() {
+    // Filtros
+    searchInput.addEventListener('input', debounceSearch);
+    brandFilter.addEventListener('change', applyFilters);
+    sizeFilter.addEventListener('change', applyFilters);
+    priceFilterSelect.addEventListener('change', () => {
+        priceSlider.value = priceFilterSelect.value;
+        sliderValueSpan.textContent = `${priceSlider.value}€`;
+        applyFilters();
+    });
+    priceSlider.addEventListener('input', () => {
+        sliderValueSpan.textContent = `${priceSlider.value}€`;
+        applyFilters();
+    });
+    
+    // Modal
+    closeModalBtn.addEventListener('click', closeProductModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeProductModal();
+    });
+    modalBuyBtn.addEventListener('click', handleBuyClick);
+    modalReserveBtn.addEventListener('click', handleReserveClick);
+    
+    // Carrossel Hero (simplificado)
+    const carousel = document.querySelector('.carousel');
+    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelectorAll('.slide');
+    let currentSlideIndex = 0;
+    
+    function updateHeroCarousel() {
+        const offset = -currentSlideIndex * (100 / slides.length);
+        carousel.style.transform = `translateX(${offset}%)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlideIndex);
         });
-        
-        closeModal.addEventListener('click', closeModalFunc);
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) closeModalFunc();
+    }
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlideIndex = index;
+            updateHeroCarousel();
         });
+    });
+
+    setInterval(() => {
+        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+        updateHeroCarousel();
+    }, 7000); // Altera slide a cada 7 segundos
+
+    // Observar imagens para Lazy Loading
+    // Em um cenário real, aplicaria isto a elementos <img> com 'data-src'
+    document.querySelectorAll('.product-card').forEach(card => {
+        if (card.dataset.productId) { // Assumindo que você adiciona um ID único ao card
+             imageObserver.observe(card);
+        }
+    });
+
+    // Para o modal, se a galeria for complexa, adicionar swipe
+    let startX = 0;
+    galleryTrackDiv.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    galleryTrackDiv.addEventListener('touchend', (e) => {
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        const currentIndex = document.querySelectorAll('.gallery-dot.active')[0]?.dataset.index;
         
-        modalBuy.addEventListener('click', () => {
-            if (currentProduct) buyProduct(currentProduct.name);
-        });
+        if (Math.abs(diff) > 50) {
+            let newIndex;
+            if (diff > 0 && currentIndex < dots.length - 1) { // Swipe left
+                newIndex = parseInt(currentIndex) + 1;
+            } else if (diff < 0 && currentIndex > 0) { // Swipe right
+                newIndex = parseInt(currentIndex) - 1;
+            }
+            
+            if (newIndex !== undefined) {
+                goToGallerySlide(newIndex);
+            }
+        }
+    });
+}
+
+// Função auxiliar para anexar listeners aos botões do card
+function attachCardButtonListeners() {
+    document.querySelectorAll('.product-card').forEach(card => {
+        const productId = parseInt(card.dataset.id);
+        const product = allProducts.find(p => p.id === productId);
         
-        modalReserve.addEventListener('click', () => {
-            if (currentProduct) reserveProduct(currentProduct.name);
-        });
-        
-        // Galeria
-        galleryNav.addEventListener('click', (e) => {
-            if (e.target.classList.contains('gallery-dot')) {
-                const index = parseInt(e.target.dataset.index);
-                const track = document.querySelector('.gallery-track');
-                track.style.transform = `translateX(-${index * 100}%)`;
-                
-                document.querySelectorAll('.gallery-dot').forEach(dot => {
-                    dot.classList.remove('active');
-                });
-                e.target.classList.add('active');
+        card.querySelector('[data-action="buy"]').addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que o clique no botão abra o modal
+            if (product) {
+                handleBuyClick.call({ product: product }); // Passa o produto para a função
             }
         });
-        
-        // WhatsApp
-        whatsappFloat.addEventListener('click', () => {
-            const message = encodeURIComponent("Olá STREETMOOD 👟 gostaria de mais informações");
-            whatsappFloat.href = `https://wa.me/351912345678?text=${message}`;
+        card.querySelector('[data-action="reserve"]').addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que o clique no botão abra o modal
+            if (product) {
+                handleReserveClick.call({ product: product }); // Passa o produto para a função
+            }
         });
+    });
+}
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🚀 STREETMOOD Glassmorphism - Iniciando...');
-            loadProductsManually();
-            updateProductCount();
-        });
+// Chamadas iniciais de configuração
+// loadProducts(); // Já chamado no DOMContentLoaded
+// renderProducts(); // Já chamado no DOMContentLoaded após loadProducts
+// updatePagination(); // Já chamado no DOMContentLoaded após renderProducts
+// attachCardButtonListeners(); // Necessário após renderProducts
+// setupEventListeners(); // Já chamado no DOMContentLoaded
 
-        console.log('✅ STREETMOOD Glassmorphism - Sistema carregado!');
+// Função para simular o carregamento de dados do produto no modal
+// Em um cenário real, isso seria chamado dentro de openProductModal
+function simulateProductModalData(product) {
+    // Esta função é mais um placeholder para mostrar como enriquecer os dados
+    // O código em openProductModal já usa product.colorway, product.materials, etc.
+    // Se houver mais detalhes, seriam extraídos aqui.
+}
+
+// 9. SEO Schema Markup (Exemplo)
+// Este JSON-LD deve ser inserido na seção <head> do HTML.
+/*
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProductModel", // Ou "Product" se for um item específico
+  "name": "Air Jordan 4 Retro",
+  "description": "Edição retro com design clássico e conforto premium.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Jordan"
+  },
+  "image": [
+    "URL_DA_IMAGEM_PRINCIPAL_1.jpg",
+    "URL_DA_IMAGEM_PRINCIPAL_2.jpg"
+  ],
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "EUR",
+    "price": "180",
+    "availability": "https://schema.org/InStock", // Ou OutOfStock
+    "seller": {
+      "@type": "Organization",
+      "name": "STREETMOOD"
+    }
+  },
+  "sku": "JD-AJ4-RETRO-180", // Stock Keeping Unit (opcional)
+  "mpn": "CT8527-010", // Manufacturer Part Number (opcional)
+  "color": "Black/Red", // Exemplo de cor
+  "category": "Tênis Masculino"
+}
+</script>
+*/
+
+// Lembre-se de substituir os caminhos de imagem simulados e o WHATSAPP_NUMBER.
+
+console.log('✅ STREETMOOD Premium - Sistema JavaScript carregado!');
     </script>
 </body>
 </html>

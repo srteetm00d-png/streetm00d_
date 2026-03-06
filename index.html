@@ -1,514 +1,1269 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-<meta charset="UTF-8">
-<title>STREETMOOD - Streetwear Catalog</title>
-<style>
-:root{
-  --bg:#0f1720;
-  --card:#111827;
-  --inner:#1f2937;
-  --red:#ef4444;
-  --white:#ffffff;
-  --gray:#9ca3af;
-  --radius:16px;
-  --shadow:0 10px 30px rgba(0,0,0,0.5);
-  --font:"Inter",sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{
-  font-family:var(--font);
-  background:var(--bg);
-  color:var(--white);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-}
-header{
-  padding:1rem 2rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:var(--card);
-  border-radius:0 0 var(--radius) var(--radius);
-  box-shadow:var(--shadow);
-}
-header h1{
-  font-size:1.5rem;
-}
-header .whatsapp{
-  background:var(--red);
-  color:var(--white);
-  border:none;
-  padding:.5rem 1rem;
-  border-radius:var(--radius);
-  cursor:pointer;
-}
-.controls{
-  padding:1rem 2rem;
-  display:flex;
-  flex-wrap:wrap;
-  gap:1rem;
-  background:var(--inner);
-  border-radius:var(--radius);
-  margin:1rem;
-}
-.controls input[type="text"]{
-  flex:1 1 200px;
-  padding:.5rem;
-  border:none;
-  border-radius:var(--radius);
-}
-.controls select, .controls input[type="range"]{
-  padding:.5rem;
-  border:none;
-  border-radius:var(--radius);
-}
-.grid{
-  flex:1;
-  display:grid;
-  gap:1.5rem;
-  padding:0 2rem 2rem;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-}
-.card{
-  background:var(--card);
-  border-radius:var(--radius);
-  overflow:hidden;
-  box-shadow:var(--shadow);
-  display:flex;
-  flex-direction:column;
-}
-.card img{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  background:#333;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:4rem;
-}
-.card .info{
-  padding:1rem;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:.5rem;
-}
-.card .info h2{
-  font-size:1.2rem;
-  margin:0;
-}
-.card .info .sizes{
-  display:flex;
-  gap:.3rem;
-  flex-wrap:wrap;
-}
-.card .info .sizes button{
-  background:var(--inner);
-  color:var(--gray);
-  border:none;
-  padding:.3rem .6rem;
-  border-radius:var(--radius);
-  cursor:pointer;
-  font-size:.8rem;
-}
-.card .info .price{
-  font-size:1.4rem;
-  color:var(--red);
-  margin-top:auto;
-}
-.card .info .actions{
-  display:flex;
-  gap:.5rem;
-  margin-top:.5rem;
-}
-.card .info .actions button{
-  flex:1;
-  border:none;
-  padding:.5rem;
-  border-radius:var(--radius);
-  cursor:pointer;
-  font-weight:bold;
-}
-.card .info .actions .buy{background:var(--red);color:var(--white);}
-.card .info .actions .reserve{background:var(--inner);color:var(--gray);}
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:1rem;
-}
-.modal.active{display:flex;}
-.modal .content{
-  background:var(--card);
-  border-radius:var(--radius);
-  max-width:600px;
-  width:100%;
-  max-height:90vh;
-  overflow:auto;
-  box-shadow:var(--shadow);
-  position:relative;
-}
-.modal .close{
-  position:absolute;
-  top:.5rem;
-  right:.5rem;
-  background:var(--red);
-  border:none;
-  color:var(--white);
-  padding:.3rem .6rem;
-  border-radius:var(--radius);
-  cursor:pointer;
-}
-.modal .gallery{
-  display:flex;
-  overflow-x:auto;
-  gap:.5rem;
-  padding:1rem;
-}
-.modal .gallery img{
-  flex:0 0 auto;
-  width:150px;
-  height:150px;
-  object-fit:cover;
-  border-radius:var(--radius);
-}
-.modal .details{
-  padding:1rem;
-}
-.modal .details h2{margin-bottom:.5rem;}
-.modal .details p{margin:0.3rem 0;color:var(--gray);}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>STREETMOOD | Catálogo Premium</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        :root {
+            --bg-primary: #0f1720;
+            --bg-card: #111827;
+            --bg-element: #1f2937;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --radius-xl: 20px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --glass: rgba(255, 255, 255, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 14px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            max-width: 430px;
+            margin: 0 auto;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 32, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--bg-element);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .product-count {
+            background: var(--bg-element);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Hero Carousel */
+        .hero {
+            margin: 1.25rem;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            height: 180px;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .carousel {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            animation: slide 15s infinite;
+        }
+
+        .slide {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1f2e, #0f1720);
+            text-align: center;
+        }
+
+        .slide-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .slide-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .slide-sub {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--glass);
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background: var(--accent);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        @keyframes slide {
+            0%, 25% { transform: translateX(0); }
+            33%, 58% { transform: translateX(-33.333%); }
+            66%, 91% { transform: translateX(-66.666%); }
+        }
+
+        /* Filters */
+        .filters {
+            margin: 0 1.25rem 1.5rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: var(--bg-element);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.9rem 1rem 0.9rem 2.8rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .filter-select {
+            flex: 1;
+            min-width: 140px;
+            position: relative;
+        }
+
+        .filter-select select {
+            width: 100%;
+            background: var(--bg-element);
+            border: none;
+            border-radius: var(--radius-md);
+            padding: 0.9rem 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-weight: 500;
+            appearance: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-select select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .filter-select::after {
+            content: '▼';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            pointer-events: none;
+        }
+
+        .price-slider {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .price-slider input {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: var(--bg-element);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .price-slider input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        .price-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 0 1.25rem;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            will-change: transform;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--bg-element);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .image-placeholder {
+            font-size: 2.5rem;
+            color: var(--text-secondary);
+        }
+
+        .sizes-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(15, 23, 32, 0.9);
+            color: var(--text-primary);
+            padding: 0.3rem 0.6rem;
+            border-radius: var(--radius-md);
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .brand {
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .name {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .price {
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.7rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: var(--bg-element);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: #2d3748;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem 1.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.2rem;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-gallery {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .gallery-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-slide {
+            min-width: 100%;
+            height: 100%;
+            background: var(--bg-element);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-slide .image-placeholder {
+            font-size: 4rem;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--glass);
+            transition: var(--transition);
+        }
+
+        .gallery-dot.active {
+            background: var(--accent);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .modal-content {
+            padding: 1.5rem;
+        }
+
+        .modal-brand {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-name {
+            font-weight: 700;
+            font-size: 1.6rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .sizes-section h3 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .sizes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .size-option {
+            padding: 0.6rem 1rem;
+            background: var(--bg-element);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .size-option:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .modal-price {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-buttons .btn {
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 1.25rem;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 900;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #1a1f2e 25%, #2d3748 50%, #1a1f2e 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius-md);
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-image {
+            width: 100%;
+            aspect-ratio: 1;
+        }
+
+        .skeleton-text {
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-price {
+            height: 1.8rem;
+            width: 60%;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 1.25rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--bg-element);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 370px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <h1>🖤 STREETMOOD</h1>
-  <button class="whatsapp" onclick="openWhatsApp()">WhatsApp</button>
-</header>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">STREETMOOD</div>
+        <div class="product-count"><span id="count">0</span> produtos</div>
+    </header>
 
-<div class="controls">
-  <input type="text" id="search" placeholder="Pesquisar produtos...">
-  <select id="sizeFilter">
-    <option value="">Todos os tamanhos</option>
-    <option value="36">36</option>
-    <option value="37">37</option>
-    <option value="38">38</option>
-    <option value="39">39</option>
-    <option value="40">40</option>
-    <option value="41">41</option>
-    <option value="42">42</option>
-    <option value="43">43</option>
-    <option value="44">44</option>
-    <option value="45">45</option>
-    <option value="46">46</option>
-  </select>
-  <input type="range" id="priceFilter" min="0" max="500" step="10">
-  <span id="priceLabel">Preço ≤ €500</span>
-</div>
-
-<div class="grid" id="productGrid"></div>
-
-<div class="modal" id="modal">
-  <div class="content">
-    <button class="close" id="closeModal">✖</button>
-    <div class="gallery" id="gallery"></div>
-    <div class="details" id="details"></div>
-  </div>
-</div>
-
-<script>
-// STREETMOOD - Sistema de Produtos com Imagens Reais
-console.log('🚀 STREETMOOD - Carregando sistema de produtos...');
-
-const CONFIG = {
-    imageFolder: "./imagens_produtos/",
-    whatsappUrl: "https://wa.me/351912345678?text="
-};
-
-let allProducts = [];
-let filteredProducts = [];
-
-// Detectar marca pelo nome
-function detectBrand(name) {
-    const upperName = name.toUpperCase();
-    
-    if (upperName.includes('NIKE') || upperName.includes('AIR') || upperName.includes('FORCE')) {
-        return 'NIKE';
-    } else if (upperName.includes('ADIDAS')) {
-        return 'ADIDAS';
-    } else if (upperName.includes('JORDAN')) {
-        return 'JORDAN';
-    } else if (upperName.includes('GUCCI') || upperName.includes('DIOR') || 
-               upperName.includes('VERSACE') || upperName.includes('LOUIS')) {
-        return 'LUXURY';
-    } else if (upperName.includes('PUMA')) {
-        return 'PUMA';
-    } else if (upperName.includes('NEW BALANCE')) {
-        return 'NEW BALANCE';
-    } else if (upperName.includes('YEEZY')) {
-        return 'YEEZY';
-    } else {
-        return 'STREETMOOD';
-    }
-}
-
-// Gerar tamanhos baseado no nome
-function generateSizes(name) {
-    const upperName = name.toUpperCase();
-    const sizes = [];
-    
-    // Tamanhos base para todos
-    const baseSizes = ['40', '41', '42', '43', '44'];
-    
-    // Verificar se há tamanhos específicos no nome
-    const sizeMatch = name.match(/\((\d+)-?(\d*)\)/);
-    if (sizeMatch) {
-        const startSize = parseInt(sizeMatch[1]);
-        const endSize = sizeMatch[2] ? parseInt(sizeMatch[2]) : startSize;
-        
-        for (let size = startSize; size <= endSize; size++) {
-            sizes.push(size.toString());
-        }
-    } else {
-        // Adicionar tamanhos base
-        sizes.push(...baseSizes);
-    }
-    
-    return sizes;
-}
-
-// Gerar preço baseado na marca e tipo
-function generatePrice(name, brand) {
-    const upperName = name.toUpperCase();
-    
-    // Preços base por marca
-    const basePrices = {
-        'NIKE': 120,
-        'ADIDAS': 110,
-        'JORDAN': 150,
-        'LUXURY': 350,
-        'PUMA': 100,
-        'NEW BALANCE': 130,
-        'YEEZY': 280,
-        'STREETMOOD': 90
-    };
-    
-    let price = basePrices[brand] || 100;
-    
-    // Ajustar preço baseado em características
-    if (upperName.includes('LUXURY') || upperName.includes('PREMIUM')) {
-        price += 100;
-    }
-    if (upperName.includes('LIMITED') || upperName.includes('EXCLUSIVE')) {
-        price += 80;
-    }
-    if (upperName.includes('HIGH') || upperName.includes('RETRO')) {
-        price += 50;
-    }
-    
-    // Adicionar variação aleatória
-    price += Math.floor(Math.random() * 50) - 25;
-    
-    return Math.max(50, Math.min(500, price));
-}
-
-// Gerar descrição
-function generateDescription(name, brand) {
-    const upperName = name.toUpperCase();
-    
-    if (upperName.includes('CASACO') || upperName.includes('COLETE')) {
-        return `Peça exclusiva da ${brand}, confeccionada com materiais premium. Ideal para o inverno.`;
-    } else if (upperName.includes('MOLETOM') || upperName.includes('HOODIE')) {
-        return `Moletom premium da ${brand}, 100% algodão com design exclusivo e acabamento impecável.`;
-    } else {
-        return `Modelo exclusivo da ${brand}, design moderno e materiais de alta qualidade. Conforto garantido.`;
-    }
-}
-
-// Carregar produtos manualmente (fallback)
-function loadProductsManually() {
-    const productImages = [
-        'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg',
-        'Nike Air Force 1 Low_5.jpg',
-        'Adidas Originals Samba_5.jpg',
-        'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
-        'Yeezy Boost 700 V2 Geode – EG6860_5.png',
-        'New Balance 530_5.jpg',
-        'Puma LaMelo Ball MB.02_4.jpg',
-        'Air Jordan 4 Retro black particle40-46_4.jpg',
-        'Nike Air Max 270_5.jpg',
-        'Dior B22_5.jpg',
-        'Louis Vuitton x Nike Air Force 1_5.jpg',
-        'Off-White Já volto Branco cinza jade preto_5.jpeg',
-        'casaco polo ralph lauren azul.jpg',
-        'colete polo ralph lauren branco.png',
-        'TRAPSTAR_1.jpg',
-        'The North Face _1996(XS-2XL)_1.jpg',
-        'Nike Shox Ride 2 (36-46)_5.jpeg',
-        'Máx. 95 1895-132 (40-46)_5.jpg',
-        'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg'
-    ];
-    
-    allProducts = productImages.map((filename, index) => {
-        const name = filename.replace(/\.(jpg|jpeg|png)$/i, '');
-        const brand = detectBrand(name);
-        
-        return {
-            id: index + 1,
-            name: name,
-            brand: brand,
-            sizes: generateSizes(name),
-            price: generatePrice(name, brand),
-            images: [filename],
-            description: generateDescription(name, brand)
-        };
-    });
-    
-    console.log(`✅ ${allProducts.length} produtos carregados manualmente`);
-    filteredProducts = [...allProducts];
-    renderProducts();
-}
-
-// Renderizar produtos
-function renderProducts() {
-    const grid = document.getElementById('productGrid');
-    grid.innerHTML = '';
-    
-    filteredProducts.forEach(product => {
-        const card = createProductCard(product);
-        grid.appendChild(card);
-    });
-}
-
-// Criar card de produto
-function createProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    const imageUrl = CONFIG.imageFolder + product.images[0];
-    
-    card.innerHTML = `
-      <img src="${imageUrl}" 
-           alt="${product.name}"
-           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22180%22%3E%3Crect width=%22200%22 height=%22180%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2224%22%3E👟%3C/text%3E%3C/svg%3E'">
-      <div class="info">
-        <h2>${product.name}</h2>
-        <div class="sizes">
-          ${product.sizes.slice(0, 6).map(size => `<button>${size}</button>`).join('')}
-          ${product.sizes.length > 6 ? `<button>+${product.sizes.length - 6}</button>` : ''}
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="slide">
+                <div class="slide-icon">👟</div>
+                <div class="slide-text">Coleção Exclusiva</div>
+                <div class="slide-sub">+500 sneakers premium</div>
+            </div>
+            <div class="slide">
+                <div class="slide-icon">🔥</div>
+                <div class="slide-text">Lançamentos Quentes</div>
+                <div class="slide-sub">Edições limitadas</div>
+            </div>
+            <div class="slide">
+                <div class="slide-icon">⚡</div>
+                <div class="slide-text">Entrega Rápida</div>
+                <div class="slide-sub">Portes grátis em compras +150€</div>
+            </div>
         </div>
-        <div class="price">€${product.price}</div>
-        <div class="actions">
-          <button class="buy" onclick="buyProduct('${product.name}')">Comprar</button>
-          <button class="reserve" onclick="reserveProduct('${product.name}')">Reservar</button>
+        <div class="carousel-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
-        <small>${product.images.length} fotos</small>
-      </div>
-    `;
-    
-    card.addEventListener('click', (e) => {
-        if (e.target.tagName.toLowerCase() !== 'button') {
-            openModal(product);
-        }
-    });
-    
-    return card;
-}
+    </section>
 
-// Abrir modal
-function openModal(product) {
-    const modal = document.getElementById('modal');
-    const gallery = document.getElementById('gallery');
-    const details = document.getElementById('details');
-    
-    // Limpar galeria
-    gallery.innerHTML = '';
-    
-    // Adicionar imagens
-    product.images.forEach(imageUrl => {
-        const img = document.createElement('img');
-        img.src = CONFIG.imageFolder + imageUrl;
-        img.alt = product.name;
-        img.onerror = function() {
-            this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect width=%22150%22 height=%22150%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2220%22%3E👟%3C/text%3E%3C/svg%3E';
+    <!-- Filters -->
+    <section class="filters">
+        <div class="filter-row">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Pesquisar sneakers...">
+            </div>
+            <div class="filter-select">
+                <select id="brandFilter">
+                    <option value="">Todas as marcas</option>
+                    <option value="Nike">Nike</option>
+                    <option value="Adidas">Adidas</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Puma">Puma</option>
+                    <option value="Balenciaga">Balenciaga</option>
+                    <option value="Off White">Off White</option>
+                </select>
+            </div>
+        </div>
+        <div class="filter-row">
+            <div class="filter-select">
+                <select id="sizeFilter">
+                    <option value="">Todos os tamanhos</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                </select>
+            </div>
+            <div class="filter-select">
+                <select id="priceFilter">
+                    <option value="500">Até 500€</option>
+                    <option value="400">Até 400€</option>
+                    <option value="300">Até 300€</option>
+                    <option value="200">Até 200€</option>
+                    <option value="150">Até 150€</option>
+                </select>
+            </div>
+        </div>
+        <div class="price-slider">
+            <input type="range" id="priceSlider" min="50" max="500" value="500" step="10">
+            <div class="price-label">
+                <span>50€</span>
+                <span id="sliderValue">500€</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <main class="products-grid" id="productsGrid">
+        <!-- Products will be inserted here by JavaScript -->
+    </main>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-brand" id="modalBrand">NIKE</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-gallery">
+                <div class="gallery-track" id="galleryTrack">
+                    <div class="gallery-slide">
+                        <div class="image-placeholder">👟</div>
+                    </div>
+                </div>
+                <div class="gallery-nav" id="galleryNav">
+                    <div class="gallery-dot active"></div>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h1 class="modal-name" id="modalName">Air Jordan 4 Retro</h1>
+                <p class="modal-description" id="modalDescription">Edição especial com design premium e materiais de alta qualidade. Conforto excepcional para uso diário e colecionadores.</p>
+                
+                <div class="sizes-section">
+                    <h3>Tamanhos disponíveis</h3>
+                    <div class="sizes-list" id="modalSizes">
+                        <div class="size-option">40</div>
+                        <div class="size-option">41</div>
+                        <div class="size-option">42</div>
+                    </div>
+                </div>
+
+                <div class="modal-price" id="modalPrice">180€</div>
+                
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" id="modalBuy">
+                        <span>🛒</span> Comprar Agora
+                    </button>
+                    <button class="btn btn-secondary" id="modalReserve">
+                        <span>🔒</span> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Float -->
+    <a href="#" class="whatsapp-float" id="whatsappFloat">
+        💬
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>STREETMOOD &copy; 2026 | Catálogo digital premium</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Entrega em 2-4 dias úteis | Portes grátis em compras superiores a 150€</p>
+    </footer>
+
+    <script>
+        // Configuração
+        const BRAND_PRICES = {
+            'Nike': 150,
+            'Adidas': 140,
+            'Jordan': 180,
+            'Puma': 130,
+            'Balenciaga': 250,
+            'Off White': 220,
+            'Luxury': 300
         };
-        gallery.appendChild(img);
-    });
-    
-    // Detalhes
-    details.innerHTML = `
-        <h2>${product.name}</h2>
-        <p>${product.description}</p>
-        <p><strong>Marca:</strong> ${product.brand}</p>
-        <p><strong>Preço:</strong> €${product.price}</p>
-        <p><strong>Tamanhos:</strong> ${product.sizes.join(', ')}</p>
-    `;
-    
-    modal.classList.add('active');
-}
 
-// Fechar modal
-document.getElementById('closeModal').onclick = () => {
-    document.getElementById('modal').classList.remove('active');
-};
+        // Estado da aplicação
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentProduct = null;
 
-window.onclick = (e) => {
-    if (e.target === document.getElementById('modal')) {
-        document.getElementById('modal').classList.remove('active');
-    }
-};
+        // Elementos DOM
+        const productsGrid = document.getElementById('productsGrid');
+        const productCount = document.getElementById('count');
+        const searchInput = document.getElementById('searchInput');
+        const brandFilter = document.getElementById('brandFilter');
+        const sizeFilter = document.getElementById('sizeFilter');
+        const priceFilter = document.getElementById('priceFilter');
+        const priceSlider = document.getElementById('priceSlider');
+        const sliderValue = document.getElementById('sliderValue');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const modalBrand = document.getElementById('modalBrand');
+        const modalName = document.getElementById('modalName');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalSizes = document.getElementById('modalSizes');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalBuy = document.getElementById('modalBuy');
+        const modalReserve = document.getElementById('modalReserve');
+        const whatsappFloat = document.getElementById('whatsappFloat');
+        const galleryTrack = document.getElementById('galleryTrack');
+        const galleryNav = document.getElementById('galleryNav');
 
-// Funções de ação
-function buyProduct(productName) {
-    const message = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`);
-    window.open(CONFIG.whatsappUrl + message, '_blank');
-}
+        // Detectar marca pelo nome
+        function detectBrand(name) {
+            const upperName = name.toUpperCase();
+            
+            if (upperName.includes('NIKE') || upperName.includes('AIR') || upperName.includes('FORCE')) {
+                return 'Nike';
+            } else if (upperName.includes('ADIDAS')) {
+                return 'Adidas';
+            } else if (upperName.includes('JORDAN')) {
+                return 'Jordan';
+            } else if (upperName.includes('GUCCI') || upperName.includes('DIOR') || 
+                       upperName.includes('VERSACE') || upperName.includes('LOUIS')) {
+                return 'Luxury';
+            } else if (upperName.includes('PUMA')) {
+                return 'Puma';
+            } else if (upperName.includes('NEW BALANCE')) {
+                return 'New Balance';
+            } else if (upperName.includes('YEEZY')) {
+                return 'Adidas';
+            } else if (upperName.includes('BALENCIAGA') || upperName.includes('OFF WHITE')) {
+                return upperName.includes('BALENCIAGA') ? 'Balenciaga' : 'Off White';
+            } else {
+                return 'Nike';
+            }
+        }
 
-function reserveProduct(productName) {
-    const message = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${productName} por favor.`);
-    window.open(CONFIG.whatsappUrl + message, '_blank');
-}
+        // Gerar tamanhos baseado no nome
+        function generateSizes(name) {
+            const upperName = name.toUpperCase();
+            const sizes = [];
+            
+            // Tamanhos base para todos
+            const baseSizes = ['40', '41', '42', '43', '44'];
+            
+            // Verificar se há tamanhos específicos no nome
+            const sizeMatch = name.match(/\((\d+)-?(\d*)\)/);
+            if (sizeMatch) {
+                const startSize = parseInt(sizeMatch[1]);
+                const endSize = sizeMatch[2] ? parseInt(sizeMatch[2]) : startSize;
+                
+                for (let size = startSize; size <= endSize; size++) {
+                    sizes.push(size.toString());
+                }
+            } else {
+                // Adicionar tamanhos base
+                sizes.push(...baseSizes);
+            }
+            
+            return sizes;
+        }
 
-function openWhatsApp() {
-    window.open(CONFIG.whatsappUrl + 'Olá STREETMOOD 👟 gostaria de mais informações.', '_blank');
-}
+        // Gerar preço baseado na marca e tipo
+        function generatePrice(name, brand) {
+            const upperName = name.toUpperCase();
+            
+            let price = BRAND_PRICES[brand] || 150;
+            
+            // Ajustar preço baseado em características
+            if (upperName.includes('LUXURY') || upperName.includes('PREMIUM')) {
+                price += 100;
+            }
+            if (upperName.includes('LIMITED') || upperName.includes('EXCLUSIVE')) {
+                price += 80;
+            }
+            if (upperName.includes('HIGH') || upperName.includes('RETRO')) {
+                price += 50;
+            }
+            
+            // Adicionar variação aleatória
+            price += Math.floor(Math.random() * 50) - 25;
+            
+            return Math.max(50, Math.min(500, price));
+        }
 
-// Aplicar filtros
-function applyFilters() {
-    const search = document.getElementById('search').value.toLowerCase();
-    const size = document.getElementById('sizeFilter').value;
-    const maxPrice = document.getElementById('priceFilter').value;
-    
-    filteredProducts = allProducts.filter(p => {
-        const matchesSearch = p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search);
-        const matchesSize = size === '' || p.sizes.includes(size);
-        const matchesPrice = p.price <= maxPrice;
-        return matchesSearch && matchesSize && matchesPrice;
-    });
-    
-    renderProducts();
-}
+        // Gerar descrição
+        function generateDescription(name, brand) {
+            const upperName = name.toUpperCase();
+            
+            if (upperName.includes('CASACO') || upperName.includes('COLETE')) {
+                return `Peça exclusiva da ${brand}, confeccionada com materiais premium. Ideal para o inverno.`;
+            } else if (upperName.includes('MOLETOM') || upperName.includes('HOODIE')) {
+                return `Moletom premium da ${brand}, 100% algodão com design exclusivo e acabamento impecável.`;
+            } else {
+                return `Modelo exclusivo da ${brand}, design moderno e materiais de alta qualidade. Conforto garantido.`;
+            }
+        }
 
-// Event listeners
-document.getElementById('search').addEventListener('input', applyFilters);
-document.getElementById('sizeFilter').addEventListener('change', applyFilters);
-document.getElementById('priceFilter').addEventListener('input', (e) => {
-    document.getElementById('priceLabel').textContent = `Preço ≤ €${e.target.value}`;
-    applyFilters();
-});
+        // Carregar produtos das imagens reais
+        async function loadRealProducts() {
+            try {
+                // Lista de imagens reais da pasta
+                const realImages = [
+                    'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg',
+                    'Nike Air Force 1 Low_5.jpg',
+                    'Adidas Originals Samba_5.jpg',
+                    'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
+                    'Yeezy Boost 700 V2 Geode – EG6860_5.png',
+                    'New Balance 530_5.jpg',
+                    'Puma LaMelo Ball MB.02_4.jpg',
+                    'Air Jordan 4 Retro black particle40-46_4.jpg',
+                    'Nike Air Max 270_5.jpg',
+                    'Dior B22_5.jpg',
+                    'Louis Vuitton x Nike Air Force 1_5.jpg',
+                    'Off-White Já volto Branco cinza jade preto_5.jpeg',
+                    'casaco polo ralph lauren azul.jpg',
+                    'colete polo ralph lauren branco.png',
+                    'TRAPSTAR_1.jpg',
+                    'The North Face _1996(XS-2XL)_1.jpg',
+                    'Nike Shox Ride 2 (36-46)_5.jpeg',
+                    'Máx. 95 1895-132 (40-46)_5.jpg',
+                    'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg',
+                    'Adidas Forum 84 (36-40)_5.jpg'
+                ];
 
-// Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Iniciando STREETMOOD...');
-    loadProductsManually();
-});
+                allProducts = realImages.map((filename, index) => {
+                    const name = filename.replace(/\.(jpg|jpeg|png)$/i, '');
+                    const brand = detectBrand(name);
+                    
+                    return {
+                        id: index + 1,
+                        name: name,
+                        brand: brand,
+                        sizes: generateSizes(name),
+                        price: generatePrice(name, brand),
+                        images: [filename],
+                        description: generateDescription(name, brand)
+                    };
+                });
+                
+                console.log(`✅ ${allProducts.length} produtos reais carregados`);
+                
+            } catch (error) {
+                console.error('❌ Erro ao carregar produtos:', error);
+                // Fallback com produtos de exemplo
+                loadFallbackProducts();
+                return;
+            }
+            
+            filteredProducts = [...allProducts];
+            renderProducts();
+            updateProductCount();
+        }
 
-console.log('✅ STREETMOOD - Sistema carregado!');
-</script>
+        // Fallback com produtos de exemplo
+        function loadFallbackProducts() {
+            const fallbackProducts = [
+                { id: 1, name: 'Air Jordan 4 Retro', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Edição retro com design clássico e conforto premium.' },
+                { id: 2, name: 'Dunk Low Panda', brand: 'Nike', sizes: [39, 40, 41, 42], price: 150, description: 'Clássico preto e branco, versátil e atemporal.' },
+                { id: 3, name: 'Yeezy Boost 350 V2', brand: 'Adidas', sizes: [40, 41, 42, 43, 44, 45], price: 140, description: 'Conforto máximo com tecnologia Boost.' },
+                { id: 4, name: 'Air Force 1 White', brand: 'Nike', sizes: [38, 39, 40, 41, 42], price: 150, description: 'O ténis mais icónico de sempre, em branco puro.' },
+                { id: 5, name: 'RS-X Puzzle', brand: 'Puma', sizes: [40, 41, 42, 43], price: 130, description: 'Design futurista com amortecimento avançado.' },
+                { id: 6, name: 'Triple S', brand: 'Balenciaga', sizes: [41, 42, 43, 44], price: 250, description: 'Silhueta oversized com solado distinto.' },
+                { id: 7, name: 'Air Jordan 1 High', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'O modelo que revolucionou o basquetebol.' },
+                { id: 8, name: 'NMD_R1', brand: 'Adidas', sizes: [39, 40, 41, 42, 43], price: 140, description: 'Estilo urbano com tecnologia Boost.' },
+                { id: 9, name: 'Air Max 97 Silver', brand: 'Nike', sizes: [40, 41, 42, 43, 44], price: 150, description: 'Design inspirado em comboios-bala japoneses.' },
+                { id: 10, name: 'Chunky Trainer', brand: 'Balenciaga', sizes: [41, 42, 43, 44], price: 250, description: 'Solado exagerado e design de luxo.' },
+                { id: 11, name: 'Blazer Mid', brand: 'Nike', sizes: [38, 39, 40, 41, 42], price: 150, description: 'Estilo vintage com cano médio.' },
+                { id: 12, name: 'Ultraboost 22', brand: 'Adidas', sizes: [40, 41, 42, 43, 44, 45], price: 140, description: 'Máximo retorno de energia para corrida.' },
+                { id: 13, name: 'Air Jordan 5 Retro', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Detalhes icónicos e solado translúcido.' },
+                { id: 14, name: 'Cali Dream', brand: 'Puma', sizes: [36, 37, 38, 39, 40], price: 130, description: 'Estilo descontraído inspirado na Califórnia.' },
+                { id: 15, name: 'Zoom Freak 4', brand: 'Nike', sizes: [42, 43, 44, 45, 46], price: 150, description: 'Assinatura de Giannis Antetokounmpo.' },
+                { id: 16, name: 'Forum Low', brand: 'Adidas', sizes: [39, 40, 41, 42, 43], price: 140, description: 'Clássico dos anos 80 com design limpo.' },
+                { id: 17, name: 'Air Max Plus', brand: 'Nike', sizes: [40, 41, 42, 43, 44], price: 150, description: 'Design agressivo com tecnologia Tuned Air.' },
+                { id: 18, name: 'Speedcat', brand: 'Puma', sizes: [38, 39, 40, 41], price: 130, description: 'Inspirado no mundo das corridas.' },
+                { id: 19, name: 'Air Jordan 11', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Patent leather e solado de carbono.' },
+                { id: 20, name: 'Superstar', brand: 'Adidas', sizes: [36, 37, 38, 39, 40, 41], price: 140, description: 'O icónico ténis com biqueira shell toe.' }
+            ];
+            
+            allProducts = fallbackProducts.map(p => ({
+                ...p,
+                images: Array(3).fill().map((_, i) => `👟${i + 1}`)
+            }));
+            
+            console.log('✅ Produtos fallback carregados');
+            filteredProducts = [...allProducts];
+            renderProducts();
+            updateProductCount();
+        }
+
+        // Renderizar produtos
+        function renderProducts() {
+            productsGrid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.id = product.id;
+                
+                const imageUrl = `./imagens_produtos/${product.images[0]}`;
+                
+                card.innerHTML = `
+                    <div class="card-image">
+                        <img src="${imageUrl}" 
+                             alt="${product.name}"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder" style="display:none;">👟</div>
+                        <div class="sizes-badge">${product.sizes.length} tamanhos</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="brand">${product.brand}</div>
+                        <h3 class="name">${product.name}</h3>
+                        <div class="price">${product.price}€</div>
+                        <div class="card-buttons">
+                            <button class="btn btn-primary" data-action="buy" data-id="${product.id}">
+                                <span>🛒</span> Comprar
+                            </button>
+                            <button class="btn btn-secondary" data-action="reserve" data-id="${product.id}">
+                                <span>🔒</span> Reservar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    if (!e.target.closest('button')) {
+                        openProductModal(product);
+                    }
+                });
+                
+                productsGrid.appendChild(card);
+            });
+            
+            // Adicionar event listeners aos botões
+            document.querySelectorAll('[data-action="buy"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').dataset.id);
+                    const product = allProducts.find(p => p.id === id);
+                    buyProduct(product);
+                });
+            });
+            
+            document.querySelectorAll('[data-action="reserve"]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.closest('button').dataset.id);
+                    const product = allProducts.find(p => p.id === id);
+                    reserveProduct(product);
+                });
+            });
+        }
+
+        // Filtrar produtos
+        function filterProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const brand = brandFilter.value;
+            const size = sizeFilter.value;
+            const maxPrice = parseInt(priceSlider.value);
+            
+            filteredProducts = allProducts.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
+                                     product.brand.toLowerCase().includes(searchTerm);
+                const matchesBrand = !brand || product.brand === brand;
+                const matchesSize = !size || product.sizes.includes(parseInt(size));
+                const matchesPrice = product.price <= maxPrice;
+                
+                return matchesSearch && matchesBrand && matchesSize && matchesPrice;
+            });
+            
+            renderProducts();
+            updateProductCount();
+        }
+
+        // Debounce para pesquisa
+        let searchTimeout;
+        function debounceSearch() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(filterProducts, 300);
+        }
+
+        // Atualizar contador
+        function updateProductCount() {
+            productCount.textContent = filteredProducts.length;
+        }
+
+        // Abrir modal do produto
+        function openProductModal(product) {
+            currentProduct = product;
+            
+            modalBrand.textContent = product.brand;
+            modalName.textContent = product.name;
+            modalDescription.textContent = product.description;
+            modalPrice.textContent = `${product.price}€`;
+            
+            // Tamanhos
+            modalSizes.innerHTML = '';
+            product.sizes.forEach(size => {
+                const sizeEl = document.createElement('div');
+                sizeEl.className = 'size-option';
+                sizeEl.textContent = size;
+                modalSizes.appendChild(sizeEl);
+            });
+            
+            // Galeria
+            galleryTrack.innerHTML = '';
+            galleryNav.innerHTML = '';
+            
+            product.images.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'gallery-slide';
+                
+                if (img.startsWith('👟')) {
+                    slide.innerHTML = `<div class="image-placeholder">${img}</div>`;
+                } else {
+                    slide.innerHTML = `
+                        <img src="./imagens_produtos/${img}" 
+                             alt="${product.name}"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-placeholder" style="display:none;">👟</div>
+                    `;
+                }
+                
+                galleryTrack.appendChild(slide);
+                
+                const dot = document.createElement('div');
+                dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
+                dot.dataset.index = index;
+                galleryNav.appendChild(dot);
+            });
+            
+            modalOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fechar modal
+        function closeProductModal() {
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Comprar produto
+        function buyProduct(product) {
+            const message = `Olá STREETMOOD 👟 quero comprar o ${product.name} ainda está disponível?`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/351912345678?text=${encodedMessage}`, '_blank');
+        }
+
+        // Reservar produto
+        function reserveProduct(product) {
+            const message = `Olá STREETMOOD 👟 quero reservar o ${product.name}`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/351912345678?text=${encodedMessage}`, '_blank');
+        }
+
+        // Atualizar botão WhatsApp flutuante
+        function updateWhatsappFloat() {
+            const message = encodeURIComponent("Olá STREETMOOD 👟 gostaria de mais informações");
+            whatsappFloat.href = `https://wa.me/351912345678?text=${message}`;
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Filtros
+            searchInput.addEventListener('input', debounceSearch);
+            brandFilter.addEventListener('change', filterProducts);
+            sizeFilter.addEventListener('change', filterProducts);
+            priceFilter.addEventListener('change', () => {
+                priceSlider.value = priceFilter.value;
+                sliderValue.textContent = `${priceSlider.value}€`;
+                filterProducts();
+            });
+            
+            // Slider de preço
+            priceSlider.addEventListener('input', () => {
+                sliderValue.textContent = `${priceSlider.value}€`;
+                filterProducts();
+            });
+            
+            // Modal
+            closeModal.addEventListener('click', closeProductModal);
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) closeProductModal();
+            });
+            
+            // Botões do modal
+            modalBuy.addEventListener('click', () => {
+                if (currentProduct) buyProduct(currentProduct);
+            });
+            
+            modalReserve.addEventListener('click', () => {
+                if (currentProduct) reserveProduct(currentProduct);
+            });
+            
+            // Galeria
+            galleryNav.addEventListener('click', (e) => {
+                if (e.target.classList.contains('gallery-dot')) {
+                    const index = parseInt(e.target.dataset.index);
+                    const track = document.querySelector('.gallery-track');
+                    track.style.transform = `translateX(-${index * 100}%)`;
+                    
+                    document.querySelectorAll('.gallery-dot').forEach(dot => {
+                        dot.classList.remove('active');
+                    });
+                    e.target.classList.add('active');
+                }
+            });
+            
+            // Swipe para galeria (simplificado)
+            let startX = 0;
+            galleryTrack.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            
+            galleryTrack.addEventListener('touchend', (e) => {
+                const endX = e.changedTouches[0].clientX;
+                const diff = startX - endX;
+                const dots = document.querySelectorAll('.gallery-dot');
+                const currentIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
+                
+                if (Math.abs(diff) > 50) {
+                    let newIndex;
+                    if (diff > 0 && currentIndex < dots.length - 1) {
+                        newIndex = currentIndex + 1;
+                    } else if (diff < 0 && currentIndex > 0) {
+                        newIndex = currentIndex - 1;
+                    }
+                    
+                    if (newIndex !== undefined) {
+                        const track = document.querySelector('.gallery-track');
+                        track.style.transform = `translateX(-${newIndex * 100}%)`;
+                        
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        dots[newIndex].classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 STREETMOOD Mobile - Iniciando...');
+            loadRealProducts();
+            setupEventListeners();
+            updateWhatsappFloat();
+        });
+
+        console.log('✅ STREETMOOD Mobile - Sistema carregado!');
+    </script>
 </body>
 </html>

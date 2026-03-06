@@ -1,250 +1,514 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STREETMOOD - Sneakers Premium</title>
-    <meta name="description" content="Catálogo exclusivo de sneakers premium e streetwear autêntico">
-    <meta name="keywords" content="sneakers, streetwear, tênis, moda, premium, STREETMOOD">
-    <meta property="og:title" content="STREETMOOD - Sneakers Premium">
-    <meta property="og:description" content="Catálogo exclusivo de sneakers premium e streetwear autêntico">
-    <meta property="og:type" content="website">
-    
-    <link rel="stylesheet" href="./style.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>STREETMOOD - Streetwear Catalog</title>
+<style>
+:root{
+  --bg:#0f1720;
+  --card:#111827;
+  --inner:#1f2937;
+  --red:#ef4444;
+  --white:#ffffff;
+  --gray:#9ca3af;
+  --radius:16px;
+  --shadow:0 10px 30px rgba(0,0,0,0.5);
+  --font:"Inter",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--white);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+header{
+  padding:1rem 2rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--card);
+  border-radius:0 0 var(--radius) var(--radius);
+  box-shadow:var(--shadow);
+}
+header h1{
+  font-size:1.5rem;
+}
+header .whatsapp{
+  background:var(--red);
+  color:var(--white);
+  border:none;
+  padding:.5rem 1rem;
+  border-radius:var(--radius);
+  cursor:pointer;
+}
+.controls{
+  padding:1rem 2rem;
+  display:flex;
+  flex-wrap:wrap;
+  gap:1rem;
+  background:var(--inner);
+  border-radius:var(--radius);
+  margin:1rem;
+}
+.controls input[type="text"]{
+  flex:1 1 200px;
+  padding:.5rem;
+  border:none;
+  border-radius:var(--radius);
+}
+.controls select, .controls input[type="range"]{
+  padding:.5rem;
+  border:none;
+  border-radius:var(--radius);
+}
+.grid{
+  flex:1;
+  display:grid;
+  gap:1.5rem;
+  padding:0 2rem 2rem;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  display:flex;
+  flex-direction:column;
+}
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  background:#333;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:4rem;
+}
+.card .info{
+  padding:1rem;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+.card .info h2{
+  font-size:1.2rem;
+  margin:0;
+}
+.card .info .sizes{
+  display:flex;
+  gap:.3rem;
+  flex-wrap:wrap;
+}
+.card .info .sizes button{
+  background:var(--inner);
+  color:var(--gray);
+  border:none;
+  padding:.3rem .6rem;
+  border-radius:var(--radius);
+  cursor:pointer;
+  font-size:.8rem;
+}
+.card .info .price{
+  font-size:1.4rem;
+  color:var(--red);
+  margin-top:auto;
+}
+.card .info .actions{
+  display:flex;
+  gap:.5rem;
+  margin-top:.5rem;
+}
+.card .info .actions button{
+  flex:1;
+  border:none;
+  padding:.5rem;
+  border-radius:var(--radius);
+  cursor:pointer;
+  font-weight:bold;
+}
+.card .info .actions .buy{background:var(--red);color:var(--white);}
+.card .info .actions .reserve{background:var(--inner);color:var(--gray);}
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+}
+.modal.active{display:flex;}
+.modal .content{
+  background:var(--card);
+  border-radius:var(--radius);
+  max-width:600px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+.modal .close{
+  position:absolute;
+  top:.5rem;
+  right:.5rem;
+  background:var(--red);
+  border:none;
+  color:var(--white);
+  padding:.3rem .6rem;
+  border-radius:var(--radius);
+  cursor:pointer;
+}
+.modal .gallery{
+  display:flex;
+  overflow-x:auto;
+  gap:.5rem;
+  padding:1rem;
+}
+.modal .gallery img{
+  flex:0 0 auto;
+  width:150px;
+  height:150px;
+  object-fit:cover;
+  border-radius:var(--radius);
+}
+.modal .details{
+  padding:1rem;
+}
+.modal .details h2{margin-bottom:.5rem;}
+.modal .details p{margin:0.3rem 0;color:var(--gray);}
+</style>
 </head>
-
 <body>
-    <!-- NAVIGATION BAR PROFISSIONAL -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <a href="#home" class="nav-brand">
-                <div class="nav-logo">S</div>
-                <h1>STREETMOOD</h1>
-            </a>
-            
-            <div class="nav-menu">
-                <div class="nav-links">
-                    <a href="#sneakers" class="nav-link active" data-category="all">Sneakers</a>
-                    <a href="#clothing" class="nav-link" data-category="clothing">Roupas</a>
-                    <a href="#accessories" class="nav-link" data-category="accessories">Acessórios</a>
-                    <a href="#about" class="nav-link" data-category="about">Sobre</a>
-                </div>
-                
-                <div class="nav-actions">
-                    <div class="search-box">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" id="searchInput" class="search-input" placeholder="Buscar produtos...">
-                    </div>
-                    <a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank" class="nav-contact">
-                        Instagram DM
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<header>
+  <h1>🖤 STREETMOOD</h1>
+  <button class="whatsapp" onclick="openWhatsApp()">WhatsApp</button>
+</header>
 
-    <!-- HERO SECTION PROFISSIONAL -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <!-- Banner Moderno -->
-            <div class="hero-banner">
-                <div class="hero-banner-images">
-                    <div class="hero-banner-image">
-                        <img src="https://images.unsplash.com/photo-1552346154-c9a4c8ac9198?w=1200&h=400&fit=crop" alt="Sneakers Premium">
-                        <div class="hero-banner-overlay">
-                            <div class="hero-banner-text">
-                                <h2 class="hero-banner-title">COLEÇÃO 2024</h2>
-                                <p class="hero-banner-subtitle">Os sneakers mais exclusivos do mercado</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-banner-image">
-                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1200&h=400&fit=crop" alt="Streetwear Premium">
-                        <div class="hero-banner-overlay">
-                            <div class="hero-banner-text">
-                                <h2 class="hero-banner-title">STREETWEED AUTHENTIC</h2>
-                                <p class="hero-banner-subtitle">Estilo que define sua identidade</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="hero-banner-image">
-                        <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=1200&h=400&fit=crop" alt="Luxury Collection">
-                        <div class="hero-banner-overlay">
-                            <div class="hero-banner-text">
-                                <h2 class="hero-banner-title">LUXURY EDITION</h2>
-                                <p class="hero-banner-subtitle">Exclusividade que você merece</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <h1 class="hero-title">STREETMOOD</h1>
-            <h2 class="hero-subtitle">SNEAKERS PREMIUM</h2>
-            <p class="hero-description">
-                Coleção exclusiva de streetwear autêntico. Os melhores sneakers do mercado em um só lugar.
-            </p>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">167+</span>
-                    <span class="stat-label">Produtos</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Marcas</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Autêntico</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="controls">
+  <input type="text" id="search" placeholder="Pesquisar produtos...">
+  <select id="sizeFilter">
+    <option value="">Todos os tamanhos</option>
+    <option value="36">36</option>
+    <option value="37">37</option>
+    <option value="38">38</option>
+    <option value="39">39</option>
+    <option value="40">40</option>
+    <option value="41">41</option>
+    <option value="42">42</option>
+    <option value="43">43</option>
+    <option value="44">44</option>
+    <option value="45">45</option>
+    <option value="46">46</option>
+  </select>
+  <input type="range" id="priceFilter" min="0" max="500" step="10">
+  <span id="priceLabel">Preço ≤ €500</span>
+</div>
 
-    <!-- CATEGORIES NAVIGATION -->
-    <section class="categories-nav">
-        <div class="container">
-            <h2 class="categories-title">Categorias</h2>
-            <div class="categories-tabs">
-                <button class="category-tab active" data-filter="all">Todos</button>
-                <button class="category-tab" data-filter="nike">Nike</button>
-                <button class="category-tab" data-filter="adidas">Adidas</button>
-                <button class="category-tab" data-filter="jordan">Jordan</button>
-                <button class="category-tab" data-filter="luxury">Luxury</button>
-                <button class="category-tab" data-filter="clothing">Roupas</button>
-            </div>
-        </div>
-    </section>
+<div class="grid" id="productGrid"></div>
 
-    <!-- PRODUCTS SECTION -->
-    <section class="products-section" id="sneakers">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Catálogo Completo</h2>
-                <div class="results-info">
-                    <div class="results-count" id="resultsCount">167 produtos encontrados</div>
-                    <select id="sortDropdown" class="sort-dropdown">
-                        <option value="name">Nome</option>
-                        <option value="price-low">Menor Preço</option>
-                        <option value="price-high">Maior Preço</option>
-                        <option value="newest">Mais Novos</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="products-grid" id="productsGrid">
-                <!-- Loading -->
-                <div class="loading" id="loading">
-                    <div class="loading-spinner"></div>
-                </div>
-            </div>
-            
-            <!-- Paginação -->
-            <div class="pagination-container" id="paginationContainer"></div>
-        </div>
-    </section>
+<div class="modal" id="modal">
+  <div class="content">
+    <button class="close" id="closeModal">✖</button>
+    <div class="gallery" id="gallery"></div>
+    <div class="details" id="details"></div>
+  </div>
+</div>
 
-    <!-- PRODUCT DETAIL MODAL -->
-    <div class="product-modal" id="productModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeProductModal()">✕</button>
-            
-            <div class="modal-body">
-                <div class="modal-gallery">
-                    <div class="gallery-main" id="galleryMain">
-                        <img id="mainImage" src="" alt="">
-                    </div>
-                    <div class="gallery-thumbnails" id="galleryThumbnails">
-                        <!-- Thumbnails gerados dinamicamente -->
-                    </div>
-                </div>
-                
-                <div class="modal-info">
-                    <div class="modal-brand" id="modalBrand">NIKE</div>
-                    <h2 class="modal-title" id="modalTitle">Nome do Produto</h2>
-                    <div class="modal-price-row">
-                        <div class="modal-price" id="modalPrice">€0</div>
-                        <div class="modal-original-price" id="modalOriginalPrice" style="display: none;">€0</div>
-                    </div>
-                    <p class="modal-description" id="modalDescription">
-                        Produto premium da STREETMOOD. Qualidade garantida e estilo exclusivo.
-                        Design moderno e materiais de alta qualidade para o máximo de conforto e performance.
-                    </p>
-                    
-                    <div class="modal-actions">
-                        <button class="btn btn-primary btn-large" onclick="buyProduct()">
-                            📷 Instagram DM
-                        </button>
-                        <button class="btn btn-secondary btn-large" onclick="reserveProduct()">
-                            📧 Reservar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<script>
+// STREETMOOD - Sistema de Produtos com Imagens Reais
+console.log('🚀 STREETMOOD - Carregando sistema de produtos...');
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>STREETMOOD</h3>
-                    <p>
-                        Catálogo premium de sneakers e streetwear autêntico. 
-                        Os melhores produtos das marcas mais exclusivas do mercado.
-                    </p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/streetm00d_/" target="_blank" class="social-link">
-                            📷 Instagram
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Categorias</h4>
-                    <ul class="footer-links">
-                        <li><a href="#" onclick="filterProducts('nike')">Nike</a></li>
-                        <li><a href="#" onclick="filterProducts('adidas')">Adidas</a></li>
-                        <li><a href="#" onclick="filterProducts('jordan')">Jordan</a></li>
-                        <li><a href="#" onclick="filterProducts('luxury')">Luxury</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Serviço</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Suporte</a></li>
-                        <li><a href="#">Rastreamento</a></li>
-                        <li><a href="#">Devoluções</a></li>
-                        <li><a href="#">Tamanho</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contato</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://www.instagram.com/direct/t/streetm00d_/" target="_blank">
-                            📷 Instagram DM
-                        </a></li>
-                        <li><a href="#" onclick="window.open('mailto:streetm00d@email.com')">
-                            📧 Email
-                        </a></li>
-                        <li><a href="#">📍 Localização</a></li>
-                        <li><a href="#">⏰ Horário</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 STREETMOOD — QUALQUER VIBE, QUALQUER OCASIÃO</p>
-            </div>
-        </div>
-    </footer>
+const CONFIG = {
+    imageFolder: "./imagens_produtos/",
+    whatsappUrl: "https://wa.me/351912345678?text="
+};
 
-<script src="./script.js"></script>
+let allProducts = [];
+let filteredProducts = [];
+
+// Detectar marca pelo nome
+function detectBrand(name) {
+    const upperName = name.toUpperCase();
+    
+    if (upperName.includes('NIKE') || upperName.includes('AIR') || upperName.includes('FORCE')) {
+        return 'NIKE';
+    } else if (upperName.includes('ADIDAS')) {
+        return 'ADIDAS';
+    } else if (upperName.includes('JORDAN')) {
+        return 'JORDAN';
+    } else if (upperName.includes('GUCCI') || upperName.includes('DIOR') || 
+               upperName.includes('VERSACE') || upperName.includes('LOUIS')) {
+        return 'LUXURY';
+    } else if (upperName.includes('PUMA')) {
+        return 'PUMA';
+    } else if (upperName.includes('NEW BALANCE')) {
+        return 'NEW BALANCE';
+    } else if (upperName.includes('YEEZY')) {
+        return 'YEEZY';
+    } else {
+        return 'STREETMOOD';
+    }
+}
+
+// Gerar tamanhos baseado no nome
+function generateSizes(name) {
+    const upperName = name.toUpperCase();
+    const sizes = [];
+    
+    // Tamanhos base para todos
+    const baseSizes = ['40', '41', '42', '43', '44'];
+    
+    // Verificar se há tamanhos específicos no nome
+    const sizeMatch = name.match(/\((\d+)-?(\d*)\)/);
+    if (sizeMatch) {
+        const startSize = parseInt(sizeMatch[1]);
+        const endSize = sizeMatch[2] ? parseInt(sizeMatch[2]) : startSize;
+        
+        for (let size = startSize; size <= endSize; size++) {
+            sizes.push(size.toString());
+        }
+    } else {
+        // Adicionar tamanhos base
+        sizes.push(...baseSizes);
+    }
+    
+    return sizes;
+}
+
+// Gerar preço baseado na marca e tipo
+function generatePrice(name, brand) {
+    const upperName = name.toUpperCase();
+    
+    // Preços base por marca
+    const basePrices = {
+        'NIKE': 120,
+        'ADIDAS': 110,
+        'JORDAN': 150,
+        'LUXURY': 350,
+        'PUMA': 100,
+        'NEW BALANCE': 130,
+        'YEEZY': 280,
+        'STREETMOOD': 90
+    };
+    
+    let price = basePrices[brand] || 100;
+    
+    // Ajustar preço baseado em características
+    if (upperName.includes('LUXURY') || upperName.includes('PREMIUM')) {
+        price += 100;
+    }
+    if (upperName.includes('LIMITED') || upperName.includes('EXCLUSIVE')) {
+        price += 80;
+    }
+    if (upperName.includes('HIGH') || upperName.includes('RETRO')) {
+        price += 50;
+    }
+    
+    // Adicionar variação aleatória
+    price += Math.floor(Math.random() * 50) - 25;
+    
+    return Math.max(50, Math.min(500, price));
+}
+
+// Gerar descrição
+function generateDescription(name, brand) {
+    const upperName = name.toUpperCase();
+    
+    if (upperName.includes('CASACO') || upperName.includes('COLETE')) {
+        return `Peça exclusiva da ${brand}, confeccionada com materiais premium. Ideal para o inverno.`;
+    } else if (upperName.includes('MOLETOM') || upperName.includes('HOODIE')) {
+        return `Moletom premium da ${brand}, 100% algodão com design exclusivo e acabamento impecável.`;
+    } else {
+        return `Modelo exclusivo da ${brand}, design moderno e materiais de alta qualidade. Conforto garantido.`;
+    }
+}
+
+// Carregar produtos manualmente (fallback)
+function loadProductsManually() {
+    const productImages = [
+        'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg',
+        'Nike Air Force 1 Low_5.jpg',
+        'Adidas Originals Samba_5.jpg',
+        'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
+        'Yeezy Boost 700 V2 Geode – EG6860_5.png',
+        'New Balance 530_5.jpg',
+        'Puma LaMelo Ball MB.02_4.jpg',
+        'Air Jordan 4 Retro black particle40-46_4.jpg',
+        'Nike Air Max 270_5.jpg',
+        'Dior B22_5.jpg',
+        'Louis Vuitton x Nike Air Force 1_5.jpg',
+        'Off-White Já volto Branco cinza jade preto_5.jpeg',
+        'casaco polo ralph lauren azul.jpg',
+        'colete polo ralph lauren branco.png',
+        'TRAPSTAR_1.jpg',
+        'The North Face _1996(XS-2XL)_1.jpg',
+        'Nike Shox Ride 2 (36-46)_5.jpeg',
+        'Máx. 95 1895-132 (40-46)_5.jpg',
+        'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg'
+    ];
+    
+    allProducts = productImages.map((filename, index) => {
+        const name = filename.replace(/\.(jpg|jpeg|png)$/i, '');
+        const brand = detectBrand(name);
+        
+        return {
+            id: index + 1,
+            name: name,
+            brand: brand,
+            sizes: generateSizes(name),
+            price: generatePrice(name, brand),
+            images: [filename],
+            description: generateDescription(name, brand)
+        };
+    });
+    
+    console.log(`✅ ${allProducts.length} produtos carregados manualmente`);
+    filteredProducts = [...allProducts];
+    renderProducts();
+}
+
+// Renderizar produtos
+function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+    
+    filteredProducts.forEach(product => {
+        const card = createProductCard(product);
+        grid.appendChild(card);
+    });
+}
+
+// Criar card de produto
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    const imageUrl = CONFIG.imageFolder + product.images[0];
+    
+    card.innerHTML = `
+      <img src="${imageUrl}" 
+           alt="${product.name}"
+           onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22180%22%3E%3Crect width=%22200%22 height=%22180%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2224%22%3E👟%3C/text%3E%3C/svg%3E'">
+      <div class="info">
+        <h2>${product.name}</h2>
+        <div class="sizes">
+          ${product.sizes.slice(0, 6).map(size => `<button>${size}</button>`).join('')}
+          ${product.sizes.length > 6 ? `<button>+${product.sizes.length - 6}</button>` : ''}
+        </div>
+        <div class="price">€${product.price}</div>
+        <div class="actions">
+          <button class="buy" onclick="buyProduct('${product.name}')">Comprar</button>
+          <button class="reserve" onclick="reserveProduct('${product.name}')">Reservar</button>
+        </div>
+        <small>${product.images.length} fotos</small>
+      </div>
+    `;
+    
+    card.addEventListener('click', (e) => {
+        if (e.target.tagName.toLowerCase() !== 'button') {
+            openModal(product);
+        }
+    });
+    
+    return card;
+}
+
+// Abrir modal
+function openModal(product) {
+    const modal = document.getElementById('modal');
+    const gallery = document.getElementById('gallery');
+    const details = document.getElementById('details');
+    
+    // Limpar galeria
+    gallery.innerHTML = '';
+    
+    // Adicionar imagens
+    product.images.forEach(imageUrl => {
+        const img = document.createElement('img');
+        img.src = CONFIG.imageFolder + imageUrl;
+        img.alt = product.name;
+        img.onerror = function() {
+            this.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22%3E%3Crect width=%22150%22 height=%22150%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2220%22%3E👟%3C/text%3E%3C/svg%3E';
+        };
+        gallery.appendChild(img);
+    });
+    
+    // Detalhes
+    details.innerHTML = `
+        <h2>${product.name}</h2>
+        <p>${product.description}</p>
+        <p><strong>Marca:</strong> ${product.brand}</p>
+        <p><strong>Preço:</strong> €${product.price}</p>
+        <p><strong>Tamanhos:</strong> ${product.sizes.join(', ')}</p>
+    `;
+    
+    modal.classList.add('active');
+}
+
+// Fechar modal
+document.getElementById('closeModal').onclick = () => {
+    document.getElementById('modal').classList.remove('active');
+};
+
+window.onclick = (e) => {
+    if (e.target === document.getElementById('modal')) {
+        document.getElementById('modal').classList.remove('active');
+    }
+};
+
+// Funções de ação
+function buyProduct(productName) {
+    const message = encodeURIComponent(`Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`);
+    window.open(CONFIG.whatsappUrl + message, '_blank');
+}
+
+function reserveProduct(productName) {
+    const message = encodeURIComponent(`Olá STREETMOOD 👟 quero reservar o ${productName} por favor.`);
+    window.open(CONFIG.whatsappUrl + message, '_blank');
+}
+
+function openWhatsApp() {
+    window.open(CONFIG.whatsappUrl + 'Olá STREETMOOD 👟 gostaria de mais informações.', '_blank');
+}
+
+// Aplicar filtros
+function applyFilters() {
+    const search = document.getElementById('search').value.toLowerCase();
+    const size = document.getElementById('sizeFilter').value;
+    const maxPrice = document.getElementById('priceFilter').value;
+    
+    filteredProducts = allProducts.filter(p => {
+        const matchesSearch = p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search);
+        const matchesSize = size === '' || p.sizes.includes(size);
+        const matchesPrice = p.price <= maxPrice;
+        return matchesSearch && matchesSize && matchesPrice;
+    });
+    
+    renderProducts();
+}
+
+// Event listeners
+document.getElementById('search').addEventListener('input', applyFilters);
+document.getElementById('sizeFilter').addEventListener('change', applyFilters);
+document.getElementById('priceFilter').addEventListener('input', (e) => {
+    document.getElementById('priceLabel').textContent = `Preço ≤ €${e.target.value}`;
+    applyFilters();
+});
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Iniciando STREETMOOD...');
+    loadProductsManually();
+});
+
+console.log('✅ STREETMOOD - Sistema carregado!');
+</script>
 </body>
 </html>

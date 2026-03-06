@@ -5,1211 +5,1206 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>STREETMOOD | Catálogo Premium</title>
 <style>
+/* CSS para STREETMOOD - Edição Premium com Glassmorphism */
+
+/* Variáveis CSS Globais */
 :root {
-  --bg:#0f1720;
-  --card:#111827;
-  --inner:#1f2937;
-  --text:#ffffff;
-  --text-muted:#9ca3af;
-  --accent:#ef4444;
-  --accent-hover:#dc2626;
-  --radius-lg:20px;
-  --radius-md:16px;
-  --radius-sm:12px;
-  --shadow:0 10px 30px rgba(0,0,0,0.5);
-}
-*,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:'Inter',system-ui,sans-serif;
-  display:flex;
-  justify-content:center;
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-  touch-action:pan-y;
-}
-body.modal-open{overflow:hidden;}
-a{text-decoration:none;color:inherit;}
-button{border:none;background:none;color:inherit;font:inherit;cursor:pointer;}
-img{display:block;width:100%;height:auto;border:0;}
-::-webkit-scrollbar{display:none;}
-.app{
-  width:100%;
-  max-width:430px;
-  padding:0 1.25rem 4.5rem;
-}
-.app-header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(15,23,32,0.92);
-  backdrop-filter:blur(18px);
-  padding:1rem 1.25rem 1.1rem;
-  margin:0 -1.25rem 1rem;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-}
-.logo-block h1{
-  margin:0;
-  font-size:1.65rem;
-  letter-spacing:0.08em;
-}
-.title-row{
-  display:flex;
-  align-items:center;
-  gap:0.4rem;
-}
-.live-pill{
-  background:rgba(239,68,68,0.2);
-  color:var(--accent);
-  padding:0.15rem 0.6rem;
-  border-radius:999px;
-  font-size:0.65rem;
-  text-transform:uppercase;
-}
-.eyebrow{
-  margin:0 0 0.2rem;
-  text-transform:uppercase;
-  letter-spacing:0.25em;
-  font-size:0.6rem;
-  color:var(--text-muted);
-}
-.muted{
-  color:var(--text-muted);
-}
-.small{font-size:0.78rem;}
-.icon-button{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:var(--shadow);
-  transition:transform 0.3s;
-}
-.icon-button:active{transform:scale(0.96);}
-.hero{
-  margin-bottom:1.5rem;
-}
-.hero-carousel{
-  overflow:hidden;
-  border-radius:var(--radius-lg);
-  box-shadow:var(--shadow);
-  position:relative;
-}
-.hero-track{
-  display:flex;
-  transition:transform 0.7s cubic-bezier(0.22,0.61,0.36,1);
-  will-change:transform;
-}
-.hero-slide{
-  min-width:100%;
-  padding:1.5rem;
-  background:linear-gradient(140deg,#1d2633,#101726 70%);
-  display:flex;
-  flex-direction:column;
-  gap:0.7rem;
-}
-.hero-slide--contrast{
-  background:linear-gradient(145deg,#291818,#0f1720);
-}
-.hero-slide h2{
-  margin:0;
-  font-size:1.6rem;
-  line-height:1.2;
-}
-.hero-kicker{
-  text-transform:uppercase;
-  letter-spacing:0.4em;
-  font-size:0.6rem;
-  color:var(--text-muted);
-}
-.hero-actions{
-  display:flex;
-  align-items:center;
-  gap:0.75rem;
-  flex-wrap:wrap;
-}
-.hero-cta{
-  padding:0.75rem 1.2rem;
-  border-radius:var(--radius-sm);
-  background:var(--accent);
-  color:#fff;
-  font-weight:600;
-  box-shadow:var(--shadow);
-}
-.hero-cta.ghost{
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.15);
-}
-.hero-link{
-  font-weight:500;
-  color:var(--text-muted);
-}
-.hero-dots{
-  position:absolute;
-  bottom:0.8rem;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:0.4rem;
-}
-.hero-dot{
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.3);
-}
-.hero-dot.active{
-  background:var(--accent);
-  width:26px;
-  border-radius:12px;
-}
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(0,1fr));
-  gap:1rem;
-  margin-bottom:1.5rem;
-}
-.stats-card{
-  background:rgba(255,255,255,0.02);
-  border-radius:var(--radius-lg);
-  padding:1rem;
-  border:1px solid rgba(255,255,255,0.05);
-  box-shadow:var(--shadow);
-}
-.stats-value{
-  margin:0.2rem 0;
-  font-size:2rem;
-}
-.glass{
-  background:rgba(17,24,39,0.7);
-  backdrop-filter:blur(18px);
-}
-.filters{
-  background:var(--card);
-  border-radius:var(--radius-lg);
-  padding:1rem;
-  margin-bottom:1.5rem;
-  box-shadow:var(--shadow);
-}
-.search-bar{
-  display:flex;
-  align-items:center;
-  gap:0.8rem;
-  background:var(--inner);
-  border-radius:var(--radius-md);
-  padding:0.8rem 1rem;
-}
-.search-bar input{
-  border:none;
-  background:transparent;
-  color:var(--text);
-  width:100%;
-  font-size:1rem;
-}
-.search-bar input::placeholder{color:var(--text-muted);}
-.filter-row{
-  margin-top:1rem;
-}
-.filter-label{
-  font-size:0.72rem;
-  text-transform:uppercase;
-  letter-spacing:0.2em;
-  color:var(--text-muted);
-  margin-bottom:0.5rem;
-}
-.chip-group{
-  display:flex;
-  gap:0.5rem;
-  overflow-x:auto;
-  padding-bottom:0.3rem;
-}
-.chip{
-  padding:0.55rem 1rem;
-  border-radius:var(--radius-sm);
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.08);
-  font-size:0.85rem;
-  transition:background 0.2s, border 0.2s, color 0.2s;
-  backdrop-filter:blur(12px);
-}
-.chip.is-active{
-  background:var(--accent);
-  border-color:var(--accent);
-  color:#fff;
-}
-.price-filter{
-  margin-top:1rem;
-}
-.price-filter input[type=range]{
-  width:100%;
-  accent-color:var(--accent);
-}
-.price-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:0.95rem;
-}
-.price-scale{
-  display:flex;
-  justify-content:space-between;
-  font-size:0.7rem;
-  color:var(--text-muted);
-}
-.filter-summary{
-  margin-top:0.8rem;
-  font-size:0.85rem;
-  color:var(--text-muted);
-}
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom:1rem;
-}
-.section-head h3{margin:0;}
-.product-grid{
-  display:grid;
-  gap:1rem;
-}
-.product-card{
-  background:linear-gradient(160deg,#111827,#0e151f);
-  border-radius:var(--radius-lg);
-  padding:1rem;
-  border:1px solid rgba(255,255,255,0.04);
-  box-shadow:var(--shadow);
-  display:flex;
-  flex-direction:column;
-  gap:0.8rem;
-  transition:transform 0.25s ease, border 0.25s ease;
-  will-change:transform;
-}
-.product-card:active{transform:scale(0.98);}
-@media (hover:hover){
-  .product-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(239,68,68,0.6);
-  }
-}
-.product-media{
-  position:relative;
-  overflow:hidden;
-  border-radius:var(--radius-md);
-  background:var(--inner);
-}
-.product-img{
-  width:100%;
-  height:210px;
-  object-fit:cover;
-  transition:transform 0.4s ease, opacity 0.4s ease;
-}
-.product-card:active .product-img{transform:scale(0.98);}
-.tag{
-  position:absolute;
-  top:0.6rem;
-  left:0.6rem;
-  background:rgba(0,0,0,0.45);
-  padding:0.25rem 0.8rem;
-  border-radius:999px;
-  font-size:0.7rem;
-  text-transform:uppercase;
-  letter-spacing:0.2em;
-}
-.tag.edition{
-  left:auto;
-  right:0.6rem;
-  background:rgba(239,68,68,0.8);
-}
-.product-info h3{
-  margin:0 0 0.2rem;
-  font-size:1.1rem;
-}
-.product-info p{
-  margin:0;
-}
-.product-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:0.9rem;
-}
-.product-meta strong{
-  font-size:1.1rem;
-}
-.product-actions{
-  display:flex;
-  gap:0.5rem;
-}
-.btn{
-  flex:1;
-  padding:0.7rem 0.9rem;
-  border-radius:var(--radius-sm);
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:0.08em;
-  border:1px solid transparent;
-}
-.btn.primary{
-  background:var(--accent);
-  box-shadow:var(--shadow);
-}
-.btn.primary:active{background:var(--accent-hover);}
-.btn.ghost{
-  background:rgba(255,255,255,0.05);
-  border-color:rgba(255,255,255,0.1);
-}
-.skeleton-grid{
-  display:grid;
-  gap:1rem;
-}
-.skeleton-card{
-  background:var(--card);
-  border-radius:var(--radius-lg);
-  padding:1rem;
-  animation:fadeInUp 0.6s ease;
-}
-.skeleton{
-  height:16px;
-  border-radius:8px;
-  background:linear-gradient(90deg,rgba(255,255,255,0.05),rgba(255,255,255,0.15),rgba(255,255,255,0.05));
-  animation:shimmer 1.6s infinite;
-}
-.skeleton.thumb{height:190px;border-radius:var(--radius-md);margin-bottom:0.8rem;}
-.skeleton.line{margin-bottom:0.5rem;}
-.skeleton.short{width:60%;}
-.empty-state{
-  padding:2rem 1rem;
-  text-align:center;
-  border:1px dashed rgba(255,255,255,0.2);
-  border-radius:var(--radius-lg);
-  background:rgba(255,255,255,0.02);
-}
-.wa-fab{
-  position:fixed;
-  bottom:1rem;
-  right:1rem;
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  background:var(--accent);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:var(--shadow);
-  z-index:30;
-  animation:float 3s ease-in-out infinite;
-}
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(5,8,12,0.65);
-  backdrop-filter:blur(14px);
-  display:flex;
-  justify-content:center;
-  align-items:flex-end;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.3s ease;
-  z-index:25;
-}
-.modal.is-visible{
-  opacity:1;
-  pointer-events:auto;
-}
-.modal-overlay{
-  position:absolute;
-  inset:0;
-}
-.modal-content{
-  width:100%;
-  max-width:430px;
-  background:var(--card);
-  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
-  padding:1rem;
-  position:relative;
-  transform:translateY(40px);
-  transition:transform 0.3s ease;
-  max-height:90vh;
-  overflow:hidden;
-}
-.modal.is-visible .modal-content{transform:translateY(0);}
-.modal-close{
-  position:absolute;
-  top:0.6rem;
-  right:0.6rem;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.08);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.2rem;
-}
-.modal-gallery{
-  display:flex;
-  gap:0.7rem;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  margin-bottom:0.5rem;
-}
-.modal-thumb{
-  min-width:90%;
-  border-radius:var(--radius-md);
-  overflow:hidden;
-  scroll-snap-align:center;
-  background:var(--inner);
-}
-.gallery-indicator{
-  position:absolute;
-  top:0.7rem;
-  left:0.8rem;
-  background:rgba(0,0,0,0.5);
-  padding:0.2rem 0.6rem;
-  border-radius:999px;
-  font-size:0.75rem;
-}
-.modal-body{
-  overflow-y:auto;
-  max-height:45vh;
-  padding-bottom:1rem;
-}
-.modal-heading{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:0.5rem;
-}
-.modal-heading h3{margin:0;}
-.modal-sizes{
-  display:flex;
-  flex-wrap:wrap;
-  gap:0.4rem;
-  margin:0.8rem 0;
-}
-.modal-size-pill{
-  padding:0.35rem 0.8rem;
-  border-radius:999px;
-  background:rgba(255,255,255,0.08);
-  font-size:0.85rem;
-}
-.modal-actions{
-  display:flex;
-  gap:0.6rem;
-}
-.modal-actions .btn{letter-spacing:0.04em;}
-.section-head button{
-  font-size:0.75rem;
-  padding:0.5rem 0.9rem;
-  border-radius:999px;
-  background:rgba(255,255,255,0.08);
-}
-.price-value{
-  font-weight:700;
-}
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-4px);}
-}
-@keyframes shimmer{
-  0%{background-position:-200px 0;}
-  100%{background-position:200px 0;}
-}
-@keyframes fadeInUp{
-  from{opacity:0;transform:translateY(10px);}
-  to{opacity:1;transform:translateY(0);}
-}
+    --bg-primary: #0a0f18; /* Escuro mais profundo para base */
+    --bg-card: rgba(15, 23, 32, 0.6); /* Base translúcida para cards */
+    --bg-element: rgba(31, 41, 55, 0.5); /* Elementos internos translúcidos */
+    --text-primary: #ffffff;
+    --text-secondary: #c7ccd3; /* Texto secundário ligeiramente mais claro */
+    --accent: #e91e63; /* Um rosa vibrante para destaque */
+    --accent-hover: #d30f53; /* Tom mais escuro do destaque */
+    --radius-xl: 24px; /* Raio maior para um look moderno */
+    --radius-lg: 18px;
+    --radius-md: 14px;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra mais profunda */
+    --frosted-border: 1px solid rgba(255, 255, 255, 0.1); /* Bordas finas para glassmorphism */
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transição mais suave */
+    --blur-intensity: 15px; /* Intensidade do blur */
+}
+
+/* Estilos Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Remover cor de toque em mobile */
+}
+
+html {
+    font-size: 14px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 100px; /* Espaço para o footer */
+    overflow-y: scroll; /* Garantir scrollagem */
+    -webkit-overflow-scrolling: touch; /* Scroll mais suave em iOS */
+}
+
+/* Classe para Efeitos Glassmorphism */
+.frosted-glass {
+    background: rgba(15, 23, 32, 0.5); /* Fundo translúcido base */
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity)); /* Safari */
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    border: var(--frosted-border);
+}
+
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Borda subtil */
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg); /* Arredondar base */
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+    /* Gradiente subtil para o logo */
+    background: linear-gradient(90deg, #f0f0f0, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.product-count {
+    background: var(--bg-element);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* Hero Carousel */
+.hero {
+    margin: 1.25rem;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    border: var(--frosted-border); /* Borda no hero */
+}
+
+.carousel {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    animation: slide 15s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #1a1f2e, #0a0f18); /* Gradiente de fundo para slides */
+    text-align: center;
+    border-radius: var(--radius-xl);
+}
+
+.slide-icon {
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
+    color: var(--accent);
+}
+
+.slide-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.slide-sub {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.carousel-dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3); /* Ponto inativo translúcido */
+    transition: var(--transition);
+}
+
+.dot.active {
+    background: var(--accent);
+    width: 20px;
+    border-radius: 4px;
+}
+
+@keyframes slide {
+    0%, 25% { transform: translateX(0); }
+    33%, 58% { transform: translateX(-33.333%); }
+    66%, 91% { transform: translateX(-66.666%); }
+}
+
+/* Filtros */
+.filters {
+    margin: 0 1.25rem 1.5rem;
+    padding: 1.25rem;
+    background: rgba(15, 23, 32, 0.5);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    border: var(--frosted-border);
+}
+
+.filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.search-box, .filter-select {
+    flex: 1;
+    min-width: 140px;
+    position: relative;
+}
+
+.frosted-input, .frosted-select, .frosted-slider {
+    background: var(--bg-element); /* Fundo translúcido para inputs */
+    border: var(--frosted-border); /* Borda fina */
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-weight: 500;
+    transition: var(--transition);
+    appearance: none; /* Remover estilos padrão */
+    cursor: pointer;
+}
+
+.search-box input:focus, .frosted-select select:focus, .frosted-slider:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    z-index: 10;
+}
+
+.filter-select::after { /* Seta customizada */
+    content: '▼';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    pointer-events: none;
+}
+
+.price-slider-container {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.frosted-slider {
+    height: 8px;
+    background: var(--bg-element); /* Fundo do slider */
+    cursor: pointer;
+    margin-top: 10px; /* Espaço entre input e label */
+}
+
+.frosted-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg-primary); /* Cor de fundo para contraste */
+    box-shadow: 0 2px 10px rgba(233, 30, 99, 0.5); /* Sombra do polegar */
+    cursor: pointer;
+    margin-top: -7px; /* Centralizar verticalmente */
+}
+
+.price-label {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Products Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1.25rem;
+}
+
+.product-card {
+    background: rgba(15, 23, 32, 0.5);
+    backdrop-filter: blur(var(--blur-intensity));
+    -webkit-backdrop-filter: blur(var(--blur-intensity));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    border: var(--frosted-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: var(--transition);
+    will-change: transform, box-shadow;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--bg-element);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-md) var(--radius-md); /* Arredondamento gradual */
+}
+
+.card-image img { /* Estilo para imagens reais (se usadas) */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-out;
+}
+
+.product-card:hover .card-image img {
+    transform: scale(1.05); /* Efeito zoom suave */
+}
+
+.image-placeholder { /* Estilo para placeholders */
+    font-size: 3rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.sizes-badge {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(10, 15, 24, 0.8); /* Fundo escuro semi-transparente */
+    color: var(--text-primary);
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px); /* Blur no badge */
+    border: var(--frosted-border);
+}
+
+.card-content {
+    padding: 1rem;
+    text-align: center;
+}
+
+.brand {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.card-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.btn {
+    flex: 1;
+    padding: 0.7rem;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
+}
+
+.btn-secondary {
+    background: var(--bg-element);
+    color: var(--text-primary);
+    border: var(--frosted-border);
+}
+
+.btn-secondary:hover {
+    background: rgba(31, 41, 55, 0.8); /* Mais opaco no hover */
+    color: var(--accent);
+}
+
+/* Modal Overlay com Blur Profundo */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85); /* Fundo escuro */
+    backdrop-filter: blur(25px); /* Blur mais intenso */
+    -webkit-backdrop-filter: blur(25px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Modal com Glassmorphism Aprimorado */
+.modal {
+    background: rgba(17, 24, 39, 0.5); /* Fundo translúcido */
+    border-radius: var(--radius-xl);
+    width: 100%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: var(--frosted-border);
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    transition: var(--transition);
+}
+
+.close-modal:hover {
+    color: var(--accent);
+}
+
+.modal-gallery {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.gallery-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-slide {
+    min-width: 100%;
+    height: 100%;
+    background: var(--bg-element);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg); /* Arredondamento inferior */
+}
+
+.gallery-slide .image-placeholder {
+    font-size: 4rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.gallery-nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+
+.gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: var(--transition);
+}
+
+.gallery-dot.active {
+    background: var(--accent);
+    width: 20px;
+    border-radius: 4px;
+}
+
+.modal-content {
+    padding: 1.5rem;
+    overflow-y: auto; /* Scroll dentro do modal se necessário */
+    flex-grow: 1;
+}
+
+.modal-brand {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.modal-name {
+    font-weight: 700;
+    font-size: 1.8rem; /* Tamanho maior para o nome */
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.modal-description {
+    line-height: 1.7;
+    margin-bottom: 1rem; /* Ajustar margem */
+    color: var(--text-secondary);
+}
+
+.sizes-section h3 {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.sizes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.size-option {
+    background: var(--bg-element);
+    border: var(--frosted-border);
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.size-option:hover, .size-option.selected { /* Estilo para selected size */
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.modal-price {
+    font-weight: 700;
+    font-size: 2.2rem; /* Preço maior e mais destacado */
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--accent); /* Preço com a cor de destaque */
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto; /* Empurra para baixo */
+    padding-top: 1rem; /* Espaço acima dos botões */
+}
+
+.modal-buttons .btn {
+    padding: 1rem;
+    font-size: 1rem;
+    flex: 1;
+}
+
+/* WhatsApp Float */
+.whatsapp-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 1.25rem;
+    background: #25D366;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    z-index: 900;
+    transition: var(--transition);
+    text-decoration: none;
+    border: 3px solid rgba(255,255,255,0.2); /* Borda sutil */
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+    background: #128C7E; /* Cor mais escura no hover */
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem 1.25rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Borda subtil */
+    margin-top: 2rem;
+}
+
+/* Skeleton Loading (Exemplo) */
+.skeleton {
+    background: linear-gradient(90deg, #1a1f2e 25%, #2d3748 50%, #1a1f2e 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skeleton-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+.skeleton-image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--bg-element);
+}
+
+.skeleton-content {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    background: var(--bg-element);
+    border-radius: var(--radius-md);
+}
+
+.skeleton-price {
+    height: 1.8rem;
+    width: 60%;
+    background: var(--bg-element);
+    margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 370px) {
+    .products-grid {
+        grid-template-columns: 1fr; /* Layout de coluna única em telas muito pequenas */
+    }
+    .modal-buttons .btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+} 
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="app-header">
-    <div class="logo-block">
-      <p class="eyebrow">Luxury Streetwear</p>
-      <div class="title-row">
-        <h1>STREETMOOD</h1>
-        <span class="live-pill">LIVE</span>
-      </div>
-      <p class="muted small">Catálogo inteligente inspirado em Nike SNKRS, Farfetch e StockX.</p>
-    </div>
-    <button class="icon-button" id="infoButton" aria-label="Falar com STREETMOOD">👟</button>
-  </header>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">STREETMOOD</div>
+        <div class="product-count"><span id="count">0</span> produtos</div>
+    </header>
 
-  <section class="hero">
-    <div class="hero-carousel" id="heroCarousel">
-      <div class="hero-track" id="heroTrack">
-        <article class="hero-slide">
-          <p class="hero-kicker">Drop #482</p>
-          <h2>Heat Jordans & Nike exclusives</h2>
-          <p>Autenticados, prontos para envio express e reserva instantânea.</p>
-          <div class="hero-actions">
-            <button class="hero-cta" data-scroll-to="#filters">Explorar Heat</button>
-            <a class="hero-link" href="https://instagram.com/streetmood" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-          </div>
-        </article>
-        <article class="hero-slide hero-slide--contrast">
-          <p class="hero-kicker">Luxury lane</p>
-          <h2>Balenciaga, Off White e collabs raras</h2>
-          <p>Curadoria concierge com mais de 500 pares disponíveis 24/7.</p>
-          <div class="hero-actions">
-            <button class="hero-cta ghost" data-scroll-to=".stats">Ver destaques</button>
-          </div>
-        </article>
-        <article class="hero-slide">
-          <p class="hero-kicker">Concierge</p>
-          <h2>Compra via WhatsApp em 1 toque</h2>
-          <p>Envie o print do drop e confirme disponibilidade em segundos.</p>
-          <div class="hero-actions">
-            <button class="hero-cta" data-action="hero-whatsapp">Falar agora</button>
-          </div>
-        </article>
-      </div>
-      <div class="hero-dots">
-        <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
-        <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
-        <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
-      </div>
-    </div>
-  </section>
-
-  <section class="stats">
-    <div class="stats-card">
-      <p class="stats-label">Sneakers ativos</p>
-      <h2 class="stats-value"><span id="visibleCount">0</span></h2>
-      <p class="muted">de <strong id="totalCount">0</strong> pares verificados</p>
-    </div>
-    <div class="stats-card glass">
-      <p class="stats-label">Concierge</p>
-      <h3>WhatsApp 24/7</h3>
-      <p class="muted small">Reserva, compra e tracking direto com especialistas STREETMOOD.</p>
-    </div>
-  </section>
-
-  <section class="filters" id="filters">
-    <div class="search-bar">
-      <span>🔎</span>
-      <input id="searchInput" type="search" placeholder="Buscar modelo, cor ou drop">
-    </div>
-    <div class="filter-row">
-      <div class="filter-label">Marca</div>
-      <div class="chip-group" id="brandChips">
-        <button type="button" class="chip is-active" data-brand="">Todas</button>
-        <button type="button" class="chip" data-brand="Nike">Nike</button>
-        <button type="button" class="chip" data-brand="Jordan">Jordan</button>
-        <button type="button" class="chip" data-brand="Adidas">Adidas</button>
-        <button type="button" class="chip" data-brand="Puma">Puma</button>
-        <button type="button" class="chip" data-brand="Off White">Off White</button>
-        <button type="button" class="chip" data-brand="Balenciaga">Balenciaga</button>
-        <button type="button" class="chip" data-brand="Luxury">Luxury</button>
-      </div>
-    </div>
-    <div class="filter-row">
-      <div class="filter-label">Tamanho</div>
-      <div class="chip-group" id="sizeChips">
-        <button type="button" class="chip is-active" data-size="">Todos</button>
-        <button type="button" class="chip" data-size="38">38</button>
-        <button type="button" class="chip" data-size="39">39</button>
-        <button type="button" class="chip" data-size="40">40</button>
-        <button type="button" class="chip" data-size="41">41</button>
-        <button type="button" class="chip" data-size="42">42</button>
-        <button type="button" class="chip" data-size="43">43</button>
-        <button type="button" class="chip" data-size="44">44</button>
-        <button type="button" class="chip" data-size="45">45</button>
-        <button type="button" class="chip" data-size="46">46</button>
-        <button type="button" class="chip" data-size="47">47</button>
-      </div>
-    </div>
-    <div class="price-filter">
-      <div class="price-head">
-        <span>Preço máximo</span>
-        <strong id="priceValue">≤ 380€</strong>
-      </div>
-      <input type="range" id="priceRange" min="120" max="380" value="380">
-      <div class="price-scale">
-        <span>120€</span>
-        <span>380€</span>
-      </div>
-    </div>
-    <div class="filter-summary" id="filterSummary">Sem filtros ativos</div>
-  </section>
-
-  <section class="product-section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Catálogo Premium</p>
-        <h3>Streetwear & Sneakers</h3>
-      </div>
-      <span class="muted small" id="productIndicator">Curadoria em curso...</span>
-    </div>
-    <div class="product-grid" id="productGrid">
-      <div class="skeleton-grid" id="skeletonGrid">
-        <div class="skeleton-card">
-          <div class="skeleton thumb"></div>
-          <div class="skeleton line"></div>
-          <div class="skeleton line short"></div>
+    <!-- Hero Carousel -->
+    <section class="hero">
+        <div class="carousel">
+            <div class="slide">
+                <div class="slide-icon">👟</div>
+                <div class="slide-text">Coleção Exclusiva</div>
+                <div class="slide-sub">+500 sneakers premium</div>
+            </div>
+            <div class="slide">
+                <div class="slide-icon">🔥</div>
+                <div class="slide-text">Lançamentos Quentes</div>
+                <div class="slide-sub">Edições limitadas</div>
+            </div>
+            <div class="slide">
+                <div class="slide-icon">⚡</div>
+                <div class="slide-text">Entrega Rápida</div>
+                <div class="slide-sub">Portes grátis em compras +150€</div>
+            </div>
         </div>
-        <div class="skeleton-card">
-          <div class="skeleton thumb"></div>
-          <div class="skeleton line"></div>
-          <div class="skeleton line short"></div>
+        <div class="carousel-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
-        <div class="skeleton-card">
-          <div class="skeleton thumb"></div>
-          <div class="skeleton line"></div>
-          <div class="skeleton line short"></div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="filter-row">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Pesquisar sneakers..." class="frosted-input">
+            </div>
+            <div class="filter-select">
+                <select id="brandFilter" class="frosted-select">
+                    <option value="">Todas as marcas</option>
+                    <option value="Nike">Nike</option>
+                    <option value="Adidas">Adidas</option>
+                    <option value="Jordan">Jordan</option>
+                    <option value="Puma">Puma</option>
+                    <option value="Balenciaga">Balenciaga</option>
+                    <option value="Off White">Off White</option>
+                </select>
+            </div>
         </div>
-        <div class="skeleton-card">
-          <div class="skeleton thumb"></div>
-          <div class="skeleton line"></div>
-          <div class="skeleton line short"></div>
+        <div class="filter-row">
+            <div class="filter-select">
+                <select id="sizeFilter" class="frosted-select">
+                    <option value="">Todos os tamanhos</option>
+                    <option value="40">40</option>
+                    <option value="41">41</option>
+                    <option value="42">42</option>
+                    <option value="43">43</option>
+                    <option value="44">44</option>
+                    <option value="45">45</option>
+                    <option value="46">46</option>
+                </select>
+            </div>
+            <div class="filter-select">
+                <select id="priceFilter" class="frosted-select">
+                    <option value="500">Até 500€</option>
+                    <option value="400">Até 400€</option>
+                    <option value="300">Até 300€</option>
+                    <option value="200">Até 200€</option>
+                    <option value="150">Até 150€</option>
+                </select>
+            </div>
         </div>
-      </div>
+        <div class="price-slider-container">
+            <input type="range" id="priceSlider" min="50" max="500" value="500" step="10" class="frosted-slider">
+            <div class="price-label">
+                <span>50€</span>
+                <span id="sliderValue">500€</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <main class="products-grid" id="productGrid">
+        <!-- Products will be inserted here by JavaScript -->
+    </main>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-brand" id="modalBrand">NIKE</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-gallery">
+                <div class="gallery-track" id="galleryTrack">
+                    <div class="gallery-slide">
+                        <div class="image-placeholder">👟</div>
+                    </div>
+                </div>
+                <div class="gallery-nav" id="galleryNav">
+                    <div class="gallery-dot active"></div>
+                </div>
+            </div>
+            <div class="modal-content">
+                <h1 class="modal-name" id="modalName">Air Jordan 4 Retro</h1>
+                <p class="modal-description" id="modalDescription">Edição especial com design premium e materiais de alta qualidade. Conforto excepcional para uso diário e colecionadores.</p>
+                
+                <div class="sizes-section">
+                    <h3>Tamanhos disponíveis</h3>
+                    <div class="sizes-list" id="modalSizes">
+                        <div class="size-option">40</div>
+                        <div class="size-option">41</div>
+                        <div class="size-option">42</div>
+                    </div>
+                </div>
+
+                <div class="modal-price" id="modalPrice">180€</div>
+                
+                <div class="modal-buttons">
+                    <button class="btn btn-primary" id="modalBuy">
+                        <span>🛒</span> Comprar Agora
+                    </button>
+                    <button class="btn btn-secondary" id="modalReserve">
+                        <span>🔒</span> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
-  </section>
-</div>
 
-<button class="wa-fab" id="floatingWhatsApp" aria-label="WhatsApp STREETMOOD">💬</button>
+    <!-- WhatsApp Float -->
+    <a href="#" class="whatsapp-float" id="whatsappFloat">
+        💬
+    </a>
 
-<div class="modal" id="productModal" aria-hidden="true" role="dialog" aria-label="Detalhes do produto">
-  <div class="modal-overlay" data-close-modal></div>
-  <div class="modal-content">
-    <button class="modal-close" data-close-modal>&times;</button>
-    <div class="gallery-indicator" id="galleryIndicator">1 / 1</div>
-    <div class="modal-gallery" id="modalGallery"></div>
-    <div class="modal-body">
-      <div class="modal-heading">
-        <h3 id="modalName">Produto</h3>
-        <span id="modalPrice">0€</span>
-      </div>
-      <p class="muted" id="modalDescription"></p>
-      <div class="modal-sizes" id="modalSizes"></div>
-      <div class="modal-actions">
-        <button type="button" class="btn primary" id="modalBuy">COMPRAR</button>
-        <button type="button" class="btn ghost" id="modalReserve">RESERVAR</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>STREETMOOD &copy; 2026 | Catálogo digital premium</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Entrega em 2-4 dias úteis | Portes grátis em compras superiores a 150€</p>
+    </footer>
 
-<script>
-(() => {
-  const brands = ['Nike','Jordan','Adidas','Puma','Off White','Balenciaga','Luxury'];
-  const models = [
-    'Air Jordan 4 Retro','Dunk Low Essential','Air Max Pulse','Air Force 1 Luxe','Samba OG',
-    'Forum 84 Low','Ultraboost 1.0','NMD R1','RS-X Luxe','Suede Classic',
-    'Triple S','Track Sneaker','Odsy 1000','Out Of Office','Cloudbust Thunder',
-    'B23 Oblique','LV Trainer','Gel-1130 Premium'
-  ];
-  const colorways = ['Phantom','Thunder','Noir','Arctic','Volt','Solar','Nebula','Onyx','Ivory','Obsidian'];
-  const sizeRanges = ['38-43','39-45','40-46','41-47'];
-  const lines = [];
-  for(let i=0;i<620;i++){
-    const brand = brands[i % brands.length];
-    const model = models[i % models.length];
-    const color = colorways[i % colorways.length];
-    const size = sizeRanges[i % sizeRanges.length];
-    lines.push(`${brand} ${model} ${color} ${size}.jpg`);
-  }
-  const imagesTxtContent = lines.join('\n');
-  const originalFetch = window.fetch ? window.fetch.bind(window) : null;
-  window.fetch = (resource, options) => {
-    if(typeof resource === 'string' && resource.endsWith('imagens.txt')){
-      return Promise.resolve(new Response(imagesTxtContent,{status:200,headers:{'Content-Type':'text/plain'}}));
-    }
-    if(originalFetch){
-      return originalFetch(resource, options);
-    }
-    return Promise.reject(new Error('Fetch indisponível'));
-  };
-})();
-</script>
+    <script>
+        // Configuração
+        const BRAND_PRICES = {
+            'Nike': 150,
+            'Adidas': 140,
+            'Jordan': 180,
+            'Puma': 130,
+            'Balenciaga': 250,
+            'Off White': 220,
+            'Luxury': 300
+        };
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const refs = {
-    productGrid: document.getElementById('productGrid'),
-    skeletonGrid: document.getElementById('skeletonGrid'),
-    indicator: document.getElementById('productIndicator'),
-    visibleCount: document.getElementById('visibleCount'),
-    totalCount: document.getElementById('totalCount'),
-    priceValue: document.getElementById('priceValue'),
-    priceRange: document.getElementById('priceRange'),
-    brandChips: document.getElementById('brandChips'),
-    sizeChips: document.getElementById('sizeChips'),
-    searchInput: document.getElementById('searchInput'),
-    filterSummary: document.getElementById('filterSummary'),
-    heroCarousel: document.getElementById('heroCarousel'),
-    heroTrack: document.getElementById('heroTrack'),
-    heroDots: Array.from(document.querySelectorAll('.hero-dot')),
-    heroSlides: Array.from(document.querySelectorAll('.hero-slide')),
-    infoButton: document.getElementById('infoButton'),
-    floatingWhatsApp: document.getElementById('floatingWhatsApp'),
-    modal: document.getElementById('productModal'),
-    modalGallery: document.getElementById('modalGallery'),
-    galleryIndicator: document.getElementById('galleryIndicator'),
-    modalName: document.getElementById('modalName'),
-    modalPrice: document.getElementById('modalPrice'),
-    modalDescription: document.getElementById('modalDescription'),
-    modalSizes: document.getElementById('modalSizes'),
-    modalBuy: document.getElementById('modalBuy'),
-    modalReserve: document.getElementById('modalReserve')
-  };
-  const priceMap = {
-    'Nike':150,
-    'Adidas':140,
-    'Jordan':180,
-    'Puma':130,
-    'Off White':260,
-    'Balenciaga':320,
-    'Luxury':250
-  };
-  const fallbackLines = [
-    'Nike Air Jordan 1 Retro High Royal Reimagined 39-46.jpg',
-    'Nike Dunk Low Panda Premium 38-44.jpg',
-    'Adidas Samba OG Cloud White 38-45.jpg',
-    'Adidas Forum 84 Low Off White 39-46.jpg',
-    'Jordan 4 Retro Thunder 40-47.jpg',
-    'Jordan 1 Mid SE Particle Grey 38-45.jpg',
-    'Puma RS-X Luxe Shadow 39-45.jpg',
-    'Puma Suede Classic Mono 38-44.jpg',
-    'Off White Out Of Office Meteor 40-46.jpg',
-    'Off White Odsy 1000 Black 40-46.jpg',
-    'Balenciaga Triple S Blackout 40-46.jpg',
-    'Balenciaga Track Sneaker White 40-46.jpg',
-    'Luxury Bottega Tire Boot 39-45.jpg',
-    'Luxury Dior B23 Oblique 39-45.jpg',
-    'Nike Air Max Pulse Phantom 38-44.jpg',
-    'Nike Air Force 1 Low Luxe 38-45.jpg',
-    'Adidas Ultraboost 1.0 Night 39-46.jpg',
-    'Adidas NMD R1 Core Black 39-45.jpg',
-    'Jordan 5 Retro UNC 40-47.jpg',
-    'Luxury LV Trainer Graphite 39-46.jpg'
-  ];
-  const state = { search:'', brand:'', size:'', price:Infinity };
-  const placeholderSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' width='480' height='480'><defs><linearGradient id='g' x1='0%' x2='100%'><stop offset='0%' stop-color='%23111827'/><stop offset='100%' stop-color='%230a0f16'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)'/><text x='50%' y='50%' fill='%239ca3af' font-size='22' font-family='Inter, sans-serif' text-anchor='middle'>STREETMOOD</text></svg>");
-  const waNumber = '351912345678';
-  let allProducts = [];
-  let filteredProducts = [];
-  let lazyObserver;
-  let heroIndex = 0;
-  let heroTimer;
-  let currentProduct = null;
-  let currentPage = 1;
-  let productsPerPage = 12;
+        // Estado da aplicação
+        let allProducts = [];
+        let filteredProducts = [];
+        let currentProduct = null;
 
-  init();
+        // Elementos DOM
+        const productsGrid = document.getElementById('productGrid');
+        const productCount = document.getElementById('count');
+        const searchInput = document.getElementById('searchInput');
+        const brandFilter = document.getElementById('brandFilter');
+        const sizeFilter = document.getElementById('sizeFilter');
+        const priceFilter = document.getElementById('priceFilter');
+        const priceSlider = document.getElementById('priceSlider');
+        const sliderValue = document.getElementById('sliderValue');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const modalBrand = document.getElementById('modalBrand');
+        const modalName = document.getElementById('modalName');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalSizes = document.getElementById('modalSizes');
+        const modalPrice = document.getElementById('modalPrice');
+        const modalBuy = document.getElementById('modalBuy');
+        const modalReserve = document.getElementById('modalReserve');
+        const whatsappFloat = document.getElementById('whatsappFloat');
+        const galleryTrack = document.getElementById('galleryTrack');
+        const galleryNav = document.getElementById('galleryNav');
 
-  function init(){
-    setupLazyObserver();
-    bindFilters();
-    setupHero();
-    setupGlobalCtas();
-    setupProductGridDelegation();
-    setupModal();
-    loadProducts();
-  }
-
-  async function loadProducts(){
-    try{
-      const response = await fetch('imagens.txt');
-      if(!response.ok) throw new Error('Sem catálogo remoto');
-      const text = await response.text();
-      const lines = text.split('\n').map(line => line.trim()).filter(Boolean);
-      allProducts = buildProductsFromLines(lines);
-    }catch(error){
-      console.warn('Falha no catálogo remoto, usando fallback reduzido.', error);
-      allProducts = buildProductsFromLines(fallbackLines);
-    }
-    if(refs.skeletonGrid){refs.skeletonGrid.remove();}
-    refs.skeletonGrid = null;
-    state.price = Math.max(...allProducts.map(p => p.price));
-    if(!isFinite(state.price)){state.price = Number(refs.priceRange.max);}
-    refs.priceRange.max = state.price;
-    refs.priceRange.value = state.price;
-    refs.priceValue.textContent = `≤ ${state.price}€`;
-    updatePriceTrack();
-    applyFilters();
-  }
-
-  function buildProductsFromLines(lines){
-    return lines.map((line, idx) => createProductFromImageName(line, idx + 1)).filter(Boolean);
-  }
-
-  function createProductFromImageName(fileName, id){
-    let clean = fileName.trim();
-    if(!clean) return null;
-    if(!/\.(jpg|jpeg|png)$/i.test(clean)){
-      clean += '.jpg';
-    }
-    const brand = detectBrand(clean);
-    const rangeMatch = clean.match(/(\d{2}-\d{2})/);
-    const range = rangeMatch ? rangeMatch[1] : '';
-    const sizes = range ? expandRange(range) : ['39','40','41','42','43','44','45'];
-    const baseName = clean.replace(/\.(jpg|jpeg|png)$/i,'');
-    const display = range ? baseName.replace(range,'').trim() : baseName;
-    const price = priceMap[brand] || 220;
-    const extMatch = clean.match(/\.(jpg|jpeg|png)$/i);
-    const ext = extMatch ? extMatch[0] : '.jpg';
-    const encodedPath = `./imagens_produtos/${clean}`;
-    const base = encodedPath.replace(ext,'');
-    const images = [
-      encodedPath,
-      `${base}-alt${ext}`,
-      `${base}-detail${ext}` 
-    ];
-    return {
-      id,
-      name: display.replace(/\s{2,}/g,' '),
-      brand,
-      sizes,
-      price,
-      images,
-      description:`${display} autenticado pela STREETMOOD, entrega express e garantia premium.` 
-    };
-  }
-
-  function detectBrand(str){
-    const brands = ['Balenciaga','Off White','Jordan','Nike','Adidas','Puma','Luxury'];
-    const lower = str.toLowerCase();
-    for(const brand of brands){
-      if(lower.includes(brand.toLowerCase())) return brand;
-    }
-    return 'Luxury';
-  }
-
-  function expandRange(range){
-    const [start,end] = range.split('-').map(Number);
-    if(isNaN(start) || isNaN(end)) return ['39','40','41','42','43','44','45'];
-    const arr = [];
-    for(let i=start;i<=end;i++){
-      arr.push(String(i));
-    }
-    return arr;
-  }
-
-  function setupLazyObserver(){
-    lazyObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          const img = entry.target;
-          const src = img.dataset.src;
-          if(src){
-            img.src = src;
-            img.onload = () => img.classList.add('loaded');
-            img.onerror = () => {
-              img.src = placeholderSvg;
-              img.classList.add('loaded');
-            };
-            observer.unobserve(img);
-          }
+        // Detectar marca pelo nome
+        function detectBrand(name) {
+            const upperName = name.toUpperCase();
+            
+            if (upperName.includes('NIKE') || upperName.includes('AIR') || upperName.includes('FORCE')) {
+                return 'Nike';
+            } else if (upperName.includes('ADIDAS')) {
+                return 'Adidas';
+            } else if (upperName.includes('JORDAN')) {
+                return 'Jordan';
+            } else if (upperName.includes('GUCCI') || upperName.includes('DIOR') || 
+                       upperName.includes('VERSACE') || upperName.includes('LOUIS')) {
+                return 'Luxury';
+            } else if (upperName.includes('PUMA')) {
+                return 'Puma';
+            } else if (upperName.includes('NEW BALANCE')) {
+                return 'New Balance';
+            } else if (upperName.includes('YEEZY')) {
+                return 'Adidas';
+            } else if (upperName.includes('BALENCIAGA') || upperName.includes('OFF WHITE')) {
+                return upperName.includes('BALENCIAGA') ? 'Balenciaga' : 'Off White';
+            } else {
+                return 'Nike';
+            }
         }
-      });
-    }, {rootMargin:'80px 0px', threshold:0.1});
-  }
 
-  function bindFilters(){
-    const debouncedSearch = debounce(value => {
-      state.search = value.toLowerCase();
-      applyFilters();
-    }, 220);
-    refs.searchInput.addEventListener('input', e => debouncedSearch(e.target.value.trim()));
-    refs.priceRange.addEventListener('input', e => {
-      state.price = Number(e.target.value);
-      refs.priceValue.textContent = `≤ ${state.price}€`;
-      updatePriceTrack();
-      applyFilters();
-    });
-    refs.brandChips.addEventListener('click', event => {
-      const chip = event.target.closest('[data-brand]');
-      if(!chip) return;
-      const value = chip.dataset.brand;
-      state.brand = state.brand === value ? '' : value;
-      updateChipGroup(refs.brandChips, 'brand', state.brand);
-      applyFilters();
-    });
-    refs.sizeChips.addEventListener('click', event => {
-      const chip = event.target.closest('[data-size]');
-      if(!chip) return;
-      const value = chip.dataset.size;
-      state.size = state.size === value ? '' : value;
-      updateChipGroup(refs.sizeChips, 'size', state.size);
-      applyFilters();
-    });
-  }
+        // Gerar tamanhos baseado no nome
+        function generateSizes(name) {
+            const upperName = name.toUpperCase();
+            const sizes = [];
+            
+            // Tamanhos base para todos
+            const baseSizes = ['40', '41', '42', '43', '44'];
+            
+            // Verificar se há tamanhos específicos no nome
+            const sizeMatch = name.match(/\((\d+)-?(\d*)\)/);
+            if (sizeMatch) {
+                const startSize = parseInt(sizeMatch[1]);
+                const endSize = sizeMatch[2] ? parseInt(sizeMatch[2]) : startSize;
+                
+                for (let size = startSize; size <= endSize; size++) {
+                    sizes.push(size.toString());
+                }
+            } else {
+                // Adicionar tamanhos base
+                sizes.push(...baseSizes);
+            }
+            
+            return sizes;
+        }
 
-  function updateChipGroup(group, attr, value){
-    group.querySelectorAll(`[data-${attr}]`).forEach(chip => {
-      chip.classList.toggle('is-active', chip.dataset[attr] === value);
-    });
-    if(value === ''){
-      const defaultChip = group.querySelector(`[data-${attr}=""]`);
-      if(defaultChip) defaultChip.classList.add('is-active');
-    }
-  }
+        // Gerar preço baseado na marca e tipo
+        function generatePrice(name, brand) {
+            const upperName = name.toUpperCase();
+            
+            let price = BRAND_PRICES[brand] || 150;
+            
+            // Ajustar preço baseado em características
+            if (upperName.includes('LUXURY') || upperName.includes('PREMIUM')) {
+                price += 100;
+            }
+            if (upperName.includes('LIMITED') || upperName.includes('EXCLUSIVE')) {
+                price += 80;
+            }
+            if (upperName.includes('HIGH') || upperName.includes('RETRO')) {
+                price += 50;
+            }
+            
+            // Adicionar variação aleatória
+            price += Math.floor(Math.random() * 50) - 25;
+            
+            return Math.max(50, Math.min(500, price));
+        }
 
-  function updatePriceTrack(){
-    const slider = refs.priceRange;
-    const min = Number(slider.min);
-    const max = Number(slider.max);
-    const percent = ((state.price - min)/(max - min))*100;
-    slider.style.background = `linear-gradient(90deg,var(--accent) ${percent}%,rgba(255,255,255,0.2) ${percent}%)`;
-  }
+        // Gerar descrição
+        function generateDescription(name, brand) {
+            const upperName = name.toUpperCase();
+            
+            if (upperName.includes('CASACO') || upperName.includes('COLETE')) {
+                return `Peça exclusiva da ${brand}, confeccionada com materiais premium. Ideal para o inverno.`;
+            } else if (upperName.includes('MOLETOM') || upperName.includes('HOODIE')) {
+                return `Moletom premium da ${brand}, 100% algodão com design exclusivo e acabamento impecável.`;
+            } else {
+                return `Modelo exclusivo da ${brand}, design moderno e materiais de alta qualidade. Conforto garantido.`;
+            }
+        }
 
-  function applyFilters(){
-    const filtered = allProducts.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(state.search);
-      const matchesSize = state.size === '' || product.sizes.includes(state.size);
-      const matchesPrice = product.price <= state.price;
-      const matchesBrand = state.brand === '' || product.brand === state.brand;
-      return matchesSearch && matchesSize && matchesPrice && matchesBrand;
-    });
-    const brandOrder = ['Nike','Jordan','Adidas','Puma','Off White','Balenciaga','Luxury'];
-    const priority = brandOrder.reduce((acc, brand, index) => {
-      acc[brand] = index;
-      return acc;
-    }, {});
-    filtered.sort((a,b) => {
-      const diff = (priority[a.brand] ?? 99) - (priority[b.brand] ?? 99);
-      if(diff !== 0) return diff;
-      return b.price - a.price;
-    });
-    filteredProducts = filtered;
-    updateCounters();
-    updateFilterSummary();
-    renderProducts();
-  }
+        // Carregar produtos manualmente (fallback)
+        function loadProductsManually() {
+            const productImages = [
+                'AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg',
+                'Nike Air Force 1 Low_5.jpg',
+                'Adidas Originals Samba_5.jpg',
+                'Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg',
+                'Yeezy Boost 700 V2 Geode – EG6860_5.png',
+                'New Balance 530_5.jpg',
+                'Puma LaMelo Ball MB.02_4.jpg',
+                'Air Jordan 4 Retro black particle40-46_4.jpg',
+                'Nike Air Max 270_5.jpg',
+                'Dior B22_5.jpg',
+                'Louis Vuitton x Nike Air Force 1_5.jpg',
+                'Off-White Já volto Branco cinza jade preto_5.jpeg',
+                'casaco polo ralph lauren azul.jpg',
+                'colete polo ralph lauren branco.png',
+                'TRAPSTAR_1.jpg',
+                'The North Face _1996(XS-2XL)_1.jpg',
+                'Nike Shox Ride 2 (36-46)_5.jpeg',
+                'Máx. 95 1895-132 (40-46)_5.jpg',
+                'Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg'
+            ];
+            
+            allProducts = productImages.map((filename, index) => {
+                const name = filename.replace(/\.(jpg|jpeg|png)$/i, '');
+                const brand = detectBrand(name);
+                
+                return {
+                    id: index + 1,
+                    name: name,
+                    brand: brand,
+                    sizes: generateSizes(name),
+                    price: generatePrice(name, brand),
+                    images: [filename],
+                    description: generateDescription(name, brand)
+                };
+            });
+            
+            console.log(`✅ ${allProducts.length} produtos carregados manualmente`);
+            filteredProducts = [...allProducts];
+            renderProducts();
+        }
 
-  function setupPagination(){
-    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-    const startIndex = (currentPage - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
-    const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
-    renderPaginatedProducts(paginatedProducts);
-  }
+        // Renderizar produtos
+        function renderProducts() {
+            productsGrid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const card = createProductCard(product);
+                productsGrid.appendChild(card);
+            });
+        }
 
-  function renderPaginatedProducts(products){
-    refs.productGrid.innerHTML = '';
-    if(!products.length){
-      refs.productGrid.innerHTML = `<div class="empty-state">
-        <p>Nenhum drop encontrado.</p>
-        <p class="muted small">Ajuste filtros ou fale com nosso concierge.</p>
-      </div>`;
-      return;
-    }
-    const fragment = document.createDocumentFragment();
-    products.forEach(product => {
-      const wrapper = document.createElement('div');
-      wrapper.innerHTML = createProductCard(product);
-      const card = wrapper.firstElementChild;
-      const img = card.querySelector('img');
-      lazyObserver.observe(img);
-      fragment.appendChild(card);
-    });
-    refs.productGrid.appendChild(fragment);
-  }
+        // Criar card de produto
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const imageUrl = `./imagens_produtos/${product.images[0]}`;
+            
+            card.innerHTML = `
+              <div class="card-image">
+                <img src="${imageUrl}" 
+                     alt="${product.name}"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23333%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2224%22%3E👟%3C/text%3E%3C/svg%3E'">
+                <div class="sizes-badge">${product.sizes.length} tamanhos</div>
+              </div>
+              <div class="card-content">
+                <div class="brand">${product.brand}</div>
+                <h3 class="name">${product.name}</h3>
+                <div class="price">${product.price}€</div>
+                <div class="card-buttons">
+                  <button class="btn btn-primary" onclick="buyProduct('${product.name}')">Comprar</button>
+                  <button class="btn btn-secondary" onclick="reserveProduct('${product.name}')">Reservar</button>
+                </div>
+              </div>
+            `;
+            
+            card.addEventListener('click', (e) => {
+                if (e.target.tagName.toLowerCase() !== 'button') {
+                    openModal(product);
+                }
+            });
+            
+            return card;
+        }
 
-  function updateCounters(){
-    refs.visibleCount.textContent = filteredProducts.length;
-    refs.totalCount.textContent = allProducts.length;
-    refs.indicator.textContent = `Mostrando ${filteredProducts.length} / ${allProducts.length} drops`;
-  }
+        // Abrir modal
+        function openModal(product) {
+            currentProduct = product;
+            
+            modalBrand.textContent = product.brand;
+            modalName.textContent = product.name;
+            modalDescription.textContent = product.description;
+            modalPrice.textContent = `${product.price}€`;
+            
+            // Tamanhos
+            modalSizes.innerHTML = '';
+            product.sizes.forEach(size => {
+                const sizeEl = document.createElement('div');
+                sizeEl.className = 'size-option';
+                sizeEl.textContent = size;
+                modalSizes.appendChild(sizeEl);
+            });
+            
+            // Galeria
+            galleryTrack.innerHTML = '';
+            galleryNav.innerHTML = '';
+            
+            product.images.forEach((img, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'gallery-slide';
+                slide.innerHTML = `<div class="image-placeholder">👟</div>`;
+                galleryTrack.appendChild(slide);
+                
+                const dot = document.createElement('div');
+                dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
+                dot.dataset.index = index;
+                galleryNav.appendChild(dot);
+            });
+            
+            modalOverlay.style.display = 'flex';
+        }
 
-  function updateFilterSummary(){
-    const parts = [];
-    if(state.brand) parts.push(state.brand);
-    if(state.size) parts.push(`Tamanho ${state.size}`);
-    const sliderMax = Number(refs.priceRange.max);
-    if(state.price < sliderMax) parts.push(`≤ ${state.price}€`);
-    if(state.search) parts.push(`"${state.search}"`);
-    refs.filterSummary.textContent = parts.length ? `Filtros: ${parts.join(' • ')}` : 'Sem filtros ativos';
-  }
+        // Fechar modal
+        function closeModalFunc() {
+            modalOverlay.style.display = 'none';
+        }
 
-  function renderProducts(){
-    setupPagination();
-  }
+        // Comprar produto
+        function buyProduct(productName) {
+            const message = `Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/351912345678?text=${encodedMessage}`, '_blank');
+        }
 
-  function createProductCard(product){
-    const sizes = product.sizes.slice(0,5).join(' · ') + (product.sizes.length>5 ? ' +' : '');
-    return `
-      <article class="product-card" data-id="${product.id}" tabindex="0">
-        <div class="product-media">
-          <img data-src="${product.images[0]}" src="${placeholderSvg}" alt="${product.name}" class="product-img" loading="lazy">
-          <span class="tag brand">${product.brand}</span>
-          <span class="tag edition">Drop</span>
-        </div>
-        <div class="product-info">
-          <div>
-            <h3>${product.name}</h3>
-            <p class="muted small">${product.brand}</p>
-          </div>
-          <div class="product-meta">
-            <span class="muted small">${sizes}</span>
-            <strong>${formatPrice(product.price)}</strong>
-          </div>
-        </div>
-        <div class="product-actions">
-          <button type="button" class="btn primary" data-action="buy">COMPRAR</button>
-          <button type="button" class="btn ghost" data-action="reserve">RESERVAR</button>
-        </div>
-      </article>
-    `;
-  }
+        // Reservar produto
+        function reserveProduct(productName) {
+            const message = `Olá STREETMOOD 👟 quero reservar o ${productName}`;
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/351912345678?text=${encodedMessage}`, '_blank');
+        }
 
-  function formatPrice(value){
-    return `${value.toLocaleString('pt-PT',{minimumFractionDigits:0})}€`;
-  }
+        // Filtrar produtos
+        function filterProducts() {
+            const search = searchInput.value.toLowerCase();
+            const brand = brandFilter.value;
+            const size = sizeFilter.value;
+            const maxPrice = parseInt(priceSlider.value);
+            
+            filteredProducts = allProducts.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search);
+                const matchesSize = size === '' || p.sizes.includes(size);
+                const matchesPrice = p.price <= maxPrice;
+                return matchesSearch && matchesSize && matchesPrice;
+            });
+            
+            renderProducts();
+            updateProductCount();
+        }
 
-  function setupHero(){
-    const track = refs.heroTrack;
-    const slides = refs.heroSlides;
-    const dots = refs.heroDots;
-    const carousel = refs.heroCarousel;
-    const goTo = index => {
-      heroIndex = (index + slides.length) % slides.length;
-      track.style.transform = `translateX(-${heroIndex * 100}%)`;
-      dots.forEach((dot,i) => dot.classList.toggle('active', i===heroIndex));
-    };
-    const startAutoplay = () => {
-      clearInterval(heroTimer);
-      heroTimer = setInterval(() => goTo(heroIndex + 1), 4500);
-    };
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        goTo(Number(dot.dataset.slide));
-        startAutoplay();
-      });
-    });
-    let startX = 0;
-    carousel.addEventListener('touchstart', e => {startX = e.touches[0].clientX;},{passive:true});
-    carousel.addEventListener('touchend', e => {
-      const delta = e.changedTouches[0].clientX - startX;
-      if(Math.abs(delta) > 40){
-        goTo(delta < 0 ? heroIndex + 1 : heroIndex - 1);
-        startAutoplay();
-      }
-    },{passive:true});
-    goTo(0);
-    startAutoplay();
-  }
+        // Atualizar contador
+        function updateProductCount() {
+            productCount.textContent = filteredProducts.length;
+        }
 
-  function setupGlobalCtas(){
-    document.querySelectorAll('[data-scroll-to]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const target = document.querySelector(btn.dataset.scrollTo);
-        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-      });
-    });
-    const heroWhatsapp = document.querySelector('[data-action="hero-whatsapp"]');
-    if(heroWhatsapp){
-      heroWhatsapp.addEventListener('click', () => openWhatsApp('Olá STREETMOOD 👟 gostaria de mais informações'));
-    }
-    if(refs.infoButton){
-      refs.infoButton.addEventListener('click', () => openWhatsApp('Olá STREETMOOD 👟 gostaria de mais informações'));
-    }
-    if(refs.floatingWhatsApp){
-      refs.floatingWhatsApp.addEventListener('click', () => openWhatsApp('Olá STREETMOOD 👟 gostaria de mais informações'));
-    }
-  }
+        // Event listeners
+        searchInput.addEventListener('input', filterProducts);
+        brandFilter.addEventListener('change', filterProducts);
+        sizeFilter.addEventListener('change', filterProducts);
+        priceFilter.addEventListener('change', () => {
+            priceSlider.value = priceFilter.value;
+            sliderValue.textContent = `${priceSlider.value}€`;
+            filterProducts();
+        });
+        
+        priceSlider.addEventListener('input', () => {
+            sliderValue.textContent = `${priceSlider.value}€`;
+            filterProducts();
+        });
+        
+        closeModal.addEventListener('click', closeModalFunc);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModalFunc();
+        });
+        
+        modalBuy.addEventListener('click', () => {
+            if (currentProduct) buyProduct(currentProduct.name);
+        });
+        
+        modalReserve.addEventListener('click', () => {
+            if (currentProduct) reserveProduct(currentProduct.name);
+        });
+        
+        // Galeria
+        galleryNav.addEventListener('click', (e) => {
+            if (e.target.classList.contains('gallery-dot')) {
+                const index = parseInt(e.target.dataset.index);
+                const track = document.querySelector('.gallery-track');
+                track.style.transform = `translateX(-${index * 100}%)`;
+                
+                document.querySelectorAll('.gallery-dot').forEach(dot => {
+                    dot.classList.remove('active');
+                });
+                e.target.classList.add('active');
+            }
+        });
+        
+        // WhatsApp
+        whatsappFloat.addEventListener('click', () => {
+            const message = encodeURIComponent("Olá STREETMOOD 👟 gostaria de mais informações");
+            whatsappFloat.href = `https://wa.me/351912345678?text=${message}`;
+        });
 
-  function setupProductGridDelegation(){
-    refs.productGrid.addEventListener('click', event => {
-      const card = event.target.closest('.product-card');
-      if(!card) return;
-      const product = allProducts.find(item => item.id === Number(card.dataset.id));
-      if(!product) return;
-      const actionBtn = event.target.closest('[data-action]');
-      if(actionBtn){
-        event.stopPropagation();
-        if(actionBtn.dataset.action === 'buy') sendBuy(product);
-        if(actionBtn.dataset.action === 'reserve') sendReserve(product);
-        return;
-      }
-      openModal(product);
-    });
-  }
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 STREETMOOD Glassmorphism - Iniciando...');
+            loadProductsManually();
+            updateProductCount();
+        });
 
-  function setupModal(){
-    refs.modal.addEventListener('click', event => {
-      if(event.target.dataset.closeModal !== undefined){
-        closeModal();
-      }
-    });
-    document.addEventListener('keydown', event => {
-      if(event.key === 'Escape') closeModal();
-    });
-    refs.modalGallery.addEventListener('scroll', debounce(updateGalleryIndicator, 60), {passive:true});
-    refs.modalBuy.addEventListener('click', () => currentProduct && sendBuy(currentProduct));
-    refs.modalReserve.addEventListener('click', () => currentProduct && sendReserve(currentProduct));
-  }
-
-  function openModal(product){
-    currentProduct = product;
-    refs.modalName.textContent = product.name;
-    refs.modalPrice.textContent = formatPrice(product.price);
-    refs.modalDescription.textContent = product.description;
-    refs.modalSizes.innerHTML = product.sizes.map(size => `<span class="modal-size-pill">${size}</span>`).join('');
-    refs.modalGallery.innerHTML = '';
-    product.images.forEach(src => {
-      const thumb = document.createElement('div');
-      thumb.className = 'modal-thumb';
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = product.name;
-      img.onerror = () => { img.src = placeholderSvg; };
-      thumb.appendChild(img);
-      refs.modalGallery.appendChild(thumb);
-    });
-    refs.modalGallery.scrollLeft = 0;
-    refs.galleryIndicator.textContent = `1 / ${product.images.length}`;
-    refs.modal.classList.add('is-visible');
-    document.body.classList.add('modal-open');
-  }
-
-  function closeModal(){
-    refs.modal.classList.remove('is-visible');
-    document.body.classList.remove('modal-open');
-  }
-
-  function updateGalleryIndicator(){
-    const total = refs.modalGallery.children.length || 1;
-    const width = refs.modalGallery.clientWidth || 1;
-    const index = Math.round(refs.modalGallery.scrollLeft / width);
-    refs.galleryIndicator.textContent = `${index + 1} / ${total}`;
-  }
-
-  function sendBuy(product){
-    const message = `Olá STREETMOOD 👟 quero comprar o ${product.name} ainda está disponível?`;
-    openWhatsApp(message);
-  }
-
-  function sendReserve(product){
-    const message = `Olá STREETMOOD 👟 quero reservar o ${product.name}`;
-    openWhatsApp(message);
-  }
-
-  function openWhatsApp(message){
-    const encoded = encodeURIComponent(message);
-    window.open(`https://wa.me/${waNumber}?text=${encoded}`,'_blank');
-  }
-
-  function debounce(fn, delay){
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => fn.apply(null, args), delay);
-    };
-  }
-});
-</script>
+        console.log('✅ STREETMOOD Glassmorphism - Sistema carregado!');
+    </script>
 </body>
 </html>

@@ -4,6 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>STREETMOOD | Catálogo Premium</title>
+<!-- Schema Markup SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "STREETMOOD",
+  "url": "https://srteetm00d-png.github.io/streetm00d_/",
+  "logo": "https://srteetm00d-png.github.io/streetm00d_/streetm00d_.jpeg",
+  "description": "STREETMOOD: O catálogo premium de sneakers e streetwear. Descubra lançamentos exclusivos e edições limitadas com um design moderno e elegante inspirado nos melhores marketplaces.",
+  "sameAs": [
+    "https://www.instagram.com/streetm00d/",
+    "https://www.facebook.com/streetm00d/"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua da Moda, 123",
+    "addressLocality": "Lisboa",
+    "postalCode": "1000-000",
+    "addressCountry": "PT"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+351912345678",
+    "contactType": "CustomerService",
+    "availableLanguage": ["pt", "en"],
+    "areaServed": "PT"
+  }
+}
+</script>
 <style>
 /* CSS para STREETMOOD - Edição Premium com Glassmorphism */
 
@@ -1219,6 +1248,9 @@ function updateProductCount() {
 function openProductModal(product) {
     currentProductModal = product;
     
+    // Adicionar Schema dinâmico do produto ao head
+    addProductSchemaToHead(product);
+    
     modalBrandSpan.textContent = product.brand;
     modalNameH1.textContent = product.name;
     modalDescriptionP.textContent = product.description;
@@ -1477,40 +1509,48 @@ function simulateProductModalData(product) {
     // Se houver mais detalhes, seriam extraídos aqui.
 }
 
-// 9. SEO Schema Markup (Exemplo)
-// Este JSON-LD deve ser inserido na seção <head> do HTML.
-/*
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProductModel", // Ou "Product" se for um item específico
-  "name": "Air Jordan 4 Retro",
-  "description": "Edição retro com design clássico e conforto premium.",
-  "brand": {
-    "@type": "Brand",
-    "name": "Jordan"
-  },
-  "image": [
-    "URL_DA_IMAGEM_PRINCIPAL_1.jpg",
-    "URL_DA_IMAGEM_PRINCIPAL_2.jpg"
-  ],
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "EUR",
-    "price": "180",
-    "availability": "https://schema.org/InStock", // Ou OutOfStock
-    "seller": {
-      "@type": "Organization",
-      "name": "STREETMOOD"
-    }
-  },
-  "sku": "JD-AJ4-RETRO-180", // Stock Keeping Unit (opcional)
-  "mpn": "CT8527-010", // Manufacturer Part Number (opcional)
-  "color": "Black/Red", // Exemplo de cor
-  "category": "Tênis Masculino"
+// 9. SEO Schema Markup (Dinâmico)
+function generateProductSchema(product) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": product.name,
+        "description": product.description,
+        "brand": {
+            "@type": "Brand",
+            "name": product.brand
+        },
+        "image": product.images.map((img, index) => 
+            `https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/${img.replace(/👟\d+/, '')}.jpg`
+        ),
+        "offers": {
+            "@type": "Offer",
+            "priceCurrency": "EUR",
+            "price": product.price,
+            "availability": "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "STREETMOOD"
+            }
+        },
+        "sku": `${product.brand}-${product.name.replace(/\s+/g, '-').toUpperCase()}-${product.price}`,
+        "color": product.colorway || 'N/A',
+        "category": product.brand === 'Jordan' || product.brand === 'Balenciaga' ? 'Tênis Masculino' : 'Tênis Unissex'
+    };
 }
-</script>
-*/
+
+// Adicionar Schema dinâmico ao abrir modal
+function addProductSchemaToHead(product) {
+    const existingScript = document.querySelector('script[type="application/ld+json"]');
+    if (existingScript) {
+        existingScript.remove();
+    }
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(generateProductSchema(product));
+    document.head.appendChild(script);
+}
 
 // Lembre-se de substituir os caminhos de imagem simulados e o WHATSAPP_NUMBER.
 

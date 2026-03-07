@@ -14,15 +14,29 @@
         html { scroll-behavior: smooth; }
         body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
         
-        #desktop-warning {
-            display: none; position: fixed; inset: 0; background: var(--bg); color: var(--text);
-            flex-direction: column; align-items: center; justify-content: center; text-align: center;
-            z-index: 2000; padding: 20px;
+        #mobile-only {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
         }
-        #desktop-warning .icon { font-size: 5rem; margin-bottom: 20px; }
-        #desktop-warning h1 { font-size: 2.5rem; margin: 0; color: var(--accent); }
-        #desktop-warning p { font-size: 1.2rem; color: var(--text-muted); max-width: 400px; }
-
+        .warning-box {
+            text-align: center;
+            padding: 20px;
+        }
+        .warning-box h1 {
+            margin-bottom: 0.5em;
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+        .warning-box p {
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-size: 1rem;
+        }
         #mobile-content { display: none; }
         .container { width: 100%; max-width: 1280px; margin: 0 auto; }
         header {
@@ -88,12 +102,28 @@
     </style>
 </head>
 <body>
+  <script>
+    (function() {
+      const ua = navigator.userAgent;
+      const isTouch = navigator.maxTouchPoints && navigator.maxTouchPoints > 1;
+      const isMobileUA = /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i
+                         .test(ua);
+      const isMobile = isMobileUA || (ua.includes("iPad") || isTouch);
 
-    <div id="desktop-warning">
-        <div class="icon">📱</div>
-        <h1>Experiência Mobile</h1>
-        <p>Este site foi desenhado exclusivamente para dispositivos móveis. Por favor, aceda através do seu telemóvel para a melhor experiência.</p>
-    </div>
+      if (!isMobile) {
+        document.body.innerHTML = `
+          <div id="mobile-only">
+            <div class="warning-box">
+              <h1>⚠️ Apenas para Mobile!</h1>
+              <p>Este site foi desenhado exclusivamente para<br>dispositivos móveis.<br>
+              Abra-o em um smartphone ou tablet para continuar.</p>
+            </div>
+          </div>
+        `;
+        return;
+      }
+    })();
+  </script>
 
     <div id="mobile-content">
         <div class="container">
@@ -133,23 +163,6 @@
         let allProducts = [];
         let currentProduct = null;
         const INSTAGRAM_USERNAME = "streetm00d_";
-
-        function checkDevice() {
-            const warningDiv = document.getElementById('desktop-warning');
-            const contentDiv = document.getElementById('mobile-content');
-            const isDesktop = window.innerWidth > 768;
-
-            if (isDesktop) {
-                warningDiv.style.display = 'flex';
-                contentDiv.style.display = 'none';
-            } else {
-                warningDiv.style.display = 'none';
-                contentDiv.style.display = 'block';
-                if (allProducts.length === 0) {
-                    loadProducts();
-                }
-            }
-        }
 
         async function loadProducts() {
             try {
@@ -260,7 +273,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            checkDevice();
+            loadProducts();
 
             document.getElementById('search').addEventListener('input', (e) => {
                 const term = e.target.value.toLowerCase();
@@ -278,8 +291,6 @@
                 });
             });
         });
-        
-        window.addEventListener('resize', checkDevice);
     </script>
 </body>
 </html>

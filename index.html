@@ -3,276 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>STREETMOOD | Premium Streetwear</title>
+    <title>STREETMOOD</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f1720;
-            --card-bg: #111827;
-            --accent: #ef4444;
-            --text: #ffffff;
-            --text-muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.08);
-            --glass: rgba(17, 24, 39, 0.8);
+            --bg: #0f1720; --card-bg: #111827; --accent: #ef4444; --text: #ffffff;
+            --text-muted: #94a3b8; --border: rgba(255, 255, 255, 0.08); --glass: rgba(17, 24, 39, 0.8);
         }
-
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         html { scroll-behavior: smooth; }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Space Grotesk', sans-serif;
+        body { margin: 0; background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+        
+        #desktop-warning {
+            display: none; position: fixed; inset: 0; background: var(--bg); color: var(--text);
+            flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            z-index: 2000; padding: 20px;
         }
+        #desktop-warning .icon { font-size: 5rem; margin-bottom: 20px; }
+        #desktop-warning h1 { font-size: 2.5rem; margin: 0; color: var(--accent); }
+        #desktop-warning p { font-size: 1.2rem; color: var(--text-muted); max-width: 400px; }
 
-        .container {
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        /* --- Header --- */
+        #mobile-content { display: none; }
+        .container { width: 100%; max-width: 1280px; margin: 0 auto; }
         header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100; padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
+            background: var(--glass); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
         }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
         .logo span { color: var(--accent); }
-
-        /* --- Hero --- */
-        .hero { padding: 40px 20px; position: relative; overflow: hidden; }
+        .hero { padding: 40px 20px; }
         .hero h1 { font-size: 3.5rem; line-height: 0.85; margin: 0; text-transform: uppercase; font-weight: 700; }
-        .hero p { color: var(--text-muted); margin: 15px 0 25px; font-size: 1rem; max-width: 80%; }
+        .hero p { color: var(--text-muted); margin: 15px 0 25px; font-size: 1rem; max-width: 90%; }
         .btn-explore {
-            background: var(--accent);
-            color: white;
-            padding: 18px 35px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-            transition: transform 0.2s ease;
+            background: var(--accent); color: white; padding: 18px 35px; border-radius: 12px;
+            text-decoration: none; font-weight: 700; display: inline-block; text-transform: uppercase;
+            font-size: 0.8rem; box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
         }
-        .btn-explore:hover {
-            transform: translateY(-3px);
-        }
-
-        /* --- Filters --- */
-        .sticky-tools {
-            position: sticky;
-            top: 70px;
-            z-index: 90;
-            background: var(--bg);
-            padding: 10px 20px 20px;
-        }
+        .sticky-tools { position: sticky; top: 70px; z-index: 90; background: var(--bg); padding: 10px 20px 20px; }
         .search-box {
-            width: 100%;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 16px;
-            border-radius: 14px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            margin-bottom: 15px;
+            width: 100%; background: var(--card-bg); border: 1px solid var(--border); padding: 16px;
+            border-radius: 14px; color: white; font-size: 1rem; outline: none; margin-bottom: 15px;
         }
-        .chips {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: 5px;
-        }
+        .chips { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding-bottom: 5px; }
         .chips::-webkit-scrollbar { display: none; }
         .chip {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 10px 20px;
-            border-radius: 50px;
-            white-space: nowrap;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
+            background: var(--card-bg); border: 1px solid var(--border); padding: 10px 20px; border-radius: 50px;
+            white-space: nowrap; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: background-color 0.3s, border-color 0.3s;
         }
         .chip.active, .chip:hover { background: var(--accent); border-color: var(--accent); }
-
-        /* --- Grid --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-            gap: 15px;
-            padding: 10px 20px;
-        }
-
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 15px; padding: 10px 20px; }
         .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 10px;
-            border: 1px solid var(--border);
-            position: relative;
-            cursor: pointer;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: translateY(30px);
+            background: var(--card-bg); border-radius: 20px; padding: 10px; border: 1px solid var(--border);
+            position: relative; cursor: pointer; opacity: 0; transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
         .card.reveal { opacity: 1; transform: translateY(0); }
-        
-        .img-container {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #1a2230;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
+        .img-container { width: 100%; aspect-ratio: 1/1; background: #1a2230; border-radius: 15px; overflow: hidden; margin-bottom: 12px; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
-
         .card-info h3 { font-size: 0.85rem; margin: 0; font-weight: 500; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .card-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin: 8px 0; }
         .card-size { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
-
-        /* --- Modal (Design Único para Todos os Dispositivos) --- */
         #modal {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease;
+            position: fixed; inset: 0; background: var(--bg); z-index: 1000; display: none; flex-direction: column;
+            overflow-y: auto; animation: fadeIn 0.3s ease-in-out;
         }
-
         .modal-header { padding: calc(20px + env(safe-area-inset-top)) 20px; display: flex; justify-content: space-between; align-items: center; }
         .close-modal { font-size: 2rem; background: none; border: none; color: white; cursor: pointer; line-height: 1; }
-
-        .slider {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 10px;
-            padding: 0 20px;
-            -webkit-overflow-scrolling: touch;
-        }
-        .slider img {
-            flex: 0 0 90%;
-            scroll-snap-align: center;
-            border-radius: 24px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            background: var(--card-bg);
-        }
-
+        .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 15px; padding: 0 20px; -webkit-overflow-scrolling: touch; }
+        .slider img { flex: 0 0 90%; scroll-snap-align: center; border-radius: 24px; aspect-ratio: 1/1; object-fit: cover; background: var(--card-bg); }
         .modal-content { padding: 30px 20px; }
         .modal-name { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
         .modal-price { font-size: 1.8rem; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
-        
         .modal-footer {
-            position: sticky;
-            bottom: 0;
-            padding: 20px;
-            padding-bottom: calc(20px + env(safe-area-inset-bottom));
-            background: linear-gradient(transparent, var(--bg) 20%);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            position: sticky; bottom: 0; padding: 20px; padding-bottom: calc(20px + env(safe-area-inset-bottom));
+            background: linear-gradient(transparent, var(--bg) 20%); display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
         }
-        .btn-action {
-            padding: 20px;
-            border-radius: 15px;
-            border: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-family: inherit;
-            cursor: pointer;
-        }
+        .btn-action { padding: 20px; border-radius: 15px; border: none; font-weight: 700; text-transform: uppercase; font-family: inherit; cursor: pointer; }
         .buy { background: var(--accent); color: white; }
         .reserve { background: white; color: black; }
-
         .counter { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="logo">STREET<span>MOOD</span></div>
-                <div id="item-count" class="counter">Carregando...</div>
-            </div>
-        </header>
-
-        <section class="hero">
-            <h1>STREET<br>MOOD</h1>
-            <p>O maior catálogo premium de sneakers e streetwear exclusivo.</p>
-            <a href="#grid-anchor" class="btn-explore">Explorar Drop</a>
-        </section>
-
-        <div class="sticky-tools" id="grid-anchor">
-            <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
-            <div class="chips">
-                <div class="chip active" data-filter="all">Todos</div>
-                <div class="chip" data-filter="Nike">Nike</div>
-                <div class="chip" data-filter="Jordan">Jordan</div>
-                <div class="chip" data-filter="Adidas">Adidas</div>
-                <div class="chip" data-filter="Yeezy">Yeezy</div>
-                <div class="chip" data-filter="Louis Vuitton">LV</div>
-                <div class="chip" data-filter="Dior">Dior</div>
-            </div>
-        </div>
-
-        <main class="grid" id="main-grid"></main>
+    <div id="desktop-warning">
+        <div class="icon">📱</div>
+        <h1>Experiência Mobile</h1>
+        <p>Este site foi desenhado exclusivamente para dispositivos móveis. Por favor, aceda através do seu telemóvel para a melhor experiência.</p>
     </div>
 
-    <!-- Modal (será populado via JS) -->
-    <div id="modal"></div>
+    <div id="mobile-content">
+        <div class="container">
+            <header>
+                <div class="header-content">
+                    <div class="logo">STREET<span>MOOD</span></div>
+                    <div id="item-count" class="counter">Carregando...</div>
+                </div>
+            </header>
+
+            <section class="hero">
+                <h1>STREET<br>MOOD</h1>
+                <p>O maior catálogo premium de sneakers e streetwear exclusivo.</p>
+                <a href="#grid-anchor" class="btn-explore">Explorar Drop</a>
+            </section>
+
+            <div class="sticky-tools" id="grid-anchor">
+                <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
+                <div class="chips">
+                    <div class="chip active" data-filter="all">Todos</div>
+                    <div class="chip" data-filter="Nike">Nike</div>
+                    <div class="chip" data-filter="Jordan">Jordan</div>
+                    <div class="chip" data-filter="Adidas">Adidas</div>
+                    <div class="chip" data-filter="Yeezy">Yeezy</div>
+                    <div class="chip" data-filter="Louis Vuitton">LV</div>
+                    <div class="chip" data-filter="Dior">Dior</div>
+                </div>
+            </div>
+
+            <main class="grid" id="main-grid"></main>
+        </div>
+
+        <div id="modal"></div>
+    </div>
 
     <script>
-        let products = [];
-        let currentP = null;
+        let allProducts = [];
+        let currentProduct = null;
         const INSTAGRAM_USERNAME = "streetm00d_";
 
-        async function loadData() {
-            let tsvText;
-            try {
-                const res = await fetch("produtos.tsv");
-                if (!res.ok) throw new Error("TSV externo não encontrado");
-                tsvText = await res.text();
-            } catch (err) {
-                console.warn("❗ Falha ao buscar produtos.tsv → usando fallback interno");
-                tsvText = fallbackTSV;
+        function checkDevice() {
+            const warningDiv = document.getElementById('desktop-warning');
+            const contentDiv = document.getElementById('mobile-content');
+            const isDesktop = window.innerWidth > 768;
+
+            if (isDesktop) {
+                warningDiv.style.display = 'flex';
+                contentDiv.style.display = 'none';
+            } else {
+                warningDiv.style.display = 'none';
+                contentDiv.style.display = 'block';
+                if (allProducts.length === 0) {
+                    loadProducts();
+                }
             }
-            processTSV(tsvText);
         }
 
-        function processTSV(text) {
-            const lines = text.split('\n').filter(line => line.trim() !== '');
+        async function loadProducts() {
+            try {
+                const response = await fetch('produtos.tsv');
+                if (!response.ok) throw new Error('Falha na rede');
+                const rawData = await response.text();
+                parseData(rawData);
+            } catch (error) {
+                console.error("Erro ao carregar produtos:", error);
+                document.getElementById('main-grid').innerHTML = "<p style='padding: 20px;'>Não foi possível carregar os produtos.</p>";
+            }
+        }
+
+        function parseData(rawData) {
+            const lines = rawData.split('\n').filter(line => line.trim() !== '');
             const grouped = {};
             lines.forEach(line => {
                 const [nome, tamanhos, preco, imagem] = line.split('\t');
@@ -281,58 +173,49 @@
                 if (!grouped[key]) {
                     grouped[key] = { name: nome, sizes: tamanhos, price: preco, images: [] };
                 }
-                if (imagem) {
+                if (imagem && imagem.trim()) {
                     grouped[key].images.push(`imagens_produtos/${imagem.trim()}`);
                 }
             });
-            products = Object.values(grouped);
-            document.getElementById('item-count').innerText = `${products.length} itens`;
-            render(products);
+            allProducts = Object.values(grouped);
+            document.getElementById('item-count').innerText = `${allProducts.length} itens`;
+            render(allProducts);
         }
-
+        
         function render(items) {
             const grid = document.getElementById('main-grid');
+            if (!grid) return;
+            const placeholder = 'https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood';
             grid.innerHTML = items.map(p => `
                 <div class="card" onclick='openProduct(${JSON.stringify(p)})'>
                     <div class="img-container">
-                        <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                        <img src="${p.images[0] || placeholder}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='${placeholder}';">
                     </div>
                     <div class="card-info">
                         <h3>${p.name}</h3>
                         <div class="card-price">€ ${p.price}</div>
-                        <div class="card-size">${p.sizes}</div>
+                        <div class="card-size">${p.sizes || 'N/A'}</div>
                     </div>
-                </div>
-            `).join('');
+                </div>`).join('');
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        observer.unobserve(entry.target);
+                    }
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('.card').forEach(card => observer.observe(card));
         }
 
-        document.getElementById('search').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.sizes.toLowerCase().includes(term));
-            render(filtered);
-        });
-
-        document.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                document.querySelector('.chip.active').classList.remove('active');
-                chip.classList.add('active');
-                const filter = chip.dataset.filter;
-                const filtered = filter === 'all' ? products : products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
-                render(filtered);
-            });
-        });
-
         function openProduct(product) {
-            currentP = product;
+            currentProduct = product;
             const modal = document.getElementById('modal');
-            const sliderHTML = product.images.map(img => `<img src="${img}" alt="${product.name}">`).join('');
+            const placeholder = 'https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood';
+            const sliderHTML = product.images && product.images.length > 0 
+                ? product.images.map(img => `<img src="${img}" alt="${product.name}" onerror="this.onerror=null;this.src='${placeholder}';">`).join('')
+                : `<img src="${placeholder}" alt="${product.name}">`;
 
             modal.innerHTML = `
                 <div class="modal-header">
@@ -343,13 +226,12 @@
                 <div class="modal-content">
                     <h2 class="modal-name">${product.name}</h2>
                     <div class="modal-price">€ ${product.price}</div>
-                    <p class="modal-size" style="color: var(--text-muted)">Tamanhos: ${product.sizes}</p>
+                    <p style="color: var(--text-muted)">Tamanhos: ${product.sizes || 'N/A'}</p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-action reserve" onclick="contact('reservar')">Reservar</button>
                     <button class="btn-action buy" onclick="contact('comprar')">Comprar Agora</button>
-                </div>
-            `;
+                </div>`;
             
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -357,34 +239,47 @@
 
         function closeModal() {
             const modal = document.getElementById('modal');
-            modal.style.animation = "fadeOut 0.3s ease";
+            modal.style.animation = "fadeOut 0.3s ease-in-out";
             setTimeout(() => {
                 modal.style.display = 'none';
-                modal.style.animation = "fadeIn 0.3s ease";
                 modal.innerHTML = '';
             }, 280);
             document.body.style.overflow = '';
         }
 
         function contact(type) {
-            const text = `Olá, STREETMOOD. Tenho interesse em ${type} o seguinte item:\n\nProduto: ${currentP.name}\nTamanhos: ${currentP.sizes}\nPreço: €${currentP.price}`;
+            if (!currentProduct) return;
+            const text = `Olá, STREETMOOD. Tenho interesse em ${type} o seguinte item:\n- Produto: ${currentProduct.name}\n- Tamanhos: ${currentProduct.sizes}\n- Preço: €${currentProduct.price}`;
             
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(text).then(() => {
-                    alert('Nome do produto copiado! Cole a mensagem na conversa do Instagram.');
-                }).catch(err => {
-                    console.error('Falha ao copiar texto: ', err);
-                    alert('Abra o Instagram e informe o nome do produto.');
-                });
-            } else {
-                 alert('Abra o Instagram e informe os detalhes do produto.');
+                    alert('Detalhes do produto copiados! Cole a mensagem na conversa do Instagram.');
+                }).catch(err => console.error('Falha ao copiar texto: ', err));
             }
-
             window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, '_blank');
         }
 
-        // Initial load
-        loadData();
+        document.addEventListener('DOMContentLoaded', () => {
+            checkDevice();
+
+            document.getElementById('search').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || (p.sizes && p.sizes.toLowerCase().includes(term)));
+                render(filtered);
+            });
+
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelector('.chip.active').classList.remove('active');
+                    chip.classList.add('active');
+                    const filter = chip.dataset.filter;
+                    const filtered = filter === 'all' ? allProducts : allProducts.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+                    render(filtered);
+                });
+            });
+        });
+        
+        window.addEventListener('resize', checkDevice);
     </script>
 </body>
 </html>

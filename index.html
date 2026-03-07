@@ -1,1560 +1,643 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>STREETMOOD | Catálogo Premium</title>
-<!-- Schema Markup SEO -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "STREETMOOD",
-  "url": "https://srteetm00d-png.github.io/streetm00d_/",
-  "logo": "https://srteetm00d-png.github.io/streetm00d_/streetm00d_.jpeg",
-  "description": "STREETMOOD: O catálogo premium de sneakers e streetwear. Descubra lançamentos exclusivos e edições limitadas com um design moderno e elegante inspirado nos melhores marketplaces.",
-  "sameAs": [
-    "https://www.instagram.com/streetm00d/",
-    "https://www.facebook.com/streetm00d/"
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Rua da Moda, 123",
-    "addressLocality": "Lisboa",
-    "postalCode": "1000-000",
-    "addressCountry": "PT"
-  },
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+351912345678",
-    "contactType": "CustomerService",
-    "availableLanguage": ["pt", "en"],
-    "areaServed": "PT"
-  }
-}
-</script>
-<style>
-/* CSS para STREETMOOD - Edição Premium com Glassmorphism */
-
-/* Variáveis CSS Globais */
-:root {
-    --bg-primary: #0a0f18; /* Escuro mais profundo para base */
-    --bg-card: rgba(15, 23, 32, 0.6); /* Base translúcida para cards */
-    --bg-element: rgba(31, 41, 55, 0.5); /* Elementos internos translúcidos */
-    --text-primary: #ffffff;
-    --text-secondary: #c7ccd3; /* Texto secundário ligeiramente mais claro */
-    --accent: #e91e63; /* Um rosa vibrante para destaque */
-    --accent-hover: #d30f53; /* Tom mais escuro do destaque */
-    --radius-xl: 24px; /* Raio maior para um look moderno */
-    --radius-lg: 18px;
-    --radius-md: 14px;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra mais profunda */
-    --frosted-border: 1px solid rgba(255, 255, 255, 0.1); /* Bordas finas para glassmorphism */
-    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transição mais suave */
-    --blur-intensity: 15px; /* Intensidade do blur */
-}
-
-/* Estilos Gerais */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent; /* Remover cor de toque em mobile */
-}
-
-html {
-    font-size: 14px;
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    max-width: 430px;
-    margin: 0 auto;
-    overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-    padding-bottom: 100px; /* Espaço para o footer */
-    overflow-y: scroll; /* Garantir scrollagem */
-    -webkit-overflow-scrolling: touch; /* Scroll mais suave em iOS */
-}
-
-/* Classe para Efeitos Glassmorphism */
-.frosted-glass {
-    background: rgba(15, 23, 32, 0.5); /* Fundo translúcido base */
-    backdrop-filter: blur(var(--blur-intensity));
-    -webkit-backdrop-filter: blur(var(--blur-intensity)); /* Safari */
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow);
-    border: var(--frosted-border);
-}
-
-/* Header */
-.header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 1rem 1.25rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Borda subtil */
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg); /* Arredondar base */
-}
-
-.logo {
-    font-weight: 700;
-    font-size: 1.8rem;
-    letter-spacing: -0.5px;
-    /* Gradiente subtil para o logo */
-    background: linear-gradient(90deg, #f0f0f0, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.product-count {
-    background: var(--bg-element);
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--radius-md);
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-}
-
-/* Hero Carousel */
-.hero {
-    margin: 1.25rem;
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow);
-    border: var(--frosted-border); /* Borda no hero */
-}
-
-.carousel {
-    display: flex;
-    width: 300%;
-    height: 100%;
-    animation: slide 15s infinite cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.slide {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    background: linear-gradient(135deg, #1a1f2e, #0a0f18); /* Gradiente de fundo para slides */
-    text-align: center;
-    border-radius: var(--radius-xl);
-}
-
-.slide-icon {
-    font-size: 3rem;
-    margin-bottom: 0.75rem;
-    color: var(--accent);
-}
-
-.slide-text {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: var(--text-primary);
-}
-
-.slide-sub {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.carousel-dots {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-}
-
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3); /* Ponto inativo translúcido */
-    transition: var(--transition);
-}
-
-.dot.active {
-    background: var(--accent);
-    width: 20px;
-    border-radius: 4px;
-}
-
-@keyframes slide {
-    0%, 25% { transform: translateX(0); }
-    33%, 58% { transform: translateX(-33.333%); }
-    66%, 91% { transform: translateX(-66.666%); }
-}
-
-/* Filtros */
-.filters {
-    margin: 0 1.25rem 1.5rem;
-    padding: 1.25rem;
-    background: rgba(15, 23, 32, 0.5);
-    backdrop-filter: blur(var(--blur-intensity));
-    -webkit-backdrop-filter: blur(var(--blur-intensity));
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow);
-    border: var(--frosted-border);
-}
-
-.filter-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-}
-
-.search-box, .filter-select {
-    flex: 1;
-    min-width: 140px;
-    position: relative;
-}
-
-.frosted-input, .frosted-select, .frosted-slider {
-    background: var(--bg-element); /* Fundo translúcido para inputs */
-    border: var(--frosted-border); /* Borda fina */
-    border-radius: var(--radius-md);
-    padding: 0.9rem 1rem;
-    color: var(--text-primary);
-    font-family: inherit;
-    font-weight: 500;
-    transition: var(--transition);
-    appearance: none; /* Remover estilos padrão */
-    cursor: pointer;
-}
-
-.search-box input:focus, .frosted-select select:focus, .frosted-slider:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--accent);
-}
-
-.search-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    z-index: 10;
-}
-
-.filter-select::after { /* Seta customizada */
-    content: '▼';
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    font-size: 0.7rem;
-    pointer-events: none;
-}
-
-.price-slider-container {
-    width: 100%;
-    margin-top: 0.5rem;
-}
-
-.frosted-slider {
-    height: 8px;
-    background: var(--bg-element); /* Fundo do slider */
-    cursor: pointer;
-    margin-top: 10px; /* Espaço entre input e label */
-}
-
-.frosted-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: 3px solid var(--bg-primary); /* Cor de fundo para contraste */
-    box-shadow: 0 2px 10px rgba(233, 30, 99, 0.5); /* Sombra do polegar */
-    cursor: pointer;
-    margin-top: -7px; /* Centralizar verticalmente */
-}
-
-.price-label {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-/* Products Grid */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 0 1.25rem;
-}
-
-.product-card {
-    background: rgba(15, 23, 32, 0.5);
-    backdrop-filter: blur(var(--blur-intensity));
-    -webkit-backdrop-filter: blur(var(--blur-intensity));
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow);
-    border: var(--frosted-border);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: var(--transition);
-    will-change: transform, box-shadow;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-}
-
-.card-image {
-    width: 100%;
-    aspect-ratio: 1;
-    background: var(--bg-element);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-md) var(--radius-md); /* Arredondamento gradual */
-}
-
-.card-image img { /* Estilo para imagens reais (se usadas) */
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease-out;
-}
-
-.product-card:hover .card-image img {
-    transform: scale(1.05); /* Efeito zoom suave */
-}
-
-.image-placeholder { /* Estilo para placeholders */
-    font-size: 3rem;
-    color: var(--text-secondary);
-    opacity: 0.7;
-}
-
-.sizes-badge {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: rgba(10, 15, 24, 0.8); /* Fundo escuro semi-transparente */
-    color: var(--text-primary);
-    padding: 0.3rem 0.6rem;
-    border-radius: var(--radius-md);
-    font-size: 0.75rem;
-    font-weight: 600;
-    backdrop-filter: blur(10px); /* Blur no badge */
-    border: var(--frosted-border);
-}
-
-.card-content {
-    padding: 1rem;
-    text-align: center;
-}
-
-.brand {
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.25rem;
-}
-
-.name {
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.3;
-    margin-bottom: 0.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.price {
-    font-weight: 700;
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.card-buttons {
-    display: flex;
-    gap: 0.5rem;
-    justify-content: center;
-}
-
-.btn {
-    flex: 1;
-    padding: 0.7rem;
-    border: none;
-    border-radius: var(--radius-md);
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.btn-primary {
-    background: var(--accent);
-    color: white;
-    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
-}
-
-.btn-primary:hover {
-    background: var(--accent-hover);
-    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.6);
-}
-
-.btn-secondary {
-    background: var(--bg-element);
-    color: var(--text-primary);
-    border: var(--frosted-border);
-}
-
-.btn-secondary:hover {
-    background: rgba(31, 41, 55, 0.8); /* Mais opaco no hover */
-    color: var(--accent);
-}
-
-/* Modal Overlay com Blur Profundo */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.85); /* Fundo escuro */
-    backdrop-filter: blur(25px); /* Blur mais intenso */
-    -webkit-backdrop-filter: blur(25px);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 1.25rem;
-    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Modal com Glassmorphism Aprimorado */
-.modal {
-    background: rgba(17, 24, 39, 0.5); /* Fundo translúcido */
-    border-radius: var(--radius-xl);
-    width: 100%;
-    max-width: 400px;
-    max-height: 90vh;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    border: var(--frosted-border);
-    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-}
-
-@keyframes slideUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-header {
-    padding: 1.5rem 1.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.close-modal {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 0.2rem;
-    transition: var(--transition);
-}
-
-.close-modal:hover {
-    color: var(--accent);
-}
-
-.modal-gallery {
-    position: relative;
-    height: 280px;
-    overflow: hidden;
-    margin-bottom: 1rem;
-}
-
-.gallery-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.gallery-slide {
-    min-width: 100%;
-    height: 100%;
-    background: var(--bg-element);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg); /* Arredondamento inferior */
-}
-
-.gallery-slide .image-placeholder {
-    font-size: 4rem;
-    color: var(--text-secondary);
-    opacity: 0.6;
-}
-
-.gallery-nav {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-    z-index: 10;
-}
-
-.gallery-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transition: var(--transition);
-}
-
-.gallery-dot.active {
-    background: var(--accent);
-    width: 20px;
-    border-radius: 4px;
-}
-
-.modal-content {
-    padding: 1.5rem;
-    overflow-y: auto; /* Scroll dentro do modal se necessário */
-    flex-grow: 1;
-}
-
-.modal-brand {
-    color: var(--accent);
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.5rem;
-}
-
-.modal-name {
-    font-weight: 700;
-    font-size: 1.8rem; /* Tamanho maior para o nome */
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-}
-
-.modal-description {
-    line-height: 1.7;
-    margin-bottom: 1rem; /* Ajustar margem */
-    color: var(--text-secondary);
-}
-
-.product-details {
-    margin-bottom: 1.5rem;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.detail-section {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--bg-element);
-}
-
-.detail-section h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.detail-list {
-    list-style: none;
-    padding: 0;
-    font-size: 0.9rem;
-}
-
-.detail-list li {
-    margin-bottom: 0.4rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.detail-list li span:first-child {
-    font-weight: 500;
-    color: var(--text-secondary);
-    flex-basis: 120px; /* Fixo para alinhar */
-}
-
-.detail-list li span:last-child {
-    color: var(--text-primary);
-    flex-grow: 1;
-    text-align: right;
-}
-
-.sizes-section h3 {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.sizes-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.size-option {
-    background: var(--bg-element);
-    border: var(--frosted-border);
-    padding: 0.7rem 1rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-    color: var(--text-primary);
-    font-size: 0.9rem;
-}
-
-.size-option:hover, .size-option.selected { /* Estilo para selected size */
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-.modal-price {
-    font-weight: 700;
-    font-size: 2.2rem; /* Preço maior e mais destacado */
-    margin-bottom: 1.5rem;
-    text-align: center;
-    color: var(--accent); /* Preço com a cor de destaque */
-}
-
-.modal-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: auto; /* Empurra para baixo */
-    padding-top: 1rem; /* Espaço acima dos botões */
-}
-
-.modal-buttons .btn {
-    padding: 1rem;
-    font-size: 1rem;
-    flex: 1;
-}
-
-/* WhatsApp Float */
-.whatsapp-float {
-    position: fixed;
-    bottom: 2rem;
-    right: 1.25rem;
-    background: #25D366;
-    color: white;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-    z-index: 900;
-    transition: var(--transition);
-    text-decoration: none;
-    border: 3px solid rgba(255,255,255,0.2); /* Borda sutil */
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
-    background: #128C7E; /* Cor mais escura no hover */
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 2rem 1.25rem;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Borda subtil */
-    margin-top: 2rem;
-}
-
-/* Skeleton Loading (Exemplo) */
-.skeleton {
-    background: linear-gradient(90deg, #1a1f2e 25%, #2d3748 50%, #1a1f2e 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    border-radius: var(--radius-md);
-}
-
-@keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-.skeleton-card {
-    background: var(--bg-card);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-}
-
-.skeleton-image {
-    width: 100%;
-    aspect-ratio: 1;
-    background: var(--bg-element);
-}
-
-.skeleton-content {
-    padding: 1rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.skeleton-text {
-    height: 1rem;
-    margin-bottom: 0.5rem;
-    background: var(--bg-element);
-    border-radius: var(--radius-md);
-}
-
-.skeleton-price {
-    height: 1.8rem;
-    width: 60%;
-    background: var(--bg-element);
-    margin-top: 1rem;
-}
-
-/* Paginação */
-.pagination-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 2rem 1.25rem;
-    flex-wrap: wrap;
-}
-
-.page-btn {
-    background: var(--bg-element);
-    border: var(--frosted-border);
-    color: var(--text-primary);
-    padding: 0.6rem 1rem;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: var(--transition);
-    font-weight: 500;
-    min-width: 44px;
-}
-
-.page-btn:hover:not(:disabled) {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-.page-btn.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-}
-
-.page-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Responsive */
-@media (max-width: 370px) {
-    .products-grid {
-        grid-template-columns: 1fr; /* Layout de coluna única em telas muito pequenas */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>STREETMOOD | Premium Streetwear Catalog</title>
+    <!-- Font: Space Grotesk for futuristic look -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Schema Markup SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "STREETMOOD",
+      "url": "https://srteetm00d-png.github.io/streetm00d_/",
+      "logo": "https://srteetm00d-png.github.io/streetm00d_/streetm00d_.jpeg",
+      "description": "STREETMOOD: O catálogo premium de sneakers e streetwear. Descubra lançamentos exclusivos e edições limitadas com um design moderno e elegante inspirado nos melhores marketplaces.",
+      "sameAs": [
+        "https://www.instagram.com/streetm00d/",
+        "https://www.facebook.com/streetm00d/"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua da Moda, 123",
+        "addressLocality": "Lisboa",
+        "postalCode": "1000-000",
+        "addressCountry": "PT"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+351912345678",
+        "contactType": "CustomerService",
+        "availableLanguage": ["pt", "en"],
+        "areaServed": "PT"
+      }
     }
-    .modal-buttons .btn {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
-} 
-</style>
+    </script>
+    <style>
+        :root {
+            --bg: #0f1720;
+            --card-bg: #111827;
+            --accent: #ef4444;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --safe-area-top: env(safe-area-inset-top);
+            --safe-area-bottom: env(safe-area-inset-bottom);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: calc(15px + var(--safe-area-top)) 20px 15px;
+            background: rgba(15, 23, 32, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--accent); }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 40px 20px;
+            text-align: left;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 0.9;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            margin: 10px 0 25px;
+            font-size: 1rem;
+        }
+
+        .btn-explore {
+            background: var(--accent);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        /* --- Filters --- */
+        .filter-bar {
+            padding: 0 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-wrapper input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+        .filter-group::-webkit-scrollbar { display: none; }
+
+        .filter-chip {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 50px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .filter-chip.active {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* --- Product Grid --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card:active {
+            transform: scale(0.96);
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #1a2230;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-price {
+            color: var(--accent);
+            font-weight: 700;
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        .card-size {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Modal Details --- */
+        #modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-bottom: 40px;
+        }
+
+        .modal-header {
+            padding: calc(20px + var(--safe-area-top)) 20px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-close {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .modal-gallery {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
+            padding: 0 20px;
+        }
+
+        .modal-gallery img {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            border-radius: 20px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background: var(--card-bg);
+        }
+
+        .modal-body {
+            padding: 30px 20px;
+        }
+
+        .modal-name {
+            font-size: 2rem;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .modal-desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .modal-actions {
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(to top, var(--bg) 80%, transparent);
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-main {
+            padding: 18px;
+            border-radius: 12px;
+            border: none;
+            font-family: inherit;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .btn-buy { background: var(--accent); color: white; }
+        .btn-res { background: white; color: black; }
+
+        /* --- Footer --- */
+        footer {
+            padding: 40px 20px 100px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 50px 0;
+            color: var(--text-muted);
+        }
+
+        /* Emojis as placeholders since we can't load real files here */
+        .placeholder-emoji {
+            font-size: 4rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">STREETMOOD</div>
-        <div class="product-count"><span id="count">0</span> produtos</div>
+
+    <header>
+        <div class="logo">STREET<span>MOOD</span></div>
+        <div style="font-size: 1.2rem;">👟</div>
     </header>
 
-    <!-- Hero Carousel -->
     <section class="hero">
-        <div class="carousel">
-            <div class="slide">
-                <div class="slide-icon">👟</div>
-                <div class="slide-text">Coleção Exclusiva</div>
-                <div class="slide-sub">+500 sneakers premium</div>
-            </div>
-            <div class="slide">
-                <div class="slide-icon">🔥</div>
-                <div class="slide-text">Lançamentos Quentes</div>
-                <div class="slide-sub">Edições limitadas</div>
-            </div>
-            <div class="slide">
-                <div class="slide-icon">⚡</div>
-                <div class="slide-text">Entrega Rápida</div>
-                <div class="slide-sub">Portes grátis em compras +150€</div>
-            </div>
+        <h1>STREETMOOD<br>DROP 2026</h1>
+        <p>Premium Streetwear Catalog</p>
+        <a href="#catalog" class="btn-explore">Explore Drop</a>
+    </section>
+
+    <section class="filter-bar" id="catalog">
+        <div class="search-wrapper">
+            <input type="text" id="search-input" placeholder="Buscar sneaker ou marca...">
         </div>
-        <div class="carousel-dots">
-            <div class="dot active"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
+        <div class="filter-group">
+            <div class="filter-chip active" data-filter="all">Todos</div>
+            <div class="filter-chip" data-filter="Nike">Nike</div>
+            <div class="filter-chip" data-filter="Adidas">Adidas</div>
+            <div class="filter-chip" data-filter="Jordan">Jordan</div>
+            <div class="filter-chip" data-filter="40-45">Tamanho 40-45</div>
         </div>
     </section>
 
-    <!-- Filters -->
-    <section class="filters">
-        <div class="filter-row">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Pesquisar sneakers..." class="frosted-input">
-            </div>
-            <div class="filter-select">
-                <select id="brandFilter" class="frosted-select">
-                    <option value="">Todas as marcas</option>
-                    <option value="Nike">Nike</option>
-                    <option value="Adidas">Adidas</option>
-                    <option value="Jordan">Jordan</option>
-                    <option value="Puma">Puma</option>
-                    <option value="Balenciaga">Balenciaga</option>
-                    <option value="Off White">Off White</option>
-                </select>
-            </div>
-        </div>
-        <div class="filter-row">
-            <div class="filter-select">
-                <select id="sizeFilter" class="frosted-select">
-                    <option value="">Todos os tamanhos</option>
-                    <option value="40">40</option>
-                    <option value="41">41</option>
-                    <option value="42">42</option>
-                    <option value="43">43</option>
-                    <option value="44">44</option>
-                    <option value="45">45</option>
-                    <option value="46">46</option>
-                </select>
-            </div>
-            <div class="filter-select">
-                <select id="priceFilter" class="frosted-select">
-                    <option value="500">Até 500€</option>
-                    <option value="400">Até 400€</option>
-                    <option value="300">Até 300€</option>
-                    <option value="200">Até 200€</option>
-                    <option value="150">Até 150€</option>
-                </select>
-            </div>
-        </div>
-        <div class="price-slider-container">
-            <input type="range" id="priceSlider" min="50" max="500" value="500" step="10" class="frosted-slider">
-            <div class="price-label">
-                <span>50€</span>
-                <span id="sliderValue">500€</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Grid -->
-    <main class="products-grid" id="productsGrid">
-        <!-- Products will be inserted here by JavaScript -->
+    <main class="grid" id="product-grid">
+        <!-- Products injected by JS -->
     </main>
 
-    <!-- Product Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 class="modal-brand" id="modalBrand">NIKE</h2>
-                <button class="close-modal" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-gallery">
-                <div class="gallery-track" id="galleryTrack">
-                    <div class="gallery-slide">
-                        <div class="image-placeholder">👟</div>
-                    </div>
-                </div>
-                <div class="gallery-nav" id="galleryNav">
-                    <div class="gallery-dot active"></div>
-                </div>
-            </div>
-            <div class="modal-content">
-                <h1 class="modal-name" id="modalName">Air Jordan 4 Retro</h1>
-                <p class="modal-description" id="modalDescription">Edição especial com design premium e materiais de alta qualidade. Conforto excepcional para uso diário e colecionadores.</p>
-                
-                <div class="product-details">
-                    <div class="detail-section">
-                        <h3>Detalhes Técnicos</h3>
-                        <ul class="detail-list">
-                            <li><span>Marca:</span> <span id="detail-brand">Nike</span></li>
-                            <li><span>Modelo:</span> <span id="detail-model">Air Jordan 4</span></li>
-                            <li><span>Colorway:</span> <span id="detail-colorway">Bred</span></li>
-                            <li><span>Materiais:</span> <span id="detail-materials">Couro, Nubuck</span></li>
-                            <li><span>Tecnologia:</span> <span id="detail-tech">Visible Air Unit</span></li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="sizes-section">
-                    <h3>Tamanhos disponíveis</h3>
-                    <div class="sizes-list" id="modalSizes">
-                        <div class="size-option">40</div>
-                        <div class="size-option">41</div>
-                        <div class="size-option">42</div>
-                    </div>
-                </div>
-
-                <div class="modal-price" id="modalPrice">180€</div>
-                
-                <div class="modal-buttons">
-                    <button class="btn btn-primary" id="modalBuy">
-                        <span>🛒</span> Comprar Agora
-                    </button>
-                    <button class="btn btn-secondary" id="modalReserve">
-                        <span>🔒</span> Reservar
-                    </button>
-                </div>
-            </div>
+    <div id="modal">
+        <div class="modal-header">
+            <div class="logo">STREET<span>MOOD</span></div>
+            <button class="btn-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-gallery" id="modal-gallery">
+            <!-- Images -->
+        </div>
+        <div class="modal-body">
+            <h2 class="modal-name" id="modal-name">Product Name</h2>
+            <div class="modal-price" id="modal-price">€ 0.00</div>
+            <p class="modal-desc">O melhor do streetwear premium disponível para entrega imediata em Portugal e Europa.</p>
+            <div class="modal-size">Tamanhos: <span id="modal-size" style="color:white; font-weight:700;">40-45</span></div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-main btn-res" onclick="sendWhatsApp('reservar')">Reservar</button>
+            <button class="btn-main btn-buy" onclick="sendWhatsApp('comprar')">Comprar</button>
         </div>
     </div>
 
-    <!-- WhatsApp Float -->
-    <a href="#" class="whatsapp-float" id="whatsappFloat">
-        💬
-    </a>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>STREETMOOD &copy; 2026 | Catálogo digital premium</p>
-        <p style="margin-top: 0.5rem; font-size: 0.8rem;">Entrega em 2-4 dias úteis | Portes grátis em compras superiores a 150€</p>
+    <footer>
+        <p>&copy; 2026 STREETMOOD AUTO SYSTEM v2.0</p>
+        <p>Desenvolvido para Mobile Premium</p>
     </footer>
 
     <script>
-// JavaScript para STREETMOOD - Aprimoramentos Premium
-
-// --- Configurações Globais ---
-const BRAND_PRICES = {
-    'Nike': 150, 'Adidas': 140, 'Jordan': 180, 'Puma': 130,
-    'Balenciaga': 250, 'Off White': 220, 'Luxury': 300
-};
-const PRODUCTS_PER_PAGE = 12; // Produtos por página para paginação
-const WHATSAPP_NUMBER = '+351912345678'; // Substitua pelo número real
-
-// --- Dados de Exemplo (Fallback) ---
-// Em um cenário real, isto seria carregado de um arquivo .txt ou API
-const FALLBACK_PRODUCTS = [
-    { id: 1, name: 'Air Jordan 4 Retro', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Edição retro com design clássico e conforto premium.', colorway: 'Bred', materials: 'Couro, Nubuck', tech: 'Visible Air Unit' },
-    { id: 2, name: 'Dunk Low Panda', brand: 'Nike', sizes: [39, 40, 41, 42], price: 150, description: 'Clássico preto e branco, versátil e atemporal. Perfeito para o dia a dia.', colorway: 'Black/White', materials: 'Couro', tech: 'Durable Rubber Sole' },
-    { id: 3, name: 'Yeezy Boost 350 V2', brand: 'Adidas', sizes: [40, 41, 42, 43, 44, 45], price: 140, description: 'Conforto máximo com a tecnologia Boost, ideal para quem busca estilo e bem-estar.', colorway: 'Zebra', materials: 'Primeknit', tech: 'Boost™ Midsole' },
-    { id: 4, name: 'Air Force 1 '07', brand: 'Nike', sizes: [38, 39, 40, 41, 42], price: 150, description: 'O ténis mais icónico de sempre, em branco puro, elevando qualquer look.', colorway: 'Triple White', materials: 'Couro', tech: 'Nike Air Cushioning' },
-    { id: 5, name: 'RS-X³ Puzzle', brand: 'Puma', sizes: [40, 41, 42, 43], price: 130, description: 'Design futurista e arrojado com amortecimento avançado para uma passada confortável.', colorway: 'Grey/Red', materials: 'Mesh, Couro', tech: 'Running System' },
-    { id: 6, name: 'Balenciaga Triple S', brand: 'Balenciaga', sizes: [41, 42, 43, 44], price: 250, description: 'Silhueta oversized com solado distinto, um ícone de moda e luxo.', colorway: 'Black', materials: 'Couro, Camurça, Mesh', tech: 'Multi-component Sole' },
-    { id: 7, name: 'Air Jordan 1 Mid', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Versão de cano médio do AJ1, mantendo o estilo e o legado.', colorway: 'Light Smoke Grey', materials: 'Couro', tech: 'Air-Sole Unit' },
-    { id: 8, name: 'Adidas NMD_R1', brand: 'Adidas', sizes: [39, 40, 41, 42, 43], price: 140, description: 'Estilo urbano com blocos de EVA responsivos para conforto e performance.', colorway: 'White/Black', materials: 'Primeknit', tech: 'Boost™ Midsole' },
-    { id: 9, name: 'Air Max 97 OG', brand: 'Nike', sizes: [40, 41, 42, 43, 44], price: 150, description: 'Design inspirado em comboios-bala japoneses, com amortecimento Air Max a toda a volta.', colorway: 'Silver Bullet', materials: 'Couro, Mesh', tech: 'Full-Length Visible Air' },
-    { id: 10, name: 'Off-White x Nike Blazer', brand: 'Off White', sizes: [41, 42, 43, 44], price: 220, description: 'Colaboração icónica que reinterpreta o clássico Blazer com detalhes deconstruídos.', colorway: 'All Hallows Eve', materials: 'Couro, Camurça', tech: 'Deconstructed design' },
-    { id: 11, name: 'Puma Suede Classic', brand: 'Puma', sizes: [38, 39, 40, 41, 42], price: 130, description: 'O lendário Suede em sua forma clássica, sinónimo de estilo e conforto.', colorway: 'Peacoat', materials: 'Camurça', tech: 'Comfortable insole' },
-    { id: 12, name: 'Air Jordan 11', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'Um ícone de luxo e performance com cabedal em patente leather.', colorway: 'Concord', materials: 'Couro Patent, Mesh', tech: 'Full-length Carbon Fiber Plate' },
-    { id: 13, name: 'Adidas Gazelle', brand: 'Adidas', sizes: [39, 40, 41, 42, 43], price: 140, description: 'Um clássico dos anos 60, reinventado com camurça macia e design intemporal.', colorway: 'Green', materials: 'Camurça', tech: 'Rubber outsole' },
-    { id: 14, name: 'Nike Vomero 5', brand: 'Nike', sizes: [40, 41, 42, 43, 44], price: 150, description: 'Conforto e estilo técnico com linhas retro-running.', colorway: 'Sail/Light Bone', materials: 'Mesh, Couro', tech: 'Zoom Air + Cushlon' },
-    { id: 15, name: 'Balenciaga Speed Trainer', brand: 'Balenciaga', sizes: [41, 42, 43, 44], price: 250, description: 'O ténis ultra-confortável com silhueta sock-like.', colorway: 'Black', materials: 'Knit', tech: 'Memory Sole technology' },
-    { id: 16, name: 'Puma MB.01', brand: 'Puma', sizes: [42, 43, 44, 45, 46], price: 130, description: 'Assinatura de LaMelo Ball, com performance e estilo que chamam a atenção.', colorway: 'Quack', materials: 'Mesh, Couro', tech: 'Nitro Foam' },
-    { id: 17, name: 'Air Jordan 3 Retro', brand: 'Jordan', sizes: [40, 41, 42, 43, 44], price: 180, description: 'O primeiro Jordan com o icónico "Jumpman" e pele de elefante.', colorway: 'White Cement', materials: 'Couro', tech: 'Visible Air Unit' },
-    { id: 18, name: 'Adidas Samba OG', brand: 'Adidas', sizes: [38, 39, 40, 41, 42], price: 140, description: 'Um ícone do futebol que transcendeu para a moda urbana.', colorway: 'White/Black', materials: 'Camurça, Couro', tech: 'Gum sole' },
-    { id: 19, name: 'Nike Sacai Vaporwaffle', brand: 'Nike', sizes: [40, 41, 42, 43], price: 150, description: 'Colaboração única que funde dois ícones Nike com design em camadas.', colorway: 'White/Black', materials: 'Mesh, Couro', tech: 'Layered midsole' },
-    { id: 20, name: 'Off-White Air Jordan 5', brand: 'Off White', sizes: [42, 43, 44, 45], price: 220, description: 'Uma releitura futurista do clássico AJ5 com detalhes translúcidos e materiais inovadores.', colorway: 'Sail', materials: 'Couro, Translucent materials', tech: 'Translucent materials, "AIR" branding' }
-];
-
-// --- Variáveis de Estado ---
-let allProducts = [];
-let filteredProducts = [];
-let currentPage = 1;
-let currentProductModal = null; // Guarda o produto atualmente aberto no modal
-
-// --- Elementos DOM ---
-const productsGrid = document.getElementById('productsGrid');
-const productCountSpan = document.getElementById('count');
-const searchInput = document.getElementById('searchInput');
-const brandFilter = document.getElementById('brandFilter');
-const sizeFilter = document.getElementById('sizeFilter');
-const priceFilterSelect = document.getElementById('priceFilter');
-const priceSlider = document.getElementById('priceSlider');
-const sliderValueSpan = document.getElementById('sliderValue');
-
-const modalOverlay = document.getElementById('modalOverlay');
-const closeModalBtn = document.getElementById('closeModal');
-const modalBrandSpan = document.getElementById('modalBrand');
-const modalNameH1 = document.getElementById('modalName');
-const modalDescriptionP = document.getElementById('modalDescription');
-const modalDetailBrandSpan = document.getElementById('detail-brand');
-const modalDetailModelSpan = document.getElementById('detail-model');
-const modalDetailColorwaySpan = document.getElementById('detail-colorway');
-const modalPriceDiv = document.getElementById('modalPrice');
-const modalSizesDiv = document.getElementById('modalSizes');
-const modalBuyBtn = document.getElementById('modalBuy');
-const modalReserveBtn = document.getElementById('modalReserve');
-const galleryTrackDiv = document.getElementById('galleryTrack');
-const galleryNavDiv = document.getElementById('galleryNav');
-
-const whatsappFloatA = document.getElementById('whatsappFloat');
-
-// --- Elementos de Paginação ---
-const paginationControls = document.createElement('div');
-paginationControls.className = 'pagination-controls';
-// Adicionar isto ao DOM após o grid de produtos
-let paginationContainer;
-
-// --- Observadores e Listeners ---
-let searchTimeout; // Para debounce na pesquisa
-const imageObserver = new IntersectionObserver(handleImageIntersection, {
-    rootMargin: '0px 0px 200px 0px' // Começa a carregar imagens quando estão a 200px da viewport
-});
-
-// --- Funções ---
-
-// 1. Inicialização
-document.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
-    setupEventListeners();
-    setupPagination();
-    updateWhatsappFloatLink();
-    applyInitialFiltersFromURL(); // Tenta carregar filtros do URL (se suportado)
-});
-
-// 2. Carregar Produtos (Fallback)
-function loadProducts() {
-    // Simulando carregamento de dados. Em um cenário real, leria de imagens.txt
-    allProducts = FALLBACK_PRODUCTS.map((p, index) => ({
-        ...p,
-        // Simula 3 imagens por produto
-        images: Array(3).fill(0).map((_, i) => `👟${i + 1}`),
-        // Define preço automaticamente se não estiver definido (baseado na marca)
-        price: p.price || BRAND_PRICES[p.brand] || 150
-    }));
-    
-    // Se fosse carregar de um arquivo de texto:
-    // fetch('path/to/imagens.txt')
-    //     .then(response => response.text())
-    //     .then(data => {
-    //         const lines = data.trim().split('\n');
-    //         allProducts = parseProductData(lines); // Função para parsear
-    //         renderProducts();
-    //         updatePagination();
-    //     })
-    //     .catch(error => {
-    //         console.error("Falha ao carregar produtos de imagens.txt, usando fallback.", error);
-    //         allProducts = FALLBACK_PRODUCTS.map(...); // Usa fallback
-    //         renderProducts();
-    //         updatePagination();
-    //     });
-
-    applyFilters(); // Aplica filtros iniciais após carregar produtos
-}
-
-// 3. Renderizar Produtos (com Paginação e Lazy Loading)
-function renderProducts() {
-    productsGrid.innerHTML = ''; // Limpa o grid atual
-
-    const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-    const endIndex = startIndex + PRODUCTS_PER_PAGE;
-    const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
-
-    if (productsToDisplay.length === 0) {
-        productsGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 2rem; color: var(--text-secondary);">Nenhum produto encontrado com os filtros selecionados.</p>';
-        return;
-    }
-
-    productsToDisplay.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.dataset.id = product.id;
+        /**
+         * CONFIGURAÇÃO DO SISTEMA
+         */
         
-        const placeholderSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" class="placeholder-svg"><path d="M50 25L25 50L50 75L75 50L50 25Z" fill="rgba(255,255,255,0.2)"/><path d="M70 30L60 40L70 50L80 40L70 30Z" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="15" fill="rgba(255,255,255,0.1)"/></svg>`;
-        
-        card.innerHTML = `
-            <div class="card-image">
-                <div class="image-placeholder">${placeholderSvg}</div>
-                <div class="sizes-badge">${product.sizes.length} tamanhos</div>
-            </div>
-            <div class="card-content">
-                <div class="brand">${product.brand}</div>
-                <h3 class="name">${product.name}</h3>
-                <div class="price">${product.price}€</div>
-                <div class="card-buttons">
-                    <button class="btn btn-primary" data-action="buy" data-id="${product.id}"><span>🛒</span> Comprar</button>
-                    <button class="btn btn-secondary" data-action="reserve" data-id="${product.id}"><span>🔒</span> Reservar</button>
-                </div>
-            </div>
-        `;
-        
-        // Adiciona o listener de clique para abrir o modal
-        card.querySelector('.card-content').addEventListener('click', () => openProductModal(product));
-        
-        productsGrid.appendChild(card);
-        
-        // Configura o lazy loading para a imagem principal do card (simulado)
-        const cardImageDiv = card.querySelector('.card-image');
-        // Em um cenário real, você teria uma tag <img> com data-src
-        // Aqui, simulamos que o placeholder será substituído.
-        // A lógica de lazy loading seria mais robusta com <img loading="lazy" data-src="...">
-        // Exemplo: if (cardImageDiv.querySelector('img')) imageObserver.observe(cardImageDiv.querySelector('img'));
-    });
-    
-    // Adiciona event listeners aos botões do card
-    attachCardButtonListeners();
-}
+        // 1. Simulação do CSV (No seu projeto, você fará fetch('produtos.csv'))
+        const csvData = `
+nome | tamanhos | preco_eur
+Adidas Adizero SL | 40-45 | 80
+Adidas AE1 | 40-45 | 120
+Adidas Adizero | N/A | 80
+Adidas Forum 84 | 36-39 | 110
+Adidas Originals Samba | 38-44 | 95
+Air Jordan 4 Retro | 40-46 | 130
+Nike Air Force 1 Low | 36-45 | 85
+Nike Air Max 95 | 39-45 | 110
+`;
 
-// 4. Filtros e Paginação
-function applyFilters() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const brand = brandFilter.value;
-    const size = sizeFilter.value;
-    const maxPrice = parseInt(priceSlider.value);
-    
-    filteredProducts = allProducts.filter(product => {
-        const matchesSearch = product.name.toLowerCase().includes(searchTerm) || 
-                             product.brand.toLowerCase().includes(searchTerm);
-        const matchesBrand = !brand || product.brand === brand;
-        const matchesSize = !size || product.sizes.includes(parseInt(size));
-        const matchesPrice = product.price <= maxPrice;
-        
-        return matchesSearch && matchesBrand && matchesSize && matchesPrice;
-    });
-    
-    currentPage = 1; // Reseta para a primeira página ao aplicar filtros
-    renderProducts();
-    updatePagination();
-    updateProductCount();
-    // updateURLFilters(); // Opcional: salva filtros no URL
-}
+        // 2. Lista real de arquivos da pasta /imagens_produtos/
+        // Preencha com os nomes reais dos arquivos que você subir
+        const fileList = [
+            "Nike Air Max 95_1.jpg",
+            "Nike Air Max 95_2.jpg", 
+            "Nike Air Max 95_3.jpg",
+            "Adidas Samba_1.jpg",
+            "Adidas Samba_2.jpg",
+            "Adidas Samba_3.jpg",
+            "Air Jordan 4 Retro_1.jpg",
+            "Air Jordan 4 Retro_2.jpg",
+            "Air Jordan 4 Retro_3.jpg",
+            "Nike Air Force 1 Low_1.jpg",
+            "Nike Air Force 1 Low_2.jpg",
+            "Adidas AE1_1.jpg",
+            "Adidas AE1_2.jpg",
+            "Adidas Forum 84_1.jpg",
+            "Adidas Forum 84_2.jpg",
+            "Adidas Adizero SL_1.jpg",
+            "Adidas Adizero SL_2.jpg",
+            "Nike Air Force 1 Low_3.jpg",
+            "Nike Air Max 95_4.jpg",
+            "Adidas Originals Samba_4.jpg",
+            "Adidas Originals Samba_5.jpg",
+            "Nike Air Force 1 Low_4.jpg",
+            "Adidas AE1_3.jpg",
+            "Adidas Forum 84_3.jpg",
+            "Adidas Adizero SL_3.jpg",
+            "Nike Air Max 95_5.jpg",
+            "Adidas Originals Samba_6.jpg",
+            "Nike Air Force 1 Low_5.jpg",
+            "Adidas AE1_4.jpg",
+            "Adidas Forum 84_4.jpg",
+            "Adidas Adizero SL_4.jpg",
+            "Nike Air Max 95_6.jpg"
+        ];
 
-function debounceSearch() {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(applyFilters, 220); // Debounce de 220ms
-}
+        let products = [];
+        const WHATSAPP_NUMBER = "351912345678"; // Troque pelo seu número
 
-function setupPagination() {
-    paginationContainer = document.createElement('div');
-    paginationContainer.className = 'pagination-controls';
-    productsGrid.parentNode.insertBefore(paginationContainer, productsGrid.nextSibling);
-    updatePagination();
-}
+        /**
+         * LÓGICA DE PROCESSAMENTO
+         */
 
-function updatePagination() {
-    paginationContainer.innerHTML = ''; // Limpa controles antigos
-    const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+        function initSystem() {
+            // Passo 1: Parse do CSV
+            const lines = csvData.trim().split('\n');
+            const csvItems = lines.map(line => {
+                const [nome, tamanhos, preco] = line.split('|').map(s => s.trim());
+                return { nome, tamanhos, preco };
+            });
 
-    if (totalPages <= 1) return; // Não mostra paginação se for apenas uma página
+            // Passo 2: Agrupamento de Imagens
+            const imageGroups = {};
+            fileList.forEach(file => {
+                // Pega tudo antes do último "_"
+                const lastUnderscore = file.lastIndexOf('_');
+                const productName = lastUnderscore !== -1 ? file.substring(0, lastUnderscore) : file.split('.')[0];
+                
+                if (!imageGroups[productName]) imageGroups[productName] = [];
+                imageGroups[productName].push(`./imagens_produtos/${file}`);
+            });
 
-    const prevButton = document.createElement('button');
-    prevButton.textContent = 'Anterior';
-    prevButton.disabled = currentPage === 1;
-    prevButton.className = 'page-btn';
-    prevButton.addEventListener('click', () => {
-        if (currentPage > 1) {
-            currentPage--;
-            renderProducts();
-            updatePagination();
-            // window.scrollTo(0, productsGrid.offsetTop - 100); // Scroll para o topo dos produtos
+            // Passo 3: Mesclar dados do CSV com Imagens
+            products = csvItems.map(item => {
+                const images = imageGroups[item.nome] || [];
+                return {
+                    name: item.nome,
+                    sizes: item.tamanhos,
+                    price: item.preco,
+                    images: images.length > 0 ? images : ["placeholder"] // Caso não tenha imagem
+                };
+            });
+
+            renderProducts(products);
+            setupFilters();
         }
-    });
-    paginationContainer.appendChild(prevButton);
 
-    for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.textContent = i;
-        pageButton.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-        pageButton.addEventListener('click', () => {
-            currentPage = i;
-            renderProducts();
-            updatePagination();
-            // window.scrollTo(0, productsGrid.offsetTop - 100);
-        });
-        paginationContainer.appendChild(pageButton);
-    }
+        /**
+         * RENDERIZAÇÃO
+         */
 
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Próximo';
-    nextButton.disabled = currentPage === totalPages;
-    nextButton.className = 'page-btn';
-    nextButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-            currentPage++;
-            renderProducts();
-            updatePagination();
-            // window.scrollTo(0, productsGrid.offsetTop - 100);
+        function renderProducts(items) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="empty-state">Nenhum produto encontrado.</div>';
+                return;
+            }
+
+            items.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper" onclick="openProduct('${p.name}')">
+                        ${p.images[0] === 'placeholder' 
+                            ? `<div class="placeholder-emoji">👟</div>` 
+                            : `<img src="${p.images[0]}" alt="${p.name}" loading="lazy">`}
+                    </div>
+                    <div class="card-info" onclick="openProduct('${p.name}')">
+                        <h3>${p.name}</h3>
+                        <div class="card-price">€ ${p.price}</div>
+                        <div class="card-size">Size: ${p.sizes}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+                
+                // Animation observer
+                setTimeout(() => card.classList.add('visible'), index * 50);
+            });
         }
-    });
-    paginationContainer.appendChild(nextButton);
-}
 
-function updateProductCount() {
-    productCountSpan.textContent = filteredProducts.length;
-}
+        /**
+         * FILTROS E BUSCA
+         */
 
-// 5. Modal do Produto com Detalhes Aprimorados e Glassmorphism
-function openProductModal(product) {
-    currentProductModal = product;
-    
-    // Adicionar Schema dinâmico do produto ao head
-    addProductSchemaToHead(product);
-    
-    modalBrandSpan.textContent = product.brand;
-    modalNameH1.textContent = product.name;
-    modalDescriptionP.textContent = product.description;
+        function setupFilters() {
+            const searchInput = document.getElementById('search-input');
+            const chips = document.querySelectorAll('.filter-chip');
 
-    // Preenche detalhes técnicos
-    modalDetailBrandSpan.textContent = product.brand;
-    modalDetailModelSpan.textContent = product.name; // Ou um campo específico 'modelName'
-    modalDetailColorwaySpan.textContent = product.colorway || 'N/A';
-    // Adicionar mais detalhes se disponíveis nos dados do produto
-    // Ex: document.getElementById('detail-materials').textContent = product.materials || 'N/A';
+            const filterFn = debounce(() => {
+                const term = searchInput.value.toLowerCase();
+                const activeChip = document.querySelector('.filter-chip.active').dataset.filter;
 
-    modalPriceDiv.textContent = `${product.price}€`;
-    
-    // Tamanhos
-    modalSizesDiv.innerHTML = '';
-    product.sizes.forEach(size => {
-        const sizeEl = document.createElement('div');
-        sizeEl.className = 'size-option';
-        sizeEl.textContent = size;
-        sizeEl.dataset.size = size; // Para referência
-        sizeEl.addEventListener('click', () => selectSize(sizeEl));
-        modalSizesDiv.appendChild(sizeEl);
-    });
-    
-    // Galeria de Imagens (Simulada)
-    galleryTrackDiv.innerHTML = '';
-    galleryNavDiv.innerHTML = '';
-    
-    product.images.forEach((imgIdentifier, index) => {
-        const slide = document.createElement('div');
-        slide.className = 'gallery-slide';
-        // Simulação de imagem: Placeholder + ID
-        slide.innerHTML = `<div class="image-placeholder" style="font-size: 4rem;">${imgIdentifier}</div>`; 
-        // Em um cenário real: <img src="path/to/${imgIdentifier}.jpg" alt="${product.name} ${imgIdentifier}">
-        galleryTrackDiv.appendChild(slide);
-        
-        const dot = document.createElement('div');
-        dot.className = `gallery-dot ${index === 0 ? 'active' : ''}`;
-        dot.dataset.index = index;
-        dot.addEventListener('click', () => goToGallerySlide(index));
-        galleryNavDiv.appendChild(dot);
-    });
-    
-    modalOverlay.style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Bloqueia scroll do body
-    
-    // Seleciona o primeiro tamanho por padrão (se existir)
-    if (product.sizes.length > 0) {
-        const firstSizeOption = modalSizesDiv.querySelector('.size-option');
-        if (firstSizeOption) selectSize(firstSizeOption);
-    }
-}
+                const filtered = products.filter(p => {
+                    const matchesSearch = p.name.toLowerCase().includes(term);
+                    let matchesChip = true;
 
-function closeProductModal() {
-    modalOverlay.style.display = 'none';
-    document.body.style.overflow = 'auto'; // Libera scroll do body
-    currentProductModal = null;
-}
-
-function selectSize(sizeEl) {
-    // Remove classe 'selected' de todos os botões de tamanho
-    modalSizesDiv.querySelectorAll('.size-option').forEach(el => el.classList.remove('selected'));
-    // Adiciona classe 'selected' ao botão clicado
-    sizeEl.classList.add('selected');
-}
-
-function goToGallerySlide(index) {
-    const track = galleryTrackDiv;
-    track.style.transform = `translateX(-${index * 100}%)`;
-    
-    galleryNavDiv.querySelectorAll('.gallery-dot').forEach(dot => dot.classList.remove('active'));
-    galleryNavDiv.querySelector(`.gallery-dot[data-index="${index}"]`).classList.add('active');
-}
-
-// 6. Ações do Botão (Comprar/Reservar) e WhatsApp
-function handleBuyClick() {
-    if (!currentProductModal) return;
-    const selectedSizeEl = modalSizesDiv.querySelector('.size-option.selected');
-    if (!selectedSizeEl) {
-        alert("Por favor, selecione um tamanho.");
-        return;
-    }
-    const selectedSize = selectedSizeEl.dataset.size;
-    const productName = `${currentProductModal.name} (Tam: ${selectedSize})`;
-    const message = `Olá STREETMOOD 👟 quero comprar o ${productName} ainda está disponível?`;
-    openWhatsApp(message);
-}
-
-function handleReserveClick() {
-    if (!currentProductModal) return;
-    const selectedSizeEl = modalSizesDiv.querySelector('.size-option.selected');
-    if (!selectedSizeEl) {
-        alert("Por favor, selecione um tamanho.");
-        return;
-    }
-    const selectedSize = selectedSizeEl.dataset.size;
-    const productName = `${currentProductModal.name} (Tam: ${selectedSize})`;
-    const message = `Olá STREETMOOD 👟 quero reservar o ${productName}`;
-    openWhatsApp(message);
-}
-
-function openWhatsApp(message) {
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
-}
-
-function updateWhatsappFloatLink() {
-    const baseMessage = "Olá STREETMOOD 👟 gostaria de mais informações";
-    const encodedMessage = encodeURIComponent(baseMessage);
-    whatsappFloatA.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-}
-
-// 7. Lazy Loading de Imagens (Simulado)
-function handleImageIntersection(entries, observer) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = entry.target;
-            // Na implementação real, target seria uma tag <img> com data-src
-            // Aqui, apenas simulamos a substituição do placeholder
-            const placeholder = target.querySelector('.image-placeholder');
-            if (placeholder) {
-                // Simula o carregamento da imagem real
-                setTimeout(() => {
-                    placeholder.innerHTML = `<img src="images/simulated_product_${target.dataset.productId || 'default'}.jpg" alt="Produto simulado">`; // Caminho real da imagem
-                    // Garante que o CSS para a imagem real é aplicado
-                    const imgElement = placeholder.querySelector('img');
-                    if (imgElement) {
-                        imgElement.style.width = '100%';
-                        imgElement.style.height = '100%';
-                        imgElement.style.objectFit = 'cover';
-                        imgElement.style.transition = 'transform 0.5s ease-out';
+                    if (activeChip === '40-45') {
+                        matchesChip = p.sizes.includes('40-45');
+                    } else if (activeChip !== 'all') {
+                        matchesChip = p.name.toLowerCase().includes(activeChip.toLowerCase());
                     }
-                }, Math.random() * 500 + 200); // Simula um pequeno delay de carregamento
-            }
-            observer.unobserve(target); // Para de observar após carregar
+
+                    return matchesSearch && matchesChip;
+                });
+
+                renderProducts(filtered);
+            }, 300);
+
+            searchInput.addEventListener('input', filterFn);
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    filterFn();
+                });
+            });
         }
-    });
-}
 
-// 8. Event Listeners
-function setupEventListeners() {
-    // Filtros
-    searchInput.addEventListener('input', debounceSearch);
-    brandFilter.addEventListener('change', applyFilters);
-    sizeFilter.addEventListener('change', applyFilters);
-    priceFilterSelect.addEventListener('change', () => {
-        priceSlider.value = priceFilterSelect.value;
-        sliderValueSpan.textContent = `${priceSlider.value}€`;
-        applyFilters();
-    });
-    priceSlider.addEventListener('input', () => {
-        sliderValueSpan.textContent = `${priceSlider.value}€`;
-        applyFilters();
-    });
-    
-    // Modal
-    closeModalBtn.addEventListener('click', closeProductModal);
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) closeProductModal();
-    });
-    modalBuyBtn.addEventListener('click', handleBuyClick);
-    modalReserveBtn.addEventListener('click', handleReserveClick);
-    
-    // Carrossel Hero (simplificado)
-    const carousel = document.querySelector('.carousel');
-    const dots = document.querySelectorAll('.dot');
-    const slides = document.querySelectorAll('.slide');
-    let currentSlideIndex = 0;
-    
-    function updateHeroCarousel() {
-        const offset = -currentSlideIndex * (100 / slides.length);
-        carousel.style.transform = `translateX(${offset}%)`;
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlideIndex);
-        });
-    }
+        /**
+         * MODAL E WHATSAPP
+         */
 
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlideIndex = index;
-            updateHeroCarousel();
-        });
-    });
+        let currentProduct = null;
 
-    setInterval(() => {
-        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-        updateHeroCarousel();
-    }, 7000); // Altera slide a cada 7 segundos
+        function openProduct(name) {
+            const product = products.find(p => p.name === name);
+            if (!product) return;
+            currentProduct = product;
 
-    // Observar imagens para Lazy Loading
-    // Em um cenário real, aplicaria isto a elementos <img> com 'data-src'
-    document.querySelectorAll('.product-card').forEach(card => {
-        if (card.dataset.productId) { // Assumindo que você adiciona um ID único ao card
-             imageObserver.observe(card);
-        }
-    });
-
-    // Para o modal, se a galeria for complexa, adicionar swipe
-    let startX = 0;
-    galleryTrackDiv.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    });
-    galleryTrackDiv.addEventListener('touchend', (e) => {
-        const endX = e.changedTouches[0].clientX;
-        const diff = startX - endX;
-        const currentIndex = document.querySelectorAll('.gallery-dot.active')[0]?.dataset.index;
-        
-        if (Math.abs(diff) > 50) {
-            let newIndex;
-            if (diff > 0 && currentIndex < dots.length - 1) { // Swipe left
-                newIndex = parseInt(currentIndex) + 1;
-            } else if (diff < 0 && currentIndex > 0) { // Swipe right
-                newIndex = parseInt(currentIndex) - 1;
-            }
+            document.getElementById('modal-name').innerText = product.name;
+            document.getElementById('modal-price').innerText = `€ ${product.price}`;
+            document.getElementById('modal-size').innerText = product.sizes;
             
-            if (newIndex !== undefined) {
-                goToGallerySlide(newIndex);
+            const gallery = document.getElementById('modal-gallery');
+            gallery.innerHTML = '';
+            
+            if (product.images[0] === 'placeholder') {
+                gallery.innerHTML = '<div class="card-img-wrapper" style="flex: 0 0 100%"><div class="placeholder-emoji">👟</div></div>';
+            } else {
+                product.images.forEach(img => {
+                    const el = document.createElement('img');
+                    el.src = img;
+                    gallery.appendChild(el);
+                });
             }
+
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-    });
-}
 
-// Função auxiliar para anexar listeners aos botões do card
-function attachCardButtonListeners() {
-    document.querySelectorAll('.product-card').forEach(card => {
-        const productId = parseInt(card.dataset.id);
-        const product = allProducts.find(p => p.id === productId);
-        
-        card.querySelector('[data-action="buy"]').addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que o clique no botão abra o modal
-            if (product) {
-                handleBuyClick.call({ product: product }); // Passa o produto para a função
-            }
-        });
-        card.querySelector('[data-action="reserve"]').addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que o clique no botão abra o modal
-            if (product) {
-                handleReserveClick.call({ product: product }); // Passa o produto para a função
-            }
-        });
-    });
-}
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
 
-// Chamadas iniciais de configuração
-// loadProducts(); // Já chamado no DOMContentLoaded
-// renderProducts(); // Já chamado no DOMContentLoaded após loadProducts
-// updatePagination(); // Já chamado no DOMContentLoaded após renderProducts
-// attachCardButtonListeners(); // Necessário após renderProducts
-// setupEventListeners(); // Já chamado no DOMContentLoaded
+        function sendWhatsApp(type) {
+            const msg = `Olá STREETMOOD 👟%0A%0AQuero ${type} o item:%0A*${currentProduct.name}*%0APreço: € ${currentProduct.price}%0ATamanho: ${currentProduct.sizes}%0A%0AEstá disponível?`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+        }
 
-// Função para simular o carregamento de dados do produto no modal
-// Em um cenário real, isso seria chamado dentro de openProductModal
-function simulateProductModalData(product) {
-    // Esta função é mais um placeholder para mostrar como enriquecer os dados
-    // O código em openProductModal já usa product.colorway, product.materials, etc.
-    // Se houver mais detalhes, seriam extraídos aqui.
-}
+        /**
+         * UTILS
+         */
 
-// 9. SEO Schema Markup (Dinâmico)
-function generateProductSchema(product) {
-    return {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": product.name,
-        "description": product.description,
-        "brand": {
-            "@type": "Brand",
-            "name": product.brand
-        },
-        "image": product.images.map((img, index) => 
-            `https://srteetm00d-png.github.io/streetm00d_/imagens_produtos/${img.replace(/👟\d+/, '')}.jpg`
-        ),
-        "offers": {
-            "@type": "Offer",
-            "priceCurrency": "EUR",
-            "price": product.price,
-            "availability": "https://schema.org/InStock",
-            "seller": {
-                "@type": "Organization",
-                "name": "STREETMOOD"
-            }
-        },
-        "sku": `${product.brand}-${product.name.replace(/\s+/g, '-').toUpperCase()}-${product.price}`,
-        "color": product.colorway || 'N/A',
-        "category": product.brand === 'Jordan' || product.brand === 'Balenciaga' ? 'Tênis Masculino' : 'Tênis Unissex'
-    };
-}
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
 
-// Adicionar Schema dinâmico ao abrir modal
-function addProductSchemaToHead(product) {
-    const existingScript = document.querySelector('script[type="application/ld+json"]');
-    if (existingScript) {
-        existingScript.remove();
-    }
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(generateProductSchema(product));
-    document.head.appendChild(script);
-}
-
-// Lembre-se de substituir os caminhos de imagem simulados e o WHATSAPP_NUMBER.
-
-console.log('✅ STREETMOOD Premium - Sistema JavaScript carregado!');
+        // Inicia o sistema
+        window.addEventListener('DOMContentLoaded', initSystem);
     </script>
 </body>
 </html>

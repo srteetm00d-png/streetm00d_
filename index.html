@@ -1,643 +1,430 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>STREETMOOD | Premium Streetwear Catalog</title>
-    <!-- Font: Space Grotesk for futuristic look -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Schema Markup SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "STREETMOOD",
-      "url": "https://srteetm00d-png.github.io/streetm00d_/",
-      "logo": "https://srteetm00d-png.github.io/streetm00d_/streetm00d_.jpeg",
-      "description": "STREETMOOD: O catálogo premium de sneakers e streetwear. Descubra lançamentos exclusivos e edições limitadas com um design moderno e elegante inspirado nos melhores marketplaces.",
-      "sameAs": [
-        "https://www.instagram.com/streetm00d/",
-        "https://www.facebook.com/streetm00d/"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Rua da Moda, 123",
-        "addressLocality": "Lisboa",
-        "postalCode": "1000-000",
-        "addressCountry": "PT"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+351912345678",
-        "contactType": "CustomerService",
-        "availableLanguage": ["pt", "en"],
-        "areaServed": "PT"
-      }
-    }
-    </script>
+    <title>STREETMOOD | Performance System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f1720;
-            --card-bg: #111827;
-            --accent: #ef4444;
+            /* Dark Theme (Default) */
+            --bg: #090c10;
+            --card: #161b22;
             --text: #ffffff;
-            --text-muted: #94a3b8;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --safe-area-top: env(safe-area-inset-top);
-            --safe-area-bottom: env(safe-area-inset-bottom);
+            --text-muted: #8b949e;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #ff3e3e;
+            --skeleton: #21262d;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+        [data-theme="light"] {
+            --bg: #f6f8fa;
+            --card: #ffffff;
+            --text: #1f2328;
+            --text-muted: #656d76;
+            --border: rgba(0, 0, 0, 0.1);
+            --skeleton: #ebedef;
         }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0;
-            padding: 0;
-            background-color: var(--bg);
+            background: var(--bg);
             color: var(--text);
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* --- Header & Navigation --- */
+        /* --- Header & Luxury Glass --- */
         header {
             position: sticky;
             top: 0;
-            z-index: 100;
-            padding: calc(15px + var(--safe-area-top)) 20px 15px;
-            background: rgba(15, 23, 32, 0.8);
-            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
+            background: rgba(var(--bg), 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-weight: 700;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
+        .logo { font-weight: 800; letter-spacing: -1px; font-size: 1.2rem; }
         .logo span { color: var(--accent); }
 
-        /* --- Hero Section --- */
-        .hero {
-            padding: 40px 20px;
-            text-align: left;
-            position: relative;
-        }
+        .nav-tools { display: flex; gap: 15px; align-items: center; }
+        .icon-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); position: relative; }
+        .badge { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 10px; }
 
-        .hero h1 {
-            font-size: 3rem;
-            line-height: 0.9;
-            margin: 0;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
+        /* --- Hero --- */
+        .hero { padding: 40px 20px; }
+        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; line-height: 1; }
+        .hero p { color: var(--text-muted); margin-top: 10px; }
 
-        .hero p {
-            color: var(--text-muted);
-            margin: 10px 0 25px;
-            font-size: 1rem;
-        }
-
-        .btn-explore {
-            background: var(--accent);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
-        }
-
-        /* --- Filters --- */
-        .filter-bar {
-            padding: 0 20px 20px;
+        /* --- Advanced Filters --- */
+        .filter-section {
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+            background: var(--bg);
+            padding: 10px 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
         }
 
-        .search-wrapper {
-            position: relative;
-        }
-
-        .search-wrapper input {
+        .search-bar {
             width: 100%;
-            background: var(--card-bg);
+            background: var(--card);
             border: 1px solid var(--border);
-            padding: 15px 20px;
+            padding: 14px;
             border-radius: 12px;
-            color: white;
-            font-family: inherit;
+            color: var(--text);
+            font-size: 1rem;
             outline: none;
         }
 
-        .filter-group {
+        .scroll-chips {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             overflow-x: auto;
             padding-bottom: 5px;
             scrollbar-width: none;
         }
-        .filter-group::-webkit-scrollbar { display: none; }
+        .scroll-chips::-webkit-scrollbar { display: none; }
 
-        .filter-chip {
-            background: var(--glass);
+        .chip {
+            background: var(--card);
             border: 1px solid var(--border);
             padding: 8px 16px;
             border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
             white-space: nowrap;
-            font-size: 0.8rem;
             cursor: pointer;
+            transition: 0.2s;
         }
+        .chip.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-        .filter-chip.active {
-            background: white;
-            color: black;
-            border-color: white;
-        }
-
-        /* --- Product Grid --- */
+        /* --- Product Grid & Skeleton --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             padding: 20px;
         }
 
         .card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 12px;
+            background: var(--card);
+            border-radius: 20px;
             border: 1px solid var(--border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 10px;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            transform: translateY(20px);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeIn 0.4s ease forwards;
         }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .card:active {
-            transform: scale(0.96);
-        }
-
-        .card-img-wrapper {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #1a2230;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            overflow: hidden;
+        .fav-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: none;
+            color: white;
+            backdrop-filter: blur(5px);
         }
+        .fav-btn.active { color: var(--accent); }
 
-        .card-img-wrapper img {
+        .img-box {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card-info h3 {
-            margin: 0;
-            font-size: 0.9rem;
-            font-weight: 500;
-            white-space: nowrap;
+            aspect-ratio: 1/1;
+            border-radius: 15px;
+            background: var(--skeleton);
             overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 10px;
         }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card-price {
-            color: var(--accent);
-            font-weight: 700;
-            margin: 5px 0;
-            font-size: 1.1rem;
+        /* Skeleton Animation */
+        .skeleton {
+            background: var(--skeleton);
+            background: linear-gradient(90deg, var(--skeleton) 25%, var(--border) 50%, var(--skeleton) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
         }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card-size {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        /* --- Modal Details --- */
+        /* --- Modal & Zoom --- */
         #modal {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: var(--bg);
-            z-index: 200;
+            z-index: 2000;
             display: none;
             flex-direction: column;
-            overflow-y: auto;
-            padding-bottom: 40px;
         }
 
-        .modal-header {
-            padding: calc(20px + var(--safe-area-top)) 20px 20px;
-            display: flex;
-            justify-content: space-between;
-        }
+        .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: 60vh; }
+        .slider img { flex: 0 0 100%; scroll-snap-align: center; object-fit: cover; }
+        
+        .dots { display: flex; justify-content: center; gap: 5px; margin-top: -30px; z-index: 10; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+        .dot.active { width: 15px; background: white; }
 
-        .btn-close {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
+        .modal-body { padding: 30px 20px; flex-grow: 1; }
+        .modal-footer { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border); }
 
-        .modal-gallery {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 10px;
-            padding: 0 20px;
-        }
+        /* Sentinel for Infinite Scroll */
+        #sentinel { height: 50px; width: 100%; }
 
-        .modal-gallery img {
-            flex: 0 0 100%;
-            scroll-snap-align: center;
-            border-radius: 20px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            background: var(--card-bg);
-        }
-
-        .modal-body {
-            padding: 30px 20px;
-        }
-
-        .modal-name {
-            font-size: 2rem;
-            margin: 0;
-            line-height: 1;
-        }
-
-        .modal-price {
-            font-size: 1.5rem;
-            color: var(--accent);
-            font-weight: 700;
-            margin: 10px 0;
-        }
-
-        .modal-desc {
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-
-        .modal-actions {
-            position: sticky;
-            bottom: 0;
-            background: linear-gradient(to top, var(--bg) 80%, transparent);
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .btn-main {
-            padding: 18px;
-            border-radius: 12px;
-            border: none;
-            font-family: inherit;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        .btn-buy { background: var(--accent); color: white; }
-        .btn-res { background: white; color: black; }
-
-        /* --- Footer --- */
-        footer {
-            padding: 40px 20px 100px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Empty State */
-        .empty-state {
-            grid-column: 1/-1;
-            text-align: center;
-            padding: 50px 0;
-            color: var(--text-muted);
-        }
-
-        /* Emojis as placeholders since we can't load real files here */
-        .placeholder-emoji {
-            font-size: 4rem;
-        }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">STREET<span>MOOD</span></div>
-        <div style="font-size: 1.2rem;">👟</div>
+        <div class="nav-tools">
+            <button class="icon-btn" onclick="toggleTheme()">🌓</button>
+            <button class="icon-btn" onclick="showFavorites()">
+                ❤️ <span class="badge" id="fav-count">0</span>
+            </button>
+        </div>
     </header>
 
-    <section class="hero">
-        <h1>STREETMOOD<br>DROP 2026</h1>
-        <p>Premium Streetwear Catalog</p>
-        <a href="#catalog" class="btn-explore">Explore Drop</a>
-    </section>
+    <main id="home-view">
+        <section class="hero">
+            <h1>SNEAKER<br>CULTURE.</h1>
+            <p>Premium selection for collectors.</p>
+        </section>
 
-    <section class="filter-bar" id="catalog">
-        <div class="search-wrapper">
-            <input type="text" id="search-input" placeholder="Buscar sneaker ou marca...">
+        <div class="filter-section">
+            <input type="text" id="main-search" class="search-bar" placeholder="Ex: Jordan 4, Nike, 42...">
+            <div class="scroll-chips" id="brand-filters"></div>
+            <div class="scroll-chips" id="size-filters"></div>
         </div>
-        <div class="filter-group">
-            <div class="filter-chip active" data-filter="all">Todos</div>
-            <div class="filter-chip" data-filter="Nike">Nike</div>
-            <div class="filter-chip" data-filter="Adidas">Adidas</div>
-            <div class="filter-chip" data-filter="Jordan">Jordan</div>
-            <div class="filter-chip" data-filter="40-45">Tamanho 40-45</div>
-        </div>
-    </section>
 
-    <main class="grid" id="product-grid">
-        <!-- Products injected by JS -->
+        <div class="grid" id="main-grid"></div>
+        <div id="sentinel"></div>
     </main>
 
+    <!-- Modal Detail -->
     <div id="modal">
-        <div class="modal-header">
-            <div class="logo">STREET<span>MOOD</span></div>
-            <button class="btn-close" onclick="closeModal()">&times;</button>
+        <div style="padding: 20px; display: flex; justify-content: flex-end;">
+            <button class="icon-btn" onclick="closeModal()" style="font-size: 2rem;">&times;</button>
         </div>
-        <div class="modal-gallery" id="modal-gallery">
-            <!-- Images -->
-        </div>
+        <div class="slider" id="m-slider"></div>
+        <div class="dots" id="m-dots"></div>
         <div class="modal-body">
-            <h2 class="modal-name" id="modal-name">Product Name</h2>
-            <div class="modal-price" id="modal-price">€ 0.00</div>
-            <p class="modal-desc">O melhor do streetwear premium disponível para entrega imediata em Portugal e Europa.</p>
-            <div class="modal-size">Tamanhos: <span id="modal-size" style="color:white; font-weight:700;">40-45</span></div>
+            <h2 id="m-title" style="margin:0"></h2>
+            <div id="m-price" style="color:var(--accent); font-size: 1.5rem; font-weight: 800; margin: 10px 0;"></div>
+            <p id="m-sizes" style="color:var(--text-muted)"></p>
         </div>
-        <div class="modal-actions">
-            <button class="btn-main btn-res" onclick="sendWhatsApp('reservar')">Reservar</button>
-            <button class="btn-main btn-buy" onclick="sendWhatsApp('comprar')">Comprar</button>
+        <div class="modal-footer">
+            <button class="chip" style="padding: 15px;" onclick="contact('RESERVAR')">Reservar</button>
+            <button class="chip active" style="padding: 15px;" onclick="contact('COMPRAR')">Comprar Agora</button>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 STREETMOOD AUTO SYSTEM v2.0</p>
-        <p>Desenvolvido para Mobile Premium</p>
-    </footer>
-
     <script>
-        /**
-         * CONFIGURAÇÃO DO SISTEMA
-         */
-        
-        // 1. Simulação do CSV (No seu projeto, você fará fetch('produtos.csv'))
-        const csvData = `
-nome | tamanhos | preco_eur
-Adidas Adizero SL | 40-45 | 80
-Adidas AE1 | 40-45 | 120
-Adidas Adizero | N/A | 80
-Adidas Forum 84 | 36-39 | 110
-Adidas Originals Samba | 38-44 | 95
-Air Jordan 4 Retro | 40-46 | 130
-Nike Air Force 1 Low | 36-45 | 85
-Nike Air Max 95 | 39-45 | 110
-`;
+        // --- State Management ---
+        let allProducts = [];
+        let filteredProducts = [];
+        let displayedProducts = [];
+        let favorites = JSON.parse(localStorage.getItem('sm_favs')) || [];
+        let currentPage = 1;
+        const perPage = 20;
+        const WHATSAPP = "351912345678";
 
-        // 2. Lista real de arquivos da pasta /imagens_produtos/
-        // Preencha com os nomes reais dos arquivos que você subir
-        const fileList = [
-            "Nike Air Max 95_1.jpg",
-            "Nike Air Max 95_2.jpg", 
-            "Nike Air Max 95_3.jpg",
-            "Adidas Samba_1.jpg",
-            "Adidas Samba_2.jpg",
-            "Adidas Samba_3.jpg",
-            "Air Jordan 4 Retro_1.jpg",
-            "Air Jordan 4 Retro_2.jpg",
-            "Air Jordan 4 Retro_3.jpg",
-            "Nike Air Force 1 Low_1.jpg",
-            "Nike Air Force 1 Low_2.jpg",
-            "Adidas AE1_1.jpg",
-            "Adidas AE1_2.jpg",
-            "Adidas Forum 84_1.jpg",
-            "Adidas Forum 84_2.jpg",
-            "Adidas Adizero SL_1.jpg",
-            "Adidas Adizero SL_2.jpg",
-            "Nike Air Force 1 Low_3.jpg",
-            "Nike Air Max 95_4.jpg",
-            "Adidas Originals Samba_4.jpg",
-            "Adidas Originals Samba_5.jpg",
-            "Nike Air Force 1 Low_4.jpg",
-            "Adidas AE1_3.jpg",
-            "Adidas Forum 84_3.jpg",
-            "Adidas Adizero SL_3.jpg",
-            "Nike Air Max 95_5.jpg",
-            "Adidas Originals Samba_6.jpg",
-            "Nike Air Force 1 Low_5.jpg",
-            "Adidas AE1_4.jpg",
-            "Adidas Forum 84_4.jpg",
-            "Adidas Adizero SL_4.jpg",
-            "Nike Air Max 95_6.jpg"
-        ];
-
-        let products = [];
-        const WHATSAPP_NUMBER = "351912345678"; // Troque pelo seu número
-
-        /**
-         * LÓGICA DE PROCESSAMENTO
-         */
-
-        function initSystem() {
-            // Passo 1: Parse do CSV
-            const lines = csvData.trim().split('\n');
-            const csvItems = lines.map(line => {
-                const [nome, tamanhos, preco] = line.split('|').map(s => s.trim());
-                return { nome, tamanhos, preco };
-            });
-
-            // Passo 2: Agrupamento de Imagens
-            const imageGroups = {};
-            fileList.forEach(file => {
-                // Pega tudo antes do último "_"
-                const lastUnderscore = file.lastIndexOf('_');
-                const productName = lastUnderscore !== -1 ? file.substring(0, lastUnderscore) : file.split('.')[0];
-                
-                if (!imageGroups[productName]) imageGroups[productName] = [];
-                imageGroups[productName].push(`./imagens_produtos/${file}`);
-            });
-
-            // Passo 3: Mesclar dados do CSV com Imagens
-            products = csvItems.map(item => {
-                const images = imageGroups[item.nome] || [];
-                return {
-                    name: item.nome,
-                    sizes: item.tamanhos,
-                    price: item.preco,
-                    images: images.length > 0 ? images : ["placeholder"] // Caso não tenha imagem
-                };
-            });
-
-            renderProducts(products);
-            setupFilters();
+        // --- Data Fetching ---
+        async function loadData() {
+            try {
+                const response = await fetch('produtos.tsv');
+                const text = await response.text();
+                processTSV(text);
+                updateUI();
+            } catch (e) {
+                console.error("Erro ao carregar produtos.tsv. Verifique se o arquivo existe.");
+            }
         }
 
-        /**
-         * RENDERIZAÇÃO
-         */
+        function processTSV(data) {
+            const lines = data.split('\n');
+            const grouped = {};
 
-        function renderProducts(items) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = '';
+            lines.forEach(line => {
+                const parts = line.split('\t');
+                if (parts.length < 4) return;
+                const [nome, tamanhos, preco, imagem] = parts;
+                
+                if (!grouped[nome]) {
+                    grouped[nome] = { 
+                        name: nome.trim(), 
+                        sizes: tamanhos.trim(), 
+                        price: preco.trim(), 
+                        images: [] 
+                    };
+                }
+                grouped[nome].images.push(`imagens_produtos/${imagem.trim()}`);
+            });
 
-            if (items.length === 0) {
-                grid.innerHTML = '<div class="empty-state">Nenhum produto encontrado.</div>';
-                return;
-            }
+            allProducts = Object.values(grouped);
+            filteredProducts = [...allProducts];
+            generateFilters();
+        }
 
-            items.forEach((p, index) => {
+        // --- Render Engine (Infinite Scroll) ---
+        function updateUI() {
+            displayedProducts = filteredProducts.slice(0, perPage * currentPage);
+            renderGrid();
+            updateFavCount();
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('main-grid');
+            if (currentPage === 1) grid.innerHTML = '';
+
+            displayedProducts.slice((currentPage - 1) * perPage).forEach(p => {
+                const isFav = favorites.includes(p.name);
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
-                    <div class="card-img-wrapper" onclick="openProduct('${p.name}')">
-                        ${p.images[0] === 'placeholder' 
-                            ? `<div class="placeholder-emoji">👟</div>` 
-                            : `<img src="${p.images[0]}" alt="${p.name}" loading="lazy">`}
+                    <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav(event, '${p.name}')">
+                        ${isFav ? '❤️' : '🤍'}
+                    </button>
+                    <div class="img-box" onclick="openProduct('${p.name}')">
+                        <img src="${p.images[0]}" loading="lazy">
                     </div>
-                    <div class="card-info" onclick="openProduct('${p.name}')">
-                        <h3>${p.name}</h3>
-                        <div class="card-price">€ ${p.price}</div>
-                        <div class="card-size">Size: ${p.sizes}</div>
+                    <div onclick="openProduct('${p.name}')">
+                        <h3 style="font-size: 0.8rem; margin:0; height: 32px; overflow:hidden;">${p.name}</h3>
+                        <div style="color:var(--accent); font-weight:800; margin: 5px 0;">€${p.price}</div>
+                        <div style="font-size:0.6rem; color:var(--text-muted)">TAM: ${p.sizes}</div>
                     </div>
                 `;
                 grid.appendChild(card);
-                
-                // Animation observer
-                setTimeout(() => card.classList.add('visible'), index * 50);
             });
         }
 
-        /**
-         * FILTROS E BUSCA
-         */
-
-        function setupFilters() {
-            const searchInput = document.getElementById('search-input');
-            const chips = document.querySelectorAll('.filter-chip');
-
-            const filterFn = debounce(() => {
-                const term = searchInput.value.toLowerCase();
-                const activeChip = document.querySelector('.filter-chip.active').dataset.filter;
-
-                const filtered = products.filter(p => {
-                    const matchesSearch = p.name.toLowerCase().includes(term);
-                    let matchesChip = true;
-
-                    if (activeChip === '40-45') {
-                        matchesChip = p.sizes.includes('40-45');
-                    } else if (activeChip !== 'all') {
-                        matchesChip = p.name.toLowerCase().includes(activeChip.toLowerCase());
-                    }
-
-                    return matchesSearch && matchesChip;
-                });
-
-                renderProducts(filtered);
-            }, 300);
-
-            searchInput.addEventListener('input', filterFn);
-
-            chips.forEach(chip => {
-                chip.addEventListener('click', () => {
-                    chips.forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                    filterFn();
-                });
-            });
-        }
-
-        /**
-         * MODAL E WHATSAPP
-         */
-
-        let currentProduct = null;
-
-        function openProduct(name) {
-            const product = products.find(p => p.name === name);
-            if (!product) return;
-            currentProduct = product;
-
-            document.getElementById('modal-name').innerText = product.name;
-            document.getElementById('modal-price').innerText = `€ ${product.price}`;
-            document.getElementById('modal-size').innerText = product.sizes;
-            
-            const gallery = document.getElementById('modal-gallery');
-            gallery.innerHTML = '';
-            
-            if (product.images[0] === 'placeholder') {
-                gallery.innerHTML = '<div class="card-img-wrapper" style="flex: 0 0 100%"><div class="placeholder-emoji">👟</div></div>';
-            } else {
-                product.images.forEach(img => {
-                    const el = document.createElement('img');
-                    el.src = img;
-                    gallery.appendChild(el);
-                });
+        // --- Infinite Scroll Observer ---
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && displayedProducts.length < filteredProducts.length) {
+                currentPage++;
+                updateUI();
             }
+        }, { threshold: 0.5 });
+        observer.observe(document.getElementById('sentinel'));
 
-            document.getElementById('modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        // --- Filters ---
+        function generateFilters() {
+            const brands = ['Nike', 'Jordan', 'Adidas', 'Louis Vuitton', 'Dior', 'Gucci', 'Yeezy'];
+            const sizes = [...new Set(allProducts.map(p => p.sizes.split(/[- ,/]+/)).flat())]
+                            .filter(s => !isNaN(s) && s !== "").sort();
+
+            const bContainer = document.getElementById('brand-filters');
+            bContainer.innerHTML = `<div class="chip active" onclick="filterBrand('all', this)">Todos</div>` +
+                brands.map(b => `<div class="chip" onclick="filterBrand('${b}', this)">${b}</div>`).join('');
+
+            const sContainer = document.getElementById('size-filters');
+            sContainer.innerHTML = sizes.map(s => `<div class="chip" onclick="filterSize('${s}', this)">${s}</div>`).join('');
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-            document.body.style.overflow = '';
+        function filterBrand(brand, el) {
+            document.querySelectorAll('#brand-filters .chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            currentPage = 1;
+            filteredProducts = brand === 'all' ? allProducts : allProducts.filter(p => p.name.includes(brand));
+            updateUI();
         }
 
-        function sendWhatsApp(type) {
-            const msg = `Olá STREETMOOD 👟%0A%0AQuero ${type} o item:%0A*${currentProduct.name}*%0APreço: € ${currentProduct.price}%0ATamanho: ${currentProduct.sizes}%0A%0AEstá disponível?`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+        function filterSize(size, el) {
+            document.querySelectorAll('#size-filters .chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            currentPage = 1;
+            filteredProducts = allProducts.filter(p => p.sizes.includes(size));
+            updateUI();
         }
 
-        /**
-         * UTILS
-         */
+        // --- Search ---
+        document.getElementById('main-search').addEventListener('input', debounce(e => {
+            const query = e.target.value.toLowerCase();
+            currentPage = 1;
+            filteredProducts = query ? allProducts.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.sizes.includes(query) || 
+                p.price.includes(query)
+            ) : [...allProducts];
+            updateUI();
+        }, 300));
 
         function debounce(func, wait) {
             let timeout;
-            return function(...args) {
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
                 clearTimeout(timeout);
-                timeout = setTimeout(() => func.apply(this, args), wait);
+                timeout = setTimeout(later, wait);
             };
         }
 
-        // Inicia o sistema
-        window.addEventListener('DOMContentLoaded', initSystem);
+        // --- Interaction Functions ---
+        function toggleFav(e, name) {
+            e.stopPropagation();
+            if (favorites.includes(name)) favorites = favorites.filter(f => f !== name);
+            else favorites.push(name);
+            localStorage.setItem('sm_favs', JSON.stringify(favorites));
+            updateUI();
+        }
+
+        function updateFavCount() {
+            document.getElementById('fav-count').innerText = favorites.length;
+        }
+
+        function showFavorites() {
+            currentPage = 1;
+            filteredProducts = allProducts.filter(p => favorites.includes(p.name));
+            updateUI();
+        }
+
+        function toggleTheme() {
+            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        let currentP = null;
+        function openProduct(name) {
+            currentP = allProducts.find(p => p.name === name);
+            document.getElementById('m-title').innerText = currentP.name;
+            document.getElementById('m-price').innerText = `€${currentP.price}`;
+            document.getElementById('m-sizes').innerText = `Tamanhos: ${currentP.sizes}`;
+            
+            const slider = document.getElementById('m-slider');
+            slider.innerHTML = currentP.images.map(img => `<img src="${img}">`).join('');
+            
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function contact(type) {
+            const msg = `Olá STREETMOOD 👟%0A%0AQuero ${type}:%0A*${currentP.name}*%0AValor: €${currentP.price}%0ATamanho: ${currentP.sizes}`;
+            window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
+        }
+
+        // Iniciar
+        loadData();
     </script>
 </body>
 </html>

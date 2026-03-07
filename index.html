@@ -258,7 +258,7 @@
         let currentP = null;
         const INSTAGRAM_USERNAME = "streetm00d_";
 
-        // Fallback TSV data embedded
+        // Fallback TSV data embedded (sem cabeçalho)
         const fallbackTSV = `Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_4.jpeg
 Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_5.jpeg
 Adidas AE1 (40-45)	40-45	80	Adidas AE1 (40-45)_5.jpg
@@ -854,16 +854,16 @@ Yeezy Boost 700 V2 Shoes Static – EF2829	N/A	90	Yeezy Boost 700 V2 Shoes Stati
 Yeezy Boost 750 Shoes Chocolate – BY2456	N/A	90	Yeezy Boost 750 Shoes Chocolate – BY2456_5.png`;
 
         async function loadData() {
-            let text;
+            let tsvText;
             try {
                 const res = await fetch("produtos.tsv");
-                if (!res.ok) throw new Error("sem TSV externo");
-                text = await res.text();
-            } catch {
-                console.warn("TSV externo não encontrado → usando fallback embutido");
-                text = fallbackTSV;
+                if (!res.ok) throw new Error("TSV externo não encontrado");
+                tsvText = await res.text();
+            } catch (err) {
+                console.warn("❗ Falha ao buscar produtos.tsv → usando fallback interno");
+                tsvText = fallbackTSV;
             }
-            processTSV(text);
+            processTSV(tsvText);
         }
 
         function processTSV(text) {

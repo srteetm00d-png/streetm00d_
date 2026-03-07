@@ -147,7 +147,7 @@
         .card-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin: 8px 0; }
         .card-size { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
-        /* --- Modal (Design Único para Todos os Dispositivos) --- */
+        /* --- Modal --- */
         #modal {
             position: fixed;
             inset: 0;
@@ -162,33 +162,57 @@
         .modal-header { padding: calc(20px + env(safe-area-inset-top)) 20px; display: flex; justify-content: space-between; align-items: center; }
         .close-modal { font-size: 2rem; background: none; border: none; color: white; cursor: pointer; line-height: 1; }
 
-        .slider {
+        /* --- Image Carousel --- */
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .slides-container {
+            overflow: hidden;
+        }
+
+        .slides {
             display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            gap: 10px;
-            padding: 0 20px;
-            -webkit-overflow-scrolling: touch;
+            transition: transform 0.3s ease;
         }
-        .slider img {
-            flex: 0 0 90%;
-            scroll-snap-align: center;
-            border-radius: 24px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            background: var(--card-bg);
+
+        .slides .slide {
+            flex: 0 0 100%;
         }
+
+        .slides .slide img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .carousel-nav.prev { left: 0.5rem; }
+        .carousel-nav.next { right: 0.5rem; }
+        .carousel-nav:focus { outline: 2px solid var(--accent); }
 
         .modal-content { padding: 30px 20px; }
         .modal-name { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
         .modal-price { font-size: 1.8rem; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
+        .modal-size { color: var(--text-muted); margin-bottom: 30px; }
         
-        .modal-footer {
-            position: sticky;
-            bottom: 0;
-            padding: 20px;
-            padding-bottom: calc(20px + env(safe-area-inset-bottom));
-            background: linear-gradient(transparent, var(--bg) 20%);
+        .modal-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
@@ -332,27 +356,60 @@
         function openProduct(product) {
             currentP = product;
             const modal = document.getElementById('modal');
-            const sliderHTML = product.images.map(img => `<img src="${img}" alt="${product.name}">`).join('');
+            let current = 0;
 
             modal.innerHTML = `
                 <div class="modal-header">
                     <div class="logo">STREET<span>MOOD</span></div>
                     <button class="close-modal" onclick="closeModal()">&times;</button>
                 </div>
-                <div class="slider">${sliderHTML}</div>
+                <div class="image-carousel">
+                    <button class="carousel-nav prev" aria-label="Imagem anterior">‹</button>
+                    <div class="slides-container">
+                        <div class="slides"></div>
+                    </div>
+                    <button class="carousel-nav next" aria-label="Próxima imagem">›</button>
+                </div>
                 <div class="modal-content">
                     <h2 class="modal-name">${product.name}</h2>
                     <div class="modal-price">€ ${product.price}</div>
-                    <p class="modal-size" style="color: var(--text-muted)">Tamanhos: ${product.sizes}</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-action reserve" onclick="contact('reservar')">Reservar</button>
-                    <button class="btn-action buy" onclick="contact('comprar')">Comprar Agora</button>
+                    <p class="modal-size">Tamanhos: ${product.sizes}</p>
+                    <div class="modal-actions">
+                        <button class="btn-action reserve" onclick="contact('reservar')">Reservar</button>
+                        <button class="btn-action buy" onclick="contact('comprar')">Comprar Agora</button>
+                    </div>
                 </div>
             `;
             
+            const slidesEl = modal.querySelector(".slides");
+            const prevBtn = modal.querySelector(".carousel-nav.prev");
+            const nextBtn = modal.querySelector(".carousel-nav.next");
+
+            // Criar slides
+            product.images.forEach((src) => {
+                const slide = document.createElement("div");
+                slide.className = "slide";
+                const img = document.createElement("img");
+                img.src = src;
+                img.alt = product.name;
+                slide.appendChild(img);
+                slidesEl.appendChild(slide);
+            });
+
+            // Função para navegar
+            function goTo(idx) {
+                const total = product.images.length;
+                current = (idx + total) % total;
+                slidesEl.style.transform = `translateX(-${current * 100}%)`;
+            }
+
+            // Eventos dos botões
+            prevBtn.onclick = () => goTo(current - 1);
+            nextBtn.onclick = () => goTo(current + 1);
+
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
+            goTo(0);
         }
 
         function closeModal() {

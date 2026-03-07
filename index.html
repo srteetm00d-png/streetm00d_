@@ -1,713 +1,972 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>STREETMOOD | Premium Sneaker System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      /* Dark default */
-      --bg:#090c10;
-      --card:#161b22;
-      --text:#ffffff;
-      --text-muted:#8b949e;
-      --border:rgba(255,255,255,0.1);
-      --accent:#ff3e3e;
-      --skeleton:#21262d;
-      --max-width:1200px;
-    }
-    [data-theme="light"]{
-      --bg:#f6f8fa;
-      --card:#ffffff;
-      --text:#1f2328;
-      --text-muted:#656d76;
-      --border:rgba(0,0,0,0.08);
-      --skeleton:#e5e7eb;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>STREETMOOD | Premium Streetwear</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1720;
+            --card-bg: #111827;
+            --accent: #ef4444;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(17, 24, 39, 0.8);
+        }
 
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:"Plus Jakarta Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      -webkit-font-smoothing:antialiased;
-    }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; }
 
-    main{
-      max-width:var(--max-width);
-      margin:0 auto 60px;
-    }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+        }
 
-    header{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      padding:calc(15px + env(safe-area-inset-top)) 20px 15px;
-      background:rgba(9,12,16,0.95);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .logo{
-      font-weight:800;
-      letter-spacing:-0.06em;
-      font-size:1.25rem;
-      text-transform:uppercase;
-    }
-    .logo span{color:var(--accent);}
-    .nav-tools{
-      display:flex;
-      gap:14px;
-      align-items:center;
-    }
-    .icon-btn{
-      background:none;
-      border:none;
-      color:var(--text);
-      font-size:1.3rem;
-      cursor:pointer;
-      position:relative;
-    }
-    .badge{
-      position:absolute;
-      top:-5px;
-      right:-5px;
-      background:var(--accent);
-      color:#fff;
-      font-size:0.6rem;
-      padding:2px 5px;
-      border-radius:999px;
-      font-weight:700;
-    }
+        .container {
+            width: 100%;
+            max-width: 1280px; /* Mantém o conteúdo centralizado em telas muito largas */
+            margin: 0 auto;
+        }
 
-    .hero{
-      padding:32px 20px 10px;
-    }
-    .hero h1{
-      margin:0;
-      font-size:2.6rem;
-      line-height:1;
-      font-weight:800;
-      letter-spacing:-0.08em;
-      text-transform:uppercase;
-    }
-    .hero p{
-      margin:10px 0 0;
-      color:var(--text-muted);
-      font-size:0.95rem;
-      max-width:260px;
-    }
+        /* --- Header --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+        .logo span { color: var(--accent); }
 
-    .filter-section{
-      position:sticky;
-      top:68px;
-      z-index:900;
-      background:var(--bg);
-      padding:8px 20px 14px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .search-bar{
-      width:100%;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:12px 14px;
-      color:var(--text);
-      font-size:0.95rem;
-      outline:none;
-    }
-    .search-bar:focus{
-      border-color:var(--accent);
-      box-shadow:0 0 0 1px rgba(255,62,62,0.3);
-    }
-    .scroll-chips{
-      display:flex;
-      gap:8px;
-      overflow-x:auto;
-      padding:2px 0 4px;
-      scrollbar-width:none;
-    }
-    .scroll-chips::-webkit-scrollbar{display:none;}
-    .chip{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:7px 14px;
-      font-size:0.7rem;
-      font-weight:600;
-      text-transform:uppercase;
-      white-space:nowrap;
-      cursor:pointer;
-      color:var(--text-muted);
-      transition:0.2s;
-    }
-    .chip.active{
-      background:var(--text);
-      color:var(--bg);
-      border-color:var(--text);
-    }
+        /* --- Hero --- */
+        .hero { padding: 40px 20px; position: relative; overflow: hidden; }
+        .hero h1 { font-size: 3.5rem; line-height: 0.85; margin: 0; text-transform: uppercase; font-weight: 700; }
+        .hero p { color: var(--text-muted); margin: 15px 0 25px; font-size: 1rem; max-width: 80%; }
+        .btn-explore {
+            background: var(--accent);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            transition: transform 0.2s ease;
+        }
+        .btn-explore:hover {
+            transform: translateY(-3px);
+        }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:14px;
-      padding:14px 20px 40px;
-    }
-    .card{
-      background:var(--card);
-      border-radius:18px;
-      border:1px solid var(--border);
-      padding:10px;
-      position:relative;
-      transition:transform 0.16s ease, box-shadow 0.16s ease;
-      opacity:0;
-      transform:translateY(10px);
-      animation:fadeIn 0.35s ease forwards;
-    }
-    .card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 10px 24px rgba(0,0,0,0.35);
-    }
-    @keyframes fadeIn{
-      to{opacity:1;transform:translateY(0);}
-    }
+        /* --- Filters --- */
+        .sticky-tools {
+            position: sticky;
+            top: 70px; /* Ajuste a altura do seu header */
+            z-index: 90;
+            background: var(--bg);
+            padding: 10px 20px 20px;
+        }
+        .search-box {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 14px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 15px;
+        }
+        .chips {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 5px;
+        }
+        .chips::-webkit-scrollbar { display: none; }
+        .chip {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 50px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .chip.active, .chip:hover { background: var(--accent); border-color: var(--accent); }
 
-    .fav-btn{
-      position:absolute;
-      top:10px;
-      right:10px;
-      width:30px;
-      height:30px;
-      border-radius:50%;
-      border:none;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:rgba(0,0,0,0.35);
-      color:#fff;
-      cursor:pointer;
-      backdrop-filter:blur(6px);
-      -webkit-backdrop-filter:blur(6px);
-      font-size:0.9rem;
-      z-index:5;
-    }
-    .fav-btn.active{color:var(--accent);background:rgba(0,0,0,0.6);}
+        /* --- Grid --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 15px;
+            padding: 10px 20px;
+        }
 
-    .img-box{
-      width:100%;
-      aspect-ratio:1/1;
-      border-radius:14px;
-      background:var(--skeleton);
-      overflow:hidden;
-      margin-bottom:9px;
-    }
-    .img-box img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .card.reveal { opacity: 1; transform: translateY(0); }
+        
+        .img-container {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #1a2230;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
 
-    .card-title{
-      margin:0;
-      font-size:0.78rem;
-      font-weight:600;
-      height:32px;
-      overflow:hidden;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-    }
-    .card-price{
-      margin-top:5px;
-      font-size:0.9rem;
-      font-weight:800;
-      color:var(--accent);
-    }
-    .card-size{
-      margin-top:2px;
-      font-size:0.65rem;
-      color:var(--text-muted);
-      text-transform:uppercase;
-    }
+        .card-info h3 { font-size: 0.85rem; margin: 0; font-weight: 500; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .card-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin: 8px 0; }
+        .card-size { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
-    .empty{
-      grid-column:1 / -1;
-      text-align:center;
-      color:var(--text-muted);
-      padding:40px 0;
-      font-size:0.9rem;
-    }
+        /* --- Modal (Design Único para Todos os Dispositivos) --- */
+        #modal {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
 
-    #sentinel{height:48px;width:100%;}
+        .modal-header { padding: calc(20px + env(safe-area-inset-top)) 20px; display: flex; justify-content: space-between; align-items: center; }
+        .close-modal { font-size: 2rem; background: none; border: none; color: white; cursor: pointer; line-height: 1; }
 
-    #modal{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.92);
-      z-index:2000;
-      display:none;
-      flex-direction:column;
-    }
-    .modal-top{
-      padding:calc(10px + env(safe-area-inset-top)) 20px 10px;
-      display:flex;
-      justify-content:flex-end;
-    }
-    .modal-close{
-      border:none;
-      background:rgba(0,0,0,0.6);
-      color:#fff;
-      width:40px;
-      height:40px;
-      border-radius:999px;
-      font-size:1.6rem;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-    }
+        .slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 10px;
+            padding: 0 20px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slider img {
+            flex: 0 0 90%; /* Ajuste para mostrar um pouco do próximo */
+            scroll-snap-align: center;
+            border-radius: 24px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            background: var(--card-bg);
+        }
 
-    .slider{
-      display:flex;
-      overflow-x:auto;
-      scroll-snap-type:x mandatory;
-      gap:0;
-      height:55vh;
-      scrollbar-width:none;
-    }
-    .slider::-webkit-scrollbar{display:none;}
-    .slider img{
-      flex:0 0 100%;
-      scroll-snap-align:center;
-      object-fit:cover;
-      background:#000;
-    }
-    .dots{
-      display:flex;
-      justify-content:center;
-      gap:6px;
-      margin:-24px 0 10px;
-      position:relative;
-      z-index:5;
-    }
-    .dot{
-      width:6px;
-      height:6px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.5);
-    }
-    .dot.active{
-      width:14px;
-      background:#fff;
-    }
+        .modal-content { padding: 30px 20px; }
+        .modal-name { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
+        .modal-price { font-size: 1.8rem; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
+        
+        .modal-footer {
+            position: sticky;
+            bottom: 0;
+            padding: 20px;
+            padding-bottom: calc(20px + env(safe-area-inset-bottom));
+            background: linear-gradient(transparent, var(--bg) 20%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .btn-action {
+            padding: 20px;
+            border-radius: 15px;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .buy { background: var(--accent); color: white; }
+        .reserve { background: white; color: black; }
 
-    .modal-body{
-      padding:20px;
-      flex:1;
-      background:linear-gradient(to top, rgba(9,12,16,0.98), rgba(9,12,16,0.9));
-    }
-    .modal-title{
-      margin:0;
-      font-size:1.6rem;
-      font-weight:800;
-    }
-    .modal-price{
-      margin-top:8px;
-      font-size:1.3rem;
-      font-weight:800;
-      color:var(--accent);
-    }
-    .modal-sizes{
-      margin-top:4px;
-      font-size:0.9rem;
-      color:var(--text-muted);
-    }
+        .counter { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
 
-    .modal-footer{
-      padding:12px 20px calc(14px + env(safe-area-inset-bottom));
-      background:rgba(9,12,16,0.98);
-      border-top:1px solid var(--border);
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .btn-cta{
-      border-radius:14px;
-      border:1px solid var(--border);
-      padding:13px;
-      font-size:0.75rem;
-      text-transform:uppercase;
-      font-weight:700;
-      cursor:pointer;
-    }
-    .btn-ghost{
-      background:transparent;
-      color:var(--text);
-    }
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-      border-color:var(--accent);
-    }
-
-    @media(min-width:768px){
-      .grid{grid-template-columns:repeat(3,minmax(0,1fr));}
-      .hero{padding-top:40px;}
-    }
-    @media(min-width:1024px){
-      header{padding-inline:40px;}
-      main{padding-inline:40px;}
-      .hero{
-        padding:36px 0 8px;
-        display:flex;
-        align-items:flex-end;
-        justify-content:space-between;
-        gap:40px;
-      }
-      .hero h1{font-size:3.2rem;}
-      .hero p{max-width:340px;margin-top:14px;}
-      .filter-section{
-        top:82px;
-        padding-inline:0;
-        flex-direction:row;
-        align-items:center;
-        gap:10px;
-      }
-      .filter-section .search-bar{flex:2;}
-      #brand-filters,#size-filters{
-        flex:3;
-        overflow:visible;
-        flex-wrap:wrap;
-      }
-      .scroll-chips{display:flex;}
-      .grid{
-        padding-inline:0;
-        grid-template-columns:repeat(4,minmax(0,1fr));
-      }
-      .slider{height:60vh;}
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <header>
-    <div class="logo">STREET<span>MOOD</span></div>
-    <div class="nav-tools">
-      <button class="icon-btn" onclick="toggleTheme()" aria-label="Alternar tema">🌓</button>
-      <button class="icon-btn" onclick="showFavorites()" aria-label="Ver favoritos">
-        ❤️ <span class="badge" id="fav-count">0</span>
-      </button>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">STREET<span>MOOD</span></div>
+                <div id="item-count" class="counter">Carregando...</div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>STREET<br>MOOD</h1>
+            <p>O maior catálogo premium de sneakers e streetwear exclusivo.</p>
+            <a href="#grid-anchor" class="btn-explore">Explorar Drop</a>
+        </section>
+
+        <div class="sticky-tools" id="grid-anchor">
+            <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
+            <div class="chips">
+                <div class="chip active" data-filter="all">Todos</div>
+                <div class="chip" data-filter="Nike">Nike</div>
+                <div class="chip" data-filter="Jordan">Jordan</div>
+                <div class="chip" data-filter="Adidas">Adidas</div>
+                <div class="chip" data-filter="Yeezy">Yeezy</div>
+                <div class="chip" data-filter="Louis Vuitton">LV</div>
+                <div class="chip" data-filter="Dior">Dior</div>
+            </div>
+        </div>
+
+        <main class="grid" id="main-grid"></main>
     </div>
-  </header>
 
-  <main id="home-view">
-    <section class="hero">
-      <div>
-        <h1>SNEAKER<br>CULTURE</h1>
-        <p>Drop premium de sneakers e streetwear curado pela STREETMOOD.</p>
-      </div>
-    </section>
+    <!-- Modal (será populado via JS) -->
+    <div id="modal"></div>
 
-    <section class="filter-section">
-      <input id="main-search" class="search-bar" type="text" placeholder="Buscar modelo, marca ou tamanho...">
-      <div class="scroll-chips" id="brand-filters"></div>
-      <div class="scroll-chips" id="size-filters"></div>
-    </section>
+    <script>
+        const rawData = `Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_4.jpeg
+Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_5.jpeg
+Adidas AE1 (40-45)	40-45	80	Adidas AE1 (40-45)_5.jpg
+Adidas AE1 (40-45)	40-45	80	Adidas AE1 (40-45)_5.png
+Adidas Dexun	N/A	80	Adidas Dexun_4.jpg
+Adidas Dexun	N/A	80	Adidas Dexun_5.jpg
+Adidas Forum 84 (36-39)	36-39	80	Adidas Forum 84 (36-39)_5.jpg
+Adidas Forum 84 (36-40)	36-40	80	Adidas Forum 84 (36-40)_5.jpg
+Adidas Originals Samba	N/A	95	Adidas Originals Samba_4.png
+Adidas Originals Samba	N/A	95	Adidas Originals Samba_5.jpg
+Adidas Originals Samba	N/A	95	Adidas Originals Samba_5.png
+Air Jordan 312	N/A	110	Air Jordan 312_1.jpg
+Air Jordan 4 Retro black particle40-46	N/A	130	Air Jordan 4 Retro black particle40-46_4.jpg
+Air Jordan 4 Retro black particle40-46	N/A	130	Air Jordan 4 Retro black particle40-46_6.jpg
+Air Jordan 4 Retro black-white36-46	N/A	130	Air Jordan 4 Retro black-white36-46_1.jpg
+Air Jordan 4 Retro black-white36-46	N/A	130	Air Jordan 4 Retro black-white36-46_2.jpg
+Air Jordan 4 Retro black-white36-46	N/A	130	Air Jordan 4 Retro black-white36-46_5.jpg
+Air Jordan 4 Retro black-white36-46	N/A	130	Air Jordan 4 Retro black-white36-46_6.jpg
+Air Jordan 4 Retro particle beige40-46	N/A	130	Air Jordan 4 Retro particle beige40-46_1.jpg
+Air Jordan 4 Retro particle beige40-46	N/A	130	Air Jordan 4 Retro particle beige40-46_4.jpg
+Air Jordan 4 Retro particle beige40-46	N/A	130	Air Jordan 4 Retro particle beige40-46_6.jpg
+Air Jordan 4 Retro	N/A	130	Air Jordan 4 Retro_1.jpg
+Air Jordan 4 Retro	N/A	130	Air Jordan 4 Retro_2.jpg
+Air Jordans 1 CD4487-100	N/A	90	Air Jordans 1 CD4487-100_1.jpg
+Air Jordans 1 CD4487-100	N/A	90	Air Jordans 1 CD4487-100_2.jpg
+Air Jordans 1 High University Blue 555088-134	N/A	90	Air Jordans 1 High University Blue 555088-134_1.jpg
+Air Jordans 1 High University Blue 555088-134	N/A	90	Air Jordans 1 High University Blue 555088-134_2.jpg
+AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104	N/A	90	AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_1.jpg
+AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104	N/A	90	AIR JORDANS 1 HIGH ZOOM "Racer Blue" CK6637-104_2.jpg
+AIR JORDANS 1 LOW "Mystic Green"553558-113	N/A	90	AIR JORDANS 1 LOW "Mystic Green"553558-113_1.jpg
+AIR JORDANS 1 LOW "Mystic Green"553558-113	N/A	90	AIR JORDANS 1 LOW "Mystic Green"553558-113_2.jpg
+Air Jordans 1 Mid (GS)555112-500	GS	90	Air Jordans 1 Mid (GS)555112-500_1.jpg
+Air Jordans 1 Mid (GS)555112-500	GS	90	Air Jordans 1 Mid (GS)555112-500_2.jpg
+Air Jordans 1 Mid GS "Light Smoke Grey"554724-092	N/A	90	Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_1.jpg
+Air Jordans 1 Mid GS "Light Smoke Grey"554724-092	N/A	90	Air Jordans 1 Mid GS "Light Smoke Grey"554724-092_2.jpg
+Air Jordans 1 Mid SE 852542-400	N/A	90	Air Jordans 1 Mid SE 852542-400_1.jpg
+Air Jordans 1 Mid SE 852542-400	N/A	90	Air Jordans 1 Mid SE 852542-400_2.jpg
+Air Jordans 1 MID SE "South Beach"852542-306	N/A	90	Air Jordans 1 MID SE "South Beach"852542-306_1.jpg
+Air Jordans 1 MID SE "South Beach"852542-306	N/A	90	Air Jordans 1 MID SE "South Beach"852542-306_2.jpg
+Air Jordans 1 Mid 'Candy' 554725-083	N/A	90	Air Jordans 1 Mid 'Candy' 554725-083_1.jpg
+Air Jordans 1 Mid 'Candy' 554725-083	N/A	90	Air Jordans 1 Mid 'Candy' 554725-083_2.jpg
+Air Jordans 1 Mid "Black Cone" 554724-062	N/A	90	Air Jordans 1 Mid "Black Cone" 554724-062_1.jpg
+Air Jordans 1 Mid "Black Cone" 554724-062	N/A	90	Air Jordans 1 Mid "Black Cone" 554724-062_2.jpg
+Air Jordans 1 Mid "Chicago Black Toe" 554724-069	N/A	90	Air Jordans 1 Mid "Chicago Black Toe" 554724-069_1.jpg
+Air Jordans 1 Mid "Chicago Black Toe" 554724-069	N/A	90	Air Jordans 1 Mid "Chicago Black Toe" 554724-069_2.jpg
+Air Jordans 1 Mid "Lakers Top 3"852542-005	N/A	90	Air Jordans 1 Mid "Lakers Top 3"852542-005_1.jpg
+Air Jordans 1 Mid "Lakers Top 3"852542-005	N/A	90	Air Jordans 1 Mid "Lakers Top 3"852542-005_2.jpg
+Air Jordans 1 Mid "Multicolor" 554724-125	N/A	90	Air Jordans 1 Mid "Multicolor" 554724-125_1.jpg
+Air Jordans 1 Mid "Multicolor" 554724-125	N/A	90	Air Jordans 1 Mid "Multicolor" 554724-125_2.jpg
+Air Jordans 1 MID "Top 3" 554724-124	N/A	90	Air Jordans 1 MID "Top 3" 554724-124_1.jpg
+Air Jordans 1 MID "Top 3" 554724-124	N/A	90	Air Jordans 1 MID "Top 3" 554724-124_2.jpg
+Air Jordans 1 Retro High CN8607-002	N/A	90	Air Jordans 1 Retro High CN8607-002_1.jpg
+Air Jordans 1 Retro High CN8607-002	N/A	90	Air Jordans 1 Retro High CN8607-002_2.jpg
+Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100	N/A	90	Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_1.jpg
+Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100	N/A	90	Air Jordans 1 Retro High Co.JP 'Midnight Navy' DC1788-100_2.jpg
+Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081	N/A	90	Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_1.jpg
+Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081	N/A	90	Air Jordans 1 Retro High OG GS "Crimson Tint" 555088-081_2.jpg
+Air Jordans 11 Retro 'Gamma Blue' 378038-006	N/A	90	Air Jordans 11 Retro 'Gamma Blue' 378038-006_1.jpg
+Air Jordans 11 Retro 'Gamma Blue' 378038-006	N/A	90	Air Jordans 11 Retro 'Gamma Blue' 378038-006_2.jpg
+Air Jordans 3 Retro 'Red Cement' CT8532-104	N/A	90	Air Jordans 3 Retro 'Red Cement' CT8532-104_1.jpg
+Air Jordans 3 Retro 'Red Cement' CT8532-104	N/A	90	Air Jordans 3 Retro 'Red Cement' CT8532-104_2.jpg
+Air Jordans 3 'Lazer Orange' CK9246-108	N/A	90	Air Jordans 3 'Lazer Orange' CK9246-108_1.jpg
+Air Jordans 3 'Lazer Orange' CK9246-108	N/A	90	Air Jordans 3 'Lazer Orange' CK9246-108_2.jpg
+Air Jordans 4 Bred 408452-060	N/A	120	Air Jordans 4 Bred 408452-060_1.jpg
+Air Jordans 4 Bred 408452-060	N/A	120	Air Jordans 4 Bred 408452-060_2.jpg
+Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009	N/A	90	Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_1.jpg
+Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009	N/A	90	Air Jordans 4 Retro SP 'Union – Guava Ice DC9533-009_2.jpg
+Air Jordans 4 Retro 'University Blue' CT8527-400	N/A	90	Air Jordans 4 Retro 'University Blue' CT8527-400_1.jpg
+Air Jordans 4 Retro 'University Blue' CT8527-400	N/A	90	Air Jordans 4 Retro 'University Blue' CT8527-400_2.jpg
+Air Jordans 4 Retro "White Oreo" CT8527-100	N/A	90	Air Jordans 4 Retro "White Oreo" CT8527-100_1.jpg
+Air Jordans 4 Retro "White Oreo" CT8527-100	N/A	90	Air Jordans 4 Retro "White Oreo" CT8527-100_2.jpg
+Air Jordans 4 Retro	N/A	90	Air Jordans 4 Retro_1.jpg
+Air Jordans 4 Retro	N/A	90	Air Jordans 4 Retro_2.jpg
+Air Jordans 4 'Black Cat' CU1110-010	N/A	90	Air Jordans 4 'Black Cat' CU1110-010_1.jpg
+Air Jordans 4 'Black Cat' CU1110-010	N/A	90	Air Jordans 4 'Black Cat' CU1110-010_2.jpg
+Air Jordans 4 'Fire Red' DC7770-160	N/A	90	Air Jordans 4 'Fire Red' DC7770-160_1.jpg
+Air Jordans 4 'Fire Red' DC7770-160	N/A	90	Air Jordans 4 'Fire Red' DC7770-160_2.jpg
+Air Jordans 4 'Off Noir' DC9533-001	N/A	90	Air Jordans 4 'Off Noir' DC9533-001_1.jpg
+Air Jordans 4 'Off Noir' DC9533-001	N/A	90	Air Jordans 4 'Off Noir' DC9533-001_2.jpg
+Air Jordans 4 'PSG' CZ6509-100	N/A	90	Air Jordans 4 'PSG' CZ6509-100_1.jpg
+Air Jordans 4 'PSG' CZ6509-100	N/A	90	Air Jordans 4 'PSG' CZ6509-100_2.jpg
+Air Jordans 4 'Pure Money' 308497-100	N/A	90	Air Jordans 4 'Pure Money' 308497-100_1.jpg
+Air Jordans 4 'Pure Money' 308497-100	N/A	90	Air Jordans 4 'Pure Money' 308497-100_2.jpg
+Air Max 270 V2	N/A	90	Air Max 270 V2_5.jpg
+Air Max 720 Branco rosa azul	N/A	90	Air Max 720 Branco rosa azul_5.jpg
+Air Max 720 Branco	N/A	90	Air Max 720 Branco_5.jpg
+Air Max 720 Preto Branco	N/A	90	Air Max 720 Preto Branco_5.jpg
+Air Max 720 Preto	N/A	90	Air Max 720 Preto_5.jpg
+Air Max 720	N/A	90	Air Max 720_5.jpg
+AMIRI MA-1 (36-40)	36-40	90	AMIRI MA-1 (36-40)_5.jpg
+AMIRI MA-1 Branco Verde	N/A	90	AMIRI MA-1 Branco Verde_5.jpg
+AMIRI MA-1 Branco	N/A	90	AMIRI MA-1 Branco_5.jpg
+AMIRI MA-1 Preto Branco	N/A	90	AMIRI MA-1 Preto Branco_4.jpg
+AMIRI MA-1 rosa	N/A	90	AMIRI MA-1 rosa_5.jpg
+AMIRI MA-1(36-40)	36-40	90	AMIRI MA-1(36-40)_5.jpg
+Bola Puma LaMelo MB.02	N/A	90	Bola Puma LaMelo MB.02_4.jpg
+Bola Puma LaMelo MB.02	N/A	90	Bola Puma LaMelo MB.02_5.jpg
+casaco mulher colete polo ralph lauren branco	N/A	90	casaco mulher colete polo ralph lauren branco.jpg
+casaco mulher polo ralph lauren preto	N/A	90	casaco mulher polo ralph lauren preto.jpg
+casaco polo ralph lauren azul	N/A	90	casaco polo ralph lauren azul.jpg
+casaco polo ralph lauren branco	N/A	90	casaco polo ralph lauren branco.png
+Casaco polo ralph lauren preto	N/A	90	Casaco polo ralph lauren preto.png
+casaco polo ralph lauren verde	N/A	90	casaco polo ralph lauren verde.png
+colete polo ralph lauren branco	N/A	90	colete polo ralph lauren branco.png
+colete polo ralph lauren preto	N/A	90	colete polo ralph lauren preto.png
+colete polo ralph lauren verde	N/A	90	colete polo ralph lauren verde.png
+colete polo ralph lauren	N/A	90	colete polo ralph lauren.jpg
+CPFM x Nike Air Force 1	N/A	85	CPFM x Nike Air Force 1_5.jpg
+CPFM x Nike Air Force 1	N/A	85	CPFM x Nike Air Force 1_5.png
+Dior B22 Grey-pink	N/A	90	Dior B22 Grey-pink_4.jpg
+Dior B22	N/A	90	Dior B22_5.jpg
+Dior B30	N/A	90	Dior B30_5.jpg
+Dior B31 (40-45)	40-45	90	Dior B31 (40-45)_5.jpg
+Dior B33 (36-45)	36-45	90	Dior B33 (36-45)_4.jpg
+Dior B33 (36-45)	36-45	90	Dior B33 (36-45)_5.jpg
+Dior Chrono (36-40)	36-40	90	Dior Chrono (36-40)_5.jpeg
+Dior Chrono (36-45)	36-45	90	Dior Chrono (36-45)_5.jpeg
+Gucci Rhyton azul	N/A	90	Gucci Rhyton azul_5.jpg
+Gucci Rhyton Bege Ébano	N/A	90	Gucci Rhyton Bege Ébano_5.jpg
+Gucci Rhyton Vermelho Tijolo	N/A	90	Gucci Rhyton Vermelho Tijolo_5.jpg
+Gucci Tennis 1977 High Butter Cotton	N/A	90	Gucci Tennis 1977 High Butter Cotton_5.jpg
+Jordan 13 Retro Black White Gum	N/A	110	Jordan 13 Retro Black White Gum_1.jpg
+Jordan 13 Retro Black White Gum	N/A	110	Jordan 13 Retro Black White Gum_2.jpg
+Jordan 13 Retro Brave Blue	N/A	110	Jordan 13 Retro Brave Blue_1.jpg
+Jordan 13 Retro Brave Blue	N/A	110	Jordan 13 Retro Brave Blue_2.jpg
+Jordan 13 Retro French Blue	N/A	110	Jordan 13 Retro French Blue_1.jpg
+Jordan 13 Retro French Blue	N/A	110	Jordan 13 Retro French Blue_2.jpg
+Jordan 4 Retro Cool Grey (2019)	2019	130	Jordan 4 Retro Cool Grey (2019)_1.jpg
+Jordan 4 Retro Cool Grey (2019)	2019	130	Jordan 4 Retro Cool Grey (2019)_2.jpg
+Jordan 4 Retro Flight Nostalgia	N/A	130	Jordan 4 Retro Flight Nostalgia_1.jpg
+Jordan 4 Retro Flight Nostalgia	N/A	130	Jordan 4 Retro Flight Nostalgia_2.jpg
+Jordan 4 Retro Lightning (2021)	2021	130	Jordan 4 Retro Lightning (2021)_1.jpg
+Jordan 4 Retro Lightning (2021)	2021	130	Jordan 4 Retro Lightning (2021)_2.jpg
+Jordan 4 Retro Metallic Green	N/A	130	Jordan 4 Retro Metallic Green_1.jpg
+Jordan 4 Retro Metallic Green	N/A	130	Jordan 4 Retro Metallic Green_2.jpg
+Jordan 4 Retro Metallic Red	N/A	130	Jordan 4 Retro Metallic Red_1.jpg
+Jordan 4 Retro Metallic Red	N/A	130	Jordan 4 Retro Metallic Red_2.jpg
+Jordan 4 Retro Motorsports (2017)	2017	130	Jordan 4 Retro Motorsports (2017)_1.jpg
+Jordan 4 Retro Motorsports (2017)	2017	130	Jordan 4 Retro Motorsports (2017)_2.jpg
+Jordan 4 Retro SE 95 Neon	N/A	130	Jordan 4 Retro SE 95 Neon_1.jpg
+Jordan 4 Retro SE 95 Neon	N/A	130	Jordan 4 Retro SE 95 Neon_2.jpg
+Jordan 4 Retro Thunder (2012)	2012	130	Jordan 4 Retro Thunder (2012)_1.jpg
+Jordan 4 Retro Thunder (2012)	2012	130	Jordan 4 Retro Thunder (2012)_2.jpg
+Jordan Air Jordan 3 Barely Grape Pink Purple	N/A	110	Jordan Air Jordan 3 Barely Grape Pink Purple_1.jpg
+Jordan Air Jordan 3 Barely Grape Pink Purple	N/A	110	Jordan Air Jordan 3 Barely Grape Pink Purple_2.jpg
+Jordan Air Jordan 3 Retro Black Gold Black gold	N/A	110	Jordan Air Jordan 3 Retro Black Gold Black gold_1.jpg
+Jordan Air Jordan 3 Retro Black Gold Black gold	N/A	110	Jordan Air Jordan 3 Retro Black Gold Black gold_2.jpg
+Jordan Air Jordan 3 retro true blue White Blue	N/A	110	Jordan Air Jordan 3 retro true blue White Blue_1.jpg
+Jordan Air Jordan 3 retro true blue White Blue	N/A	110	Jordan Air Jordan 3 retro true blue White Blue_2.jpg
+Jordan Air Jordan 3 tinker black and white	N/A	110	Jordan Air Jordan 3 tinker black and white_1.jpg
+Jordan Air Jordan 3 tinker black and white	N/A	110	Jordan Air Jordan 3 tinker black and white_2.jpg
+Jordans 1 Mid White Black Light Arctic Pink 555112-103	N/A	90	Jordans 1 Mid White Black Light Arctic Pink 555112-103_1.jpg
+Jordans 1 Mid White Black Light Arctic Pink 555112-103	N/A	90	Jordans 1 Mid White Black Light Arctic Pink 555112-103_2.jpg
+Jordans 1 Retro High "Homage To Home" 555088-001	N/A	90	Jordans 1 Retro High "Homage To Home" 555088-001_1.jpg
+Jordans 1 Retro High "Homage To Home" 555088-001	N/A	90	Jordans 1 Retro High "Homage To Home" 555088-001_2.jpg
+KAWS x The North Face Retro 1996(XS-2XL)	XS-2XL	90	KAWS x The North Face Retro 1996(XS-2XL)_2.jpg
+KAWS x The North Face Retro 1996(XS-2XL)	XS-2XL	90	KAWS x The North Face Retro 1996(XS-2XL)_4.jpg
+Louis Vuitton x Nike Air Force 1	N/A	85	Louis Vuitton x Nike Air Force 1_5.jpg
+Morant 1st generation DR8785 800(36-46)	36-46	90	Morant 1st generation DR8785 800(36-46)_2.jpg
+Morant 1st generation DR8785 800(36-46)	36-46	90	Morant 1st generation DR8785 800(36-46)_5.jpg
+Morant 1st generation DR8785-001(36-46)	36-46	90	Morant 1st generation DR8785-001(36-46)_2.jpg
+Morant 1st generation DR8785-001(36-46)	36-46	90	Morant 1st generation DR8785-001(36-46)_5.jpg
+Morant 1st generation DR8786 002(36-46)	36-46	90	Morant 1st generation DR8786 002(36-46)_3.jpg
+Morant 1st generation DR8786 002(36-46)	36-46	90	Morant 1st generation DR8786 002(36-46)_5.jpg
+Morant 1st generation DR8786 102(36-46)	36-46	90	Morant 1st generation DR8786 102(36-46)_2.jpg
+Morant 1st generation DR8786 102(36-46)	36-46	90	Morant 1st generation DR8786 102(36-46)_5.jpg
+Morant 1st generation DR8786 102(36-46)	36-46	90	Morant 1st generation DR8786 102(36-46)_6.jpg
+Morant 1st generation DR8786 802(36-46)	36-46	90	Morant 1st generation DR8786 802(36-46)_1.jpg
+Morant 1st generation DR8786 802(36-46)	36-46	90	Morant 1st generation DR8786 802(36-46)_3.jpg
+Morant 1st generation DR8786-400(36-46)	36-46	90	Morant 1st generation DR8786-400(36-46)_4.jpg
+Morant 1st generation DR8786-400(36-46)	36-46	90	Morant 1st generation DR8786-400(36-46)_5.jpg
+Morant 1st generation FN6614 900(36-46)	36-46	90	Morant 1st generation FN6614 900(36-46)_3.jpg
+Morant 1st generation FN6614 900(36-46)	36-46	90	Morant 1st generation FN6614 900(36-46)_4.jpg
+Morant 1st generation FN6614 900(36-46)	36-46	90	Morant 1st generation FN6614 900(36-46)_6.jpg
+Morant 1st generation FQ4796-800(36-46)	36-46	90	Morant 1st generation FQ4796-800(36-46)_3.jpg
+Morant 1st generation FQ4796-800(36-46)	36-46	90	Morant 1st generation FQ4796-800(36-46)_5.jpg
+Morant 1st generation FQ4796-800(36-46)	36-46	90	Morant 1st generation FQ4796-800(36-46)_6.jpg
+Morant 1st generation FV1281-600(36-46)	36-46	90	Morant 1st generation FV1281-600(36-46)_2.jpg
+Morant 1st generation FV1281-600(36-46)	36-46	90	Morant 1st generation FV1281-600(36-46)_4.jpg
+Morant 1st generation FV1288 600(36-46)	36-46	90	Morant 1st generation FV1288 600(36-46)_2.jpg
+Morant 1st generation FV1288 600(36-46)	36-46	90	Morant 1st generation FV1288 600(36-46)_5.jpg
+Morant 1st generation FV1288-001(36-46)	36-46	90	Morant 1st generation FV1288-001(36-46)_3.jpg
+Morant 1st generation FV1288-001(36-46)	36-46	90	Morant 1st generation FV1288-001(36-46)_5.jpg
+Morant 1st generation FV1291-100(36-46)	36-46	90	Morant 1st generation FV1291-100(36-46)_4.jpg
+Morant 1st generation FV1291-100(36-46)	36-46	90	Morant 1st generation FV1291-100(36-46)_5.jpg
+Morant 1st generation FV6097 300(36-46)	36-46	90	Morant 1st generation FV6097 300(36-46)_2.jpg
+Morant 1st generation FV6097 300(36-46)	36-46	90	Morant 1st generation FV6097 300(36-46)_5.jpg
+Morant 2nd generation FD7327 001(36-46)	36-46	90	Morant 2nd generation FD7327 001(36-46)_3.jpg
+Morant 2nd generation FD7327 001(36-46)	36-46	90	Morant 2nd generation FD7327 001(36-46)_5.jpg
+Morant 2nd generation FD7327 101(36-46)	36-46	90	Morant 2nd generation FD7327 101(36-46)_3.jpg
+Morant 2nd generation FD7327 101(36-46)	36-46	90	Morant 2nd generation FD7327 101(36-46)_5.jpg
+Morant 2nd generation FD7327-100(36-46)	36-46	90	Morant 2nd generation FD7327-100(36-46)_2.jpg
+Morant 2nd generation FD7327-100(36-46)	36-46	90	Morant 2nd generation FD7327-100(36-46)_4.jpg
+Morant 2nd generation FD7327-500(36-46)	36-46	90	Morant 2nd generation FD7327-500(36-46)_2.jpg
+Morant 3rd generation HF2793-600	N/A	90	Morant 3rd generation HF2793-600_2.jpg
+Morant 3rd generation HF2793-600	N/A	90	Morant 3rd generation HF2793-600_4.jpg
+Morant 3rd generation HF2793-601	N/A	90	Morant 3rd generation HF2793-601_2.jpg
+Morant 3rd generation HF2793-601	N/A	90	Morant 3rd generation HF2793-601_5.jpg
+Morant 3rd generation HF2793-602	N/A	90	Morant 3rd generation HF2793-602_2.jpg
+Morant 3rd generation HF2793-602	N/A	90	Morant 3rd generation HF2793-602_5.jpg
+Morant 3rd generation HF2793-603	N/A	90	Morant 3rd generation HF2793-603_3.jpg
+Morant 3rd generation HF2793-604	N/A	90	Morant 3rd generation HF2793-604_4.jpg
+Morant 3rd generation HF2793-605	N/A	90	Morant 3rd generation HF2793-605_4.jpg
+Morant 3rd generation HF2793-605	N/A	90	Morant 3rd generation HF2793-605_5.jpg
+Morant 3rd generation HF2793-606	N/A	90	Morant 3rd generation HF2793-606_2.jpg
+Morant 3rd generation HF2793-606	N/A	90	Morant 3rd generation HF2793-606_4.jpg
+Morant 3rd generation HF2793-608	N/A	90	Morant 3rd generation HF2793-608_2.jpg
+Morant 3rd generation HF2793-608	N/A	90	Morant 3rd generation HF2793-608_4.jpg
+Morant 3rd generation HF2793-609(36-46)	36-46	90	Morant 3rd generation HF2793-609(36-46)_4.jpg
+Morant 3rd generation HF2793-609(36-46)	36-46	90	Morant 3rd generation HF2793-609(36-46)_5.jpg
+Morant 3rd generation HF2793-610	N/A	90	Morant 3rd generation HF2793-610_3.jpg
+Morant 3rd generation HF2794-100	N/A	90	Morant 3rd generation HF2794-100_5.jpg
+Morant 3rd generation IM0464-001	N/A	90	Morant 3rd generation IM0464-001_2.jpg
+Morant 3rd generation IM0464-001	N/A	90	Morant 3rd generation IM0464-001_3.jpg
+Máx. 95 1895-132 (40-46)	40-46	90	Máx. 95 1895-132 (40-46)_5.jpg
+Máx. 95 1895-135 (40-46)	40-46	90	Máx. 95 1895-135 (40-46)_5.jpg
+Máx. 95 1895-290 (40-46)	40-46	90	Máx. 95 1895-290 (40-46)_5.jpg
+Máx. 95 1895-311 (40-46)	40-46	90	Máx. 95 1895-311 (40-46)_5.jpg
+Máx. 95 1895-384 (40-46)	40-46	90	Máx. 95 1895-384 (40-46)_5.jpg
+New Balance 530	N/A	90	New Balance 530_4.jpg
+New Balance 530	N/A	90	New Balance 530_5.jpeg
+New Balance 530	N/A	90	New Balance 530_5.jpg
+New Balance 530	N/A	90	New Balance 530_5.png
+Nike ACG Mountain Fly 2 Black	N/A	90	Nike ACG Mountain Fly 2 Black_1.jpg
+Nike ACG Mountain Fly 2 Gerry	N/A	90	Nike ACG Mountain Fly 2 Gerry_1.jpg
+Nike ACG Mountain Fly 2 Gerry	N/A	90	Nike ACG Mountain Fly 2 Gerry_2.jpg
+Nike ACG Mountain Fly 2	N/A	90	Nike ACG Mountain Fly 2_1.jpg
+Nike ACG Mountain Fly 2	N/A	90	Nike ACG Mountain Fly 2_2.jpg
+Nike Air Force 1 Low - Branco-Preto	N/A	85	Nike Air Force 1 Low - Branco-Preto_5.jpg
+Nike Air Force 1 Low	N/A	85	Nike Air Force 1 Low_5.jpg
+Nike Air Jordan 5	N/A	90	Nike Air Jordan 5_1.jpg
+Nike Air Jordan 5	N/A	90	Nike Air Jordan 5_2.jpg
+Nike Air Jordan 6 Retro Black Infrared	N/A	90	Nike Air Jordan 6 Retro Black Infrared_1.jpg
+Nike Air Jordan 6 Retro Black Infrared	N/A	90	Nike Air Jordan 6 Retro Black Infrared_2.jpg
+Nike Air Jordan 6 Retro Carmine (2014)	2014	90	Nike Air Jordan 6 Retro Carmine (2014)_1.jpg
+Nike Air Jordan 6 Retro Carmine (2014)	2014	90	Nike Air Jordan 6 Retro Carmine (2014)_2.jpg
+Nike Air Jordan 6 Retro Chrome Metallic Silver	N/A	90	Nike Air Jordan 6 Retro Chrome Metallic Silver_1.jpg
+Nike Air Jordan 6 Retro Chrome Metallic Silver	N/A	90	Nike Air Jordan 6 Retro Chrome Metallic Silver_2.jpg
+Nike Air Jordan 6 Retro DMP 2020 (GS)	GS	90	Nike Air Jordan 6 Retro DMP 2020 (GS)_1.jpg
+Nike Air Jordan 6 Retro DMP 2020 (GS)	GS	90	Nike Air Jordan 6 Retro DMP 2020 (GS)_2.jpg
+Nike Air Jordan 6 Retro Midnight Navy (2000)	2000	90	Nike Air Jordan 6 Retro Midnight Navy (2000)_1.jpg
+Nike Air Jordan 6 Retro Midnight Navy (2000)	2000	90	Nike Air Jordan 6 Retro Midnight Navy (2000)_2.jpg
+Nike Air Jordan 6 Retro UNC	N/A	90	Nike Air Jordan 6 Retro UNC_1.jpg
+Nike Air Jordan 6 Retro UNC	N/A	90	Nike Air Jordan 6 Retro UNC_2.jpg
+Nike Air Max 1 '86 OG Big Bubble Royal	N/A	90	Nike Air Max 1 '86 OG Big Bubble Royal_4.jpg
+Nike Air Max 1 '86 OG Big preto azul	N/A	90	Nike Air Max 1 '86 OG Big preto azul_5.jpg
+Nike Air Max 1 '86 OG Golf Big Bubble Sport Vermelho	N/A	90	Nike Air Max 1 '86 OG Golf Big Bubble Sport Vermelho_5.jpg
+Nike Air Max 1 '86 OG Golf Dusty Cactus	N/A	90	Nike Air Max 1 '86 OG Golf Dusty Cactus_5.jpg
+Nike Air Max 1 '86 OG Golf Obsidian	N/A	90	Nike Air Max 1 '86 OG Golf Obsidian_5.jpg
+Nike Air Max 1 '86 OG Grande	N/A	90	Nike Air Max 1 '86 OG Grande_4.jpg
+Nike Air Max 1 '87 Malaquita	N/A	90	Nike Air Max 1 '87 Malaquita_5.jpg
+Nike Air Max 1 Marrom Crepe (2022)	2022	90	Nike Air Max 1 Marrom Crepe (2022)_5.jpg
+Nike Air Max 1 Patta Waves Branco	N/A	90	Nike Air Max 1 Patta Waves Branco_5.jpg
+Nike Air Max 1 Patta Waves Monarch (without Bracelet)	without Bracelet	90	Nike Air Max 1 Patta Waves Monarch (without Bracelet)_4.jpg
+Nike Air Max 1 Patta Waves Noise Aqua (sem pulseira)	sem pulseira	90	Nike Air Max 1 Patta Waves Noise Aqua (sem pulseira)_5.jpg
+Nike Air Max 1 Patta Waves Noise Aqua (without Bracelet)	without Bracelet	90	Nike Air Max 1 Patta Waves Noise Aqua (without Bracelet)_5.jpg
+Nike Air Max 1	N/A	90	Nike Air Max 1_5.jpg
+Nike Air Max 2021 Barely Green (Women's)	Women's	90	Nike Air Max 2021 Barely Green (Women's)_5.png
+Nike Air Max 2021 Branco Rosa Cigana	N/A	90	Nike Air Max 2021 Branco Rosa Cigana_5.jpeg
+Nike Air Max 2021 Branco Violeta Puro (GS)	GS	90	Nike Air Max 2021 Branco Violeta Puro (GS)_5.png
+Nike Air Max 2021 camuflado	N/A	90	Nike Air Max 2021 camuflado_5.jpeg
+Nike Air Max 2021 Camuflagem uva	N/A	90	Nike Air Max 2021 Camuflagem uva_5.jpeg
+Nike Air Max 2021 Obsidian Lime Glow	N/A	90	Nike Air Max 2021 Obsidian Lime Glow_5.jpeg
+Nike Air Max 2021 Preto Cinza Fumaça	N/A	90	Nike Air Max 2021 Preto Cinza Fumaça_5.png
+Nike Air Max 2021 Preto Cromado Verde Strike (GS)	GS	90	Nike Air Max 2021 Preto Cromado Verde Strike (GS)_5.png
+Nike Air Max 2021 Preto e Branco	N/A	90	Nike Air Max 2021 Preto e Branco_5.png
+Nike Air Max 2021 Spruce Aura (Feminino)	Feminino	90	Nike Air Max 2021 Spruce Aura (Feminino)_5.png
+Nike Air Max 2021 Summit Branco Solar Vermelho	N/A	90	Nike Air Max 2021 Summit Branco Solar Vermelho_5.png
+Nike Air Max 2021 Venice (Feminino)	Feminino	90	Nike Air Max 2021 Venice (Feminino)_5.png
+Nike Air Max 2021 Verde acinzentado	N/A	90	Nike Air Max 2021 Verde acinzentado_5.png
+Nike Air Max 270 Branco Preto Vermelho Universitário	N/A	90	Nike Air Max 270 Branco Preto Vermelho Universitário_5.jpg
+Nike Air Max 270 Rosa Ferrugem	N/A	90	Nike Air Max 270 Rosa Ferrugem_5.jpg
+Nike Air Max 270 University Gold	N/A	90	Nike Air Max 270 University Gold_5.jpg
+Nike Air Max 270 Vermelho Habanero	N/A	90	Nike Air Max 270 Vermelho Habanero_5.jpg
+Nike Air Max 270	N/A	90	Nike Air Max 270_5.jpeg
+Nike Air Max 270	N/A	90	Nike Air Max 270_5.jpg
+Nike Air Max 95 - preto e amarelo alternados	N/A	90	Nike Air Max 95 - preto e amarelo alternados_5.jpg
+Nike Air Max 95 - preto e azul	N/A	90	Nike Air Max 95 - preto e azul_5.jpg
+Nike Air Max 95 - preto e cinza	N/A	90	Nike Air Max 95 - preto e cinza_5.jpg
+Nike Air Max 95 - Preto, cinza e branco	N/A	90	Nike Air Max 95 - Preto, cinza e branco_5.jpg
+Nike Air Max 95 - preto	N/A	90	Nike Air Max 95 - preto_5.jpg
+Nike Air Max 95 Azul e Preto	N/A	90	Nike Air Max 95 Azul e Preto_5.jpg
+Nike Air Max 95 Branco, vermelho e cinza	N/A	90	Nike Air Max 95 Branco, vermelho e cinza_5.jpg
+Nike Air Max 95 Cinza e Vermelho	N/A	90	Nike Air Max 95 Cinza e Vermelho_5.jpg
+Nike Air Max 95 NYC Taxi	N/A	90	Nike Air Max 95 NYC Taxi_5.jpg
+Nike Air Max 95 Preto Vermelho	N/A	90	Nike Air Max 95 Preto Vermelho_5.jpg
+Nike Air Max 95, mesmo estilo do Jay Chou (tamanhos 40-46)	tamanhos 40-46	90	Nike Air Max 95, mesmo estilo do Jay Chou (tamanhos 40-46)_5.jpg
+Nike Air Max 95-Light blue and dark blue	N/A	90	Nike Air Max 95-Light blue and dark blue_4.jpg
+Nike Air Max 95	N/A	90	Nike Air Max 95_5.jpeg
+Nike Air Max Phoenix azul e branco (tamanhos 40-46)	tamanhos 40-46	90	Nike Air Max Phoenix azul e branco (tamanhos 40-46)_5.jpg
+Nike Air Max Phoenix orange（40-46）	N/A	90	Nike Air Max Phoenix orange（40-46）_4.jpg
+Nike Air Max Phoenix preto (tamanhos 40-46)	tamanhos 40-46	90	Nike Air Max Phoenix preto (tamanhos 40-46)_5.jpg
+Nike Air Max Phoenix preto e azul (tamanhos 40 a 46)	tamanhos 40 a 46	90	Nike Air Max Phoenix preto e azul (tamanhos 40 a 46)_5.jpg
+Nike Air Max Phoenix preto e branco (tamanhos 40 a 46)	tamanhos 40 a 46	90	Nike Air Max Phoenix preto e branco (tamanhos 40 a 46)_5.jpg
+Nike Air Max Phoenix preto e vermelho (tamanhos 40 a 46)	tamanhos 40 a 46	90	Nike Air Max Phoenix preto e vermelho (tamanhos 40 a 46)_5.jpg
+Nike Air Max Plus Tn (36-40)	36-40	90	Nike Air Max Plus Tn (36-40)_5.jpeg
+Nike Air Max Plus Tn (36-40)	36-40	90	Nike Air Max Plus Tn (36-40)_5.jpg
+Nike Air Max Plus Tn (36-40)	36-40	90	Nike Air Max Plus Tn (36-40)_6.jpeg
+Nike Air Max Plus Tn (36-40)	36-40	90	Nike Air Max Plus Tn (36-40)_7.jpeg
+Nike Air Max Plus Tn (36-46)	36-46	90	Nike Air Max Plus Tn (36-46)_4.jpeg
+Nike Air Max Plus Tn (36-46)	36-46	90	Nike Air Max Plus Tn (36-46)_5.jpeg
+Nike Air Max Plus Tn (40-46)	40-46	90	Nike Air Max Plus Tn (40-46)_5.jpeg
+NIKE AIR MAX PLUS TN 2	N/A	90	NIKE AIR MAX PLUS TN 2_5.jpeg
+Nike Air Max Plus Tn Black+White9908-23 (40-46)	40-46	90	Nike Air Max Plus Tn Black+White9908-23 (40-46)_5.jpeg
+Nike Air Max Plus Tn （36-40）	N/A	90	Nike Air Max Plus Tn （36-40）_5.jpeg
+Nike Air Max Plus Tn （40-46）	N/A	90	Nike Air Max Plus Tn （40-46）_4.jpeg
+Nike Air Max Plus Tn-皮面（40-46）	N/A	90	Nike Air Max Plus Tn-皮面（40-46）_5.jpeg
+Nike Air Max Plus Tn	N/A	90	Nike Air Max Plus Tn_5.jpeg
+Nike Air Max Tn3 2102-73 (39-46)	39-46	90	Nike Air Max Tn3 2102-73 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-74 (39-46)	39-46	90	Nike Air Max Tn3 2102-74 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-75 (39-46)	39-46	90	Nike Air Max Tn3 2102-75 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-76 (39-46)	39-46	90	Nike Air Max Tn3 2102-76 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-77 (39-46)	39-46	90	Nike Air Max Tn3 2102-77 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-78 (39-46)	39-46	90	Nike Air Max Tn3 2102-78 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-79 (40-46)	40-46	90	Nike Air Max Tn3 2102-79 (40-46)_5.jpeg
+Nike Air Max Tn3 2102-80 (39-46)	39-46	90	Nike Air Max Tn3 2102-80 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-81 (40-46)	40-46	90	Nike Air Max Tn3 2102-81 (40-46)_5.jpeg
+Nike Air Max Tn3 2102-A27 (39-46)	39-46	90	Nike Air Max Tn3 2102-A27 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-A28 (39-46)	39-46	90	Nike Air Max Tn3 2102-A28 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-A29 (39-46)	39-46	90	Nike Air Max Tn3 2102-A29 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-A30 (39-46)	39-46	90	Nike Air Max Tn3 2102-A30 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-A31 (40-46)	40-46	90	Nike Air Max Tn3 2102-A31 (40-46)_5.jpeg
+Nike Air Max Tn3 2102-A32 (40-46)	40-46	90	Nike Air Max Tn3 2102-A32 (40-46)_5.jpeg
+Nike Air Max Tn3 2102-A33 (40-46)	40-46	90	Nike Air Max Tn3 2102-A33 (40-46)_5.jpeg
+Nike Air Max Tn3 2102-A34 (40-46)	40-46	90	Nike Air Max Tn3 2102-A34 (40-46)_5.jpeg
+Nike Air Max Tn3 2102-A36 (39-46)	39-46	90	Nike Air Max Tn3 2102-A36 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-A37 (39-46)	39-46	90	Nike Air Max Tn3 2102-A37 (39-46)_5.jpeg
+Nike Air Max Tn3 2102-A38 (39-46)	39-46	90	Nike Air Max Tn3 2102-A38 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G1 (39-46)	39-46	90	Nike Air Max Tn3 couro-G1 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G10 (39-46)	39-46	90	Nike Air Max Tn3 couro-G10 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G2 (39-46)	39-46	90	Nike Air Max Tn3 couro-G2 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G3 (39-46)	39-46	90	Nike Air Max Tn3 couro-G3 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G4 (39-46)	39-46	90	Nike Air Max Tn3 couro-G4 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G5 (39-46)	39-46	90	Nike Air Max Tn3 couro-G5 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G7 (39-46)	39-46	90	Nike Air Max Tn3 couro-G7 (39-46)_5.jpeg
+Nike Air Max Tn3 couro-G8 (39-46)	39-46	90	Nike Air Max Tn3 couro-G8 (39-46)_5.jpeg
+Nike Air Max Tn3 leather-G9 (39-46)	39-46	90	Nike Air Max Tn3 leather-G9 (39-46)_4.jpeg
+Nike Air More Uptempo 96 Azul Cobalto (PS)	PS	90	Nike Air More Uptempo 96 Azul Cobalto (PS)_5.jpg
+Nike Air More Uptempo 96 Cinza Frio Azul Marinho (GS)	GS	90	Nike Air More Uptempo 96 Cinza Frio Azul Marinho (GS)_5.jpg
+Nike Air More Uptempo 96 França	N/A	90	Nike Air More Uptempo 96 França_5.jpg
+Nike Air More Uptempo 96 Volt	N/A	90	Nike Air More Uptempo 96 Volt_5.jpg
+Nike Air More Uptempo Azul Marinho	N/A	90	Nike Air More Uptempo Azul Marinho_5.jpeg
+Nike Air More Uptempo Azul Universitário	N/A	90	Nike Air More Uptempo Azul Universitário_5.jpg
+Nike Air More Uptempo branco-azul (36-46)	36-46	90	Nike Air More Uptempo branco-azul (36-46)_5.jpg
+Nike Air More Uptempo branco-preto (36-46)	36-46	90	Nike Air More Uptempo branco-preto (36-46)_5.jpg
+Nike Air More Uptempo branco-verde (36-46)	36-46	90	Nike Air More Uptempo branco-verde (36-46)_5.jpg
+Nike Air More Uptempo Cargo Cáqui	N/A	90	Nike Air More Uptempo Cargo Cáqui_5.png
+Nike Air More Uptempo cinza-preto (36-46)	36-46	90	Nike Air More Uptempo cinza-preto (36-46)_5.jpg
+Nike Air More Uptempo preto (36-46)	36-46	90	Nike Air More Uptempo preto (36-46)_5.jpg
+Nike Air More Uptempo Preto Branco Vermelho Laser	N/A	90	Nike Air More Uptempo Preto Branco Vermelho Laser_5.jpg
+Nike Air More Uptempo preto e branco (36-46)	36-46	90	Nike Air More Uptempo preto e branco (36-46)_5.jpg
+Nike Air More Uptempo Preto Refletivo (2018)	2018	90	Nike Air More Uptempo Preto Refletivo (2018)_5.jpg
+Nike Air More Uptempo Quilted Wheat Gum Light Brown (W)	W	90	Nike Air More Uptempo Quilted Wheat Gum Light Brown (W)_5.jpg
+Nike Air More Uptempo Tri-Color Tint	N/A	90	Nike Air More Uptempo Tri-Color Tint_5.jpg
+Nike Air More Uptempo Verde Cevada	N/A	90	Nike Air More Uptempo Verde Cevada_5.jpg
+Nike Air More Uptempo white（36-46）	N/A	90	Nike Air More Uptempo white（36-46）_4.jpg
+Nike Air More Uptempo	N/A	90	Nike Air More Uptempo_5.png
+Nike Air VaporMax 2 Branco Azul Hidrogênio	N/A	90	Nike Air VaporMax 2 Branco Azul Hidrogênio_5.jpeg
+Nike Air VaporMax 2 Branco Preto	N/A	90	Nike Air VaporMax 2 Branco Preto_5.jpeg
+Nike Air VaporMax 2 branco	N/A	90	Nike Air VaporMax 2 branco_5.jpg
+Nike Air VaporMax 2 Creme Claro	N/A	90	Nike Air VaporMax 2 Creme Claro_5.jpg
+Nike Air VaporMax 2 off white preto	N/A	90	Nike Air VaporMax 2 off white preto_5.jpg
+Nike Air VaporMax 2 Preto Dourado Metálico	N/A	90	Nike Air VaporMax 2 Preto Dourado Metálico_5.jpeg
+Nike Air VaporMax 2 Preto e Branco	N/A	90	Nike Air VaporMax 2 Preto e Branco_5.jpeg
+Nike Air VaporMax 2 Racer Azul	N/A	90	Nike Air VaporMax 2 Racer Azul_5.jpeg
+Nike Air VaporMax 2 Rosa Ferrugem	N/A	90	Nike Air VaporMax 2 Rosa Ferrugem_5.jpeg
+Nike Air VaporMax 2 Team Red Obsidian	N/A	90	Nike Air VaporMax 2 Team Red Obsidian_5.jpeg
+Nike Air VaporMax 2.0 Dusty Cactus Hyper Jade	N/A	90	Nike Air VaporMax 2.0 Dusty Cactus Hyper Jade_5.jpeg
+Nike Air VaporMax 2.0 Preto Hot Punch	N/A	90	Nike Air VaporMax 2.0 Preto Hot Punch_5.jpeg
+Nike Air VaporMax 2.0 Ultramarine (Feminino)	Feminino	90	Nike Air VaporMax 2.0 Ultramarine (Feminino)_5.jpeg
+Nike Air VaporMax Flyknit 2 Ano Novo Chinês (2019)	2019	90	Nike Air VaporMax Flyknit 2 Ano Novo Chinês (2019)_5.jpeg
+Nike Air VaporMax Flyknit 2 Branco Platina Pura	N/A	90	Nike Air VaporMax Flyknit 2 Branco Platina Pura_5.jpeg
+Nike Air VaporMax Flyknit 2	N/A	90	Nike Air VaporMax Flyknit 2_5.jpeg
+Nike Air VaporMax Flyknit Moc 2 Gridiron Rosa Blas	N/A	90	Nike Air VaporMax Flyknit Moc 2 Gridiron Rosa Blas_5.jpg
+Nike Air VaporMax Moc 2 Dark Stucco Midnight Navy	N/A	90	Nike Air VaporMax Moc 2 Dark Stucco Midnight Navy_5.jpg
+Nike Air VaporMax Moc 2 Gunsmoke	N/A	90	Nike Air VaporMax Moc 2 Gunsmoke_5.jpg
+Nike Air VaporMax Moc 2 Mica Verde	N/A	90	Nike Air VaporMax Moc 2 Mica Verde_5.jpg
+Nike Air VaporMax Moc 2 Moon Particle	N/A	90	Nike Air VaporMax Moc 2 Moon Particle_5.jpg
+Nike Air VaporMax Moc 2 Neutral Olive Habanero Red	N/A	90	Nike Air VaporMax Moc 2 Neutral Olive Habanero Red_5.jpg
+Nike Air VaporMax Moc 2 Preto Creme Claro	N/A	90	Nike Air VaporMax Moc 2 Preto Creme Claro_5.jpg
+Nike Air VaporMax Moc 2 Preto e Dourado	N/A	90	Nike Air VaporMax Moc 2 Preto e Dourado_5.png
+Nike Air VaporMax Moc 2 Thunder Azul	N/A	90	Nike Air VaporMax Moc 2 Thunder Azul_5.jpg
+Nike Air VaporMax Moc 2 University Gold	N/A	90	Nike Air VaporMax Moc 2 University Gold_5.jpg
+Nike Air VaporMax Moc 2 Vermelho Universitário Explosão de Fúcsia	N/A	90	Nike Air VaporMax Moc 2 Vermelho Universitário Explosão de Fúcsia_5.jpg
+Nike Air VaporMax Moc 2	N/A	90	Nike Air VaporMax Moc 2_5.jpg
+Nike Air VaporMax Triple Black 2.0	N/A	90	Nike Air VaporMax Triple Black 2.0_5.jpeg
+Nike Air Zoom Alphafly NEXT% 1	N/A	90	Nike Air Zoom Alphafly NEXT% 1_5.jpg
+Nike Air Zoom Alphafly NEXT% 1	N/A	90	Nike Air Zoom Alphafly NEXT% 1_5.png
+Nike Air Zoom Alphafly NEXT% 2	N/A	90	Nike Air Zoom Alphafly NEXT% 2_5.jpg
+Nike Air Zoom Alphafly NEXT% 3 Azul e branco	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Azul e branco_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 branco azul celeste	N/A	90	Nike Air Zoom Alphafly NEXT% 3 branco azul celeste_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Branco com detalhes em laranja	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Branco com detalhes em laranja_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Branco e Preto	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Branco e Preto_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Branco e vermelho vibrante	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Branco e vermelho vibrante_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Branco Gerry	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Branco Gerry_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Branco Roxo	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Branco Roxo_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 branco	N/A	90	Nike Air Zoom Alphafly NEXT% 3 branco_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Cinza Fantasma Branco	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Cinza Fantasma Branco_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 preto e branco	N/A	90	Nike Air Zoom Alphafly NEXT% 3 preto e branco_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Preto Verde	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Preto Verde_5.png
+Nike Air Zoom Alphafly NEXT% 3 preto	N/A	90	Nike Air Zoom Alphafly NEXT% 3 preto_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 red yellow	N/A	90	Nike Air Zoom Alphafly NEXT% 3 red yellow_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Rosa e roxo	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Rosa e roxo_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Verde claro laranja	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Verde claro laranja_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 Verde fluorescente	N/A	90	Nike Air Zoom Alphafly NEXT% 3 Verde fluorescente_5.jpeg
+Nike Air Zoom Alphafly NEXT% 3 vermelho	N/A	90	Nike Air Zoom Alphafly NEXT% 3 vermelho_5.jpeg
+Nike Jordan Stadium 90 Gris	N/A	90	Nike Jordan Stadium 90 Gris_1.jpg
+Nike Jordan Stadium 90 Gris	N/A	90	Nike Jordan Stadium 90 Gris_2.jpg
+Nike Jordan Stadium 90 White Amarillo de hoja caduca	N/A	90	Nike Jordan Stadium 90 White Amarillo de hoja caduca_1.jpg
+Nike Jordan Stadium 90 White Amarillo de hoja caduca	N/A	90	Nike Jordan Stadium 90 White Amarillo de hoja caduca_2.jpg
+Nike Jordan Stadium 90 White black	N/A	90	Nike Jordan Stadium 90 White black_1.jpg
+Nike Jordan Stadium 90 White black	N/A	90	Nike Jordan Stadium 90 White black_2.jpg
+Nike Jordan Stadium 90 White Morado	N/A	90	Nike Jordan Stadium 90 White Morado_1.jpg
+Nike Jordan Stadium 90 White Morado	N/A	90	Nike Jordan Stadium 90 White Morado_2.jpg
+Nike Jordan Stadium 90 White pink	N/A	90	Nike Jordan Stadium 90 White pink_1.jpg
+Nike Jordan Stadium 90 White pink	N/A	90	Nike Jordan Stadium 90 White pink_2.jpg
+Nike Jordan Stadium 90 White red	N/A	90	Nike Jordan Stadium 90 White red_1.jpg
+Nike Jordan Stadium 90 White red	N/A	90	Nike Jordan Stadium 90 White red_2.jpg
+Nike NOCTA Glide Drake	N/A	90	Nike NOCTA Glide Drake_5.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_10.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_2.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_3.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_4.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_4.png
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_5.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_6.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_7.jpg
+Nike NSW Tech Fleece Sports jacket	N/A	90	Nike NSW Tech Fleece Sports jacket_9.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_1.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_2.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_3.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_4.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_4.png
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_5.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_6.jpg
+Nike NSW Tech Fleece Sportswear set (M-2XL)	M-2XL	90	Nike NSW Tech Fleece Sportswear set (M-2XL)_7.jpg
+Nike NSW Tech Fleece Sportswear set	N/A	90	Nike NSW Tech Fleece Sportswear set_2.jpg
+Nike NSW Tech Fleece Sportswear set	N/A	90	Nike NSW Tech Fleece Sportswear set_4.jpg
+Nike NSW Tech Fleece Sportswear set	N/A	90	Nike NSW Tech Fleece Sportswear set_5.jpg
+Nike NSW Tech Fleece Sportswear set	N/A	90	Nike NSW Tech Fleece Sportswear set_7.jpg
+Nike Shox Ride 2 (36-46)	36-46	90	Nike Shox Ride 2 (36-46)_5.jpeg
+Nike Shox Ride 2 (40-46)	40-46	90	Nike Shox Ride 2 (40-46)_5.jpeg
+Nike Shox Ride 2 SP Supreme Branco Azul	N/A	90	Nike Shox Ride 2 SP Supreme Branco Azul_5.jpeg
+Nike Shox Ride 2 SP Supreme Branco Cinza Vermelho	N/A	90	Nike Shox Ride 2 SP Supreme Branco Cinza Vermelho_5.jpg
+Nike Shox Ride 2 SP Supreme Branco Preto	N/A	90	Nike Shox Ride 2 SP Supreme Branco Preto_5.jpeg
+Nike Shox Ride 2 SP Supreme Branco Vermelho	N/A	90	Nike Shox Ride 2 SP Supreme Branco Vermelho_5.jpeg
+Nike Shox Ride 2 SP Supreme Branco	N/A	90	Nike Shox Ride 2 SP Supreme Branco_5.jpeg
+Nike Shox Ride 2 SP Supreme Preto e branco	N/A	90	Nike Shox Ride 2 SP Supreme Preto e branco_5.jpeg
+Nike Shox Ride 2 SP Supreme Preto e Dourado	N/A	90	Nike Shox Ride 2 SP Supreme Preto e Dourado_5.jpeg
+Nike Shox Ride 2 SP Supreme Preto	N/A	90	Nike Shox Ride 2 SP Supreme Preto_5.png
+Nike Shox Ride 2 （40-46）	N/A	90	Nike Shox Ride 2 （40-46）_5.jpeg
+Nike Shox Ride 2	N/A	90	Nike Shox Ride 2_5.jpg
+Nike Shox TL (40-45)	40-45	90	Nike Shox TL (40-45)_5.jpeg
+Nike Shox TL Azul-Preto (40-45)	40-45	90	Nike Shox TL Azul-Preto (40-45)_5.jpg
+Nike Shox TL Branco Multicolorido	N/A	90	Nike Shox TL Branco Multicolorido_5.jpeg
+Nike Shox TL Branco Prata Metálico	N/A	90	Nike Shox TL Branco Prata Metálico_5.png
+Nike Shox TL Branco-Azul (37-44)	37-44	90	Nike Shox TL Branco-Azul (37-44)_5.jpg
+Nike Shox TL Branco-Preto (39-45)	39-45	90	Nike Shox TL Branco-Preto (39-45)_5.jpg
+Nike Shox TL branco-vermelho claro (tamanhos 40-45)	tamanhos 40-45	90	Nike Shox TL branco-vermelho claro (tamanhos 40-45)_5.jpg
+Nike Shox TL Cinza Lobo e Verde Limão	N/A	90	Nike Shox TL Cinza Lobo e Verde Limão_5.jpeg
+Nike Shox TL Cáqui (36-45)	36-45	90	Nike Shox TL Cáqui (36-45)_5.jpg
+Nike Shox TL Light Bone Metallic Silver Cool Grey	N/A	90	Nike Shox TL Light Bone Metallic Silver Cool Grey_5.jpg
+Nike Shox TL Neymar	N/A	90	Nike Shox TL Neymar_5.jpeg
+Nike Shox TL Preto Metálico Hematita	N/A	90	Nike Shox TL Preto Metálico Hematita_5.jpg
+Nike Shox TL Preto-Azul (39-45)	39-45	90	Nike Shox TL Preto-Azul (39-45)_5.jpg
+Nike Shox TL Preto-Azul (40-45)	40-45	90	Nike Shox TL Preto-Azul (40-45)_5.jpg
+Nike Shox TL Preto-Azul Claro (40-45)	40-45	90	Nike Shox TL Preto-Azul Claro (40-45)_5.jpg
+Nike Shox TL Preto-Cinza (40-45)	40-45	90	Nike Shox TL Preto-Cinza (40-45)_5.jpg
+Nike Shox TL Preto	N/A	90	Nike Shox TL Preto_5.jpg
+Nike Shox TL Python Pony	N/A	90	Nike Shox TL Python Pony_5.jpeg
+Nike Shox TL Skepta	N/A	90	Nike Shox TL Skepta_5.jpg
+Nike Shox TL Speed Vermelho	N/A	90	Nike Shox TL Speed Vermelho_5.jpg
+Nike Shox TL Thermoreactive (41-46)	41-46	90	Nike Shox TL Thermoreactive (41-46)_4.jpg
+Nike Shox TL Thermoreactive (41-46)	41-46	90	Nike Shox TL Thermoreactive (41-46)_5.jpg
+Nike Shox TL （40-45）	N/A	90	Nike Shox TL （40-45）_5.jpeg
+NOCTA x Nike Air Force 1 Love You Forever Pink	N/A	85	NOCTA x Nike Air Force 1 Love You Forever Pink_5.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_1.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_2.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_3.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_4.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_4.png
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_5.png
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_6.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_7.jpg
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_8.png
+NOCTA x Nike NSW Tech Fleece Sportswear set	N/A	90	NOCTA x Nike NSW Tech Fleece Sportswear set_9.jpg
+Off-White Já volto Branco cinza jade preto	N/A	90	Off-White Já volto Branco cinza jade preto_5.jpeg
+Off-White Já volto Rosa cinza preto	N/A	90	Off-White Já volto Rosa cinza preto_5.jpeg
+OFF-WHITE Out Of Office White Black	N/A	90	OFF-WHITE Out Of Office White Black_4.jpeg
+Offset Tears Black White	N/A	90	Offset Tears Black White_3.jpeg
+Offset Tears Black	N/A	90	Offset Tears Black_2.jpeg
+Offset Tears Black	N/A	90	Offset Tears Black_3.jpeg
+Offset Tears Black	N/A	90	Offset Tears Black_5.jpeg
+Offset Tears Black	N/A	90	Offset Tears Black_6.jpeg
+Offset Tears Black	N/A	90	Offset Tears Black_7.jpeg
+Offset Tears Blue	N/A	90	Offset Tears Blue_2.jpeg
+Offset Tears Pink	N/A	90	Offset Tears Pink_2.jpeg
+Offset Tears Pink	N/A	90	Offset Tears Pink_3.jpeg
+Offset Tears Pink	N/A	90	Offset Tears Pink_5.jpeg
+Offset Tears Pink	N/A	90	Offset Tears Pink_6.jpeg
+Offset Tears	N/A	90	Offset Tears_1.jpeg
+Offset Tears	N/A	90	Offset Tears_2.jpeg
+Offset Tears	N/A	90	Offset Tears_3.jpeg
+Offset Tears	N/A	90	Offset Tears_4.jpeg
+Offset Tears	N/A	90	Offset Tears_5.jpeg
+Offset Tears	N/A	90	Offset Tears_6.jpeg
+Puma LaMelo Ball MB.01	N/A	90	Puma LaMelo Ball MB.01_4.jpg
+Puma LaMelo Ball MB.02	N/A	90	Puma LaMelo Ball MB.02_4.jpg
+PUMA Speedcat (36-45)	36-45	90	PUMA Speedcat (36-45)_5.jpg
+PUMA Speedcat(36-45)	36-45	90	PUMA Speedcat(36-45)_4.jpg
+Sacai 2.0	N/A	90	Sacai 2.0_5.jpg
+Sarja Versace Chain Reaction	N/A	90	Sarja Versace Chain Reaction_5.jpg
+SynaWord	N/A	90	SynaWord_1.jpg
+SynaWord	N/A	90	SynaWord_1.png
+SynaWord	N/A	90	SynaWord_10.jpg
+SynaWord	N/A	90	SynaWord_3.jpg
+SynaWord	N/A	90	SynaWord_5.jpg
+SynaWord	N/A	90	SynaWord_6.jpg
+SynaWord	N/A	90	SynaWord_7.jpg
+The North Face (XS-2XL)	XS-2XL	90	The North Face (XS-2XL)_2.jpg
+The North Face (XS-2XL)	XS-2XL	90	The North Face (XS-2XL)_3.jpg
+The North Face _1996(XS-2XL)	XS-2XL	90	The North Face _1996(XS-2XL)_1.jpg
+The North Face _1996(XS-2XL)	XS-2XL	90	The North Face _1996(XS-2XL)_2.jpg
+The North Face _1996(XS-2XL)	XS-2XL	90	The North Face _1996(XS-2XL)_3.jpg
+The North Face _1996(XS-2XL)	XS-2XL	90	The North Face _1996(XS-2XL)_4.jpg
+The North Face _1996(XS-2XL)	XS-2XL	90	The North Face _1996(XS-2XL)_5.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_1.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_11.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_12.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_2.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_2.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_3.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_3.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_4.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_4.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_5.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_5.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_6.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_6.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_7.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_7.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_8.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_8.jpg
+TRAPSTAR	N/A	90	TRAPSTAR_9.jpeg
+TRAPSTAR	N/A	90	TRAPSTAR_9.jpg
+Tênis Gucci 1977 GG Canvas	N/A	90	Tênis Gucci 1977 GG Canvas_5.jpg
+Tênis Gucci 1977	N/A	90	Tênis Gucci 1977_5.jpg
+Tênis Gucci Tennis 1977 Cano Alto GG Azul	N/A	90	Tênis Gucci Tennis 1977 Cano Alto GG Azul_5.jpg
+Tênis Gucci Tennis 1977 Cano Alto GG	N/A	90	Tênis Gucci Tennis 1977 Cano Alto GG_5.jpg
+Tênis Louis Vuitton LV azul grama de quatro folhas	N/A	90	Tênis Louis Vuitton LV azul grama de quatro folhas_5.jpeg
+Tênis Louis Vuitton LV branco cor abóbora bebê	N/A	90	Tênis Louis Vuitton LV branco cor abóbora bebê_5.jpeg
+Tênis Louis Vuitton LV Branco Preto Rosa	N/A	90	Tênis Louis Vuitton LV Branco Preto Rosa_5.jpeg
+Tênis Louis Vuitton LV Branco Terra Amarelo	N/A	90	Tênis Louis Vuitton LV Branco Terra Amarelo_4.jpeg
+Tênis Louis Vuitton LV com estampa xadrez preta	N/A	90	Tênis Louis Vuitton LV com estampa xadrez preta_5.jpeg
+Tênis Louis Vuitton LV com velcro na cor azul-marinho	N/A	90	Tênis Louis Vuitton LV com velcro na cor azul-marinho_5.jpeg
+Tênis Louis Vuitton LV com velcro nas cores preto e vermelho.	N/A	90	Tênis Louis Vuitton LV com velcro nas cores preto e vermelho._5.jpeg
+Tênis Louis Vuitton LV Corn Hair	N/A	90	Tênis Louis Vuitton LV Corn Hair_5.jpeg
+Tênis Louis Vuitton LV Cowboy Preto	N/A	90	Tênis Louis Vuitton LV Cowboy Preto_5.jpeg
+Tênis Louis Vuitton LV em couro branco.	N/A	90	Tênis Louis Vuitton LV em couro branco._5.jpeg
+Tênis Louis Vuitton LV em tecido preto	N/A	90	Tênis Louis Vuitton LV em tecido preto_5.jpeg
+Tênis Louis Vuitton LV na cor grama-de-quatro-folhas, preto e branco.	N/A	90	Tênis Louis Vuitton LV na cor grama-de-quatro-folhas, preto e branco._5.jpeg
+Tênis Louis Vuitton LV preto roan	N/A	90	Tênis Louis Vuitton LV preto roan_5.jpeg
+Tênis Louis Vuitton LV verde grama de quatro folhas	N/A	90	Tênis Louis Vuitton LV verde grama de quatro folhas_5.jpeg
+Tênis Louis Vuitton LV, todo em couro preto.	N/A	90	Tênis Louis Vuitton LV, todo em couro preto._5.jpeg
+Tênis Yeezy Boost 700 V2 Geode – EG6860	N/A	90	Tênis Yeezy Boost 700 V2 Geode – EG6860_5.png
+Tênis Yeezy Boost 750 Cinza com Sola de Borracha – BB1840	N/A	90	Tênis Yeezy Boost 750 Cinza com Sola de Borracha – BB1840_5.png
+Tênis Yeezy Boost 750 Marrom Claro – B35309	N/A	90	Tênis Yeezy Boost 750 Marrom Claro – B35309_5.png
+Tênis Yeezy Boost 750 Triple Black – BB1839	N/A	90	Tênis Yeezy Boost 750 Triple Black – BB1839_5.png
+VEJA Campo Unisex	N/A	90	VEJA Campo Unisex_5.jpg
+VEJA Campo Unissex	N/A	90	VEJA Campo Unissex_5.jpg
+Versace Baroque Chain Reaction Bluette Gold	N/A	90	Versace Baroque Chain Reaction Bluette Gold_5.jpg
+Versace Chain Reaction (Reação em Cadeia)	Reação em Cadeia	90	Versace Chain Reaction (Reação em Cadeia)_5.jpg
+Versace Chain Reaction 2 Chainz Preto Amarelo	N/A	90	Versace Chain Reaction 2 Chainz Preto Amarelo_5.jpg
+Versace Chain Reaction 2 Chainz Preto	N/A	90	Versace Chain Reaction 2 Chainz Preto_5.jpg
+Versace Chain Reaction 2 Estampa Barocco Branco Preto Amarelo	N/A	90	Versace Chain Reaction 2 Estampa Barocco Branco Preto Amarelo_5.jpg
+Versace Chain Reaction 2	N/A	90	Versace Chain Reaction 2_4.jpg
+Versace Chain Reaction 2	N/A	90	Versace Chain Reaction 2_5.jpg
+Versace Chain Reaction Branco em Malha e Camurça de Borracha	N/A	90	Versace Chain Reaction Branco em Malha e Camurça de Borracha_5.jpg
+Versace Chain Reaction Branco Rosa Amarelo Barroco	N/A	90	Versace Chain Reaction Branco Rosa Amarelo Barroco_5.jpg
+Versace Chain Reaction Laranja Verde	N/A	90	Versace Chain Reaction Laranja Verde_5.jpg
+Versace Chain Reaction Preto e Branco com Estampa de Leopardo	N/A	90	Versace Chain Reaction Preto e Branco com Estampa de Leopardo_5.jpg
+Versace Chain Reaction Preto e Branco	N/A	90	Versace Chain Reaction Preto e Branco_5.jpg
+Versace Chain Reaction Preto	N/A	90	Versace Chain Reaction Preto_5.jpg
+Vomero 11 (36-40)	36-40	90	Vomero 11 (36-40)_5.jpg
+Vomero 11 (36-40)	36-40	90	Vomero 11 (36-40)_5.png
+Vomero 11 (36-45)	36-45	90	Vomero 11 (36-45)_5.jpg
+Vomero 11 (36-45)	36-45	90	Vomero 11 (36-45)_5.png
+Vomero 11 (39-45)	39-45	90	Vomero 11 (39-45)_5.jpg
+Vomero 11 (39-45)	39-45	90	Vomero 11 (39-45)_5.png
+YEEZY 450 Branco Nuvem	N/A	90	YEEZY 450 Branco Nuvem_5.jpg
+Yeezy 450 Dark Slate	N/A	90	Yeezy 450 Dark Slate_5.jpg
+Yeezy Boost 700 V2 Shoes Static – EF2829	N/A	90	Yeezy Boost 700 V2 Shoes Static – EF2829_5.png
+Yeezy Boost 750 Shoes Chocolate – BY2456	N/A	90	Yeezy Boost 750 Shoes Chocolate – BY2456_5.png`;
 
-    <section class="grid" id="main-grid"></section>
-    <div id="sentinel"></div>
-  </main>
+        let products = [];
+        let currentP = null;
+        const INSTAGRAM_USERNAME = "streetm00d_";
 
-  <!-- MODAL DETALHE -->
-  <div id="modal">
-    <div class="modal-top">
-      <button class="modal-close" onclick="closeModal()">&times;</button>
-    </div>
-    <div class="slider" id="m-slider"></div>
-    <div class="dots" id="m-dots"></div>
-    <div class="modal-body">
-      <h2 class="modal-title" id="m-title"></h2>
-      <div class="modal-price" id="m-price"></div>
-      <p class="modal-sizes" id="m-sizes"></p>
-      <p style="margin-top:16px;font-size:0.85rem;color:var(--text-muted);">
-        Fala com a gente no Instagram <strong>@streetm00d_</strong> para combinar envio, pagamento
-        e confirmar disponibilidade em tempo real.
-      </p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-cta btn-ghost" onclick="contact('RESERVAR')">Reservar no Instagram</button>
-      <button class="btn-cta btn-primary" onclick="contact('COMPRAR')">Comprar via Instagram</button>
-    </div>
-  </div>
-
-  <script>
-    // -------- CONFIG --------
-    const INSTAGRAM_HANDLE = "streetm00d_";
-    const INSTAGRAM_DM_URL = "https://ig.me/m/streetm00d_";
-
-    let allProducts = [];
-    let filteredProducts = [];
-    let displayedProducts = [];
-    let favorites = JSON.parse(localStorage.getItem("sm_favs") || "[]");
-
-    let searchTerm = "";
-    let activeBrand = "all";
-    let activeSize = null;
-    let showingFavs = false;
-
-    let currentPage = 1;
-    const perPage = 20;
-
-    let currentProduct = null;
-
-    // -------- LOAD DATA FROM produtos.tsv --------
-    async function loadData(){
-      try{
-        const res = await fetch("produtos.tsv");
-        const text = await res.text();
-        processTSV(text);
-        setupSearch();
-        generateFilters();
-        applyFilters();
-        setupInfiniteScroll();
-        updateFavCount();
-      }catch(e){
-        console.error("Erro ao carregar produtos.tsv",e);
-        document.getElementById("main-grid").innerHTML =
-          '<div class="empty">Erro ao carregar catálogo. Verifica se o arquivo <strong>produtos.tsv</strong> está na mesma pasta do index.html.</div>';
-      }
-    }
-
-    function processTSV(data){
-      const lines = data.split("\n").map(l=>l.trim()).filter(Boolean);
-      const map = new Map();
-      for(const line of lines){
-        const parts = line.split("\t");
-        if(parts.length < 4) continue;
-        const [name,sizes,price,image] = parts;
-        if(!map.has(name)){
-          map.set(name,{
-            name:name.trim(),
-            sizes:sizes.trim(),
-            price:price.trim(),
-            images:[]
-          });
+        function parseData() {
+            const lines = rawData.split('\n').filter(line => line.trim() !== '');
+            const grouped = {};
+            lines.forEach(line => {
+                const [nome, tamanhos, preco, imagem] = line.split('\t');
+                if (!nome) return;
+                const key = `${nome}|${tamanhos}|${preco}`;
+                if (!grouped[key]) {
+                    grouped[key] = { name: nome, sizes: tamanhos, price: preco, images: [] };
+                }
+                if (imagem) {
+                    grouped[key].images.push(`imagens_produtos/${imagem.trim()}`);
+                }
+            });
+            products = Object.values(grouped);
+            document.getElementById('item-count').innerText = `${products.length} itens`;
+            render(products);
         }
-        map.get(name).images.push(`imagens_produtos/${image.trim()}`);
-      }
-      allProducts = Array.from(map.values());
-      filteredProducts = [...allProducts];
-    }
 
-    // -------- FILTERS & SEARCH --------
-    function setupSearch(){
-      const input = document.getElementById("main-search");
-      input.addEventListener("input",e=>{
-        searchTerm = e.target.value.toLowerCase();
-        showingFavs = false;
-        currentPage = 1;
-        applyFilters();
-      });
-    }
+        function render(items) {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = items.map(p => `
+                <div class="card" onclick='openProduct(${JSON.stringify(p)})'>
+                    <div class="img-container">
+                        <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                    </div>
+                    <div class="card-info">
+                        <h3>${p.name}</h3>
+                        <div class="card-price">€ ${p.price}</div>
+                        <div class="card-size">${p.sizes}</div>
+                    </div>
+                </div>
+            `).join('');
 
-    function generateFilters(){
-      const brands = ["Nike","Jordan","Adidas","Louis Vuitton","Dior","Gucci","Yeezy","VEJA","Versace"];
-      const brandContainer = document.getElementById("brand-filters");
-      brandContainer.innerHTML =
-        `<div class="chip active" onclick="onBrandClick('all', this)">Todos</div>` +
-        brands.map(b=>`<div class="chip" onclick="onBrandClick('${b}', this)">${b}</div>`).join("");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.card').forEach(card => observer.observe(card));
+        }
 
-      const sizeSet = new Set();
-      allProducts.forEach(p=>{
-        p.sizes.split(/[^0-9]+/).forEach(part=>{
-          if(part && !isNaN(part)) sizeSet.add(part);
+        document.getElementById('search').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.sizes.toLowerCase().includes(term));
+            render(filtered);
         });
-      });
-      const sizeList = Array.from(sizeSet).sort((a,b)=>Number(a)-Number(b));
-      const sizeContainer = document.getElementById("size-filters");
-      sizeContainer.innerHTML = sizeList.map(s=>`<div class="chip" onclick="onSizeClick('${s}', this)">${s}</div>`).join("");
-    }
 
-    function onBrandClick(brand, el){
-      document.querySelectorAll("#brand-filters .chip").forEach(c=>c.classList.remove("active"));
-      el.classList.add("active");
-      activeBrand = brand;
-      showingFavs = false;
-      currentPage = 1;
-      applyFilters();
-    }
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelector('.chip.active').classList.remove('active');
+                chip.classList.add('active');
+                const filter = chip.dataset.filter;
+                const filtered = filter === 'all' ? products : products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+                render(filtered);
+            });
+        });
 
-    function onSizeClick(size, el){
-      const chips = document.querySelectorAll("#size-filters .chip");
-      if(activeSize === size){
-        // desmarcar
-        activeSize = null;
-        el.classList.remove("active");
-      }else{
-        activeSize = size;
-        chips.forEach(c=>c.classList.remove("active"));
-        el.classList.add("active");
-      }
-      showingFavs = false;
-      currentPage = 1;
-      applyFilters();
-    }
+        function openProduct(product) {
+            currentP = product;
+            const modal = document.getElementById('modal');
+            const sliderHTML = product.images.map(img => `<img src="${img}" alt="${product.name}">`).join('');
 
-    function applyFilters(){
-      filteredProducts = allProducts.filter(p=>{
-        const text = (p.name + " " + p.sizes).toLowerCase();
-        const matchesSearch = !searchTerm || text.includes(searchTerm);
-        const matchesBrand = activeBrand === "all" ||
-          p.name.toLowerCase().includes(activeBrand.toLowerCase());
-        let matchesSize = true;
-        if(activeSize){
-          const nums = p.sizes.split(/[^0-9]+/).filter(Boolean);
-          matchesSize = nums.includes(activeSize);
+            // Sempre constrói o modal de tela cheia (mobile-first)
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <div class="logo">STREET<span>MOOD</span></div>
+                    <button class="close-modal" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="slider">${sliderHTML}</div>
+                <div class="modal-content">
+                    <h2 class="modal-name">${product.name}</h2>
+                    <div class="modal-price">€ ${product.price}</div>
+                    <p class="modal-size" style="color: var(--text-muted)">Tamanhos: ${product.sizes}</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-action reserve" onclick="contact('reservar')">Reservar</button>
+                    <button class="btn-action buy" onclick="contact('comprar')">Comprar Agora</button>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-        return matchesSearch && matchesBrand && matchesSize;
-      });
-      if(showingFavs){
-        filteredProducts = filteredProducts.filter(p=>favorites.includes(p.name));
-      }
-      currentPage = 1;
-      updateUI();
-    }
 
-    // -------- RENDER --------
-    function updateUI(){
-      const end = perPage * currentPage;
-      displayedProducts = filteredProducts.slice(0,end);
-      renderGrid();
-      updateFavCount();
-    }
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.animation = "fadeOut 0.3s ease";
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.style.animation = "fadeIn 0.3s ease";
+                modal.innerHTML = ''; // Limpa o conteúdo para a próxima abertura
+            }, 280);
+            document.body.style.overflow = '';
+        }
 
-    function renderGrid(){
-      const grid = document.getElementById("main-grid");
-      grid.innerHTML = "";
-      if(displayedProducts.length === 0){
-        grid.innerHTML = '<div class="empty">Nenhum produto encontrado com esses filtros.</div>';
-        return;
-      }
-      displayedProducts.forEach((p)=>{
-        const isFav = favorites.includes(p.name);
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML = `
-          <button class="fav-btn ${isFav?"active":""}" onclick="toggleFav(event, '${p.name.replace(/'/g,"\\'")}')">
-            ${isFav ? "❤️" : "🤍"}
-          </button>
-          <div class="img-box" onclick="openProduct('${p.name.replace(/'/g,"\\'")}')">
-            <img src="${p.images[0]}" loading="lazy" alt="${p.name}">
-          </div>
-          <div onclick="openProduct('${p.name.replace(/'/g,"\\'")}')">
-            <h3 class="card-title">${p.name}</h3>
-            <div class="card-price">€${p.price}</div>
-            <div class="card-size">Tamanhos: ${p.sizes}</div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-    }
-
-    // -------- INFINITE SCROLL --------
-    function setupInfiniteScroll(){
-      const sentinel = document.getElementById("sentinel");
-      const io = new IntersectionObserver(entries=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            if(displayedProducts.length < filteredProducts.length){
-              currentPage++;
-              updateUI();
+        function contact(type) {
+            const text = `Olá, STREETMOOD. Tenho interesse em ${type} o seguinte item:\n\nProduto: ${currentP.name}\nTamanhos: ${currentP.sizes}\nPreço: €${currentP.price}`;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Nome do produto copiado! Cole a mensagem na conversa do Instagram.');
+                }).catch(err => {
+                    console.error('Falha ao copiar texto: ', err);
+                    alert('Abra o Instagram e informe o nome do produto.');
+                });
+            } else {
+                 alert('Abra o Instagram e informe os detalhes do produto.');
             }
-          }
-        });
-      },{threshold:0.6});
-      io.observe(sentinel);
-    }
 
-    // -------- FAVORITOS --------
-    function toggleFav(e,name){
-      e.stopPropagation();
-      if(favorites.includes(name)){
-        favorites = favorites.filter(n=>n!==name);
-      }else{
-        favorites.push(name);
-      }
-      localStorage.setItem("sm_favs",JSON.stringify(favorites));
-      if(showingFavs){
-        applyFilters();
-      }else{
-        updateUI();
-      }
-    }
+            window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, '_blank');
+        }
 
-    function updateFavCount(){
-      document.getElementById("fav-count").innerText = favorites.length;
-    }
-
-    function showFavorites(){
-      showingFavs = !showingFavs;
-      currentPage = 1;
-      applyFilters();
-    }
-
-    // -------- MODAL + INSTAGRAM --------
-    function openProduct(name){
-      currentProduct = allProducts.find(p=>p.name===name);
-      if(!currentProduct)return;
-      document.getElementById("m-title").innerText = currentProduct.name;
-      document.getElementById("m-price").innerText = `€${currentProduct.price}`;
-      document.getElementById("m-sizes").innerText = `Tamanhos: ${currentProduct.sizes}`;
-
-      const slider = document.getElementById("m-slider");
-      slider.innerHTML = currentProduct.images.map(src=>`<img src="${src}" alt="${currentProduct.name}">`).join("");
-
-      const dotsContainer = document.getElementById("m-dots");
-      dotsContainer.innerHTML = currentProduct.images.map((_,i)=>`<div class="dot ${i===0?"active":""}"></div>`).join("");
-
-      // Atualizar dots conforme scroll
-      slider.onscroll = ()=>{
-        const idx = Math.round(slider.scrollLeft / slider.clientWidth);
-        [...dotsContainer.children].forEach((dot,i)=>{
-          dot.classList.toggle("active", i===idx);
-        });
-      };
-
-      document.getElementById("modal").style.display = "flex";
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(){
-      document.getElementById("modal").style.display = "none";
-      document.body.style.overflow = "";
-    }
-
-    // Em vez de WhatsApp, abrir DM no Instagram da STREETMOOD
-    function contact(tipo){
-      // Opcionalmente, você pode usar o tipo numa futura integração,
-      // mas para já apenas abre o chat do Instagram.
-      window.open(INSTAGRAM_DM_URL, "_blank");
-    }
-
-    // -------- TEMA --------
-    function toggleTheme(){
-      const html = document.documentElement;
-      const current = html.getAttribute("data-theme") || "dark";
-      html.setAttribute("data-theme", current==="dark" ? "light" : "dark");
-    }
-
-    // -------- START --------
-    loadData();
-  </script>
+        // Initial load
+        parseData();
+    </script>
 </body>
 </html>

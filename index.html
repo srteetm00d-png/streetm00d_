@@ -29,7 +29,7 @@
 
         .container {
             width: 100%;
-            max-width: 1280px; /* Mantém o conteúdo centralizado em telas muito largas */
+            max-width: 1280px;
             margin: 0 auto;
         }
 
@@ -75,7 +75,7 @@
         /* --- Filters --- */
         .sticky-tools {
             position: sticky;
-            top: 70px; /* Ajuste a altura do seu header */
+            top: 70px;
             z-index: 90;
             background: var(--bg);
             padding: 10px 20px 20px;
@@ -171,7 +171,7 @@
             -webkit-overflow-scrolling: touch;
         }
         .slider img {
-            flex: 0 0 90%; /* Ajuste para mostrar um pouco do próximo */
+            flex: 0 0 90%;
             scroll-snap-align: center;
             border-radius: 24px;
             aspect-ratio: 1/1;
@@ -254,7 +254,12 @@
     <div id="modal"></div>
 
     <script>
-        const rawData = `Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_4.jpeg
+        let products = [];
+        let currentP = null;
+        const INSTAGRAM_USERNAME = "streetm00d_";
+
+        // Fallback TSV data embedded
+        const fallbackTSV = `Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_4.jpeg
 Adidas Adizero SL (40-45)	40-45	80	Adidas Adizero SL (40-45)_5.jpeg
 Adidas AE1 (40-45)	40-45	80	Adidas AE1 (40-45)_5.jpg
 Adidas AE1 (40-45)	40-45	80	Adidas AE1 (40-45)_5.png
@@ -848,12 +853,21 @@ Yeezy 450 Dark Slate	N/A	90	Yeezy 450 Dark Slate_5.jpg
 Yeezy Boost 700 V2 Shoes Static – EF2829	N/A	90	Yeezy Boost 700 V2 Shoes Static – EF2829_5.png
 Yeezy Boost 750 Shoes Chocolate – BY2456	N/A	90	Yeezy Boost 750 Shoes Chocolate – BY2456_5.png`;
 
-        let products = [];
-        let currentP = null;
-        const INSTAGRAM_USERNAME = "streetm00d_";
+        async function loadData() {
+            let text;
+            try {
+                const res = await fetch("produtos.tsv");
+                if (!res.ok) throw new Error("sem TSV externo");
+                text = await res.text();
+            } catch {
+                console.warn("TSV externo não encontrado → usando fallback embutido");
+                text = fallbackTSV;
+            }
+            processTSV(text);
+        }
 
-        function parseData() {
-            const lines = rawData.split('\n').filter(line => line.trim() !== '');
+        function processTSV(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
             const grouped = {};
             lines.forEach(line => {
                 const [nome, tamanhos, preco, imagem] = line.split('\t');
@@ -915,7 +929,6 @@ Yeezy Boost 750 Shoes Chocolate – BY2456	N/A	90	Yeezy Boost 750 Shoes Chocolat
             const modal = document.getElementById('modal');
             const sliderHTML = product.images.map(img => `<img src="${img}" alt="${product.name}">`).join('');
 
-            // Sempre constrói o modal de tela cheia (mobile-first)
             modal.innerHTML = `
                 <div class="modal-header">
                     <div class="logo">STREET<span>MOOD</span></div>
@@ -943,7 +956,7 @@ Yeezy Boost 750 Shoes Chocolate – BY2456	N/A	90	Yeezy Boost 750 Shoes Chocolat
             setTimeout(() => {
                 modal.style.display = 'none';
                 modal.style.animation = "fadeIn 0.3s ease";
-                modal.innerHTML = ''; // Limpa o conteúdo para a próxima abertura
+                modal.innerHTML = '';
             }, 280);
             document.body.style.overflow = '';
         }
@@ -966,7 +979,7 @@ Yeezy Boost 750 Shoes Chocolate – BY2456	N/A	90	Yeezy Boost 750 Shoes Chocolat
         }
 
         // Initial load
-        parseData();
+        loadData();
     </script>
 </body>
 </html>

@@ -72,6 +72,31 @@
             transform: translateY(-3px);
         }
 
+        /* --- Botões de categoria --- */
+        .sm-category-buttons {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .cat-btn {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .cat-btn.active,
+        .cat-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
         /* --- Filters --- */
         .sticky-tools {
             position: sticky;
@@ -167,6 +192,7 @@
             position: relative;
             width: 100%;
             overflow: hidden;
+            touch-action: pan-y;
             margin-bottom: 1rem;
         }
 
@@ -177,6 +203,7 @@
         .slides {
             display: flex;
             transition: transform 0.3s ease;
+            will-change: transform;
         }
 
         .slides .slide {
@@ -189,23 +216,6 @@
             object-fit: contain;
             display: block;
         }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: #fff;
-            font-size: 2rem;
-            width: 2.5rem;
-            height: 2.5rem;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .carousel-nav.prev { left: 0.5rem; }
-        .carousel-nav.next { right: 0.5rem; }
-        .carousel-nav:focus { outline: 2px solid var(--accent); }
 
         .modal-content { padding: 30px 20px; }
         .modal-name { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
@@ -258,6 +268,13 @@
             <a href="#grid-anchor" class="btn-explore">Explorar Drop</a>
         </section>
 
+        <!-- Botões de categoria -->
+        <div class="sm-category-buttons">
+            <button id="filter-roupas" class="cat-btn">Roupas</button>
+            <button id="filter-sneakers" class="cat-btn">Sneakers</button>
+            <button id="filter-all" class="cat-btn active">Todos</button>
+        </div>
+
         <div class="sticky-tools" id="grid-anchor">
             <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
             <div class="chips">
@@ -279,6 +296,7 @@
 
     <script>
         let products = [];
+        let currentProducts = [];
         let currentP = null;
         const INSTAGRAM_USERNAME = "streetm00d_";
 
@@ -303,15 +321,22 @@
                 if (!nome) return;
                 const key = `${nome}|${tamanhos}|${preco}`;
                 if (!grouped[key]) {
-                    grouped[key] = { name: nome, sizes: tamanhos, price: preco, images: [] };
+                    grouped[key] = { 
+                        name: nome, 
+                        sizes: tamanhos, 
+                        price: preco, 
+                        images: [],
+                        category: nome.toLowerCase().includes('tênis') || nome.toLowerCase().includes('tenis') || nome.toLowerCase().includes('sneaker') || nome.toLowerCase().includes('jordan') || nome.toLowerCase().includes('nike') || nome.toLowerCase().includes('adidas') || nome.toLowerCase().includes('yeezy') ? 'sneaker' : 'roupa'
+                    };
                 }
                 if (imagem) {
                     grouped[key].images.push(`imagens_produtos/${imagem.trim()}`);
                 }
             });
             products = Object.values(grouped);
+            currentProducts = products.slice();
             document.getElementById('item-count').innerText = `${products.length} itens`;
-            render(products);
+            render(currentProducts);
         }
 
         function render(items) {
@@ -339,7 +364,7 @@
 
         document.getElementById('search').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.sizes.toLowerCase().includes(term));
+            const filtered = currentProducts.filter(p => p.name.toLowerCase().includes(term) || p.sizes.toLowerCase().includes(term));
             render(filtered);
         });
 
@@ -348,15 +373,48 @@
                 document.querySelector('.chip.active').classList.remove('active');
                 chip.classList.add('active');
                 const filter = chip.dataset.filter;
-                const filtered = filter === 'all' ? products : products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+                const filtered = filter === 'all' ? currentProducts : currentProducts.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
                 render(filtered);
             });
         });
 
+        function setupCategoryButtons() {
+            const btnAll = document.getElementById("filter-all");
+            const btnRoup = document.getElementById("filter-roupas");
+            const btnSneak = document.getElementById("filter-sneakers");
+            const buttons = [btnAll, btnRoup, btnSneak];
+
+            function activate(btn) {
+                buttons.forEach(b => b.classList.toggle("active", b===btn));
+            }
+            
+            btnAll.addEventListener("click", () => {
+                currentProducts = products.slice();
+                activate(btnAll);
+                render(currentProducts);
+            });
+            
+            btnRoup.addEventListener("click", () => {
+                currentProducts = products.filter(p => p.category==="roupa");
+                activate(btnRoup);
+                render(currentProducts);
+            });
+            
+            btnSneak.addEventListener("click", () => {
+                currentProducts = products.filter(p => p.category==="sneaker");
+                activate(btnSneak);
+                render(currentProducts);
+            });
+        }
+
         function openProduct(product) {
             currentP = product;
             const modal = document.getElementById('modal');
+            const slidesEl = modal.querySelector(".slides");
             let current = 0;
+            let isDragging = false;
+            let startX = 0;
+            let currentX = 0;
 
             modal.innerHTML = `
                 <div class="modal-header">
@@ -364,11 +422,9 @@
                     <button class="close-modal" onclick="closeModal()">&times;</button>
                 </div>
                 <div class="image-carousel">
-                    <button class="carousel-nav prev" aria-label="Imagem anterior">‹</button>
                     <div class="slides-container">
                         <div class="slides"></div>
                     </div>
-                    <button class="carousel-nav next" aria-label="Próxima imagem">›</button>
                 </div>
                 <div class="modal-content">
                     <h2 class="modal-name">${product.name}</h2>
@@ -380,12 +436,9 @@
                     </div>
                 </div>
             `;
-            
-            const slidesEl = modal.querySelector(".slides");
-            const prevBtn = modal.querySelector(".carousel-nav.prev");
-            const nextBtn = modal.querySelector(".carousel-nav.next");
 
             // Criar slides
+            const slidesContainer = modal.querySelector(".slides");
             product.images.forEach((src) => {
                 const slide = document.createElement("div");
                 slide.className = "slide";
@@ -393,23 +446,45 @@
                 img.src = src;
                 img.alt = product.name;
                 slide.appendChild(img);
-                slidesEl.appendChild(slide);
+                slidesContainer.appendChild(slide);
             });
 
-            // Função para navegar
-            function goTo(idx) {
-                const total = product.images.length;
-                current = (idx + total) % total;
-                slidesEl.style.transform = `translateX(-${current * 100}%)`;
+            // Função para posicionar pelo índice
+            function updatePosition(idx) {
+                current = (idx + product.images.length)%product.images.length;
+                slidesEl.style.transition = "transform 0.3s ease";
+                slidesEl.style.transform = `translateX(-${current*100}%)`;
             }
 
-            // Eventos dos botões
-            prevBtn.onclick = () => goTo(current - 1);
-            nextBtn.onclick = () => goTo(current + 1);
+            // Handlers de drag
+            slidesEl.addEventListener("pointerdown", e => {
+                isDragging = true;
+                startX = e.clientX;
+                slidesEl.style.transition = "none";
+                slidesEl.setPointerCapture(e.pointerId);
+            });
+            
+            slidesEl.addEventListener("pointermove", e => {
+                if (!isDragging) return;
+                currentX = e.clientX;
+                const dx = currentX - startX;
+                slidesEl.style.transform = `translateX(${-current*100 + dx/slidesEl.clientWidth*100}%)`;
+            });
+            
+            slidesEl.addEventListener("pointerup", e => {
+                if (!isDragging) return;
+                isDragging = false;
+                const dx = e.clientX - startX;
+                const threshold = slidesEl.clientWidth * 0.2;
+                if (dx > threshold) updatePosition(current-1);
+                else if (dx < -threshold) updatePosition(current+1);
+                else updatePosition(current);
+                slidesEl.releasePointerCapture(e.pointerId);
+            });
 
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            goTo(0);
+            updatePosition(0);
         }
 
         function closeModal() {
@@ -442,6 +517,7 @@
 
         // Initial load
         loadData();
+        setupCategoryButtons();
     </script>
 </body>
 </html>

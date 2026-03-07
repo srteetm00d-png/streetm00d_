@@ -1,445 +1,713 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>STREETMOOD | Performance System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Dark Theme (Default) */
-            --bg: #090c10;
-            --card: #161b22;
-            --text: #ffffff;
-            --text-muted: #8b949e;
-            --border: rgba(255, 255, 255, 0.1);
-            --accent: #ff3e3e;
-            --skeleton: #21262d;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>STREETMOOD | Premium Sneaker System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Dark default */
+      --bg:#090c10;
+      --card:#161b22;
+      --text:#ffffff;
+      --text-muted:#8b949e;
+      --border:rgba(255,255,255,0.1);
+      --accent:#ff3e3e;
+      --skeleton:#21262d;
+      --max-width:1200px;
+    }
+    [data-theme="light"]{
+      --bg:#f6f8fa;
+      --card:#ffffff;
+      --text:#1f2328;
+      --text-muted:#656d76;
+      --border:rgba(0,0,0,0.08);
+      --skeleton:#e5e7eb;
+    }
 
-        [data-theme="light"] {
-            --bg: #f6f8fa;
-            --card: #ffffff;
-            --text: #1f2328;
-            --text-muted: #656d76;
-            --border: rgba(0, 0, 0, 0.1);
-            --skeleton: #ebedef;
-        }
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:"Plus Jakarta Sans",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    main{
+      max-width:var(--max-width);
+      margin:0 auto 60px;
+    }
 
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background 0.3s, color 0.3s;
-        }
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      padding:calc(15px + env(safe-area-inset-top)) 20px 15px;
+      background:rgba(9,12,16,0.95);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo{
+      font-weight:800;
+      letter-spacing:-0.06em;
+      font-size:1.25rem;
+      text-transform:uppercase;
+    }
+    .logo span{color:var(--accent);}
+    .nav-tools{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .icon-btn{
+      background:none;
+      border:none;
+      color:var(--text);
+      font-size:1.3rem;
+      cursor:pointer;
+      position:relative;
+    }
+    .badge{
+      position:absolute;
+      top:-5px;
+      right:-5px;
+      background:var(--accent);
+      color:#fff;
+      font-size:0.6rem;
+      padding:2px 5px;
+      border-radius:999px;
+      font-weight:700;
+    }
 
-        /* --- Header & Luxury Glass --- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
-            background: rgba(var(--bg), 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .hero{
+      padding:32px 20px 10px;
+    }
+    .hero h1{
+      margin:0;
+      font-size:2.6rem;
+      line-height:1;
+      font-weight:800;
+      letter-spacing:-0.08em;
+      text-transform:uppercase;
+    }
+    .hero p{
+      margin:10px 0 0;
+      color:var(--text-muted);
+      font-size:0.95rem;
+      max-width:260px;
+    }
 
-        .logo { font-weight: 800; letter-spacing: -1px; font-size: 1.2rem; }
-        .logo span { color: var(--accent); }
+    .filter-section{
+      position:sticky;
+      top:68px;
+      z-index:900;
+      background:var(--bg);
+      padding:8px 20px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .search-bar{
+      width:100%;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:12px 14px;
+      color:var(--text);
+      font-size:0.95rem;
+      outline:none;
+    }
+    .search-bar:focus{
+      border-color:var(--accent);
+      box-shadow:0 0 0 1px rgba(255,62,62,0.3);
+    }
+    .scroll-chips{
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      padding:2px 0 4px;
+      scrollbar-width:none;
+    }
+    .scroll-chips::-webkit-scrollbar{display:none;}
+    .chip{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:999px;
+      padding:7px 14px;
+      font-size:0.7rem;
+      font-weight:600;
+      text-transform:uppercase;
+      white-space:nowrap;
+      cursor:pointer;
+      color:var(--text-muted);
+      transition:0.2s;
+    }
+    .chip.active{
+      background:var(--text);
+      color:var(--bg);
+      border-color:var(--text);
+    }
 
-        .nav-tools { display: flex; gap: 15px; align-items: center; }
-        .icon-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text); position: relative; }
-        .badge { position: absolute; top: -5px; right: -5px; background: var(--accent); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 10px; }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      padding:14px 20px 40px;
+    }
+    .card{
+      background:var(--card);
+      border-radius:18px;
+      border:1px solid var(--border);
+      padding:10px;
+      position:relative;
+      transition:transform 0.16s ease, box-shadow 0.16s ease;
+      opacity:0;
+      transform:translateY(10px);
+      animation:fadeIn 0.35s ease forwards;
+    }
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 10px 24px rgba(0,0,0,0.35);
+    }
+    @keyframes fadeIn{
+      to{opacity:1;transform:translateY(0);}
+    }
 
-        /* --- Hero --- */
-        .hero { padding: 40px 20px; }
-        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; line-height: 1; }
-        .hero p { color: var(--text-muted); margin-top: 10px; }
+    .fav-btn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      width:30px;
+      height:30px;
+      border-radius:50%;
+      border:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,0.35);
+      color:#fff;
+      cursor:pointer;
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      font-size:0.9rem;
+      z-index:5;
+    }
+    .fav-btn.active{color:var(--accent);background:rgba(0,0,0,0.6);}
 
-        /* --- Advanced Filters --- */
-        .filter-section {
-            position: sticky;
-            top: 70px;
-            z-index: 900;
-            background: var(--bg);
-            padding: 10px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .img-box{
+      width:100%;
+      aspect-ratio:1/1;
+      border-radius:14px;
+      background:var(--skeleton);
+      overflow:hidden;
+      margin-bottom:9px;
+    }
+    .img-box img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
 
-        .search-bar {
-            width: 100%;
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 14px;
-            border-radius: 12px;
-            color: var(--text);
-            font-size: 1rem;
-            outline: none;
-        }
+    .card-title{
+      margin:0;
+      font-size:0.78rem;
+      font-weight:600;
+      height:32px;
+      overflow:hidden;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+    }
+    .card-price{
+      margin-top:5px;
+      font-size:0.9rem;
+      font-weight:800;
+      color:var(--accent);
+    }
+    .card-size{
+      margin-top:2px;
+      font-size:0.65rem;
+      color:var(--text-muted);
+      text-transform:uppercase;
+    }
 
-        .scroll-chips {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-            scrollbar-width: none;
-        }
-        .scroll-chips::-webkit-scrollbar { display: none; }
+    .empty{
+      grid-column:1 / -1;
+      text-align:center;
+      color:var(--text-muted);
+      padding:40px 0;
+      font-size:0.9rem;
+    }
 
-        .chip {
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .chip.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+    #sentinel{height:48px;width:100%;}
 
-        /* --- Product Grid & Skeleton --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 20px;
-        }
+    #modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.92);
+      z-index:2000;
+      display:none;
+      flex-direction:column;
+    }
+    .modal-top{
+      padding:calc(10px + env(safe-area-inset-top)) 20px 10px;
+      display:flex;
+      justify-content:flex-end;
+    }
+    .modal-close{
+      border:none;
+      background:rgba(0,0,0,0.6);
+      color:#fff;
+      width:40px;
+      height:40px;
+      border-radius:999px;
+      font-size:1.6rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
 
-        .card {
-            background: var(--card);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            padding: 10px;
-            position: relative;
-            transition: transform 0.2s, box-shadow 0.2s;
-            animation: fadeIn 0.4s ease forwards;
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .slider{
+      display:flex;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      gap:0;
+      height:55vh;
+      scrollbar-width:none;
+    }
+    .slider::-webkit-scrollbar{display:none;}
+    .slider img{
+      flex:0 0 100%;
+      scroll-snap-align:center;
+      object-fit:cover;
+      background:#000;
+    }
+    .dots{
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      margin:-24px 0 10px;
+      position:relative;
+      z-index:5;
+    }
+    .dot{
+      width:6px;
+      height:6px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.5);
+    }
+    .dot.active{
+      width:14px;
+      background:#fff;
+    }
 
-        .fav-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 10;
-            background: rgba(0,0,0,0.3);
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            color: white;
-            backdrop-filter: blur(5px);
-        }
-        .fav-btn.active { color: var(--accent); }
+    .modal-body{
+      padding:20px;
+      flex:1;
+      background:linear-gradient(to top, rgba(9,12,16,0.98), rgba(9,12,16,0.9));
+    }
+    .modal-title{
+      margin:0;
+      font-size:1.6rem;
+      font-weight:800;
+    }
+    .modal-price{
+      margin-top:8px;
+      font-size:1.3rem;
+      font-weight:800;
+      color:var(--accent);
+    }
+    .modal-sizes{
+      margin-top:4px;
+      font-size:0.9rem;
+      color:var(--text-muted);
+    }
 
-        .img-box {
-            width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 15px;
-            background: var(--skeleton);
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-footer{
+      padding:12px 20px calc(14px + env(safe-area-inset-bottom));
+      background:rgba(9,12,16,0.98);
+      border-top:1px solid var(--border);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .btn-cta{
+      border-radius:14px;
+      border:1px solid var(--border);
+      padding:13px;
+      font-size:0.75rem;
+      text-transform:uppercase;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn-ghost{
+      background:transparent;
+      color:var(--text);
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
 
-        /* Skeleton Animation */
-        .skeleton {
-            background: var(--skeleton);
-            background: linear-gradient(90deg, var(--skeleton) 25%, var(--border) 50%, var(--skeleton) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- Modal & Zoom --- */
-        #modal {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 2000;
-            display: none;
-            flex-direction: column;
-        }
-
-        .slider { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: 60vh; }
-        .slider img { flex: 0 0 100%; scroll-snap-align: center; object-fit: cover; }
-        
-        .dots { display: flex; justify-content: center; gap: 5px; margin-top: -30px; z-index: 10; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); }
-        .dot.active { width: 15px; background: white; }
-
-        .modal-body { padding: 30px 20px; flex-grow: 1; }
-        .modal-footer { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border-top: 1px solid var(--border); }
-
-        /* Sentinel for Infinite Scroll */
-        #sentinel { height: 50px; width: 100%; }
-
-        @media (min-width: 768px) { 
-            .grid { grid-template-columns: repeat(4, 1fr); }
-            .hero h1 { font-size: 3.5rem; }
-            .hero { padding: 60px 40px; }
-            .filter-section { padding: 20px 40px; }
-            .grid { padding: 40px; gap: 20px; }
-            .card { padding: 15px; }
-            .fav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
-            .modal-body { padding: 50px 40px; }
-        }
-        
-        @media (min-width: 1200px) { 
-            .grid { grid-template-columns: repeat(5, 1fr); max-width: 1400px; margin: 0 auto; }
-            .hero h1 { font-size: 4rem; }
-        }
-    </style>
+    @media(min-width:768px){
+      .grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+      .hero{padding-top:40px;}
+    }
+    @media(min-width:1024px){
+      header{padding-inline:40px;}
+      main{padding-inline:40px;}
+      .hero{
+        padding:36px 0 8px;
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap:40px;
+      }
+      .hero h1{font-size:3.2rem;}
+      .hero p{max-width:340px;margin-top:14px;}
+      .filter-section{
+        top:82px;
+        padding-inline:0;
+        flex-direction:row;
+        align-items:center;
+        gap:10px;
+      }
+      .filter-section .search-bar{flex:2;}
+      #brand-filters,#size-filters{
+        flex:3;
+        overflow:visible;
+        flex-wrap:wrap;
+      }
+      .scroll-chips{display:flex;}
+      .grid{
+        padding-inline:0;
+        grid-template-columns:repeat(4,minmax(0,1fr));
+      }
+      .slider{height:60vh;}
+    }
+  </style>
 </head>
 <body>
-
-    <header>
-        <div class="logo">STREET<span>MOOD</span></div>
-        <div class="nav-tools">
-            <button class="icon-btn" onclick="toggleTheme()">🌓</button>
-            <button class="icon-btn" onclick="showFavorites()">
-                ❤️ <span class="badge" id="fav-count">0</span>
-            </button>
-        </div>
-    </header>
-
-    <main id="home-view">
-        <section class="hero">
-            <h1>SNEAKER<br>CULTURE.</h1>
-            <p>Premium selection for collectors.</p>
-        </section>
-
-        <div class="filter-section">
-            <input type="text" id="main-search" class="search-bar" placeholder="Ex: Jordan 4, Nike, 42...">
-            <div class="scroll-chips" id="brand-filters"></div>
-            <div class="scroll-chips" id="size-filters"></div>
-        </div>
-
-        <div class="grid" id="main-grid"></div>
-        <div id="sentinel"></div>
-    </main>
-
-    <!-- Modal Detail -->
-    <div id="modal">
-        <div style="padding: 20px; display: flex; justify-content: flex-end;">
-            <button class="icon-btn" onclick="closeModal()" style="font-size: 2rem;">&times;</button>
-        </div>
-        <div class="slider" id="m-slider"></div>
-        <div class="dots" id="m-dots"></div>
-        <div class="modal-body">
-            <h2 id="m-title" style="margin:0"></h2>
-            <div id="m-price" style="color:var(--accent); font-size: 1.5rem; font-weight: 800; margin: 10px 0;"></div>
-            <p id="m-sizes" style="color:var(--text-muted)"></p>
-        </div>
-        <div class="modal-footer">
-            <button class="chip" style="padding: 15px;" onclick="contact('RESERVAR')">Reservar</button>
-            <button class="chip active" style="padding: 15px;" onclick="contact('COMPRAR')">Comprar Agora</button>
-        </div>
+  <header>
+    <div class="logo">STREET<span>MOOD</span></div>
+    <div class="nav-tools">
+      <button class="icon-btn" onclick="toggleTheme()" aria-label="Alternar tema">🌓</button>
+      <button class="icon-btn" onclick="showFavorites()" aria-label="Ver favoritos">
+        ❤️ <span class="badge" id="fav-count">0</span>
+      </button>
     </div>
+  </header>
 
-    <script>
-        // --- State Management ---
-        let allProducts = [];
-        let filteredProducts = [];
-        let displayedProducts = [];
-        let favorites = JSON.parse(localStorage.getItem('sm_favs')) || [];
-        let currentPage = 1;
-        const perPage = 20;
-        const INSTAGRAM = "streetm00d_";
+  <main id="home-view">
+    <section class="hero">
+      <div>
+        <h1>SNEAKER<br>CULTURE</h1>
+        <p>Drop premium de sneakers e streetwear curado pela STREETMOOD.</p>
+      </div>
+    </section>
 
-        // --- Data Fetching ---
-        async function loadData() {
-            try {
-                const response = await fetch('produtos.tsv');
-                const text = await response.text();
-                processTSV(text);
-                updateUI();
-            } catch (e) {
-                console.error("Erro ao carregar produtos.tsv. Verifique se o arquivo existe.");
+    <section class="filter-section">
+      <input id="main-search" class="search-bar" type="text" placeholder="Buscar modelo, marca ou tamanho...">
+      <div class="scroll-chips" id="brand-filters"></div>
+      <div class="scroll-chips" id="size-filters"></div>
+    </section>
+
+    <section class="grid" id="main-grid"></section>
+    <div id="sentinel"></div>
+  </main>
+
+  <!-- MODAL DETALHE -->
+  <div id="modal">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="slider" id="m-slider"></div>
+    <div class="dots" id="m-dots"></div>
+    <div class="modal-body">
+      <h2 class="modal-title" id="m-title"></h2>
+      <div class="modal-price" id="m-price"></div>
+      <p class="modal-sizes" id="m-sizes"></p>
+      <p style="margin-top:16px;font-size:0.85rem;color:var(--text-muted);">
+        Fala com a gente no Instagram <strong>@streetm00d_</strong> para combinar envio, pagamento
+        e confirmar disponibilidade em tempo real.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cta btn-ghost" onclick="contact('RESERVAR')">Reservar no Instagram</button>
+      <button class="btn-cta btn-primary" onclick="contact('COMPRAR')">Comprar via Instagram</button>
+    </div>
+  </div>
+
+  <script>
+    // -------- CONFIG --------
+    const INSTAGRAM_HANDLE = "streetm00d_";
+    const INSTAGRAM_DM_URL = "https://ig.me/m/streetm00d_";
+
+    let allProducts = [];
+    let filteredProducts = [];
+    let displayedProducts = [];
+    let favorites = JSON.parse(localStorage.getItem("sm_favs") || "[]");
+
+    let searchTerm = "";
+    let activeBrand = "all";
+    let activeSize = null;
+    let showingFavs = false;
+
+    let currentPage = 1;
+    const perPage = 20;
+
+    let currentProduct = null;
+
+    // -------- LOAD DATA FROM produtos.tsv --------
+    async function loadData(){
+      try{
+        const res = await fetch("produtos.tsv");
+        const text = await res.text();
+        processTSV(text);
+        setupSearch();
+        generateFilters();
+        applyFilters();
+        setupInfiniteScroll();
+        updateFavCount();
+      }catch(e){
+        console.error("Erro ao carregar produtos.tsv",e);
+        document.getElementById("main-grid").innerHTML =
+          '<div class="empty">Erro ao carregar catálogo. Verifica se o arquivo <strong>produtos.tsv</strong> está na mesma pasta do index.html.</div>';
+      }
+    }
+
+    function processTSV(data){
+      const lines = data.split("\n").map(l=>l.trim()).filter(Boolean);
+      const map = new Map();
+      for(const line of lines){
+        const parts = line.split("\t");
+        if(parts.length < 4) continue;
+        const [name,sizes,price,image] = parts;
+        if(!map.has(name)){
+          map.set(name,{
+            name:name.trim(),
+            sizes:sizes.trim(),
+            price:price.trim(),
+            images:[]
+          });
+        }
+        map.get(name).images.push(`imagens_produtos/${image.trim()}`);
+      }
+      allProducts = Array.from(map.values());
+      filteredProducts = [...allProducts];
+    }
+
+    // -------- FILTERS & SEARCH --------
+    function setupSearch(){
+      const input = document.getElementById("main-search");
+      input.addEventListener("input",e=>{
+        searchTerm = e.target.value.toLowerCase();
+        showingFavs = false;
+        currentPage = 1;
+        applyFilters();
+      });
+    }
+
+    function generateFilters(){
+      const brands = ["Nike","Jordan","Adidas","Louis Vuitton","Dior","Gucci","Yeezy","VEJA","Versace"];
+      const brandContainer = document.getElementById("brand-filters");
+      brandContainer.innerHTML =
+        `<div class="chip active" onclick="onBrandClick('all', this)">Todos</div>` +
+        brands.map(b=>`<div class="chip" onclick="onBrandClick('${b}', this)">${b}</div>`).join("");
+
+      const sizeSet = new Set();
+      allProducts.forEach(p=>{
+        p.sizes.split(/[^0-9]+/).forEach(part=>{
+          if(part && !isNaN(part)) sizeSet.add(part);
+        });
+      });
+      const sizeList = Array.from(sizeSet).sort((a,b)=>Number(a)-Number(b));
+      const sizeContainer = document.getElementById("size-filters");
+      sizeContainer.innerHTML = sizeList.map(s=>`<div class="chip" onclick="onSizeClick('${s}', this)">${s}</div>`).join("");
+    }
+
+    function onBrandClick(brand, el){
+      document.querySelectorAll("#brand-filters .chip").forEach(c=>c.classList.remove("active"));
+      el.classList.add("active");
+      activeBrand = brand;
+      showingFavs = false;
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function onSizeClick(size, el){
+      const chips = document.querySelectorAll("#size-filters .chip");
+      if(activeSize === size){
+        // desmarcar
+        activeSize = null;
+        el.classList.remove("active");
+      }else{
+        activeSize = size;
+        chips.forEach(c=>c.classList.remove("active"));
+        el.classList.add("active");
+      }
+      showingFavs = false;
+      currentPage = 1;
+      applyFilters();
+    }
+
+    function applyFilters(){
+      filteredProducts = allProducts.filter(p=>{
+        const text = (p.name + " " + p.sizes).toLowerCase();
+        const matchesSearch = !searchTerm || text.includes(searchTerm);
+        const matchesBrand = activeBrand === "all" ||
+          p.name.toLowerCase().includes(activeBrand.toLowerCase());
+        let matchesSize = true;
+        if(activeSize){
+          const nums = p.sizes.split(/[^0-9]+/).filter(Boolean);
+          matchesSize = nums.includes(activeSize);
+        }
+        return matchesSearch && matchesBrand && matchesSize;
+      });
+      if(showingFavs){
+        filteredProducts = filteredProducts.filter(p=>favorites.includes(p.name));
+      }
+      currentPage = 1;
+      updateUI();
+    }
+
+    // -------- RENDER --------
+    function updateUI(){
+      const end = perPage * currentPage;
+      displayedProducts = filteredProducts.slice(0,end);
+      renderGrid();
+      updateFavCount();
+    }
+
+    function renderGrid(){
+      const grid = document.getElementById("main-grid");
+      grid.innerHTML = "";
+      if(displayedProducts.length === 0){
+        grid.innerHTML = '<div class="empty">Nenhum produto encontrado com esses filtros.</div>';
+        return;
+      }
+      displayedProducts.forEach((p)=>{
+        const isFav = favorites.includes(p.name);
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <button class="fav-btn ${isFav?"active":""}" onclick="toggleFav(event, '${p.name.replace(/'/g,"\\'")}')">
+            ${isFav ? "❤️" : "🤍"}
+          </button>
+          <div class="img-box" onclick="openProduct('${p.name.replace(/'/g,"\\'")}')">
+            <img src="${p.images[0]}" loading="lazy" alt="${p.name}">
+          </div>
+          <div onclick="openProduct('${p.name.replace(/'/g,"\\'")}')">
+            <h3 class="card-title">${p.name}</h3>
+            <div class="card-price">€${p.price}</div>
+            <div class="card-size">Tamanhos: ${p.sizes}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // -------- INFINITE SCROLL --------
+    function setupInfiniteScroll(){
+      const sentinel = document.getElementById("sentinel");
+      const io = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            if(displayedProducts.length < filteredProducts.length){
+              currentPage++;
+              updateUI();
             }
-        }
+          }
+        });
+      },{threshold:0.6});
+      io.observe(sentinel);
+    }
 
-        function processTSV(data) {
-            const lines = data.split('\n');
-            const grouped = {};
+    // -------- FAVORITOS --------
+    function toggleFav(e,name){
+      e.stopPropagation();
+      if(favorites.includes(name)){
+        favorites = favorites.filter(n=>n!==name);
+      }else{
+        favorites.push(name);
+      }
+      localStorage.setItem("sm_favs",JSON.stringify(favorites));
+      if(showingFavs){
+        applyFilters();
+      }else{
+        updateUI();
+      }
+    }
 
-            lines.forEach(line => {
-                const parts = line.split('\t');
-                if (parts.length < 4) return;
-                const [nome, tamanhos, preco, imagem] = parts;
-                
-                if (!grouped[nome]) {
-                    grouped[nome] = { 
-                        name: nome.trim(), 
-                        sizes: tamanhos.trim(), 
-                        price: preco.trim(), 
-                        images: [] 
-                    };
-                }
-                grouped[nome].images.push(`imagens_produtos/${imagem.trim()}`);
-            });
+    function updateFavCount(){
+      document.getElementById("fav-count").innerText = favorites.length;
+    }
 
-            allProducts = Object.values(grouped);
-            filteredProducts = [...allProducts];
-            generateFilters();
-        }
+    function showFavorites(){
+      showingFavs = !showingFavs;
+      currentPage = 1;
+      applyFilters();
+    }
 
-        // --- Render Engine (Infinite Scroll) ---
-        function updateUI() {
-            displayedProducts = filteredProducts.slice(0, perPage * currentPage);
-            renderGrid();
-            updateFavCount();
-        }
+    // -------- MODAL + INSTAGRAM --------
+    function openProduct(name){
+      currentProduct = allProducts.find(p=>p.name===name);
+      if(!currentProduct)return;
+      document.getElementById("m-title").innerText = currentProduct.name;
+      document.getElementById("m-price").innerText = `€${currentProduct.price}`;
+      document.getElementById("m-sizes").innerText = `Tamanhos: ${currentProduct.sizes}`;
 
-        function renderGrid() {
-            const grid = document.getElementById('main-grid');
-            if (currentPage === 1) grid.innerHTML = '';
+      const slider = document.getElementById("m-slider");
+      slider.innerHTML = currentProduct.images.map(src=>`<img src="${src}" alt="${currentProduct.name}">`).join("");
 
-            displayedProducts.slice((currentPage - 1) * perPage).forEach(p => {
-                const isFav = favorites.includes(p.name);
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFav(event, '${p.name}')">
-                        ${isFav ? '❤️' : '🤍'}
-                    </button>
-                    <div class="img-box" onclick="openProduct('${p.name}')">
-                        <img src="${p.images[0]}" loading="lazy">
-                    </div>
-                    <div onclick="openProduct('${p.name}')">
-                        <h3 style="font-size: 0.8rem; margin:0; height: 32px; overflow:hidden;">${p.name}</h3>
-                        <div style="color:var(--accent); font-weight:800; margin: 5px 0;">€${p.price}</div>
-                        <div style="font-size:0.6rem; color:var(--text-muted)">TAM: ${p.sizes}</div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+      const dotsContainer = document.getElementById("m-dots");
+      dotsContainer.innerHTML = currentProduct.images.map((_,i)=>`<div class="dot ${i===0?"active":""}"></div>`).join("");
 
-        // --- Infinite Scroll Observer ---
-        const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && displayedProducts.length < filteredProducts.length) {
-                currentPage++;
-                updateUI();
-            }
-        }, { threshold: 0.5 });
-        observer.observe(document.getElementById('sentinel'));
+      // Atualizar dots conforme scroll
+      slider.onscroll = ()=>{
+        const idx = Math.round(slider.scrollLeft / slider.clientWidth);
+        [...dotsContainer.children].forEach((dot,i)=>{
+          dot.classList.toggle("active", i===idx);
+        });
+      };
 
-        // --- Filters ---
-        function generateFilters() {
-            const brands = ['Nike', 'Jordan', 'Adidas', 'Louis Vuitton', 'Dior', 'Gucci', 'Yeezy'];
-            const sizes = [...new Set(allProducts.map(p => p.sizes.split(/[- ,/]+/)).flat())]
-                            .filter(s => !isNaN(s) && s !== "").sort();
+      document.getElementById("modal").style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }
 
-            const bContainer = document.getElementById('brand-filters');
-            bContainer.innerHTML = `<div class="chip active" onclick="filterBrand('all', this)">Todos</div>` +
-                brands.map(b => `<div class="chip" onclick="filterBrand('${b}', this)">${b}</div>`).join('');
+    function closeModal(){
+      document.getElementById("modal").style.display = "none";
+      document.body.style.overflow = "";
+    }
 
-            const sContainer = document.getElementById('size-filters');
-            sContainer.innerHTML = sizes.map(s => `<div class="chip" onclick="filterSize('${s}', this)">${s}</div>`).join('');
-        }
+    // Em vez de WhatsApp, abrir DM no Instagram da STREETMOOD
+    function contact(tipo){
+      // Opcionalmente, você pode usar o tipo numa futura integração,
+      // mas para já apenas abre o chat do Instagram.
+      window.open(INSTAGRAM_DM_URL, "_blank");
+    }
 
-        function filterBrand(brand, el) {
-            document.querySelectorAll('#brand-filters .chip').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            currentPage = 1;
-            filteredProducts = brand === 'all' ? allProducts : allProducts.filter(p => p.name.includes(brand));
-            updateUI();
-        }
+    // -------- TEMA --------
+    function toggleTheme(){
+      const html = document.documentElement;
+      const current = html.getAttribute("data-theme") || "dark";
+      html.setAttribute("data-theme", current==="dark" ? "light" : "dark");
+    }
 
-        function filterSize(size, el) {
-            document.querySelectorAll('#size-filters .chip').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            currentPage = 1;
-            filteredProducts = allProducts.filter(p => p.sizes.includes(size));
-            updateUI();
-        }
-
-        // --- Search ---
-        document.getElementById('main-search').addEventListener('input', debounce(e => {
-            const query = e.target.value.toLowerCase();
-            currentPage = 1;
-            filteredProducts = query ? allProducts.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.sizes.includes(query) || 
-                p.price.includes(query)
-            ) : [...allProducts];
-            updateUI();
-        }, 300));
-
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
-        }
-
-        // --- Interaction Functions ---
-        function toggleFav(e, name) {
-            e.stopPropagation();
-            if (favorites.includes(name)) favorites = favorites.filter(f => f !== name);
-            else favorites.push(name);
-            localStorage.setItem('sm_favs', JSON.stringify(favorites));
-            updateUI();
-        }
-
-        function updateFavCount() {
-            document.getElementById('fav-count').innerText = favorites.length;
-        }
-
-        function showFavorites() {
-            currentPage = 1;
-            filteredProducts = allProducts.filter(p => favorites.includes(p.name));
-            updateUI();
-        }
-
-        function toggleTheme() {
-            const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', theme);
-        }
-
-        let currentP = null;
-        function openProduct(name) {
-            currentP = allProducts.find(p => p.name === name);
-            document.getElementById('m-title').innerText = currentP.name;
-            document.getElementById('m-price').innerText = `€${currentP.price}`;
-            document.getElementById('m-sizes').innerText = `Tamanhos: ${currentP.sizes}`;
-            
-            const slider = document.getElementById('m-slider');
-            slider.innerHTML = currentP.images.map(img => `<img src="${img}">`).join('');
-            
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-
-        function contact(type) {
-            const msg = `Olá STREETMOOD 👟\n\nQuero ${type}:\n*${currentP.name}*\nValor: €${currentP.price}\nTamanho: ${currentP.sizes}`;
-            const encodedMsg = encodeURIComponent(msg);
-            window.open(`https://www.instagram.com/direct/new/?text=${encodedMsg}`, '_blank');
-        }
-
-        // Iniciar
-        loadData();
-    </script>
+    // -------- START --------
+    loadData();
+  </script>
 </body>
 </html>

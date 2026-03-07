@@ -188,7 +188,21 @@
         /* Sentinel for Infinite Scroll */
         #sentinel { height: 50px; width: 100%; }
 
-        @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+        @media (min-width: 768px) { 
+            .grid { grid-template-columns: repeat(4, 1fr); }
+            .hero h1 { font-size: 3.5rem; }
+            .hero { padding: 60px 40px; }
+            .filter-section { padding: 20px 40px; }
+            .grid { padding: 40px; gap: 20px; }
+            .card { padding: 15px; }
+            .fav-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+            .modal-body { padding: 50px 40px; }
+        }
+        
+        @media (min-width: 1200px) { 
+            .grid { grid-template-columns: repeat(5, 1fr); max-width: 1400px; margin: 0 auto; }
+            .hero h1 { font-size: 4rem; }
+        }
     </style>
 </head>
 <body>
@@ -245,7 +259,7 @@
         let favorites = JSON.parse(localStorage.getItem('sm_favs')) || [];
         let currentPage = 1;
         const perPage = 20;
-        const WHATSAPP = "351912345678";
+        const INSTAGRAM = "streetm00d_";
 
         // --- Data Fetching ---
         async function loadData() {
@@ -419,8 +433,9 @@
         function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
         function contact(type) {
-            const msg = `Olá STREETMOOD 👟%0A%0AQuero ${type}:%0A*${currentP.name}*%0AValor: €${currentP.price}%0ATamanho: ${currentP.sizes}`;
-            window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, '_blank');
+            const msg = `Olá STREETMOOD 👟\n\nQuero ${type}:\n*${currentP.name}*\nValor: €${currentP.price}\nTamanho: ${currentP.sizes}`;
+            const encodedMsg = encodeURIComponent(msg);
+            window.open(`https://www.instagram.com/direct/new/?text=${encodedMsg}`, '_blank');
         }
 
         // Iniciar

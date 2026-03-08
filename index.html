@@ -456,14 +456,14 @@
             lines.forEach(line => {
                 const [nome, tamanhos, preco, imagem, category] = line.split('\t');
                 if (!nome) return;
-                const key = `${nome}|${tamanhos}|${preco}`;
+                const key = `${nome}––${tamanhos}`;
                 if (!grouped[key]) {
                     grouped[key] = { 
                         name: nome, 
-                        sizes: tamanhos, 
+                        size: tamanhos, 
                         price: preco, 
                         images: [],
-                        category: category || 'roupa'
+                        category: category || 'sneaker'
                     };
                 }
                 if (imagem) {
@@ -478,18 +478,18 @@
 
         function render(items) {
             const grid = document.getElementById('main-grid');
-            grid.innerHTML = items.map(p => `
-                <div class="card" data-key="${p.name}––${p.sizes}">
+            grid.innerHTML = items.filter(p => p.name && p.price).map(p => `
+                <div class="card" data-key="${p.name}––${p.size}">
                     <div class="img-container">
                         <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
-                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.sizes}')">
-                            <span class="${favorites.has(p.name + '––' + p.sizes) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.size}')">
+                            <span class="${favorites.has(p.name + '––' + p.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
                         </button>
                     </div>
                     <div class="card-info">
                         <h3>${p.name}</h3>
                         <div class="card-price">€ ${p.price}</div>
-                        ${p.sizes && p.sizes.toUpperCase() !== "N/A" ? `<div class="card-size">${p.sizes}</div>` : ''}
+                        ${p.size && p.size.toUpperCase() !== "N/A" ? `<div class="card-size">${p.size}</div>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -528,34 +528,33 @@
             const btnFav = document.getElementById("fav-btn");
             const buttons = [btnAll, btnRoup, btnSneak];
 
-            function activate(btn) {
-                buttons.forEach(b => b.classList.toggle("active", b===btn));
-                btnFav.classList.remove("active");
-            }
-            
             btnAll.addEventListener("click", () => {
-                currentProducts = products.slice();
                 activate(btnAll);
+                currentProducts = products.slice();
                 render(currentProducts);
             });
             
             btnRoup.addEventListener("click", () => {
-                currentProducts = products.filter(p => p.category==="roupa");
                 activate(btnRoup);
+                currentProducts = products.filter(p => p.category==="roupa");
                 render(currentProducts);
             });
             
             btnSneak.addEventListener("click", () => {
-                currentProducts = products.filter(p => p.category==="sneaker");
                 activate(btnSneak);
+                currentProducts = products.filter(p => p.category==="sneaker");
                 render(currentProducts);
             });
 
             btnFav.addEventListener("click", () => {
-                buttons.forEach(b => b.classList.remove("active"));
-                btnFav.classList.add("active");
+                activate(btnFav);
                 renderFavorites();
             });
+        }
+
+        function activate(btn) {
+            [btnAll, btnRoup, btnSneak, btnFav].forEach(x => x.classList.remove("active"));
+            btn.classList.add("active");
         }
 
         function openProduct(product) {
@@ -580,7 +579,7 @@
                 <div class="modal-content">
                     <h2 class="modal-name">${product.name}</h2>
                     <div class="modal-price">€ ${product.price}</div>
-                    ${product.sizes && product.sizes.toUpperCase() !== "N/A" ? `<p class="modal-size">Tamanhos: ${product.sizes}</p>` : ''}
+                    ${product.size && product.size.toUpperCase() !== "N/A" ? `<p class="modal-size">Tamanhos: ${product.size}</p>` : ''}
                     <div class="modal-actions">
                         <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action reserve">Reservar</a>
                         <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action buy">Comprar Agora</a>
@@ -673,7 +672,7 @@
         // Removido - agora tratado em setupCategoryButtons()
 
         function renderFavorites() {
-            const favList = products.filter(p => favorites.has(p.name + '––' + p.sizes));
+            const favList = products.filter(p => favorites.has(p.name + '––' + p.size));
             const grid = document.getElementById('main-grid');
             const emptyMsg = document.getElementById('empty-fav-message');
             grid.innerHTML = "";
@@ -686,18 +685,18 @@
             favList.forEach(prod => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.dataset.key = prod.name + '––' + prod.sizes;
+                card.dataset.key = prod.name + '––' + prod.size;
                 card.innerHTML = `
                     <div class="img-container">
                         <img src="${prod.images[0] || ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
-                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.sizes}')">
-                            <span class="${favorites.has(prod.name + '––' + prod.sizes) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.size}')">
+                            <span class="${favorites.has(prod.name + '––' + prod.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
                         </button>
                     </div>
                     <div class="card-info">
                         <h3>${prod.name}</h3>
                         <div class="card-price">€ ${prod.price}</div>
-                        ${prod.sizes && prod.sizes.toUpperCase() !== "N/A" ? `<div class="card-size">${prod.sizes}</div>` : ''}
+                        ${prod.size && prod.size.toUpperCase() !== "N/A" ? `<div class="card-size">${prod.size}</div>` : ''}
                     </div>
                 `;
                 grid.appendChild(card);

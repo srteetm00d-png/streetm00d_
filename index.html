@@ -171,20 +171,24 @@
             position: absolute;
             top: 8px;
             right: 8px;
-            background: rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.8);
             border: none;
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            color: white;
+            padding: 4px;
             cursor: pointer;
+            z-index: 2;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: 0.3s;
         }
         .card-fav-btn:hover {
-            background: rgba(0,0,0,0.8);
+            background: rgba(255,255,255,0.9);
+        }
+        .card-fav-btn span {
+            font-size: 1.2rem;
+            color: var(--accent);
+            display: inline-block;
         }
 
         /* Define a animação "pop" do coração */
@@ -304,6 +308,9 @@
             text-transform: uppercase;
             font-family: inherit;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         .buy { background: var(--accent); color: white; }
         .reserve { background: white; color: black; }
@@ -575,8 +582,8 @@
                     <div class="modal-price">€ ${product.price}</div>
                     ${product.sizes && product.sizes.toUpperCase() !== "N/A" ? `<p class="modal-size">Tamanhos: ${product.sizes}</p>` : ''}
                     <div class="modal-actions">
-                        <button class="btn-action reserve" onclick="contact('reservar')">Reservar</button>
-                        <button class="btn-action buy" onclick="contact('comprar')">Comprar Agora</button>
+                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action reserve">Reservar</a>
+                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action buy">Comprar Agora</a>
                     </div>
                 </div>
             `;

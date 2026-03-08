@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>STREETMOOD | Premium Streetwear</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1720;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --accent: #ef4444;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.15);
+            --glass: rgba(17, 24, 39, 0.8);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f1720 0%, #1e293b 100%);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header Glassmorphism --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            backdrop-filter: blur(20px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { 
+            font-weight: 700; 
+            font-size: 1.2rem; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo span { color: var(--accent); }
+
+        /* --- Navigation Tools --- */
+        .nav-tools {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        #fav-btn {
+            position: relative;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #fav-btn:hover, #fav-btn.active {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+        #fav-count {
+            position: absolute;
+            top: -8px; right: -8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        #item-count {
+            background: var(--glass);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.1) 0%, transparent 70%);
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .btn-explore {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-explore:hover {
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        /* --- Category Buttons --- */
+        .sm-category-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        .cat-btn {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .cat-btn:hover, .cat-btn.active {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+
+        /* --- Sticky Tools Bar --- */
+        .sm-tools {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            backdrop-filter: blur(20px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        .sticky-tools {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+        }
+        .chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .chip {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .chip:hover, .chip.active {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+
+        /* --- Product Grid --- */
+        .sm-grid {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            margin-bottom: 4rem;
+        }
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+        .img-container {
+            position: relative;
+            padding-top: 100%;
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+        }
+        .card img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .card:hover img {
+            transform: scale(1.1);
+        }
+        .card-fav-btn {
+            position: absolute;
+            top: 12px; right: 12px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            color: var(--text);
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .card-fav-btn:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+        .card-fav-btn span {
+            font-size: 1.2rem;
+            display: inline-block;
+        }
+        .card-info {
+            padding: 1.5rem;
+        }
+        .card-info h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+        }
+        .card-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-size {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: var(--glass);
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            display: inline-block;
+        }
+
+        /* --- Modal --- */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .modal[aria-hidden="false"] { display: block; }
+        .modal-content {
+            position: relative;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 2rem auto;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .close-modal {
+            background: var(--accent);
+            border: none;
+            color: white;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .close-modal:hover {
+            background: linear-gradient(45deg, var(--accent), #ff6b6b);
+            transform: scale(1.1);
+        }
+        .image-carousel {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        .slides-container {
+            overflow: hidden;
+            border-radius: 0 0 16px 16px;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+        .slide {
+            flex: 0 0 100%;
+        }
+        .slide img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .modal-info {
+            padding: 1.5rem;
+        }
+        .modal-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+        .modal-price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .modal-size {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background: var(--glass);
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        .btn-action {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+        }
+        .btn-action.reserve {
+            background: var(--glass);
+            color: var(--text);
+        }
+        .btn-action.buy {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- Empty Message --- */
+        .empty-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+            font-style: italic;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- Animations --- */
+        @keyframes heart-pop {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        .heart-anim {
+            animation: heart-pop 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .container { padding: 0 15px; }
+            .sm-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+            .hero { padding: 60px 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .sm-category-buttons { flex-wrap: wrap; gap: 0.5rem; }
+            .cat-btn { padding: 10px 18px; font-size: 0.9rem; }
+            .sticky-tools { flex-direction: column; gap: 0.8rem; }
+            .search-box { padding: 10px 14px; font-size: 0.85rem; }
+            .chips { justify-content: center; }
+            .chip { padding: 6px 12px; font-size: 0.75rem; }
+            .modal-content { margin: 1rem; max-width: 90%; }
+            .modal-actions { flex-direction: column; }
+            .btn-action { padding: 12px 16px; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 480px) {
+            .sm-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .hero h1 { font-size: 2rem; }
+            .cat-btn { padding: 8px 16px; font-size: 0.85rem; }
+            .modal-content { margin: 0.5rem; max-width: 95%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">STREET<span>MOOD</span></div>
+                <div class="nav-tools">
+                    <button id="fav-btn" aria-label="Favoritos">
+                        <span class="icon-heart-outline">🤍</span>
+                        <span id="fav-count">0</span>
+                    </button>
+                    <div id="item-count" class="counter">Carregando...</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>STREET<br>MOOD</h1>
+            <p>O maior catálogo premium de sneakers e streetwear exclusivo</p>
+            <a href="#grid-anchor" class="btn-explore">Explorar Catálogo</a>
+        </section>
+
+        <div class="sm-category-buttons">
+            <button id="filter-roupas" class="cat-btn">Roupas</button>
+            <button id="filter-sneakers" class="cat-btn">Sneakers</button>
+            <button id="filter-all" class="cat-btn active">Todos</button>
+        </div>
+
+        <div class="sm-tools">
+            <div class="sticky-tools" id="grid-anchor">
+                <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
+                <div class="chips">
+                    <div class="chip active" data-filter="all">Todos</div>
+                    <div class="chip" data-filter="Nike">Nike</div>
+                    <div class="chip" data-filter="Jordan">Jordan</div>
+                    <div class="chip" data-filter="Adidas">Adidas</div>
+                    <div class="chip" data-filter="Yeezy">Yeezy</div>
+                    <div class="chip" data-filter="Louis Vuitton">LV</div>
+                    <div class="chip" data-filter="Dior">Dior</div>
+                </div>
+            </div>
+        </div>
+
+        <main class="sm-grid" id="main-grid"></main>
+        <div id="empty-fav-message" class="empty-message" hidden>
+            Você ainda não adicionou favoritos. Clique no ♥ para guardar seus produtos preferidos.
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="product-modal" class="modal" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="logo">STREET<span>MOOD</span></div>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="image-carousel">
+                <div class="slides-container">
+                    <div class="slides"></div>
+                </div>
+            </div>
+            <div class="modal-info">
+                <h2 id="modal-title"></h2>
+                <div id="modal-price"></div>
+                <p id="modal-size"></p>
+                <div class="modal-actions">
+                    <a id="modal-reserve" class="btn-action reserve" href="#" target="_blank">Reservar</a>
+                    <a id="modal-buy" class="btn-action buy" href="#" target="_blank">Comprar Agora</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Icon definitions
+        const iconHeart = '❤️';
+        const iconHeartOutline = '🤍';
+
+        // Global variables
+        let products = [];
+        let currentProducts = [];
+        let favorites = new Set();
+        let currentP = null;
+        const INSTAGRAM_USERNAME = "streetm00d_";
+
+        // Load favorites from localStorage
+        function loadFavorites() {
+            const stored = JSON.parse(localStorage.getItem("sm_favs") || "[]");
+            favorites = new Set(stored);
+        }
+
+        // Save favorites to localStorage
+        function saveFavorites() {
+            localStorage.setItem("sm_favs", JSON.stringify(Array.from(favorites)));
+        }
+
+        // Update favorites count and icon
+        function updateFavCount() {
+            const btn = document.getElementById("fav-btn");
+            const countEl = document.getElementById("fav-count");
+            countEl.textContent = favorites.size;
+            btn.querySelector("span").textContent = favorites.size ? iconHeart : iconHeartOutline;
+        }
+
+        // Toggle favorite on card
+        function toggleFavorite(event, key) {
+            event.stopPropagation();
+            const card = event.target.closest('.card');
+            const heartIcon = card.querySelector('.card-fav-btn span');
+
+            if (favorites.has(key)) {
+                favorites.delete(key);
+            } else {
+                favorites.add(key);
+                // Add heart animation
+                heartIcon.classList.add("heart-anim");
+                heartIcon.addEventListener("animationend", () => {
+                    heartIcon.classList.remove("heart-anim");
+                }, { once: true });
+            }
+
+            saveFavorites();
+            updateFavCount();
+            heartIcon.textContent = favorites.has(key) ? iconHeart : iconHeartOutline;
+        }
+
+        // Load products from TSV
+        async function loadData() {
+            try {
+                const res = await fetch("produtos.tsv");
+                const text = await res.text();
+                processTSV(text);
+            } catch (err) {
+                console.error("Erro ao carregar produtos:", err);
+            }
+        }
+
+        // Process TSV data
+        function processTSV(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            const grouped = {};
+            
+            lines.forEach(line => {
+                const [name, size, price, image, category] = line.split('\t');
+                if (!name) return;
+                
+                const key = `${name}––${size}`;
+                if (!grouped[key]) {
+                    grouped[key] = { 
+                        name, 
+                        size, 
+                        price, 
+                        images: [],
+                        category: category || 'sneaker'
+                    };
+                }
+                if (image) {
+                    grouped[key].images.push(`imagens_produtos/${image.trim()}`);
+                }
+            });
+            
+            products = Object.values(grouped);
+            currentProducts = products.slice();
+            document.getElementById('item-count').innerText = `${products.length} itens`;
+            render(currentProducts);
+        }
+
+        // Render products
+        function render(items) {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = items.filter(p => p.name && p.price).map(p => `
+                <div class="card" data-key="${p.name}––${p.size}">
+                    <div class="img-container">
+                        <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.size}')">
+                            <span>${favorites.has(p.name + '––' + p.size) ? iconHeart : iconHeartOutline}</span>
+                        </button>
+                    </div>
+                    <div class="card-info">
+                        <h3>${p.name}</h3>
+                        <div class="card-price">€ ${p.price}</div>
+                        ${p.size && p.size.toUpperCase() !== "N/A" ? `<div class="card-size">${p.size}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // Add reveal animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Open product modal
+        function openProduct(product) {
+            currentP = product;
+            const modal = document.getElementById('product-modal');
+            const slidesEl = modal.querySelector(".slides");
+            let current = 0;
+            let isDragging = false;
+            let startX = 0;
+
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="logo">STREET<span>MOOD</span></div>
+                        <button class="close-modal" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="image-carousel">
+                        <div class="slides-container">
+                            <div class="slides"></div>
+                        </div>
+                    </div>
+                    <div class="modal-info">
+                        <h2 id="modal-title">${product.name}</h2>
+                        <div id="modal-price">€ ${product.price}</div>
+                        ${product.size && product.size.toUpperCase() !== "N/A" ? `<p id="modal-size">Tamanhos: ${product.size}</p>` : ''}
+                        <div class="modal-actions">
+                            <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action reserve">Reservar</a>
+                            <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action buy">Comprar Agora</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Populate slides
+            slidesEl.innerHTML = "";
+            product.images.forEach(src => {
+                const slide = document.createElement("div");
+                slide.className = "slide";
+                slide.innerHTML = `<img src="${src}" alt="${product.name}">`;
+                slidesEl.appendChild(slide);
+            });
+
+            // Carousel functionality
+            function updatePosition(idx) {
+                current = (idx + product.images.length) % product.images.length;
+                slidesEl.style.transform = `translateX(-${current*100}%)`;
+            }
+
+            // Drag/Swipe handlers
+            slidesEl.addEventListener("pointerdown", e => {
+                isDragging = true;
+                startX = e.clientX;
+                slidesEl.style.transition = "none";
+            });
+
+            slidesEl.addEventListener("pointermove", e => {
+                if (!isDragging) return;
+                const dx = e.clientX - startX;
+                slidesEl.style.transform = `translateX(calc(-${current*100}% + ${dx}px))`;
+            });
+
+            slidesEl.addEventListener("pointerup", e => {
+                if (!isDragging) return;
+                isDragging = false;
+                const dx = e.clientX - startX;
+                const threshold = slidesEl.parentElement.clientWidth * 0.2;
+                if (dx > threshold) updatePosition(current - 1);
+                else if (dx < -threshold) updatePosition(current + 1);
+                else updatePosition(current);
+                slidesEl.style.transition = "transform 0.3s ease";
+            });
+
+            // Show modal
+            modal.setAttribute("aria-hidden", "false");
+            updatePosition(0);
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('product-modal');
+            modal.setAttribute("aria-hidden", "true");
+            setTimeout(() => {
+                modal.style.animation = "fadeOut 0.3s ease";
+                modal.innerHTML = '';
+            }, 280);
+        }
+
+        // Setup category buttons
+        function setupCategoryButtons() {
+            const btnAll = document.getElementById("filter-all");
+            const btnRoup = document.getElementById("filter-roupas");
+            const btnSneak = document.getElementById("filter-sneakers");
+            const btnFav = document.getElementById("fav-btn");
+            const buttons = [btnAll, btnRoup, btnSneak];
+
+            function activate(btn) {
+                buttons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+            }
+
+            btnAll.addEventListener("click", () => {
+                activate(btnAll);
+                currentProducts = products.slice();
+                render(currentProducts);
+                btnFav.classList.remove("active");
+            });
+            
+            btnRoup.addEventListener("click", () => {
+                activate(btnRoup);
+                currentProducts = products.filter(p => p.category === "roupa");
+                render(currentProducts);
+                btnFav.classList.remove("active");
+            });
+            
+            btnSneak.addEventListener("click", () => {
+                activate(btnSneak);
+                currentProducts = products.filter(p => p.category === "sneaker");
+                render(currentProducts);
+                btnFav.classList.remove("active");
+            });
+
+            btnFav.addEventListener("click", () => {
+                buttons.forEach(b => b.classList.remove("active"));
+                btnFav.classList.add("active");
+                renderFavorites();
+            });
+        }
+
+        // Render favorites
+        function renderFavorites() {
+            const favList = products.filter(p => favorites.has(p.name + '––' + p.size));
+            const grid = document.getElementById('main-grid');
+            const emptyMsg = document.getElementById('empty-fav-message');
+            grid.innerHTML = "";
+
+            if (favList.length === 0) {
+                emptyMsg.hidden = false;
+                return;
+            }
+            emptyMsg.hidden = true;
+            
+            favList.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.key = prod.name + '––' + prod.size;
+                card.innerHTML = `
+                    <div class="img-container">
+                        <img src="${prod.images[0] || ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.size}')">
+                            <span>${favorites.has(prod.name + '––' + prod.size) ? iconHeart : iconHeartOutline}</span>
+                        </button>
+                    </div>
+                    <div class="card-info">
+                        <h3>${prod.name}</h3>
+                        <div class="card-price">€ ${prod.price}</div>
+                        ${prod.size && prod.size.toUpperCase() !== "N/A" ? `<div class="card-size">${prod.size}</div>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Re-attach reveal animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('search');
+            const chips = document.querySelectorAll('.chip');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const filtered = query ? 
+                    currentProducts.filter(p => 
+                        p.name.toLowerCase().includes(query) ||
+                        p.category.toLowerCase().includes(query)
+                    ) : currentProducts;
+                render(filtered);
+            });
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    
+                    const filter = chip.dataset.filter;
+                    if (filter === 'all') {
+                        render(currentProducts);
+                    } else {
+                        const filtered = currentProducts.filter(p => 
+                            p.name.toLowerCase().includes(filter.toLowerCase()) ||
+                            p.category.toLowerCase().includes(filter.toLowerCase())
+                        );
+                        render(filtered);
+                    }
+                });
+            });
+        }
+
+        // Initialize
+        function init() {
+            loadFavorites();
+            updateFavCount();
+            loadData();
+            setupCategoryButtons();
+            setupSearch();
+        }
+
+        // Start application
+        init();
+    </script>
+</body>
+</html>

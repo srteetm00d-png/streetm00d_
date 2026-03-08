@@ -35,13 +35,10 @@
 
         /* --- Header --- */
         header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: static;
+            background: var(--bg);
+            z-index: auto;
             padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
         }
         .header-content {
             display: flex;
@@ -50,6 +47,16 @@
         }
         .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
         .logo span { color: var(--accent); }
+
+        /* --- Sticky Tools --- */
+        .sm-tools {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
 
         /* --- Hero --- */
         .hero { padding: 40px 20px; position: relative; overflow: hidden; }
@@ -99,10 +106,6 @@
 
         /* --- Filters --- */
         .sticky-tools {
-            position: sticky;
-            top: 70px;
-            z-index: 90;
-            background: var(--bg);
             padding: 10px 20px 20px;
         }
         .search-box {
@@ -178,6 +181,13 @@
         }
         .card-fav-btn:hover {
             background: rgba(0,0,0,0.8);
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--fg);
+            font-style: italic;
         }
 
         /* --- Grid --- */
@@ -325,20 +335,26 @@
             <button id="filter-all" class="cat-btn active">Todos</button>
         </div>
 
-        <div class="sticky-tools" id="grid-anchor">
-            <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
-            <div class="chips">
-                <div class="chip active" data-filter="all">Todos</div>
-                <div class="chip" data-filter="Nike">Nike</div>
-                <div class="chip" data-filter="Jordan">Jordan</div>
-                <div class="chip" data-filter="Adidas">Adidas</div>
-                <div class="chip" data-filter="Yeezy">Yeezy</div>
-                <div class="chip" data-filter="Louis Vuitton">LV</div>
-                <div class="chip" data-filter="Dior">Dior</div>
+        <!-- Nova barra sticky de ferramentas -->
+        <div class="sm-tools">
+            <div class="sticky-tools" id="grid-anchor">
+                <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
+                <div class="chips">
+                    <div class="chip active" data-filter="all">Todos</div>
+                    <div class="chip" data-filter="Nike">Nike</div>
+                    <div class="chip" data-filter="Jordan">Jordan</div>
+                    <div class="chip" data-filter="Adidas">Adidas</div>
+                    <div class="chip" data-filter="Yeezy">Yeezy</div>
+                    <div class="chip" data-filter="Louis Vuitton">LV</div>
+                    <div class="chip" data-filter="Dior">Dior</div>
+                </div>
             </div>
         </div>
 
         <main class="grid" id="main-grid"></main>
+        <div id="empty-fav-message" class="empty-message" hidden>
+            Você ainda não adicionou favoritos. Clique no ♥ para guardar.
+        </div>
     </div>
 
     <!-- Modal (será populado via JS) -->
@@ -439,7 +455,7 @@
                     <div class="card-info">
                         <h3>${p.name}</h3>
                         <div class="card-price">€ ${p.price}</div>
-                        <div class="card-size">${p.sizes}</div>
+                        ${p.sizes && p.sizes.toUpperCase() !== "N/A" ? `<div class="card-size">${p.sizes}</div>` : ''}
                     </div>
                 </div>
             `).join('');
@@ -522,7 +538,7 @@
                 <div class="modal-content">
                     <h2 class="modal-name">${product.name}</h2>
                     <div class="modal-price">€ ${product.price}</div>
-                    <p class="modal-size">Tamanhos: ${product.sizes}</p>
+                    ${product.sizes && product.sizes.toUpperCase() !== "N/A" ? `<p class="modal-size">Tamanhos: ${product.sizes}</p>` : ''}
                     <div class="modal-actions">
                         <button class="btn-action reserve" onclick="contact('reservar')">Reservar</button>
                         <button class="btn-action buy" onclick="contact('comprar')">Comprar Agora</button>
@@ -613,9 +629,51 @@
 
         // Adicionar evento de clique ao botão de favoritos no header
         document.getElementById('fav-btn').addEventListener('click', () => {
-            // Implementar visualização de favoritos se necessário
-            console.log('Favoritos:', Array.from(favorites));
+            renderFavorites();
         });
+
+        function renderFavorites() {
+            const favList = products.filter(p => favorites.has(p.name + '––' + p.sizes));
+            const grid = document.getElementById('main-grid');
+            const emptyMsg = document.getElementById('empty-fav-message');
+            grid.innerHTML = "";
+
+            if (favList.length === 0) {
+                emptyMsg.hidden = false;
+                return;
+            }
+            emptyMsg.hidden = true;
+            favList.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.key = prod.name + '––' + prod.sizes;
+                card.innerHTML = `
+                    <div class="img-container">
+                        <img src="${prod.images[0] || ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.sizes}')">
+                            <span class="${favorites.has(prod.name + '––' + prod.sizes) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                        </button>
+                    </div>
+                    <div class="card-info">
+                        <h3>${prod.name}</h3>
+                        <div class="card-price">€ ${prod.price}</div>
+                        ${prod.sizes && prod.sizes.toUpperCase() !== "N/A" ? `<div class="card-size">${prod.sizes}</div>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Observer para animação de entrada
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
     </script>
 </body>
 </html>

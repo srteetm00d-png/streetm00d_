@@ -317,7 +317,7 @@
             const lines = text.split('\n').filter(line => line.trim() !== '');
             const grouped = {};
             lines.forEach(line => {
-                const [nome, tamanhos, preco, imagem] = line.split('\t');
+                const [nome, tamanhos, preco, imagem, category] = line.split('\t');
                 if (!nome) return;
                 const key = `${nome}|${tamanhos}|${preco}`;
                 if (!grouped[key]) {
@@ -326,7 +326,7 @@
                         sizes: tamanhos, 
                         price: preco, 
                         images: [],
-                        category: nome.toLowerCase().includes('tênis') || nome.toLowerCase().includes('tenis') || nome.toLowerCase().includes('sneaker') || nome.toLowerCase().includes('jordan') || nome.toLowerCase().includes('nike') || nome.toLowerCase().includes('adidas') || nome.toLowerCase().includes('yeezy') ? 'sneaker' : 'roupa'
+                        category: category || 'roupa'
                     };
                 }
                 if (imagem) {

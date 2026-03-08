@@ -137,6 +137,49 @@
         }
         .chip.active, .chip:hover { background: var(--accent); border-color: var(--accent); }
 
+        /* --- Favorites --- */
+        #fav-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: var(--fg);
+            font-size: 1.25rem;
+            margin-left: 0.75rem;
+            cursor: pointer;
+        }
+        #fav-count {
+            position: absolute;
+            top: -6px; right: -8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 0 4px;
+            border-radius: 8px;
+        }
+        .icon-heart, .icon-heart-outline {
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+        .card-fav-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.5);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .card-fav-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
         /* --- Grid --- */
         .grid {
             display: grid;
@@ -168,7 +211,7 @@
         }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card-info h3 { font-size: 0.85rem; margin: 0; font-weight: 500; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .card-info h3 { font-size: 0.85rem; margin: 0; font-weight: 500; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-clamp: 2; }
         .card-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin: 8px 0; }
         .card-size { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
 
@@ -258,7 +301,14 @@
         <header>
             <div class="header-content">
                 <div class="logo">STREET<span>MOOD</span></div>
-                <div id="item-count" class="counter">Carregando...</div>
+                <div class="nav-tools">
+                    <!-- Favoritos -->
+                    <button id="fav-btn" aria-label="Favoritos">
+                        <span class="icon-heart-outline"></span>
+                        <span id="fav-count">0</span>
+                    </button>
+                    <div id="item-count" class="counter">Carregando...</div>
+                </div>
             </div>
         </header>
 
@@ -297,6 +347,43 @@
     <script>
         let products = [];
         let currentProducts = [];
+        let favorites = new Set();  // armazena chaves "name––size"
+
+        // carrega favoritos de localStorage
+        function loadFavorites() {
+            const stored = JSON.parse(localStorage.getItem("sm_favs") || "[]");
+            favorites = new Set(stored);
+        }
+
+        // salva favoritos
+        function saveFavorites() {
+            localStorage.setItem("sm_favs", JSON.stringify(Array.from(favorites)));
+        }
+
+        // atualiza contador e ícone geral
+        function updateFavCount() {
+            const btn = document.getElementById("fav-btn");
+            const countEl = document.getElementById("fav-count");
+            countEl.textContent = favorites.size;
+            // opcional: muda ícone caso haja ao menos 1
+            btn.querySelector("span").className = favorites.size
+                ? "icon-heart"
+                : "icon-heart-outline";
+        }
+
+        // toggle favorito no card
+        function toggleFavorite(event, key) {
+            event.stopPropagation();
+            if (favorites.has(key)) favorites.delete(key);
+            else favorites.add(key);
+            saveFavorites();
+            updateFavCount();
+            // atualiza ícone deste card
+            const card = event.target.closest('.card');
+            card.querySelector('.card-fav-btn span').className = favorites.has(key)
+                ? "icon-heart"
+                : "icon-heart-outline";
+        }
         let currentP = null;
         const INSTAGRAM_USERNAME = "streetm00d_";
 
@@ -342,9 +429,12 @@
         function render(items) {
             const grid = document.getElementById('main-grid');
             grid.innerHTML = items.map(p => `
-                <div class="card" onclick='openProduct(${JSON.stringify(p)})'>
+                <div class="card" data-key="${p.name}––${p.sizes}">
                     <div class="img-container">
-                        <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                        <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.sizes}')">
+                            <span class="${favorites.has(p.name + '––' + p.sizes) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                        </button>
                     </div>
                     <div class="card-info">
                         <h3>${p.name}</h3>
@@ -359,7 +449,10 @@
                     if (entry.isIntersecting) entry.target.classList.add('reveal');
                 });
             }, { threshold: 0.1 });
-            document.querySelectorAll('.card').forEach(card => observer.observe(card));
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
         }
 
         document.getElementById('search').addEventListener('input', (e) => {
@@ -437,16 +530,13 @@
                 </div>
             `;
 
-            // Criar slides
-            const slidesContainer = modal.querySelector(".slides");
-            product.images.forEach((src) => {
-                const slide = document.createElement("div");
-                slide.className = "slide";
-                const img = document.createElement("img");
-                img.src = src;
-                img.alt = product.name;
-                slide.appendChild(img);
-                slidesContainer.appendChild(slide);
+            // limpa e popula slides com todas as imagens
+            slidesEl.innerHTML = "";
+            product.images.forEach(src => {
+                const s = document.createElement("div");
+                s.className = "slide";
+                s.innerHTML = `<img src="${src}" alt="${product.name}">`;
+                slidesEl.append(s);
             });
 
             // Função para posicionar pelo índice
@@ -516,8 +606,16 @@
         }
 
         // Initial load
+        loadFavorites();
+        updateFavCount();
         loadData();
         setupCategoryButtons();
+
+        // Adicionar evento de clique ao botão de favoritos no header
+        document.getElementById('fav-btn').addEventListener('click', () => {
+            // Implementar visualização de favoritos se necessário
+            console.log('Favoritos:', Array.from(favorites));
+        });
     </script>
 </body>
 </html>

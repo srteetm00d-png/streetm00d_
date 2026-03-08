@@ -150,14 +150,18 @@
             margin-left: 0.75rem;
             cursor: pointer;
         }
+        #fav-btn.active,
+        #fav-btn:hover {
+            color: var(--accent);
+        }
         #fav-count {
             position: absolute;
             top: -6px; right: -8px;
             background: var(--accent);
             color: #fff;
             font-size: 0.65rem;
-            padding: 0 4px;
-            border-radius: 8px;
+            padding: 0 5px;
+            border-radius: 50%;
         }
         .icon-heart, .icon-heart-outline {
             font-size: 1.5rem;
@@ -181,6 +185,18 @@
         }
         .card-fav-btn:hover {
             background: rgba(0,0,0,0.8);
+        }
+
+        /* Define a animação "pop" do coração */
+        @keyframes heart-pop {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* Classe adicionada ao coração ao favoritar */
+        .heart-anim {
+            animation: heart-pop 0.3s ease-out;
         }
 
         .empty-message {
@@ -390,15 +406,26 @@
         // toggle favorito no card
         function toggleFavorite(event, key) {
             event.stopPropagation();
-            if (favorites.has(key)) favorites.delete(key);
-            else favorites.add(key);
+            const card = event.target.closest('.card');
+            const heartIcon = card.querySelector('.card-fav-btn span');
+
+            if (favorites.has(key)) {
+                favorites.delete(key);
+            } else {
+                favorites.add(key);
+                // dispara animação de "pop"
+                heartIcon.classList.add("heart-anim");
+                // remove a classe após a animação terminar
+                heartIcon.addEventListener("animationend", () => {
+                    heartIcon.classList.remove("heart-anim");
+                }, { once: true });
+            }
+
             saveFavorites();
             updateFavCount();
-            // atualiza ícone deste card
-            const card = event.target.closest('.card');
-            card.querySelector('.card-fav-btn span').className = favorites.has(key)
-                ? "icon-heart"
-                : "icon-heart-outline";
+
+            // atualiza ícone (cor)
+            heartIcon.className = favorites.has(key) ? "icon-heart" : "icon-heart-outline";
         }
         let currentP = null;
         const INSTAGRAM_USERNAME = "streetm00d_";
@@ -491,10 +518,12 @@
             const btnAll = document.getElementById("filter-all");
             const btnRoup = document.getElementById("filter-roupas");
             const btnSneak = document.getElementById("filter-sneakers");
+            const btnFav = document.getElementById("fav-btn");
             const buttons = [btnAll, btnRoup, btnSneak];
 
             function activate(btn) {
                 buttons.forEach(b => b.classList.toggle("active", b===btn));
+                btnFav.classList.remove("active");
             }
             
             btnAll.addEventListener("click", () => {
@@ -513,6 +542,12 @@
                 currentProducts = products.filter(p => p.category==="sneaker");
                 activate(btnSneak);
                 render(currentProducts);
+            });
+
+            btnFav.addEventListener("click", () => {
+                buttons.forEach(b => b.classList.remove("active"));
+                btnFav.classList.add("active");
+                renderFavorites();
             });
         }
 
@@ -628,9 +663,7 @@
         setupCategoryButtons();
 
         // Adicionar evento de clique ao botão de favoritos no header
-        document.getElementById('fav-btn').addEventListener('click', () => {
-            renderFavorites();
-        });
+        // Removido - agora tratado em setupCategoryButtons()
 
         function renderFavorites() {
             const favList = products.filter(p => favorites.has(p.name + '––' + p.sizes));

@@ -711,6 +711,13 @@
                 }));
             }
             
+            // Adicionar categoria aos produtos existentes se não tiverem
+            allProducts.forEach(product => {
+                if (!product.category) {
+                    product.category = 'sneaker'; // categoria padrão
+                }
+            });
+            
             filteredProducts = [...allProducts];
             renderProducts();
             renderPagination();

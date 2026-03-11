@@ -559,7 +559,15 @@
                     { name: "Adidas Forum 84", size: "38-42", price: "80", images: ["streetm00d_.jpeg"], category: "sneaker" }
                 ];
             }
-            currentProducts = products.slice();
+            
+            // Adicionar categoria aos produtos existentes se não tiverem
+            products.forEach(product => {
+                if (!product.category) {
+                    product.category = 'sneaker'; // categoria padrão
+                }
+            });
+            
+            filteredProducts = [...products];
             document.getElementById('item-count').innerText = `${products.length} itens`;
             render(currentProducts);
         }

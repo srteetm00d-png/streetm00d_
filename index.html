@@ -210,6 +210,21 @@
             font-style: italic;
         }
 
+        /* Image count badge */
+        .image-count {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         /* --- Grid --- */
         .grid {
             display: grid;
@@ -281,6 +296,12 @@
 
         .slides .slide {
             flex: 0 0 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .slides .slide.active {
+            opacity: 1;
         }
 
         .slides .slide img {
@@ -288,6 +309,87 @@
             height: auto;
             object-fit: contain;
             display: block;
+        }
+
+        /* Carousel Thumbnails */
+        .carousel-thumbnails {
+            display: flex;
+            gap: 8px;
+            padding: 0.5rem;
+            overflow-x: auto;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+
+        .thumbnail {
+            min-width: 50px;
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .thumbnail:hover {
+            opacity: 0.8;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carousel Buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            z-index: 3;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        .image-indicator {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        .current-image {
+            color: var(--accent);
+            font-weight: 700;
         }
 
         .modal-content { padding: 30px 20px; }
@@ -438,16 +540,23 @@
         const INSTAGRAM_USERNAME = "streetm00d_";
 
         async function loadData() {
-            let tsvText;
             try {
-                const res = await fetch("produtos.tsv");
-                if (!res.ok) throw new Error("TSV externo não encontrado");
-                tsvText = await res.text();
+                const response = await fetch("products.json");
+                if (!response.ok) throw new Error("JSON externo não encontrado");
+                const data = await response.json();
+                products = Object.values(data);
             } catch (err) {
-                console.warn("❗ Falha ao buscar produtos.tsv → usando fallback interno");
-                tsvText = fallbackTSV;
+                console.warn("❗ Falha ao buscar products.json → usando fallback");
+                // Fallback com alguns produtos básicos
+                products = [
+                    { name: "Air Jordan 1 High", size: "36-45", price: "90", images: ["streetm00d_.jpeg"], category: "sneaker" },
+                    { name: "Nike Air Max 270", size: "40-46", price: "95", images: ["streetm00d_.jpeg"], category: "sneaker" },
+                    { name: "Adidas Forum 84", size: "38-42", price: "80", images: ["streetm00d_.jpeg"], category: "sneaker" }
+                ];
             }
-            processTSV(tsvText);
+            currentProducts = products.slice();
+            document.getElementById('item-count').innerText = `${products.length} itens`;
+            render(currentProducts);
         }
 
         function processTSV(text) {
@@ -478,10 +587,13 @@
 
         function render(items) {
             const grid = document.getElementById('main-grid');
-            grid.innerHTML = items.filter(p => p.name && p.price).map(p => `
+            grid.innerHTML = items.filter(p => p.name && p.price).map(p => {
+                const firstImage = p.images && p.images.length > 0 ? p.images[0] : '';
+                return `
                 <div class="card" data-key="${p.name}––${p.size}">
                     <div class="img-container">
-                        <img src="${p.images[0] || ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                        <img src="${firstImage ? 'imagens_produtos/' + firstImage : ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                        ${p.images && p.images.length > 1 ? `<div class="image-count">+${p.images.length - 1}</div>` : ''}
                         <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.size}')">
                             <span class="${favorites.has(p.name + '––' + p.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
                         </button>
@@ -492,7 +604,8 @@
                         ${p.size && p.size.toUpperCase() !== "N/A" ? `<div class="card-size">${p.size}</div>` : ''}
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -560,22 +673,55 @@
         function openProduct(product) {
             currentP = product;
             const modal = document.getElementById('modal');
-            const slidesEl = modal.querySelector(".slides");
-            let current = 0;
-            let isDragging = false;
-            let startX = 0;
-            let currentX = 0;
+            const images = product.images || [];
+            const hasMultipleImages = images.length > 1;
+            
+            let galleryHTML = '';
+            if (hasMultipleImages) {
+                galleryHTML = `
+                    <div class="image-carousel">
+                        <div class="slides-container">
+                            <div class="slides">
+                                ${images.map((img, index) => `
+                                    <div class="slide ${index === 0 ? 'active' : ''}">
+                                        <img src="imagens_produtos/${img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="carousel-thumbnails">
+                            ${images.map((img, index) => `
+                                <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage(${index})">
+                                    <img src="imagens_produtos/${img}" alt="${product.name} ${index + 1}" onerror="this.src='https://via.placeholder.com/50/111827/FFFFFF?text=👟'">
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevImage()">‹</button>
+                        <button class="carousel-btn next" onclick="nextImage()">›</button>
+                        <div class="image-indicator"><span class="current-image">1</span> / ${images.length}</div>
+                    </div>
+                `;
+            } else {
+                const singleImage = images.length > 0 ? images[0] : 'default.jpg';
+                galleryHTML = `
+                    <div class="image-carousel">
+                        <div class="slides-container">
+                            <div class="slides">
+                                <div class="slide active">
+                                    <img src="imagens_produtos/${singleImage}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
 
             modal.innerHTML = `
                 <div class="modal-header">
                     <div class="logo">STREET<span>MOOD</span></div>
                     <button class="close-modal" onclick="closeModal()">&times;</button>
                 </div>
-                <div class="image-carousel">
-                    <div class="slides-container">
-                        <div class="slides"></div>
-                    </div>
-                </div>
+                ${galleryHTML}
                 <div class="modal-content">
                     <h2 class="modal-name">${product.name}</h2>
                     <div class="modal-price">€ ${product.price}</div>
@@ -587,51 +733,18 @@
                 </div>
             `;
 
-            // limpa e popula slides com todas as imagens
-            slidesEl.innerHTML = "";
-            product.images.forEach(src => {
-                const s = document.createElement("div");
-                s.className = "slide";
-                s.innerHTML = `<img src="${src}" alt="${product.name}">`;
-                slidesEl.append(s);
-            });
-
-            // Função para posicionar pelo índice
-            function updatePosition(idx) {
-                current = (idx + product.images.length)%product.images.length;
-                slidesEl.style.transition = "transform 0.3s ease";
-                slidesEl.style.transform = `translateX(-${current*100}%)`;
-            }
-
-            // Handlers de drag
-            slidesEl.addEventListener("pointerdown", e => {
-                isDragging = true;
-                startX = e.clientX;
-                slidesEl.style.transition = "none";
-                slidesEl.setPointerCapture(e.pointerId);
-            });
-            
-            slidesEl.addEventListener("pointermove", e => {
-                if (!isDragging) return;
-                currentX = e.clientX;
-                const dx = currentX - startX;
-                slidesEl.style.transform = `translateX(${-current*100 + dx/slidesEl.clientWidth*100}%)`;
-            });
-            
-            slidesEl.addEventListener("pointerup", e => {
-                if (!isDragging) return;
-                isDragging = false;
-                const dx = e.clientX - startX;
-                const threshold = slidesEl.clientWidth * 0.2;
-                if (dx > threshold) updatePosition(current-1);
-                else if (dx < -threshold) updatePosition(current+1);
-                else updatePosition(current);
-                slidesEl.releasePointerCapture(e.pointerId);
-            });
+            // Store current product and images for carousel
+            window.currentProduct = product;
+            window.currentImages = images;
+            window.currentImageIndex = 0;
 
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            updatePosition(0);
+            
+            // Setup carousel if multiple images
+            if (hasMultipleImages) {
+                setupCarousel();
+            }
         }
 
         function closeModal() {
@@ -644,6 +757,58 @@
             }, 280);
             document.body.style.overflow = '';
         }
+
+        // Carousel functions
+        function changeImage(index) {
+            if (!window.currentImages || window.currentImages.length <= index) return;
+            
+            window.currentImageIndex = index;
+            const slides = document.querySelectorAll('.slide');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const indicator = document.querySelector('.current-image');
+            
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            
+            // Update thumbnails
+            thumbnails.forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+            
+            // Update indicator
+            if (indicator) {
+                indicator.textContent = index + 1;
+            }
+        }
+        
+        function nextImage() {
+            if (!window.currentImages) return;
+            const nextIndex = (window.currentImageIndex + 1) % window.currentImages.length;
+            changeImage(nextIndex);
+        }
+        
+        function prevImage() {
+            if (!window.currentImages) return;
+            const prevIndex = (window.currentImageIndex - 1 + window.currentImages.length) % window.currentImages.length;
+            changeImage(prevIndex);
+        }
+        
+        function setupCarousel() {
+            // Add keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'Escape') closeModal();
+            });
+        }
+        
+        // Make carousel functions global
+        window.changeImage = changeImage;
+        window.nextImage = nextImage;
+        window.prevImage = prevImage;
+        window.setupCarousel = setupCarousel;
 
         function contact(type) {
             const text = `Olá, STREETMOOD. Tenho interesse em ${type} o seguinte item:\n\nProduto: ${currentP.name}\nTamanhos: ${currentP.sizes}\nPreço: €${currentP.price}`;

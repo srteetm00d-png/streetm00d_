@@ -467,6 +467,170 @@
             font-size: 1.2rem;
             font-weight: 600;
         }
+
+        /* Image count badge */
+        .image-count {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: #000;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        /* Carousel Gallery */
+        .modal-gallery-carousel {
+            position: relative;
+            background: radial-gradient(circle at center, rgba(198, 255, 0, 0.08) 0%, transparent 80%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border-right: 1px solid var(--glass-border);
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .carousel-slide {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 30px 30px rgba(0,0,0,0.6));
+            animation: floatImg 6s infinite ease-in-out alternate;
+        }
+
+        .carousel-thumbnails {
+            display: flex;
+            gap: 8px;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem;
+            max-width: 100%;
+        }
+
+        .thumbnail {
+            min-width: 50px;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .thumbnail:hover {
+            border-color: rgba(198, 255, 0, 0.3);
+        }
+
+        .thumbnail.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            z-index: 3;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        .image-indicator {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        .current-image {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .modal-content { grid-template-columns: 1fr; max-height: 95vh; }
+            .modal-gallery-carousel { 
+                font-size: 8rem; 
+                padding: 1.5rem; 
+                border-right: none; 
+                border-bottom: 1px solid var(--glass-border); 
+                height: 40vh; 
+            }
+            .carousel-container { height: 250px; }
+            .modal-info { padding: 2rem; }
+            .modal-title { font-size: 1.8rem; }
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; padding: 1rem; gap: 1rem; }
+            .search-container { max-width: 100%; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+            .card { padding: 1rem; border-radius: 20px; }
+            .card-image-wrapper { height: 160px; font-size: 4rem; }
+            .card-title { font-size: 1.1rem; }
+            .card-price { font-size: 1.2rem; }
+            .btn-buy { padding: 0.5rem 1rem; font-size: 0.9rem; }
+            .modal-actions { flex-direction: column; }
+            .btn-close { top: 1rem; right: 1rem; width: 36px; height: 36px; }
+            .carousel-thumbnails { 
+                justify-content: center;
+                flex-wrap: wrap;
+                max-width: 200px;
+                margin: 0 auto;
+            }
+            .thumbnail { width: 40px; height: 40px; min-width: 40px; }
+        }
     </style>
 </head>
 <body>
@@ -507,10 +671,12 @@
 
         async function initData() {
             try {
-                const response = await fetch('products-dark.json');
+                const response = await fetch('products.json');
                 if (!response.ok) throw new Error('Local load failed');
-                allProducts = await response.json();
+                const data = await response.json();
+                allProducts = Object.values(data);
             } catch (error) {
+                console.warn('❗ Falha ao buscar products.json → usando fallback');
                 const brands = ['OFF-WHITE', 'TRAVIS SCOTT', 'BALENCIAGA', 'YEEZY', 'NIKE SB'];
                 const imagesFallback = ['streetm00d_.jpeg', 'sneaker1.jpg', 'sneaker2.png', 'model.jpg'];
                 allProducts = Array.from({length: 36}, (_, i) => ({
@@ -518,8 +684,8 @@
                     brand: brands[i % brands.length],
                     name: `${brands[i % brands.length]} x EXCLUSIVE ${i+1}`,
                     price: (Math.random() * 800 + 200).toFixed(2),
-                    image: imagesFallback[i % imagesFallback.length],
-                    description: `Edição super limitada do drop de Inverno 26. Construção em materiais refletivos, design desconstruído. Este sistema busca automaticamente a imagem correspondente na pasta imagens_produtos/ caso exista.` 
+                    images: [imagesFallback[i % imagesFallback.length]],
+                    description: `Edição super limitada do drop de Inverno 26. Construção em materiais refletivos, design desconstruído.` 
                 }));
             }
             
@@ -544,18 +710,21 @@
                 card.className = 'card';
                 card.onclick = () => openModal(product);
                 
-                const imgSrc = `imagens_produtos/${product.image || 'default.jpg'}`;
+                const firstImage = product.images && product.images.length > 0 
+                    ? `imagens_produtos/${product.images[0]}` 
+                    : `imagens_produtos/default.jpg`;
                 const fallbackEmoji = `this.onerror=null; this.parentElement.innerHTML='👟';`;
 
                 card.innerHTML = `
                     <div class="card-image-wrapper">
-                        <img src="${imgSrc}" alt="${product.name}" onerror="${fallbackEmoji}">
+                        <img src="${firstImage}" alt="${product.name}" onerror="${fallbackEmoji}">
+                        ${product.images && product.images.length > 1 ? `<div class="image-count">+${product.images.length - 1}</div>` : ''}
                     </div>
                     <div class="card-brand">${product.brand || 'STREETMOOD'}</div>
                     <div class="card-title">${product.name}</div>
                     <div class="card-footer">
-                        <div class="card-price">R$ ${product.price}</div>
-                        <button class="btn-buy" onclick="event.stopPropagation(); openModal(${product.id}, true)">COP</button>
+                        <div class="card-price">€ ${product.price}</div>
+                        <button class="btn-buy" onclick="event.stopPropagation(); openModal(${JSON.stringify(product).replace(/"/g, '&quot;')})">🔍</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -581,30 +750,60 @@
             }
         };
 
-        const openModal = (productObjOrId, isDirectBuy = false) => {
-            const product = typeof productObjOrId === 'object' 
-                ? productObjOrId 
-                : allProducts.find(p => p.id === productObjOrId);
-
-            const imgSrc = `imagens_produtos/${product.image || 'default.jpg'}`;
-            const fallbackEmoji = `this.onerror=null; this.parentElement.innerHTML='👟';`;
+        const openModal = (product) => {
+            const images = product.images || [];
+            const hasMultipleImages = images.length > 1;
+            
+            let galleryHTML = '';
+            if (hasMultipleImages) {
+                galleryHTML = `
+                    <div class="modal-gallery-carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slide active">
+                                <img src="imagens_produtos/${images[0]}" alt="${product.name}" onerror="this.parentElement.innerHTML='👟';">
+                            </div>
+                        </div>
+                        <div class="carousel-thumbnails">
+                            ${images.map((img, index) => `
+                                <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage(${index})">
+                                    <img src="imagens_produtos/${img}" alt="${product.name} ${index + 1}" onerror="this.parentElement.innerHTML='👟';">
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevImage()">‹</button>
+                        <button class="carousel-btn next" onclick="nextImage()">›</button>
+                    </div>
+                `;
+            } else {
+                const singleImage = images.length > 0 ? images[0] : 'default.jpg';
+                galleryHTML = `
+                    <div class="modal-gallery">
+                        <img src="imagens_produtos/${singleImage}" alt="${product.name}" onerror="this.parentElement.innerHTML='👟';">
+                    </div>
+                `;
+            }
 
             modalContent.innerHTML = `
-                <div class="modal-gallery">
-                    <img src="${imgSrc}" alt="${product.name}" onerror="${fallbackEmoji}">
-                </div>
+                ${galleryHTML}
                 <div class="modal-info">
                     <button class="btn-close" onclick="closeModal()">✕</button>
                     <div class="modal-brand">${product.brand || 'STREETMOOD'}</div>
                     <h2 class="modal-title">${product.name}</h2>
-                    <div class="modal-price">R$ ${product.price}</div>
+                    <div class="modal-price">€ ${product.price}</div>
                     <p class="modal-desc">${product.description || 'Sneaker exclusivo disponível agora.'}</p>
+                    ${hasMultipleImages ? `<div class="image-indicator"><span class="current-image">1</span> / ${images.length}</div>` : ''}
                     <div class="modal-actions">
-                        <button class="btn-cart">💳 Comprar</button>
-                        <button class="btn-wpp">💬 Dúvidas</button>
+                        <button class="btn-cart" onclick="buyProduct('${product.name}', ${product.price})">🛒 Comprar</button>
+                        <button class="btn-wpp" onclick="contactWhatsApp('${product.name}', ${product.price})">💬 WhatsApp</button>
                     </div>
                 </div>
             `;
+            
+            // Store current product and images for carousel
+            window.currentProduct = product;
+            window.currentImages = images;
+            window.currentImageIndex = 0;
+            
             modalOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         };
@@ -633,8 +832,60 @@
             }, 250);
         });
 
+        // Carousel functions
+        function changeImage(index) {
+            if (!window.currentImages || window.currentImages.length <= index) return;
+            
+            window.currentImageIndex = index;
+            const carouselSlide = document.querySelector('.carousel-slide img');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const indicator = document.querySelector('.current-image');
+            
+            if (carouselSlide) {
+                carouselSlide.src = `imagens_produtos/${window.currentImages[index]}`;
+            }
+            
+            thumbnails.forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+            
+            if (indicator) {
+                indicator.textContent = index + 1;
+            }
+        }
+        
+        function nextImage() {
+            if (!window.currentImages) return;
+            const nextIndex = (window.currentImageIndex + 1) % window.currentImages.length;
+            changeImage(nextIndex);
+        }
+        
+        function prevImage() {
+            if (!window.currentImages) return;
+            const prevIndex = (window.currentImageIndex - 1 + window.currentImages.length) % window.currentImages.length;
+            changeImage(prevIndex);
+        }
+        
+        // Product action functions
+        function buyProduct(name, price) {
+            const message = `Olá STREETMOOD 👟 quero comprar o ${name} ainda está disponível?`;
+            window.open(`https://ig.me/m/streetm00d_?text=${encodeURIComponent(message)}`, '_blank');
+        }
+        
+        function contactWhatsApp(name, price) {
+            const message = `Olá STREETMOOD 👟 vi o vosso catálogo e gostaria de saber mais sobre ${name}. Podem ajudar-me?`;
+            window.open(`https://wa.me/351929461628?text=${encodeURIComponent(message)}`, '_blank');
+        }
+        
         // Initialize application data
         window.addEventListener('DOMContentLoaded', initData);
+        
+        // Make carousel functions global
+        window.changeImage = changeImage;
+        window.nextImage = nextImage;
+        window.prevImage = prevImage;
+        window.buyProduct = buyProduct;
+        window.contactWhatsApp = contactWhatsApp;
     </script>
 </body>
 </html>

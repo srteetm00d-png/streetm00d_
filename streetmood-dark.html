@@ -468,18 +468,20 @@
             font-weight: 600;
         }
 
-        /* Image count badge */
-        .image-count {
+        /* Heart badge */
+        .heart-badge {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: var(--accent);
-            color: #000;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.9);
+            color: #e50914;
+            padding: 6px 8px;
+            border-radius: 50%;
+            font-size: 1rem;
             z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         /* Carousel Gallery */
@@ -504,17 +506,37 @@
             position: relative;
         }
 
+        .carousel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
         .carousel-slide {
+            flex: 0 0 100%;
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            position: relative;
         }
 
         .carousel-slide img {
             max-width: 100%;
             max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             filter: drop-shadow(0 30px 30px rgba(0,0,0,0.6));
             animation: floatImg 6s infinite ease-in-out alternate;
@@ -718,7 +740,7 @@
                 card.innerHTML = `
                     <div class="card-image-wrapper">
                         <img src="${firstImage}" alt="${product.name}" onerror="${fallbackEmoji}">
-                        ${product.images && product.images.length > 1 ? `<div class="image-count">+${product.images.length - 1}</div>` : ''}
+                        ${product.images && product.images.length > 1 ? `<div class="heart-badge">❤️</div>` : ''}
                     </div>
                     <div class="card-brand">${product.brand || 'STREETMOOD'}</div>
                     <div class="card-title">${product.name}</div>
@@ -759,8 +781,12 @@
                 galleryHTML = `
                     <div class="modal-gallery-carousel">
                         <div class="carousel-container">
-                            <div class="carousel-slide active">
-                                <img src="imagens_produtos/${images[0]}" alt="${product.name}" onerror="this.parentElement.innerHTML='👟';">
+                            <div class="carousel-track">
+                                ${images.map((img, index) => `
+                                    <div class="carousel-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+                                        <img src="imagens_produtos/${img}" alt="${product.name}" onerror="this.parentElement.innerHTML='👟';">
+                                    </div>
+                                `).join('')}
                             </div>
                         </div>
                         <div class="carousel-thumbnails">
@@ -837,18 +863,21 @@
             if (!window.currentImages || window.currentImages.length <= index) return;
             
             window.currentImageIndex = index;
-            const carouselSlide = document.querySelector('.carousel-slide img');
+            const slides = document.querySelectorAll('.carousel-slide');
             const thumbnails = document.querySelectorAll('.thumbnail');
             const indicator = document.querySelector('.current-image');
             
-            if (carouselSlide) {
-                carouselSlide.src = `imagens_produtos/${window.currentImages[index]}`;
-            }
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
             
+            // Update thumbnails
             thumbnails.forEach((thumb, i) => {
                 thumb.classList.toggle('active', i === index);
             });
             
+            // Update indicator
             if (indicator) {
                 indicator.textContent = index + 1;
             }

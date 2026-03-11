@@ -211,18 +211,20 @@
         }
 
         /* Image count badge */
-        .image-count {
+        .heart-badge {
             position: absolute;
             top: 8px;
             right: 8px;
-            background: var(--accent);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.9);
+            color: #e50914;
+            padding: 6px 8px;
+            border-radius: 50%;
+            font-size: 1rem;
             z-index: 2;
             pointer-events: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         /* --- Grid --- */
@@ -305,10 +307,13 @@
         }
 
         .slides .slide img {
-            width: 100%;
+            width: auto;
             height: auto;
+            max-width: 100%;
+            max-height: 400px;
             object-fit: contain;
             display: block;
+            margin: 0 auto;
         }
 
         /* Carousel Thumbnails */
@@ -593,7 +598,7 @@
                 <div class="card" data-key="${p.name}––${p.size}">
                     <div class="img-container">
                         <img src="${firstImage ? 'imagens_produtos/' + firstImage : ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
-                        ${p.images && p.images.length > 1 ? `<div class="image-count">+${p.images.length - 1}</div>` : ''}
+                        ${p.images && p.images.length > 1 ? `<div class="heart-badge">❤️</div>` : ''}
                         <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.size}')">
                             <span class="${favorites.has(p.name + '––' + p.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
                         </button>
@@ -683,7 +688,7 @@
                         <div class="slides-container">
                             <div class="slides">
                                 ${images.map((img, index) => `
-                                    <div class="slide ${index === 0 ? 'active' : ''}">
+                                    <div class="slide ${index === 0 ? 'active' : ''}" data-index="${index}">
                                         <img src="imagens_produtos/${img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
                                     </div>
                                 `).join('')}
@@ -740,11 +745,6 @@
 
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
-            
-            // Setup carousel if multiple images
-            if (hasMultipleImages) {
-                setupCarousel();
-            }
         }
 
         function closeModal() {
@@ -793,15 +793,6 @@
             if (!window.currentImages) return;
             const prevIndex = (window.currentImageIndex - 1 + window.currentImages.length) % window.currentImages.length;
             changeImage(prevIndex);
-        }
-        
-        function setupCarousel() {
-            // Add keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') prevImage();
-                if (e.key === 'ArrowRight') nextImage();
-                if (e.key === 'Escape') closeModal();
-            });
         }
         
         // Make carousel functions global

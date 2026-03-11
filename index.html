@@ -568,35 +568,12 @@
             });
             
             filteredProducts = [...products];
+            currentProducts = [...products];
             document.getElementById('item-count').innerText = `${products.length} itens`;
             render(currentProducts);
         }
 
-        function processTSV(text) {
-            const lines = text.split('\n').filter(line => line.trim() !== '');
-            const grouped = {};
-            lines.forEach(line => {
-                const [nome, tamanhos, preco, imagem, category] = line.split('\t');
-                if (!nome) return;
-                const key = `${nome}––${tamanhos}`;
-                if (!grouped[key]) {
-                    grouped[key] = { 
-                        name: nome, 
-                        size: tamanhos, 
-                        price: preco, 
-                        images: [],
-                        category: category || 'sneaker'
-                    };
-                }
-                if (imagem) {
-                    grouped[key].images.push(`imagens_produtos/${imagem.trim()}`);
-                }
-            });
-            products = Object.values(grouped);
-            currentProducts = products.slice();
-            document.getElementById('item-count').innerText = `${products.length} itens`;
-            render(currentProducts);
-        }
+        // Remover função obsoleta processTSV - não é mais usada
 
         function render(items) {
             const grid = document.getElementById('main-grid');
@@ -679,7 +656,7 @@
         }
 
         function activate(btn) {
-            [btnAll, btnRoup, btnSneak, btnFav].forEach(x => x.classList.remove("active"));
+            document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove("active"));
             btn.classList.add("active");
         }
 
@@ -852,7 +829,7 @@
                 card.dataset.key = prod.name + '––' + prod.size;
                 card.innerHTML = `
                     <div class="img-container">
-                        <img src="${prod.images[0] || ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
+                        <img src="${prod.images && prod.images.length > 0 ? 'imagens_produtos/' + prod.images[0] : ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
                         <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.size}')">
                             <span class="${favorites.has(prod.name + '––' + prod.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
                         </button>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>STREETMOOD - Teste de Produtos</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #000; color: #fff; }
+        .product { border: 1px solid #333; margin: 10px; padding: 15px; }
+        .price { color: #ef4444; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🔍 TESTE DE PRODUTOS - STREETMOOD</h1>
+    <p>Verificando se os produtos carregam corretamente...</p>
+    <div id="products"></div>
+    
+    <script>
+        async function testProducts() {
+            try {
+                const response = await fetch('products.json');
+                const data = await response.json();
+                const products = Object.values(data);
+                
+                const container = document.getElementById('products');
+                container.innerHTML = `
+                    <h2>✅ SUCESSO! Encontrados ${products.length} produtos</h2>
+                    <p>Primeiros 5 produtos:</p>
+                    ${products.slice(0, 5).map(p => `
+                        <div class="product">
+                            <strong>${p.name}</strong><br>
+                            <span class="price">€ ${p.price}</span><br>
+                            <small>Categoria: ${p.category} | Tamanho: ${p.size}</small>
+                        </div>
+                    `).join('')}
+                    <p><a href="index.html">← Voltar para o site principal</a></p>
+                `;
+            } catch (error) {
+                document.getElementById('products').innerHTML = `
+                    <h2>❌ ERRO AO CARREGAR PRODUTOS</h2>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        testProducts();
+    </script>
+</body>
+</html>

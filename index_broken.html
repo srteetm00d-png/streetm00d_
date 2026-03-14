@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>STREETMOOD | Premium Streetwear</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1720;
+            --card-bg: #111827;
+            --accent: #ef4444;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(17, 24, 39, 0.8);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* --- Header --- */
+        header {
+            position: static;
+            background: var(--bg);
+            z-index: auto;
+            padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
+        .logo span { color: var(--accent); }
+
+        /* --- Sticky Tools --- */
+        .sm-tools {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* --- Hero --- */
+        .hero { padding: 40px 20px; position: relative; overflow: hidden; }
+        .hero h1 { font-size: 3.5rem; line-height: 0.85; margin: 0; text-transform: uppercase; font-weight: 700; }
+        .hero p { color: var(--text-muted); margin: 15px 0 25px; font-size: 1rem; max-width: 80%; }
+        .btn-explore {
+            background: var(--accent);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            transition: transform 0.2s ease;
+        }
+        .btn-explore:hover {
+            transform: translateY(-3px);
+        }
+
+        /* --- Botões de categoria --- */
+        .sm-category-buttons {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+        .cat-btn {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .cat-btn.active,
+        .cat-btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        /* --- Filters --- */
+        .sticky-tools {
+            padding: 10px 20px 20px;
+        }
+        .search-box {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 14px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            margin-bottom: 15px;
+        }
+        .chips {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 5px;
+        }
+        .chips::-webkit-scrollbar { display: none; }
+        .chip {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 50px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .chip.active, .chip:hover { background: var(--accent); border-color: var(--accent); }
+
+        /* --- Favorites --- */
+        #fav-btn {
+            position: relative;
+            background: none;
+            border: none;
+            color: var(--fg);
+            font-size: 1.25rem;
+            margin-left: 0.75rem;
+            cursor: pointer;
+        }
+        #fav-btn.active,
+        #fav-btn:hover {
+            color: var(--accent);
+        }
+        #fav-count {
+            position: absolute;
+            top: -6px; right: -8px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 0 5px;
+            border-radius: 50%;
+        }
+        .icon-heart, .icon-heart-outline {
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+        .card-fav-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            padding: 4px;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .card-fav-btn:hover {
+            background: rgba(255,255,255,0.9);
+        }
+        .card-fav-btn span {
+            font-size: 1.2rem;
+            color: var(--accent);
+            display: inline-block;
+        }
+
+        /* Define a animação "pop" do coração */
+        @keyframes heart-pop {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* Classe adicionada ao coração ao favoritar */
+        .heart-anim {
+            animation: heart-pop 0.3s ease-out;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--fg);
+            font-style: italic;
+        }
+
+        /* Image count badge */
+        .heart-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #e50914;
+            padding: 6px 8px;
+            border-radius: 50%;
+            font-size: 1rem;
+            z-index: 2;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- Grid --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+            gap: 15px;
+            padding: 10px 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 10px;
+            border: 1px solid var(--border);
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .card.reveal { opacity: 1; transform: translateY(0); }
+        
+        .img-container {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #1a2230;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-info h3 { font-size: 0.85rem; margin: 0; font-weight: 500; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-clamp: 2; }
+        .card-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin: 8px 0; }
+        .card-size { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+        /* --- Modal --- */
+        #modal {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-header { padding: calc(20px + env(safe-area-inset-top)) 20px; display: flex; justify-content: space-between; align-items: center; }
+        .close-modal { font-size: 2rem; background: none; border: none; color: white; cursor: pointer; line-height: 1; }
+
+        /* --- Image Carousel --- */
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            touch-action: pan-y;
+            margin-bottom: 1rem;
+        }
+
+        .slides-container {
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+
+        .slides .slide {
+            flex: 0 0 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .slides .slide.active {
+            opacity: 1;
+        }
+
+        .slides .slide img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Carousel Thumbnails */
+        .carousel-thumbnails {
+            display: flex;
+            gap: 8px;
+            padding: 0.5rem;
+            overflow-x: auto;
+            justify-content: center;
+            background: rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+
+        .thumbnail {
+            min-width: 50px;
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .thumbnail:hover {
+            opacity: 0.8;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            border-color: var(--accent);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carousel Buttons */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            z-index: 3;
+        }
+
+        .carousel-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .carousel-btn.prev { left: 10px; }
+        .carousel-btn.next { right: 10px; }
+
+        .image-indicator {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        .current-image {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .modal-content { padding: 30px 20px; }
+        .modal-name { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
+        .modal-price { font-size: 1.8rem; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
+        .modal-size { color: var(--text-muted); margin-bottom: 30px; }
+        
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .btn-action {
+            padding: 20px;
+            border-radius: 15px;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .buy { background: var(--accent); color: white; }
+        .reserve { background: white; color: black; }
+
+        .counter { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="logo">STREET<span>MOOD</span></div>
+                <div class="nav-tools">
+                    <!-- Favoritos -->
+                    <button id="fav-btn" aria-label="Favoritos">
+                        <span class="icon-heart-outline"></span>
+                        <span id="fav-count">0</span>
+                    </button>
+                    <div id="item-count" class="counter">Carregando...</div>
+                </div>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>STREET<br>MOOD</h1>
+            <p>O maior catálogo premium de sneakers e streetwear exclusivo.</p>
+            <a href="#grid-anchor" class="btn-explore">Explorar Drop</a>
+        </section>
+
+        <!-- Botões de categoria -->
+        <div class="sm-category-buttons">
+            <button id="filter-roupas" class="cat-btn">Roupas</button>
+            <button id="filter-sneakers" class="cat-btn">Sneakers</button>
+            <button id="filter-all" class="cat-btn active">Todos</button>
+        </div>
+
+        <!-- Nova barra sticky de ferramentas -->
+        <div class="sm-tools">
+            <div class="sticky-tools" id="grid-anchor">
+                <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
+                <div class="chips">
+                    <div class="chip active" data-filter="all">Todos</div>
+                    <div class="chip" data-filter="Nike">Nike</div>
+                    <div class="chip" data-filter="Jordan">Jordan</div>
+                    <div class="chip" data-filter="Adidas">Adidas</div>
+                    <div class="chip" data-filter="Yeezy">Yeezy</div>
+                    <div class="chip" data-filter="Louis Vuitton">LV</div>
+                    <div class="chip" data-filter="Dior">Dior</div>
+                </div>
+            </div>
+        </div>
+
+        <main class="grid" id="main-grid"></main>
+        <div id="empty-fav-message" class="empty-message" hidden>
+            Você ainda não adicionou favoritos. Clique no ♥ para guardar.
+        </div>
+    </div>
+
+    <!-- Modal (será populado via JS) -->
+    <div id="modal"></div>
+
+    <script>
+        let products = [];
+        let currentProducts = [];
+        let favorites = new Set();  // armazena chaves "name––size"
+
+        // carrega favoritos de localStorage
+        function loadFavorites() {
+            const stored = JSON.parse(localStorage.getItem("sm_favs") || "[]");
+            favorites = new Set(stored);
+        }
+
+        // salva favoritos
+        function saveFavorites() {
+            localStorage.setItem("sm_favs", JSON.stringify(Array.from(favorites)));
+        }
+
+        // atualiza contador e ícone geral
+        function updateFavCount() {
+            const btn = document.getElementById("fav-btn");
+            const countEl = document.getElementById("fav-count");
+            countEl.textContent = favorites.size;
+            // opcional: muda ícone caso haja ao menos 1
+            btn.querySelector("span").className = favorites.size
+                ? "icon-heart"
+                : "icon-heart-outline";
+        }
+
+        // toggle favorito no card
+        function toggleFavorite(event, key) {
+            event.stopPropagation();
+            const card = event.target.closest('.card');
+            const heartIcon = card.querySelector('.card-fav-btn span');
+
+            if (favorites.has(key)) {
+                favorites.delete(key);
+            } else {
+                favorites.add(key);
+                // dispara animação de "pop"
+                heartIcon.classList.add("heart-anim");
+                // remove a classe após a animação terminar
+                heartIcon.addEventListener("animationend", () => {
+                    heartIcon.classList.remove("heart-anim");
+                }, { once: true });
+            }
+
+            saveFavorites();
+            updateFavCount();
+
+            // atualiza ícone (cor)
+            heartIcon.className = favorites.has(key) ? "icon-heart" : "icon-heart-outline";
+        }
+        let currentP = null;
+        const INSTAGRAM_USERNAME = "streetm00d_";
+
+        async function loadData() {
+            try {
+                const response = await fetch("products.json");
+                if (!response.ok) throw new Error("JSON externo não encontrado");
+                const data = await response.json();
+                products = Object.values(data);
+            } catch (err) {
+                console.warn("❗ Falha ao buscar products.json → usando fallback");
+                // Fallback com alguns produtos básicos
+                products = [
+                    { name: "Air Jordan 1 High", size: "36-45", price: "90", images: ["streetm00d_.jpeg"], category: "sneaker" },
+                    { name: "Nike Air Max 270", size: "40-46", price: "95", images: ["streetm00d_.jpeg"], category: "sneaker" },
+                    { name: "Adidas Forum 84", size: "38-42", price: "80", images: ["streetm00d_.jpeg"], category: "sneaker" }
+                ];
+            }
+            
+            // Adicionar categoria aos produtos existentes se não tiverem
+            products.forEach(product => {
+                if (!product.category) {
+                    product.category = 'sneaker'; // categoria padrão
+                }
+            });
+            
+            filteredProducts = [...products];
+            currentProducts = [...products];
+            document.getElementById('item-count').innerText = `${products.length} itens`;
+            render(currentProducts);
+        }
+
+        // Remover função obsoleta processTSV - não é mais usada
+
+        function render(items) {
+            const grid = document.getElementById('main-grid');
+            grid.innerHTML = items.filter(p => p.name && p.price).map(p => {
+                const firstImage = p.images && p.images.length > 0 ? p.images[0] : '';
+                return `
+                <div class="card" data-key="${p.name}––${p.size}">
+                    <div class="img-container">
+                        <img src="${firstImage ? 'imagens_produtos/' + firstImage : ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
+                        ${p.images && p.images.length > 1 ? `<div class="heart-badge">❤️</div>` : ''}
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.size}')">
+                            <span class="${favorites.has(p.name + '––' + p.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                        </button>
+                    </div>
+                    <div class="card-info">
+                        <h3>${p.name}</h3>
+                        <div class="card-price">€ ${p.price}</div>
+                        ${p.size && p.size.toUpperCase() !== "N/A" ? `<div class="card-size">${p.size}</div>` : ''}
+                    </div>
+                </div>
+            `;
+            }).join('');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        document.getElementById('search').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = currentProducts.filter(p => p.name.toLowerCase().includes(term) || p.sizes.toLowerCase().includes(term));
+            render(filtered);
+        });
+
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelector('.chip.active').classList.remove('active');
+                chip.classList.add('active');
+                const filter = chip.dataset.filter;
+                const filtered = filter === 'all' ? currentProducts : currentProducts.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+                render(filtered);
+            });
+        });
+
+        function setupCategoryButtons() {
+            const btnAll = document.getElementById("filter-all");
+            const btnRoup = document.getElementById("filter-roupas");
+            const btnSneak = document.getElementById("filter-sneakers");
+            const btnFav = document.getElementById("fav-btn");
+            const buttons = [btnAll, btnRoup, btnSneak];
+
+            btnAll.addEventListener("click", () => {
+                activate(btnAll);
+                currentProducts = products.slice();
+                render(currentProducts);
+            });
+            
+            btnRoup.addEventListener("click", () => {
+                activate(btnRoup);
+                currentProducts = products.filter(p => p.category==="roupa");
+                render(currentProducts);
+            });
+            
+            btnSneak.addEventListener("click", () => {
+                activate(btnSneak);
+                currentProducts = products.filter(p => p.category==="sneaker");
+                render(currentProducts);
+            });
+
+            btnFav.addEventListener("click", () => {
+                activate(btnFav);
+                renderFavorites();
+            });
+        }
+
+        function activate(btn) {
+            document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove("active"));
+            btn.classList.add("active");
+        }
+
+        function openProduct(product) {
+            currentP = product;
+            const modal = document.getElementById('modal');
+            const images = product.images || [];
+            const hasMultipleImages = images.length > 1;
+            
+            let galleryHTML = '';
+            if (hasMultipleImages) {
+                galleryHTML = `
+                    <div class="image-carousel">
+                        <div class="slides-container">
+                            <div class="slides">
+                                ${images.map((img, index) => `
+                                    <div class="slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+                                        <img src="imagens_produtos/${img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="carousel-thumbnails">
+                            ${images.map((img, index) => `
+                                <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage(${index})">
+                                    <img src="imagens_produtos/${img}" alt="${product.name} ${index + 1}" onerror="this.src='https://via.placeholder.com/50/111827/FFFFFF?text=👟'">
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="carousel-btn prev" onclick="prevImage()">‹</button>
+                        <button class="carousel-btn next" onclick="nextImage()">›</button>
+                        <div class="image-indicator"><span class="current-image">1</span> / ${images.length}</div>
+                    </div>
+                `;
+            } else {
+                const singleImage = images.length > 0 ? images[0] : 'default.jpg';
+                galleryHTML = `
+                    <div class="image-carousel">
+                        <div class="slides-container">
+                            <div class="slides">
+                                <div class="slide active">
+                                    <img src="imagens_produtos/${singleImage}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            modal.innerHTML = `
+                <div class="modal-header">
+                    <div class="logo">STREET<span>MOOD</span></div>
+                    <button class="close-modal" onclick="closeModal()">&times;</button>
+                </div>
+                ${galleryHTML}
+                <div class="modal-content">
+                    <h2 class="modal-name">${product.name}</h2>
+                    <div class="modal-price">€ ${product.price}</div>
+                    ${product.size && product.size.toUpperCase() !== "N/A" ? `<p class="modal-size">Tamanhos: ${product.size}</p>` : ''}
+                    <div class="modal-actions">
+                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action reserve">Reservar</a>
+                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action buy">Comprar Agora</a>
+                    </div>
+                </div>
+            `;
+
+            // Store current product and images for carousel
+            window.currentProduct = product;
+            window.currentImages = images;
+            window.currentImageIndex = 0;
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.animation = "fadeOut 0.3s ease";
+            setTimeout(() => {
+                modal.style.display = 'none';
+                modal.style.animation = "fadeIn 0.3s ease";
+                modal.innerHTML = '';
+            }, 280);
+            document.body.style.overflow = '';
+        }
+
+        // Carousel functions
+        function changeImage(index) {
+            if (!window.currentImages || window.currentImages.length <= index) return;
+            
+            window.currentImageIndex = index;
+            const slides = document.querySelectorAll('.slide');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const indicator = document.querySelector('.current-image');
+            
+            // Update slides
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            
+            // Update thumbnails
+            thumbnails.forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === index);
+            });
+            
+            // Update indicator
+            if (indicator) {
+                indicator.textContent = index + 1;
+            }
+        }
+        
+        function nextImage() {
+            if (!window.currentImages) return;
+            const nextIndex = (window.currentImageIndex + 1) % window.currentImages.length;
+            changeImage(nextIndex);
+        }
+        
+        function prevImage() {
+            if (!window.currentImages) return;
+            const prevIndex = (window.currentImageIndex - 1 + window.currentImages.length) % window.currentImages.length;
+            changeImage(prevIndex);
+        }
+        
+        // Make carousel functions global
+        window.changeImage = changeImage;
+        window.nextImage = nextImage;
+        window.prevImage = prevImage;
+        window.setupCarousel = setupCarousel;
+
+        function contact(type) {
+            const text = `Olá, STREETMOOD. Tenho interesse em ${type} o seguinte item:\n\nProduto: ${currentP.name}\nTamanhos: ${currentP.sizes}\nPreço: €${currentP.price}`;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Nome do produto copiado! Cole a mensagem na conversa do Instagram.');
+                }).catch(err => {
+                    console.error('Falha ao copiar texto: ', err);
+                    alert('Abra o Instagram e informe o nome do produto.');
+                });
+            } else {
+                 alert('Abra o Instagram e informe os detalhes do produto.');
+            }
+
+            window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, '_blank');
+        }
+
+        // Initial load
+        loadFavorites();
+        updateFavCount();
+        loadData();
+        setupCategoryButtons();
+
+        // Adicionar evento de clique ao botão de favoritos no header
+        // Removido - agora tratado em setupCategoryButtons()
+
+        function renderFavorites() {
+            const favList = products.filter(p => favorites.has(p.name + '––' + p.size));
+            const grid = document.getElementById('main-grid');
+            const emptyMsg = document.getElementById('empty-fav-message');
+            grid.innerHTML = "";
+
+            if (favList.length === 0) {
+                emptyMsg.hidden = false;
+                return;
+            }
+            emptyMsg.hidden = true;
+            favList.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.key = prod.name + '––' + prod.size;
+                card.innerHTML = `
+                    <div class="img-container">
+                        <img src="${prod.images && prod.images.length > 0 ? 'imagens_produtos/' + prod.images[0] : ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
+                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.size}')">
+                            <span class="${favorites.has(prod.name + '––' + prod.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                        </button>
+                    </div>
+                    <div class="card-info">
+                        <h3>${prod.name}</h3>
+                        <div class="card-price">€ ${prod.price}</div>
+                        ${prod.size && prod.size.toUpperCase() !== "N/A" ? `<div class="card-size">${prod.size}</div>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Observer para animação de entrada
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+    </script>
+</body>
+</html>

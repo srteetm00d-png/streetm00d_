@@ -3,857 +3,736 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>STREETMOOD | Premium Streetwear</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>STREETMOOD | Premium Streetwear & Sneakers</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="sw.js"></script>
     <style>
-        :root {
-            --bg: #0f1720;
-            --card-bg: #111827;
-            --accent: #ef4444;
-            --text: #ffffff;
-            --text-muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.08);
-            --glass: rgba(17, 24, 39, 0.8);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        html { scroll-behavior: smooth; }
+        :root {
+            --bg-dark: #000000;
+            --bg-card: #111827;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --accent: #ef4444;
+            --accent-hover: #dc2626;
+            --border: #374151;
+            --shadow: 0 10px 30px rgba(0,0,0,0.5);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.7);
+        }
 
         body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
-            width: 100%;
-            max-width: 1280px;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* --- Header --- */
         header {
-            position: static;
-            background: var(--bg);
-            z-index: auto;
-            padding: calc(15px + env(safe-area-inset-top)) 20px 15px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; }
-        .logo span { color: var(--accent); }
-
-        /* --- Sticky Tools --- */
-        .sm-tools {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(8px);
-            background: var(--bg);
-            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
         }
 
-        /* --- Hero --- */
-        .hero { padding: 40px 20px; position: relative; overflow: hidden; }
-        .hero h1 { font-size: 3.5rem; line-height: 0.85; margin: 0; text-transform: uppercase; font-weight: 700; }
-        .hero p { color: var(--text-muted); margin: 15px 0 25px; font-size: 1rem; max-width: 80%; }
-        .btn-explore {
-            background: var(--accent);
-            color: white;
-            padding: 18px 35px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-            transition: transform 0.2s ease;
-        }
-        .btn-explore:hover {
-            transform: translateY(-3px);
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
         }
 
-        /* --- Botões de categoria --- */
-        .sm-category-buttons {
-            display: flex;
-            gap: 0.5rem;
-            padding: 1rem;
-            overflow-x: auto;
-        }
-        .cat-btn {
-            flex: 1;
-            padding: 0.6rem 1rem;
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            font-weight: 600;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-        }
-        .cat-btn.active,
-        .cat-btn:hover {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        /* --- Filters --- */
-        .sticky-tools {
-            padding: 10px 20px 20px;
-        }
-        .search-box {
-            width: 100%;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 16px;
-            border-radius: 14px;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            margin-bottom: 15px;
-        }
-        .chips {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: 5px;
-        }
-        .chips::-webkit-scrollbar { display: none; }
-        .chip {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: 10px 20px;
-            border-radius: 50px;
-            white-space: nowrap;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .chip.active, .chip:hover { background: var(--accent); border-color: var(--accent); }
-
-        /* --- Favorites --- */
-        #fav-btn {
-            position: relative;
-            background: none;
-            border: none;
-            color: var(--fg);
-            font-size: 1.25rem;
-            margin-left: 0.75rem;
-            cursor: pointer;
-        }
-        #fav-btn.active,
-        #fav-btn:hover {
+        .logo span {
             color: var(--accent);
         }
-        #fav-count {
-            position: absolute;
-            top: -6px; right: -8px;
-            background: var(--accent);
-            color: #fff;
-            font-size: 0.65rem;
-            padding: 0 5px;
-            border-radius: 50%;
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
-        .icon-heart, .icon-heart-outline {
-            font-size: 1.5rem;
-            vertical-align: middle;
-        }
-        .card-fav-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255,255,255,0.8);
-            border: none;
-            border-radius: 50%;
-            padding: 4px;
+
+        .fav-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             cursor: pointer;
-            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .fav-btn:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .fav-count {
+            background: var(--accent);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: 0.3s;
-        }
-        .card-fav-btn:hover {
-            background: rgba(255,255,255,0.9);
-        }
-        .card-fav-btn span {
-            font-size: 1.2rem;
-            color: var(--accent);
-            display: inline-block;
-        }
-
-        /* Define a animação "pop" do coração */
-        @keyframes heart-pop {
-            0%   { transform: scale(1); }
-            50%  { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-
-        /* Classe adicionada ao coração ao favoritar */
-        .heart-anim {
-            animation: heart-pop 0.3s ease-out;
-        }
-
-        .empty-message {
             text-align: center;
-            padding: 2rem;
-            color: var(--fg);
-            font-style: italic;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, rgba(239,68,68,0.1) 0%, transparent 50%);
         }
 
-        /* Image count badge */
-        .heart-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #e50914;
-            padding: 6px 8px;
-            border-radius: 50%;
-            font-size: 1rem;
-            z-index: 2;
-            pointer-events: none;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
         }
 
-        /* --- Grid --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
-            gap: 15px;
-            padding: 10px 20px;
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 1rem;
+            letter-spacing: -3px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 10px;
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
             border: 1px solid var(--border);
-            position: relative;
-            cursor: pointer;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        .card.reveal { opacity: 1; transform: translateY(0); }
-        
-        .img-container {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background: #1a2230;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; }
-
-        .card-info h3 { font-size: 0.85rem; margin: 0; font-weight: 500; height: 35px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-clamp: 2; }
-        .card-price { color: var(--accent); font-weight: 700; font-size: 1.1rem; margin: 8px 0; }
-        .card-size { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
-
-        /* --- Modal --- */
-        #modal {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease;
         }
 
-        .modal-header { padding: calc(20px + env(safe-area-inset-top)) 20px; display: flex; justify-content: space-between; align-items: center; }
-        .close-modal { font-size: 2rem; background: none; border: none; color: white; cursor: pointer; line-height: 1; }
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--accent);
+        }
 
-        /* --- Image Carousel --- */
-        .image-carousel {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            touch-action: pan-y;
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
             margin-bottom: 1rem;
         }
 
-        .slides-container {
-            overflow: hidden;
-        }
-
-        .slides {
+        .category-filters {
             display: flex;
-            transition: transform 0.3s ease;
-            will-change: transform;
-        }
-
-        .slides .slide {
-            flex: 0 0 100%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .slides .slide.active {
-            opacity: 1;
-        }
-
-        .slides .slide img {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 400px;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Carousel Thumbnails */
-        .carousel-thumbnails {
-            display: flex;
-            gap: 8px;
-            padding: 0.5rem;
-            overflow-x: auto;
+            gap: 1rem;
             justify-content: center;
-            background: rgba(0,0,0,0.1);
-            border-radius: 8px;
-            margin: 0.5rem 0;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
-        .thumbnail {
-            min-width: 50px;
-            width: 50px;
-            height: 50px;
-            border-radius: 6px;
-            overflow: hidden;
+        .cat-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
             cursor: pointer;
-            border: 2px solid transparent;
             transition: all 0.3s ease;
-            opacity: 0.6;
+            font-weight: 500;
         }
 
-        .thumbnail:hover {
-            opacity: 0.8;
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
-        .thumbnail.active {
-            opacity: 1;
+        .cat-btn.active {
+            background: var(--accent);
             border-color: var(--accent);
-            box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
         }
 
-        .thumbnail img {
+        .cat-btn:hover {
+            border-color: var(--accent);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+
+        .img-container {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
-        /* Carousel Buttons */
-        .carousel-btn {
+        .card:hover .img-container img {
+            transform: scale(1.05);
+        }
+
+        .heart-badge {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
+            top: 1rem;
+            right: 1rem;
+            background: rgba(239,68,68,0.9);
             color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
+            padding: 0.5rem;
             border-radius: 50%;
-            display: flex;
+            font-size: 0.8rem;
+            z-index: 10;
+        }
+
+        .card-fav-btn {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0,0,0,0.7);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .card-fav-btn:hover {
+            background: var(--accent);
+        }
+
+        .card-info {
+            padding: 1.5rem;
+        }
+
+        .card-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .card-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-size {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            z-index: 3;
+            padding: 2rem;
         }
 
-        .carousel-btn:hover {
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .modal-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .modal-size {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .reserve {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .reserve:hover {
+            background: var(--bg-dark);
+            border-color: var(--accent);
+        }
+
+        .buy {
             background: var(--accent);
             color: white;
         }
 
-        .carousel-btn.prev { left: 10px; }
-        .carousel-btn.next { right: 10px; }
+        .buy:hover {
+            background: var(--accent-hover);
+        }
 
-        .image-indicator {
+        .empty-fav {
             text-align: center;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            margin: 0.5rem 0;
+            padding: 3rem;
+            color: var(--text-secondary);
         }
 
-        .current-image {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .modal-content { padding: 30px 20px; }
-        .modal-name { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
-        .modal-price { font-size: 1.8rem; color: var(--accent); font-weight: 700; margin-bottom: 20px; }
-        .modal-size { color: var(--text-muted); margin-bottom: 30px; }
-        
-        .modal-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        .btn-action {
-            padding: 20px;
-            border-radius: 15px;
-            border: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-family: inherit;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
+        .item-count {
             text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
         }
-        .buy { background: var(--accent); color: white; }
-        .reserve { background: white; color: black; }
 
-        .counter { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
-        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         @keyframes fadeOut {
             from { opacity: 1; }
             to { opacity: 0; }
         }
 
+        .reveal {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+            
+            .modal {
+                padding: 1rem;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <header>
+    <header>
+        <div class="container">
             <div class="header-content">
                 <div class="logo">STREET<span>MOOD</span></div>
-                <div class="nav-tools">
-                    <!-- Favoritos -->
-                    <button id="fav-btn" aria-label="Favoritos">
-                        <span class="icon-heart-outline"></span>
-                        <span id="fav-count">0</span>
+                <div class="header-actions">
+                    <button class="fav-btn" id="fav-btn">
+                        <span class="icon-heart"></span>
+                        <span class="fav-count" id="fav-count">0</span>
                     </button>
-                    <div id="item-count" class="counter">Carregando...</div>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
+    <main>
         <section class="hero">
-            <h1>STREET<br>MOOD</h1>
-            <p>O maior catálogo premium de sneakers e streetwear exclusivo.</p>
-            <a href="#grid-anchor" class="btn-explore">Explorar Drop</a>
+            <div class="container">
+                <div class="hero-content">
+                    <h1>STREET<span>MOOD</span></h1>
+                    <p>Premium Streetwear & Sneakers Collection</p>
+                    <div class="hero-actions">
+                        <a href="#products" class="btn btn-primary">Explorar Coleção</a>
+                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn btn-secondary">Contato</a>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Botões de categoria -->
-        <div class="sm-category-buttons">
-            <button id="filter-roupas" class="cat-btn">Roupas</button>
-            <button id="filter-sneakers" class="cat-btn">Sneakers</button>
-            <button id="filter-all" class="cat-btn active">Todos</button>
-        </div>
-
-        <!-- Nova barra sticky de ferramentas -->
-        <div class="sm-tools">
-            <div class="sticky-tools" id="grid-anchor">
-                <input type="text" id="search" class="search-box" placeholder="Procurar modelo, marca ou tamanho...">
-                <div class="chips">
-                    <div class="chip active" data-filter="all">Todos</div>
-                    <div class="chip" data-filter="Nike">Nike</div>
-                    <div class="chip" data-filter="Jordan">Jordan</div>
-                    <div class="chip" data-filter="Adidas">Adidas</div>
-                    <div class="chip" data-filter="Yeezy">Yeezy</div>
-                    <div class="chip" data-filter="Louis Vuitton">LV</div>
-                    <div class="chip" data-filter="Dior">Dior</div>
+        <section class="section" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Coleção Premium</h2>
+                    <div class="category-filters">
+                        <button class="cat-btn active" data-category="all">Todos</button>
+                        <button class="cat-btn" data-category="sneakers">Sneakers</button>
+                        <button class="cat-btn" data-category="roupas">Roupas</button>
+                    </div>
+                </div>
+                
+                <div class="item-count" id="item-count">Carregando...</div>
+                
+                <div class="product-grid" id="product-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+                
+                <div class="empty-fav" id="empty-fav" style="display: none;">
+                    <h3>Nenhum produto encontrado</h3>
+                    <p>Tente alterar os filtros ou volte mais tarde.</p>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <main class="grid" id="main-grid"></main>
-        <div id="empty-fav-message" class="empty-message" hidden>
-            Você ainda não adicionou favoritos. Clique no ♥ para guardar.
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="logo">STREET<span>MOOD</span></div>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be loaded here -->
+            </div>
         </div>
     </div>
-
-    <!-- Modal (será populado via JS) -->
-    <div id="modal"></div>
 
     <script>
         let products = [];
         let currentProducts = [];
-        let favorites = new Set();  // armazena chaves "name––size"
+        let favorites = new Set();
+        let currentCategory = 'all';
 
-        // carrega favoritos de localStorage
-        function loadFavorites() {
-            const stored = JSON.parse(localStorage.getItem("sm_favs") || "[]");
-            favorites = new Set(stored);
-        }
-
-        // salva favoritos
-        function saveFavorites() {
-            localStorage.setItem("sm_favs", JSON.stringify(Array.from(favorites)));
-        }
-
-        // atualiza contador e ícone geral
-        function updateFavCount() {
-            const btn = document.getElementById("fav-btn");
-            const countEl = document.getElementById("fav-count");
-            countEl.textContent = favorites.size;
-            // opcional: muda ícone caso haja ao menos 1
-            btn.querySelector("span").className = favorites.size
-                ? "icon-heart"
-                : "icon-heart-outline";
-        }
-
-        // toggle favorito no card
-        function toggleFavorite(event, key) {
-            event.stopPropagation();
-            const card = event.target.closest('.card');
-            const heartIcon = card.querySelector('.card-fav-btn span');
-
-            if (favorites.has(key)) {
-                favorites.delete(key);
-            } else {
-                favorites.add(key);
-                // dispara animação de "pop"
-                heartIcon.classList.add("heart-anim");
-                // remove a classe após a animação terminar
-                heartIcon.addEventListener("animationend", () => {
-                    heartIcon.classList.remove("heart-anim");
-                }, { once: true });
-            }
-
-            saveFavorites();
-            updateFavCount();
-
-            // atualiza ícone (cor)
-            heartIcon.className = favorites.has(key) ? "icon-heart" : "icon-heart-outline";
-        }
-        let currentP = null;
-        const INSTAGRAM_USERNAME = "streetm00d_";
-
+        // Load data
         async function loadData() {
             try {
-                const response = await fetch("products.json");
-                if (!response.ok) throw new Error("JSON externo não encontrado");
+                const response = await fetch('products.json');
                 const data = await response.json();
                 products = Object.values(data);
-            } catch (err) {
-                console.warn("❗ Falha ao buscar products.json → usando fallback");
-                // Fallback com alguns produtos básicos
-                products = [
-                    { name: "Air Jordan 1 High", size: "36-45", price: "90", images: ["streetm00d_.jpeg"], category: "sneaker" },
-                    { name: "Nike Air Max 270", size: "40-46", price: "95", images: ["streetm00d_.jpeg"], category: "sneaker" },
-                    { name: "Adidas Forum 84", size: "38-42", price: "80", images: ["streetm00d_.jpeg"], category: "sneaker" }
-                ];
-            }
-            
-            // Adicionar categoria aos produtos existentes se não tiverem
-            products.forEach(product => {
-                if (!product.category) {
-                    product.category = 'sneaker'; // categoria padrão
-                }
-            });
-            
-            filteredProducts = [...products];
-            currentProducts = [...products];
-            document.getElementById('item-count').innerText = `${products.length} itens`;
-            render(currentProducts);
-        }
-
-        // Remover função obsoleta processTSV - não é mais usada
-
-        function render(items) {
-            const grid = document.getElementById('main-grid');
-            grid.innerHTML = items.filter(p => p.name && p.price).map(p => {
-                const firstImage = p.images && p.images.length > 0 ? p.images[0] : '';
-                return `
-                <div class="card" data-key="${p.name}––${p.size}">
-                    <div class="img-container">
-                        <img src="${firstImage ? 'imagens_produtos/' + firstImage : ''}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(p).replace(/"/g, '&quot;')})">
-                        ${p.images && p.images.length > 1 ? `<div class="heart-badge">❤️</div>` : ''}
-                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${p.name}––${p.size}')">
-                            <span class="${favorites.has(p.name + '––' + p.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
-                        </button>
-                    </div>
-                    <div class="card-info">
-                        <h3>${p.name}</h3>
-                        <div class="card-price">€ ${p.price}</div>
-                        ${p.size && p.size.toUpperCase() !== "N/A" ? `<div class="card-size">${p.size}</div>` : ''}
-                    </div>
-                </div>
-            `;
-            }).join('');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('reveal');
+                
+                // Add category to products if not present
+                products.forEach(product => {
+                    if (!product.category) {
+                        product.category = 'sneaker';
+                    }
                 });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.card').forEach(card => {
-                observer.observe(card);
-            });
-        }
-
-        document.getElementById('search').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = currentProducts.filter(p => p.name.toLowerCase().includes(term) || p.sizes.toLowerCase().includes(term));
-            render(filtered);
-        });
-
-        document.querySelectorAll('.chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                document.querySelector('.chip.active').classList.remove('active');
-                chip.classList.add('active');
-                const filter = chip.dataset.filter;
-                const filtered = filter === 'all' ? currentProducts : currentProducts.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
-                render(filtered);
-            });
-        });
-
-        function setupCategoryButtons() {
-            const btnAll = document.getElementById("filter-all");
-            const btnRoup = document.getElementById("filter-roupas");
-            const btnSneak = document.getElementById("filter-sneakers");
-            const btnFav = document.getElementById("fav-btn");
-            const buttons = [btnAll, btnRoup, btnSneak];
-
-            btnAll.addEventListener("click", () => {
-                activate(btnAll);
-                currentProducts = products.slice();
-                render(currentProducts);
-            });
-            
-            btnRoup.addEventListener("click", () => {
-                activate(btnRoup);
-                currentProducts = products.filter(p => p.category==="roupa");
-                render(currentProducts);
-            });
-            
-            btnSneak.addEventListener("click", () => {
-                activate(btnSneak);
-                currentProducts = products.filter(p => p.category==="sneaker");
-                render(currentProducts);
-            });
-
-            btnFav.addEventListener("click", () => {
-                activate(btnFav);
-                renderFavorites();
-            });
-        }
-
-        function activate(btn) {
-            document.querySelectorAll('.cat-btn').forEach(x => x.classList.remove("active"));
-            btn.classList.add("active");
-        }
-
-        function openProduct(product) {
-            currentP = product;
-            const modal = document.getElementById('modal');
-            const images = product.images || [];
-            const hasMultipleImages = images.length > 1;
-            
-            let galleryHTML = '';
-            if (hasMultipleImages) {
-                galleryHTML = `
-                    <div class="image-carousel">
-                        <div class="slides-container">
-                            <div class="slides">
-                                ${images.map((img, index) => `
-                                    <div class="slide ${index === 0 ? 'active' : ''}" data-index="${index}">
-                                        <img src="imagens_produtos/${img}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        <div class="carousel-thumbnails">
-                            ${images.map((img, index) => `
-                                <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage(${index})">
-                                    <img src="imagens_produtos/${img}" alt="${product.name} ${index + 1}" onerror="this.src='https://via.placeholder.com/50/111827/FFFFFF?text=👟'">
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="carousel-btn prev" onclick="prevImage()">‹</button>
-                        <button class="carousel-btn next" onclick="nextImage()">›</button>
-                        <div class="image-indicator"><span class="current-image">1</span> / ${images.length}</div>
-                    </div>
-                `;
-            } else {
-                const singleImage = images.length > 0 ? images[0] : 'default.jpg';
-                galleryHTML = `
-                    <div class="image-carousel">
-                        <div class="slides-container">
-                            <div class="slides">
-                                <div class="slide active">
-                                    <img src="imagens_produtos/${singleImage}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                
+                currentProducts = [...products];
+                updateItemCount();
+                renderProducts();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                // Fallback products
+                products = [
+                    { name: "Air Jordan 1", price: 90, size: "40-45", images: ["streetm00d_.jpeg"], category: "sneaker" },
+                    { name: "Nike Air Max", price: 85, size: "N/A", images: ["streetm00d_.jpeg"], category: "sneaker" },
+                    { name: "SynaWord Hoodie", price: 90, size: "N/A", images: ["streetm00d_.jpeg"], category: "roupa" }
+                ];
+                currentProducts = [...products];
+                updateItemCount();
+                renderProducts();
             }
+        }
 
-            modal.innerHTML = `
-                <div class="modal-header">
-                    <div class="logo">STREET<span>MOOD</span></div>
-                    <button class="close-modal" onclick="closeModal()">&times;</button>
-                </div>
-                ${galleryHTML}
-                <div class="modal-content">
-                    <h2 class="modal-name">${product.name}</h2>
-                    <div class="modal-price">€ ${product.price}</div>
-                    ${product.size && product.size.toUpperCase() !== "N/A" ? `<p class="modal-size">Tamanhos: ${product.size}</p>` : ''}
-                    <div class="modal-actions">
-                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action reserve">Reservar</a>
-                        <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action buy">Comprar Agora</a>
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const emptyFav = document.getElementById('empty-fav');
+            
+            const filteredProducts = currentCategory === 'all' 
+                ? currentProducts 
+                : currentProducts.filter(p => p.category === currentCategory);
+            
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = '';
+                emptyFav.style.display = 'block';
+                return;
+            }
+            
+            emptyFav.style.display = 'none';
+            
+            grid.innerHTML = filteredProducts.map(product => {
+                const firstImage = product.images && product.images.length > 0 
+                    ? product.images[0] 
+                    : 'streetm00d_.jpeg';
+                    
+                return `
+                    <div class="card" onclick="openModal('${product.id}')">
+                        <div class="img-container">
+                            <img src="imagens_produtos/${firstImage}" alt="${product.name}" 
+                                 onerror="this.src='streetm00d_.jpeg'">
+                            ${product.images && product.images.length > 1 ? '<div class="heart-badge">❤️</div>' : ''}
+                            <button class="card-fav-btn" onclick="toggleFavorite(event, '${product.id}')">
+                                <span class="${favorites.has(product.id) ? 'icon-heart' : 'icon-heart-outline'}"></span>
+                            </button>
+                        </div>
+                        <div class="card-info">
+                            <h3>${product.name}</h3>
+                            <div class="card-price">€ ${product.price}</div>
+                            ${product.size && product.size.toUpperCase() !== "N/A" 
+                                ? `<div class="card-size">${product.size}</div>` 
+                                : ''}
+                        </div>
                     </div>
+                `;
+            }).join('');
+            
+            // Add reveal animation
+            setTimeout(() => {
+                document.querySelectorAll('.card').forEach((card, index) => {
+                    setTimeout(() => card.classList.add('reveal'), index * 100);
+                });
+            }, 100);
+        }
+
+        // Category filters
+        document.querySelectorAll('.cat-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentCategory = this.dataset.category;
+                renderProducts();
+                updateItemCount();
+            });
+        });
+
+        // Favorites
+        function loadFavorites() {
+            const saved = localStorage.getItem('streetmood_favorites');
+            if (saved) {
+                favorites = new Set(JSON.parse(saved));
+            }
+            updateFavCount();
+        }
+
+        function saveFavorites() {
+            localStorage.setItem('streetmood_favorites', JSON.stringify([...favorites]));
+        }
+
+        function toggleFavorite(event, productId) {
+            event.stopPropagation();
+            
+            if (favorites.has(productId)) {
+                favorites.delete(productId);
+            } else {
+                favorites.add(productId);
+            }
+            
+            saveFavorites();
+            updateFavCount();
+            renderProducts();
+        }
+
+        function updateFavCount() {
+            const count = document.getElementById('fav-count');
+            count.textContent = favorites.size;
+        }
+
+        function updateItemCount() {
+            const count = document.getElementById('item-count');
+            const filteredCount = currentCategory === 'all' 
+                ? currentProducts.length 
+                : currentProducts.filter(p => p.category === currentCategory).length;
+            count.textContent = `${filteredCount} produtos`;
+        }
+
+        // Modal
+        function openModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            
+            const images = product.images || ['streetm00d_.jpeg'];
+            const currentImage = images[0];
+            
+            modalBody.innerHTML = `
+                <img src="imagens_produtos/${currentImage}" alt="${product.name}" 
+                     class="modal-image" onerror="this.src='streetm00d_.jpeg'">
+                <h2 class="modal-name">${product.name}</h2>
+                <div class="modal-price">€ ${product.price}</div>
+                ${product.size && product.size.toUpperCase() !== "N/A" 
+                    ? `<div class="modal-size">Tamanhos: ${product.size}</div>` 
+                    : ''}
+                <div class="modal-actions">
+                    <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action reserve">
+                        Reservar
+                    </a>
+                    <a href="https://instagram.com/streetm00d_" target="_blank" class="btn-action buy">
+                        Comprar Agora
+                    </a>
                 </div>
             `;
-
-            // Store current product and images for carousel
-            window.currentProduct = product;
-            window.currentImages = images;
-            window.currentImageIndex = 0;
-
+            
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('modal');
-            modal.style.animation = "fadeOut 0.3s ease";
-            setTimeout(() => {
-                modal.style.display = 'none';
-                modal.style.animation = "fadeIn 0.3s ease";
-                modal.innerHTML = '';
-            }, 280);
-            document.body.style.overflow = '';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
-        // Carousel functions
-        function changeImage(index) {
-            if (!window.currentImages || window.currentImages.length <= index) return;
-            
-            window.currentImageIndex = index;
-            const slides = document.querySelectorAll('.slide');
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const indicator = document.querySelector('.current-image');
-            
-            // Update slides
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
-            });
-            
-            // Update thumbnails
-            thumbnails.forEach((thumb, i) => {
-                thumb.classList.toggle('active', i === index);
-            });
-            
-            // Update indicator
-            if (indicator) {
-                indicator.textContent = index + 1;
+        // Favorites button
+        document.getElementById('fav-btn').addEventListener('click', function() {
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            currentCategory = 'favorites';
+            renderProducts();
+            updateItemCount();
+        });
+
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
             }
-        }
-        
-        function nextImage() {
-            if (!window.currentImages) return;
-            const nextIndex = (window.currentImageIndex + 1) % window.currentImages.length;
-            changeImage(nextIndex);
-        }
-        
-        function prevImage() {
-            if (!window.currentImages) return;
-            const prevIndex = (window.currentImageIndex - 1 + window.currentImages.length) % window.currentImages.length;
-            changeImage(prevIndex);
-        }
-        
-        // Make carousel functions global
-        window.changeImage = changeImage;
-        window.nextImage = nextImage;
-        window.prevImage = prevImage;
-        window.setupCarousel = setupCarousel;
+        });
 
-        function contact(type) {
-            const text = `Olá, STREETMOOD. Tenho interesse em ${type} o seguinte item:\n\nProduto: ${currentP.name}\nTamanhos: ${currentP.sizes}\nPreço: €${currentP.price}`;
-            
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('Nome do produto copiado! Cole a mensagem na conversa do Instagram.');
-                }).catch(err => {
-                    console.error('Falha ao copiar texto: ', err);
-                    alert('Abra o Instagram e informe o nome do produto.');
-                });
-            } else {
-                 alert('Abra o Instagram e informe os detalhes do produto.');
-            }
-
-            window.open(`https://ig.me/m/${INSTAGRAM_USERNAME}`, '_blank');
-        }
-
-        // Initial load
+        // Initialize
         loadFavorites();
-        updateFavCount();
         loadData();
-        setupCategoryButtons();
-
-        // Adicionar evento de clique ao botão de favoritos no header
-        // Removido - agora tratado em setupCategoryButtons()
-
-        function renderFavorites() {
-            const favList = products.filter(p => favorites.has(p.name + '––' + p.size));
-            const grid = document.getElementById('main-grid');
-            const emptyMsg = document.getElementById('empty-fav-message');
-            grid.innerHTML = "";
-
-            if (favList.length === 0) {
-                emptyMsg.hidden = false;
-                return;
-            }
-            emptyMsg.hidden = true;
-            favList.forEach(prod => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.dataset.key = prod.name + '––' + prod.size;
-                card.innerHTML = `
-                    <div class="img-container">
-                        <img src="${prod.images && prod.images.length > 0 ? 'imagens_produtos/' + prod.images[0] : ''}" alt="${prod.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/300/111827/FFFFFF?text=StreetMood'" onclick="openProduct(${JSON.stringify(prod).replace(/"/g, '&quot;')})">
-                        <button class="card-fav-btn" aria-label="Favoritar" onclick="toggleFavorite(event, '${prod.name}––${prod.size}')">
-                            <span class="${favorites.has(prod.name + '––' + prod.size) ? 'icon-heart' : 'icon-heart-outline'}"></span>
-                        </button>
-                    </div>
-                    <div class="card-info">
-                        <h3>${prod.name}</h3>
-                        <div class="card-price">€ ${prod.price}</div>
-                        ${prod.size && prod.size.toUpperCase() !== "N/A" ? `<div class="card-size">${prod.size}</div>` : ''}
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-
-            // Observer para animação de entrada
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('reveal');
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.card').forEach(card => {
-                observer.observe(card);
-            });
-        }
     </script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+# FORÇAR DEPLOY - ATUALIZAÇÃO URGENTE
+
+Data: $(date)
+Hash: $(git rev-parse HEAD)
+Status: Forçando atualização completa do GitHub Pages
+
+Todos os arquivos foram atualizados com encoding UTF-8 correto.
+Os produtos devem aparecer agora.
+
+# Cache clearing
+Cache cleared: $(date)
+Deploy forced: $(date)
